@@ -1,6 +1,25 @@
 body {
   background-color: #eee;
 }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+}
+
+.form-outline {
+  position: relative;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
 .img-fluid{
 margin-left: 150px;
 }
