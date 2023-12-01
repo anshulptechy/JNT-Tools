@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -27,6 +28,25 @@ namespace Domain_Layer.Migrations
                 {
                     table.PrimaryKey("PK_Managements", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "projectDataTable",
+                columns: table => new
+                {
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    projectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Client = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Budget = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_projectDataTable", x => x.ProjectId);
+                });
         }
 
         /// <inheritdoc />
@@ -34,6 +54,9 @@ namespace Domain_Layer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Managements");
+
+            migrationBuilder.DropTable(
+                name: "projectDataTable");
         }
     }
 }

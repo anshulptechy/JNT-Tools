@@ -2,6 +2,9 @@ using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Repository_Layer.IRepository;
+using Repository_Layer.ProjectRepo;
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
 using Service_Layer.ICustomService;
@@ -22,7 +25,9 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 
+builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 
+builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 
 #endregion
 
