@@ -1,0 +1,65 @@
+<div>
+    <h1>Create Coupon</h1>
+    <form [formGroup]="couponForm" >
+        <div class="row">
+        <label>Coupon Name<span style="color: red;">*</span></label>
+        <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName"><br>
+        <div style="color: red;" *ngIf="couponForm.get('couponName')?.hasError('required') && couponForm.get('couponName')?.touched">
+            Coupon Name is required.
+          </div>   
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>Description</label>
+        <input type="text" placeholder="" formControlName="description">
+        
+    </div>
+    <div class="row">
+        <label>Discount<span style="color: red;">*</span></label>
+        <input type="number" placeholder="" formControlName="discount">
+        <div style="color: red;"
+        *ngIf="couponForm.get('discount')?.hasError('required') && couponForm.get('discount')?.touched">
+        Discount is required.
+      </div>  
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>Quantity<span style="color: red;">*</span></label>
+        <input type="number" placeholder="" formControlName="quantity">
+        <div style="color: red;"
+        *ngIf="couponForm.get('quantity')?.hasError('required') && couponForm.get('quantity')?.touched">
+        Quantity is required.
+      </div>  
+    </div>
+        <div class="row">
+        <label>Start Date<span style="color: red;">*</span></label>
+        <input type="date" formControlName="startDate">
+        <div style="color: red;"
+        *ngIf="couponForm.get('startDate')?.hasError('required') && couponForm.get('startDate')?.touched">
+        Start Date is required.
+      </div>  
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>End Date<span style="color: red;">*</span></label>
+        <input type="date" formControlName="endDate">
+        <div style="color: red;"
+        *ngIf="couponForm.get('endDate')?.hasError('required') && couponForm.get('endDate')?.touched">
+        End Date is required.
+      </div>  
+    </div>
+        <div class="row">
+        <div>
+            <label><b>Discount Type<span style="color: red;">*</span></b></label>&nbsp;&nbsp;
+            <label>
+                <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
+            </label>&nbsp;&nbsp;
+            <label>
+                <input type="radio" value="Percentage" formControlName="discountType"> Percentage
+            </label>
+        </div>   
+        <div style="color: red;"
+        *ngIf="couponForm.get('discountType')?.hasError('required') && couponForm.get('discountType')?.touched">
+        Discount Type is required.
+      </div>   </div>
+
+        <div class="add-button">
+            <button type="submit" (click)="onSaveClick()">Save</button>&nbsp;
+            <button type="button" (click)="onCancelClick()" >Cancel</button>
+        </div>
+    </form>
+</div>
