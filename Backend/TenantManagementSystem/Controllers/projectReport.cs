@@ -5,11 +5,11 @@ using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {
-    public class projectCrudAndReport : Controller
+    public class projectReportController : Controller
     {
         private readonly IProjectService<projectModel> _customService;
         private readonly ApplicationDbContext _applicationDbContext;
-        public projectCrudAndReport(IProjectService<projectModel> TableProjectsService, ApplicationDbContext applicationDbContext)
+        public projectReportController(IProjectService<projectModel> TableProjectsService, ApplicationDbContext applicationDbContext)
         {
             _customService = TableProjectsService;
             _applicationDbContext = applicationDbContext;
