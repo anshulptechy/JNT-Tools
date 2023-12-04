@@ -5,17 +5,17 @@ using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {
-    public class projectCrudAndReport : Controller
+    public class projectReport : Controller
     {
         private readonly IProjectService<projectModel> _customService;
         private readonly ApplicationDbContext _applicationDbContext;
-        public projectCrudAndReport(IProjectService<projectModel> TableProjectsService, ApplicationDbContext applicationDbContext)
+        public projectReport(IProjectService<projectModel> TableProjectsService, ApplicationDbContext applicationDbContext)
         {
             _customService = TableProjectsService;
             _applicationDbContext = applicationDbContext;
         }
-        [HttpGet(nameof(GetProjectsById))]
-        public IActionResult GetProjectsById(int Id)
+        [HttpGet(nameof(GetProjectReportById))]
+        public IActionResult GetProjectReportById(int Id)
         {
             var obj = _customService.Get(Id);
             if (obj == null)
@@ -27,8 +27,8 @@ namespace TenantManagementSystem.Controllers
                 return Ok(obj);
             }
         }
-        [HttpGet(nameof(GetAllProjects))]
-        public IActionResult GetAllProjects()
+        [HttpGet(nameof(GetAllProjectReports))]
+        public IActionResult GetAllProjectReports()
         {
             var obj = _customService.GetAll();
             if (obj == null)
@@ -58,7 +58,7 @@ namespace TenantManagementSystem.Controllers
         }
 
 
-        [HttpGet("projectsByMonth/{month}")]
+        [HttpGet("GetProjectReportByMonth/{month}")]
         public IActionResult GetProjectsByMonth(int month)
         {
             var projects = _customService.GetProjectsByMonth(month);
@@ -73,34 +73,6 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-
-        [HttpPost(nameof(Create))]
-        public IActionResult Create([FromBody] projectModel project)
-        {
-            if (project != null)
-            {
-                _customService.Insert(project);
-                return Ok(project);
-            }
-            else
-            {
-                return BadRequest("Something went wrong");
-            }
-        }
-
-        [HttpPut(nameof(Update))]
-        public IActionResult Update([FromBody] projectModel project)
-        {
-            if (project != null)
-            {
-                _customService.Update(project);
-                return Ok(project);
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
     }
 
 }
