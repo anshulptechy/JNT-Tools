@@ -21,5 +21,11 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+        public DbSet<projectModel> projectDataTable
+        {
+            get;
+            set;
+        }
+
     }
 }
