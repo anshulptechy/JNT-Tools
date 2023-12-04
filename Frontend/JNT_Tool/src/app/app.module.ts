@@ -11,6 +11,7 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 // import { LoginuserComponent } from './loginuser/loginuser.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoginComponent } from './login/login.component';
     TenantListComponent,
     SignupComponent,
     LoginComponent,
+    HeaderComponent,
 
   ],
   imports: [
