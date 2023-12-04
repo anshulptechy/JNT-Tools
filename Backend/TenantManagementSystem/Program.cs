@@ -2,6 +2,7 @@ using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Repository_Layer.IRepository;
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
 using Service_Layer.ICustomService;
@@ -17,14 +18,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region Service Injected
+// Add repository to the container
+builder.Services.AddScoped(typeof(ICouponRepo<>), typeof(CouponRepo<>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+
+// Add services to the container.
+builder.Services.AddScoped<ICouponServices<Coupon>, CouponServices>();
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 
 
-
-#endregion
 
 var app = builder.Build();
 
