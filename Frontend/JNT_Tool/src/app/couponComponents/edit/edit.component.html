@@ -1,0 +1,64 @@
+<div class="body">
+    <h1>Update Coupon</h1>
+    <form [formGroup]="updateForm">
+        <div class="row">
+            <label>Coupon Name</label>&nbsp;&nbsp;
+            <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName">
+            <div style="color: red;" *ngIf="updateForm.get('couponName')?.hasError('required') && updateForm.get('couponName')?.touched">
+                Coupon Name is required.
+              </div>
+            &nbsp;&nbsp;
+            <label>Description</label>&nbsp;&nbsp;
+            <input type="text" placeholder="" formControlName="description">
+        </div>
+        <div class="row">
+            <label>Discount</label>&nbsp;&nbsp;
+            <input type="number" placeholder="" formControlName="discount">
+            <div style="color: red;"
+            *ngIf="updateForm.get('discount')?.hasError('required') && updateForm.get('discount')?.touched">
+            Discount is required.
+          </div> 
+            &nbsp;&nbsp;
+            <label>Quantity</label>&nbsp;&nbsp;
+            <input type="number" placeholder="" formControlName="quantity" readonly>
+            <div style="color: red;"
+            *ngIf="updateForm.get('quantity')?.hasError('required') && updateForm.get('quantity')?.touched">
+            Quantity is required.
+          </div> 
+        </div>
+        <div class="row">
+            <label>Start Date</label>&nbsp;&nbsp;
+            <input type="date" formControlName="startDate">
+            <div style="color: red;"
+            *ngIf="updateForm.get('startDate')?.hasError('required') && updateForm.get('startDate')?.touched">
+            Start Date is required.
+          </div>
+            &nbsp;&nbsp;
+            <label>End Date</label>&nbsp;&nbsp;
+            <input type="date" formControlName="endDate">
+            <div style="color: red;"
+            *ngIf="updateForm.get('endDate')?.hasError('required') && updateForm.get('endDate')?.touched">
+            End Date is required.
+          </div>
+        </div>
+        <div class="row">
+
+            <label><b>Discount Type</b></label>
+            <label>
+                <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
+            </label>
+            <label>
+                <input type="radio" value="Percentage" formControlName="discountType"> Percentage
+            </label>
+            <div style="color: red;"
+        *ngIf="updateForm.get('discountType')?.hasError('required') && updateForm.get('discountType')?.touched">
+        Discount Type is required.
+      </div>  
+        </div>
+
+        <div class="add-button">
+            <button type="submit" (click)="onUpdateClick(updateForm.value)">Update</button>&nbsp;
+            <button type="button" (click)="onCancelClick()">Cancel</button>
+        </div>
+    </form>
+</div>
