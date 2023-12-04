@@ -12,7 +12,8 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-
+import { ProjectReportComponent } from './project-report/project-report.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
+    ProjectReportComponent,
 
   ],
   imports: [
@@ -29,7 +31,7 @@ import { HeaderComponent } from './header/header.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
-    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule,FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
