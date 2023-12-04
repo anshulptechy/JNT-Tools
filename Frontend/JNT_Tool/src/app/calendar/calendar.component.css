@@ -1,20 +1,23 @@
 .container {
-  top: 40px;
-  width: 70%;
-  margin-left: 15%;
+  width: 52%;
+  margin-left: 25%;
   position: absolute;
+  bottom: 10px;
 }
 
 .button {
   position: relative;
   border-radius: 4px;
   background-color: #007bff;
-  /* font-weight: bold; */
   cursor: pointer;
   font-size: 14px;
-  left: 250px;
-  top: 35px;
+  right: 100px;
+  top: 200px;
   color: white;
+}
+
+#authorize_button{
+  right: 124px;
 }
 
 .modal {

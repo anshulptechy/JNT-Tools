@@ -26,6 +26,7 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+        public DbSet<Event> Events { get; set; }
 
     }
 }

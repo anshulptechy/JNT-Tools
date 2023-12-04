@@ -3,11 +3,15 @@ using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Repository_Layer.EventRepo;
+using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
+using Service_Layer.EventService;
 using Service_Layer.ICustomService;
+using Service_Layer.IEventService;
 using static Repository_Layer.IRepository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +32,8 @@ builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 
 builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
+builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
+builder.Services.AddScoped<IEventService<Event>, EventService>();
 
 #endregion
 

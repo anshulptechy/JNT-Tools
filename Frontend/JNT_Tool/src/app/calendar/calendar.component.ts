@@ -65,6 +65,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // OnInit lifecycle hook
   ngOnInit() {
+    this.calendarOptions.eventClick = undefined;
     const authorizeButton = document.getElementById('authorize_button');
     const signoutButton = document.getElementById('signout_button');
 
@@ -183,6 +184,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     } else {
       this.tokenClient.requestAccessToken({ prompt: '' });
     }
+    this.calendarOptions.eventClick = this.handleEventClick.bind(this);
   }
 
   // Handle signout click
