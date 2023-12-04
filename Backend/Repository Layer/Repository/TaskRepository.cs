@@ -1,6 +1,7 @@
 ﻿using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository_Layer.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ using static Repository_Layer.IRepository.IRepository;
 
 namespace Repository_Layer.Repository
 {
-    public class Repository <T> : IRepository<T> where T : Management
+    public class TaskRepository<T> : TaskInterface1<T> where T : taskStructure
     {
         #region property
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> entities;
         #endregion
         #region Constructor
-        public Repository(ApplicationDbContext applicationDbContext)
+        public TaskRepository(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
             entities = _applicationDbContext.Set<T>();
@@ -25,24 +26,25 @@ namespace Repository_Layer.Repository
         #endregion
         public void Delete(int Id)
         {
-            var result = _applicationDbContext.Managements.FirstOrDefault(l => l.id == Id);
+            var result = _applicationDbContext.taskTable3.FirstOrDefault(l => l.Id == Id);
+
             if (result != null)
             {
-                _applicationDbContext.Managements.Remove(result);
+                _applicationDbContext.taskTable3.Remove(result);
                 _applicationDbContext.SaveChanges();
             }
-        }
-        public IEnumerable<string> GetUsersByTenantName(string tenantName)
-        {
-            return entities.Where(e => e.tenantName == tenantName).Select(e => e.firstName).Distinct().ToList();
-        }
-        public T Get(int Id)
-        {
-            return entities.SingleOrDefault(c => c.id == Id);
         }
         public IEnumerable<T> GetAll()
         {
             return entities.AsEnumerable();
+        }
+        public T Get(int Id)
+        {
+            return entities.SingleOrDefault(c => c.Id == Id);
+        }
+        public IEnumerable<T> GetTasksByTenantName(string tenantName)
+        {
+            return entities.Where(task => task.tenantName == tenantName).ToList();
         }
         public void Insert(T entity)
         {
@@ -52,14 +54,6 @@ namespace Repository_Layer.Repository
             }
             entities.Add(entity);
             _applicationDbContext.SaveChanges();
-        }
-        public void Remove(T entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            entities.Remove(entity);
         }
         public void SaveChanges()
         {

@@ -21,5 +21,6 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+        public DbSet<taskStructure> taskTable3 { get; set; }
     }
 }

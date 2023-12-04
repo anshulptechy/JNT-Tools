@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class miginit : Migration
+    public partial class diviV4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +28,24 @@ namespace Domain_Layer.Migrations
                 {
                     table.PrimaryKey("PK_Managements", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "taskTable3",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    taskName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    taskDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    taskStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    taskEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tenantName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_taskTable3", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -34,6 +53,9 @@ namespace Domain_Layer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Managements");
+
+            migrationBuilder.DropTable(
+                name: "taskTable3");
         }
     }
 }
