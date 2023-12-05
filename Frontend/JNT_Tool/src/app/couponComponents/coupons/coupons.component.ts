@@ -40,26 +40,21 @@ export class CouponsComponent {
 
   async getCouponsList() {
     try {
-      const response = await this._couponService.getCouponsListForUser();
-      response.subscribe({
-        next: (res: CouponsModel[]) => {
-          this.dataSource = new MatTableDataSource(res as CouponsModel[]);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        },
-        error: (error: any) => {
-          console.log('Error getting coupons:', error);
-        },
-      });
+      const res = await this._couponService.getCouponsListForUser();
+      this.dataSource = new MatTableDataSource(res as unknown as CouponsModel[]);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     } catch (error) {
       console.error('Error getting coupons:', error);
     }
   }
+  
 
   deleteCoupons(id: number) {
     this.couponIdToDelete = id;
     this.showDeleteConfirmation = true;
   }
+
   openAddForm() {
     const DialogRef = this._dialog.open(AddComponent);
     DialogRef.afterClosed().subscribe({

@@ -19,7 +19,7 @@ export class CouponService {
         data.SupabaseUserId = supabaseUserId;
          console.log(supabaseUserId);
         const response = await this._http.post('https://localhost:7126/api/Coupon/Create', data);
-        console.log(data);
+        console.log('data'+data);
         return new Observable(observer => {
           observer.next(response);
           observer.complete();
