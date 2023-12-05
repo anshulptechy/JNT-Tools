@@ -1,234 +1,248 @@
-<section style="background-color: #eee">
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px">
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                  Sign up
-                </p>
+<section class="background-radial-gradient overflow-hidden">
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <h1
+          class="my-5 display-5 fw-bold ls-tight"
+          style="color: hsl(218, 81%, 95%)"
+        >
+          JNT <br />
+          <span style="color: hsl(218, 81%, 75%); margin-left: 60px"
+            >Tools</span
+          >
+        </h1>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          Complete solution for Office management including leaves, Accounts and
+          Reports module
+        </p>
+      </div>
 
-                <!-- Your Angular form starts here -->
-                <form
-                  [formGroup]="signupForm"
-                  (ngSubmit)="onSubmit()"
-                  class="mx-1 mx-md-4"
-                >
-                <div class="row">
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="text"
-                        id="firstName"
-                        class="form-control"
-                        formControlName="firstName"
-                      />
-                      <label class="form-label" for="firstName"
-                        >First Name</label
-                      >
-                      <div
-                        *ngIf="
-                          signupForm.get('firstName')?.invalid &&
-                          signupForm.get('firstName')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Please enter the first name.
-                      </div>
-                    </div>
-                  </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div
+          id="radius-shape-1"
+          class="position-absolute rounded-circle shadow-5-strong"
+        ></div>
+        <div
+          id="radius-shape-2"
+          class="position-absolute shadow-5-strong"
+        ></div>
 
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="text"
-                        id="lastName"
-                        class="form-control"
-                        formControlName="lastName"
-                      />
-                      <label class="form-label" for="lastName">Last Name</label>
-                      <div
-                        *ngIf="
-                          signupForm.get('lastName')?.invalid &&
-                          signupForm.get('lastName')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Please enter the last name.
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="email"
-                        id="email"
-                        class="form-control"
-                        formControlName="email"
-                      />
-                      <label class="form-label" for="email">Email</label>
-                      <div
-                        *ngIf="
-                          signupForm.get('email')?.invalid &&
-                          signupForm.get('email')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Please enter a valid email address.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-briefcase fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="text"
-                        id="department"
-                        class="form-control"
-                        formControlName="department"
-                      />
-                      <label class="form-label" for="department"
-                        >Department</label
-                      >
-                      <div
-                        *ngIf="
-                          signupForm.get('department')?.invalid &&
-                          signupForm.get('department')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Please enter the department.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-building fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="text"
-                        id="tenantName"
-                        class="form-control"
-                        formControlName="tenantName"
-                      />
-                      <label class="form-label" for="tenantName"
-                        >Tenant Name</label
-                      >
-                      <div
-                        *ngIf="
-                          signupForm.get('tenantName')?.invalid &&
-                          signupForm.get('tenantName')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Please enter the tenant name.
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  <div class="row">
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="password"
-                        id="password"
-                        class="form-control"
-                        formControlName="password"
-                      />
-                      <label class="form-label" for="password">Password</label>
-                      <div
-                        *ngIf="
-                          signupForm.get('password')?.hasError('pattern') &&
-                          signupForm.get('password')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Password must contain at least one number and one
-                        special character.
-                      </div>
-                      <div
-                        *ngIf="
-                          signupForm.get('password')?.invalid &&
-                          signupForm.get('password')?.touched &&
-                          !signupForm.get('password')?.hasError('pattern')
-                        "
-                        class="error-message"
-                      >
-                        Please enter the password.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col d-flex flex-row align-items-center mb-4">
-                    <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input
-                        type="password"
-                        id="confirmPassword"
-                        class="form-control"
-                        formControlName="confirmPassword"
-                      />
-                      <label class="form-label" for="confirmPassword"
-                        >Confirm Password</label
-                      >
-                      <div
-                        *ngIf="
-                          signupForm
-                            .get('confirmPassword')
-                            ?.hasError('required') &&
-                          signupForm.get('confirmPassword')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Confirm Password is required.
-                      </div>
-
-                      <div
-                        *ngIf="
-                          signupForm.hasError('passwordMismatch') &&
-                          signupForm.get('confirmPassword')?.touched
-                        "
-                        class="error-message"
-                      >
-                        Passwords do not match.
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-
-                  <div class="d-flex justify-content-center mb-4">
-                    <button
-                      type="submit"
-                      [disabled]="!signupForm.valid"
-                      class="btn btn-primary btn-lg"
+        <div class="card bg-glass">
+          <div class="card-body px-4 py-5 px-md-5" style="margin: 15px">
+            <form
+              [formGroup]="signupForm"
+              (ngSubmit)="onSubmit()"
+              class="mx-1 mx-md-4"
+              style="background-color: white"
+            >
+              <div class="row">
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-user fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="text"
+                      id="firstName"
+                      class="form-control"
+                      formControlName="firstName"
+                    />
+                    <label class="form-label" for="firstName"
+                      >First Name<span class="required">*</span></label
                     >
-                      Sign Up
-                    </button>
+                    <div
+                      *ngIf="
+                        signupForm.get('firstName')?.invalid &&
+                        signupForm.get('firstName')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Please enter the first name.
+                    </div>
                   </div>
-                  <p>Already have an account? <a routerLink="/login">Login</a></p>
-                </form>
-                <!-- Your Angular form ends here -->
+                </div>
+
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-user fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="text"
+                      id="lastName"
+                      class="form-control"
+                      formControlName="lastName"
+                    />
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <div
+                      *ngIf="
+                        signupForm.get('lastName')?.invalid &&
+                        signupForm.get('lastName')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Please enter the last name.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div
-                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
-              >
-                <img
-                  src="assets/signup-image.jpg"
-                  class="img-fluid"
-                  alt="Sample image"
-                />
+              <div class="d-flex flex-row align-items-center mb-4">
+                <i class="fa fa-envelope fa-lg me-3 fa-fw"></i>
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <label class="form-label" for="email"
+                    >Email<span class="required">*</span></label
+                  >
+                  <div
+                    *ngIf="
+                      signupForm.get('email')?.invalid &&
+                      signupForm.get('email')?.touched
+                    "
+                    class="error-message"
+                  >
+                    Please enter a valid email address.
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div class="row">
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-briefcase fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="text"
+                      id="department"
+                      class="form-control"
+                      formControlName="department"
+                    />
+                    <label class="form-label" for="department"
+                      >Department<span class="required">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        signupForm.get('department')?.invalid &&
+                        signupForm.get('department')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Please enter the department.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-building fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="text"
+                      id="tenantName"
+                      class="form-control"
+                      formControlName="tenantName"
+                    />
+                    <label class="form-label" for="tenantName"
+                      >Tenant Name<span class="required">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        signupForm.get('tenantName')?.invalid &&
+                        signupForm.get('tenantName')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Please enter the tenant name.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      formControlName="password"
+                    />
+                    <label class="form-label" for="password"
+                      >Password<span class="required">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        signupForm.get('password')?.hasError('pattern') &&
+                        signupForm.get('password')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Password must contain at least one number and one special
+                      character.
+                    </div>
+                    <div
+                      *ngIf="
+                        signupForm.get('password')?.invalid &&
+                        signupForm.get('password')?.touched &&
+                        !signupForm.get('password')?.hasError('pattern')
+                      "
+                      class="error-message"
+                    >
+                      Please enter the password.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col d-flex flex-row align-items-center mb-4">
+                  <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      class="form-control"
+                      formControlName="confirmPassword"
+                      style="margin-top: 12px"
+                    />
+                    <label
+                      class="form-label"
+                      for="confirmPassword"
+                      style="width: 150px"
+                      >Confirm Password<span class="required">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        signupForm
+                          .get('confirmPassword')
+                          ?.hasError('required') &&
+                        signupForm.get('confirmPassword')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Confirm Password is required.
+                    </div>
+
+                    <div
+                      *ngIf="
+                        signupForm.hasError('passwordMismatch') &&
+                        signupForm.get('confirmPassword')?.touched
+                      "
+                      class="error-message"
+                    >
+                      Passwords do not match.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center mb-4">
+                <button
+                  type="submit"
+                  [disabled]="!signupForm.valid"
+                  class="btn btn-primary btn-lg"
+                >
+                  Sign Up
+                </button>
+              </div>
+              <p>Already have an account? <a routerLink="/login">Login</a></p>
+            </form>
           </div>
         </div>
       </div>
