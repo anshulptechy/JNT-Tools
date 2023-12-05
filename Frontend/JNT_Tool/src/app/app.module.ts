@@ -22,7 +22,6 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './calendar/calendar.component';
-=======
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
@@ -41,7 +40,6 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/mate
 
 
 import { ProjectReportComponent } from './project-report/project-report.component';
-import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +47,7 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
-    CalendarComponent
+    CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,
     TaskUpdateComponent,
