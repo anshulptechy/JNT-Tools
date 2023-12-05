@@ -1,0 +1,59 @@
+.button-dropdowns {
+    margin: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+  }
+  
+  .row {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #3498db; /* Blue color */
+    color: #fff; /* White text for contrast */
+  }
+  
+  /* Alternate row color in the table */
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect on table rows */
+  .table tbody tr:hover {
+    background-color: #e2e2e2;
+  }
+  
+  /* Add some margin to the bottom of the table */
+  .table {
+    margin-bottom: 20px;
+  }
+  

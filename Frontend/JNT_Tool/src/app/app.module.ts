@@ -40,6 +40,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/mate
 
 
 import { ProjectReportComponent } from './project-report/project-report.component';
+import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { ProjectReportComponent } from './project-report/project-report.componen
  
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
     ProjectReportComponent,
+    SalaryReportComponent,
 
   ],
   imports: [

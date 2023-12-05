@@ -16,6 +16,7 @@ import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+  {path:'salary-report',component:SalaryReportComponent},
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
 ];
 
