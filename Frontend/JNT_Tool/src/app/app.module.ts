@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -20,6 +20,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from './calendar/calendar.component';
+=======
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
@@ -46,6 +49,7 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
+    CalendarComponent
     TaskDashboardComponent,
     TaskDialogComponent,
     TaskUpdateComponent,
@@ -59,6 +63,9 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FullCalendarModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatNativeDateModule,
     MatIconModule,
     ReactiveFormsModule,

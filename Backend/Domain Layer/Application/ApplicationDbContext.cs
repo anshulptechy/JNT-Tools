@@ -16,9 +16,20 @@ namespace Domain_Layer.Application
         {
             base.OnModelCreating(builder);
         }
-        public DbSet<Management> Managements { get; set; }
+        public DbSet<Management> Managements
+        {
+            get;
+            set;
+        }
+        public DbSet<projectModel> projectDataTable
+        {
+            get;
+            set;
+        }
+        public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
-        public DbSet<projectModel> projectDataTable { get; set; }
+   
+
 
     }
 }
