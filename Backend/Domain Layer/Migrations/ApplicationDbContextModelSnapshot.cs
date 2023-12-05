@@ -96,6 +96,41 @@ namespace Domain_Layer.Migrations
 
                     b.ToTable("projectDataTable");
                 });
+
+            modelBuilder.Entity("Domain_Layer.Models.taskStructure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("taskDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("taskEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("taskName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("taskStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tenantName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("taskTable3");
+                });
 #pragma warning restore 612, 618
         }
     }
