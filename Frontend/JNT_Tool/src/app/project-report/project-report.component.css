@@ -12,7 +12,9 @@
     border: 1px solid #ddd;
     padding: 8px;
   }
-  
+  th{
+    background-color: #084874;
+  }
   .col-6 .dropdown,
   .col-6 .dropdown button,
   .col-6 .dropdown-toggle,
@@ -35,7 +37,12 @@
   .text-center {
     text-align: center;
   }
-  
+  .dropdown-toggle{
+    background-color: #084874;
+  }
+  .customCsv{
+    background-color: #084874;
+  }
   /* .mt-3 {
     margin-top: 3rem; /* Adjust the margin as needed 
   } */
