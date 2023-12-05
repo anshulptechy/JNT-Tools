@@ -27,9 +27,13 @@ import{MatSelectModule} from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/material-moment-adapter';
 
+import { DialogRef } from '@angular/cdk/dialog';
+
+
 
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,7 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     LoginComponent,
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
-    ProjectReportComponent,
+    ProjectReportComponent,HeaderComponent 
 
   ],
   imports: [
@@ -58,7 +62,9 @@ import { FormsModule } from '@angular/forms';
     DatePipe,
     MatSelectModule,
     MatSnackBarModule,
-    MatMomentDateModule,FormsModule,
+    MatMomentDateModule,FormsModule,MatButtonModule,
+    MatIconModule, RouterModule,NgxUiLoaderModule,ReactiveFormsModule,FormsModule,CommonModule,
+    
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
   { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },],
