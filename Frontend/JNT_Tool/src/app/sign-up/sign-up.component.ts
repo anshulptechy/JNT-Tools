@@ -112,8 +112,11 @@ export class SignupComponent {
         
         const { id,confirmPassword, ...dataWithoutId } = this.signupForm.value;
         const { data: userData, error: userError } = await this.supabase
-          .from('usertable')
-          .upsert([tenantRequest]);
+        .from('usertable')
+        .upsert([{
+          ...dataWithoutId,
+          userId: userId, // Include the userId in the upsert operation
+        }]);
            
         
 
