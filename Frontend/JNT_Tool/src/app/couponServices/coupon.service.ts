@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SupaService } from './supa.service';
+import { SupabaseService } from '../supabase.service';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CouponService {
-  constructor(private _http: HttpClient, private supaService: SupaService) { }
+  constructor(private _http: HttpClient, private supaService: SupabaseService) { }
 
-  async addCoupon(data: any): Promise<Observable<any>> {
+  async addCoupon(data: any): Promise<Observable<any>> { debugger;
     try {
       debugger;
       const userDetails = await this.supaService.getUserDetails();
       const supabaseUserId = userDetails?.id;
 
       if (supabaseUserId) {
-        data.SupabaseUserId = supabaseUserId;
-         console.log(supabaseUserId);
+         console.log(data);
         const response = await this._http.post('https://localhost:7126/api/Coupon/Create', data);
         console.log('data'+data);
         return new Observable(observer => {
@@ -37,7 +38,7 @@ export class CouponService {
     return this._http.put(`https://localhost:7126/api/Coupon/Update`, data);
   }
 
-  async getCouponsListForUser(): Promise<Observable<any>> {
+  async getCouponsListForUser(): Promise<Observable<any>> { debugger;
     try {
       debugger;
       const userDetails = await this.supaService.getUserDetails();
@@ -61,6 +62,6 @@ export class CouponService {
   }
 
   deleteCoupons(id: number): Observable<any> {
-    return this._http.delete(`https://localhost:44334/api/Coupon/Delete/${id}`);
+    return this._http.delete(`https://localhost:7126/api/Coupon/Delete/${id}`);
   }
 }

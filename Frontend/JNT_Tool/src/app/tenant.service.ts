@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http'
 export class TenantService {
 baseUrl='https://localhost:7126/api/Values/'
   constructor(private userHttp:HttpClient) { }
+  
   getAllTenants()
   {
     return this.userHttp.get(this.baseUrl+'GetAllTenant');

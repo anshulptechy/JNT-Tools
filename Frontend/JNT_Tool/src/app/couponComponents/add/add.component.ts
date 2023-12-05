@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CouponService } from 'src/app/services/coupon.service';
-import { SupaService } from 'src/app/services/supa.service';
+
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CouponService } from 'src/app/couponServices/coupon.service';
+import { SupabaseService } from 'src/app/supabase.service';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +19,7 @@ export class AddComponent {
     public dialogRef: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
     private serve: CouponService,
-    private _supaService: SupaService,
+    private _supaService: SupabaseService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.couponForm = this.fb.group({

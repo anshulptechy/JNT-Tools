@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CouponService } from 'src/app/couponServices/coupon.service';
 import { CouponsModel } from 'src/app/models/couponModels';
-import { CouponService } from 'src/app/services/coupon.service';
 
 @Component({
   selector: 'app-edit',

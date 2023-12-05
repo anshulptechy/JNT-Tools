@@ -4,15 +4,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { HttpClientModule } from '@angular/common/http';
-
 import { SignupComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
-
 import { CommonModule } from '@angular/common';
-
 import { HeaderComponent } from './header/header.component';
-
 import { EditComponent } from './couponComponents/edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
