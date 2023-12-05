@@ -59,21 +59,33 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
             <a
-              class="nav-link active text-white"
-              aria-current="page"
-              routerLink="/taskDashboard"
-              >Assign Task</a
+              class="nav-link dropdown-toggle text-white"
+              href="#"
+              id="taskDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link active text-white"
-              aria-current="page"
-              routerLink="/userDetails"
-              >User Task</a
+              Manage Tasks
+            </a>
+            <ul
+              class="dropdown-menu custom-dropdown-menu"
+              aria-labelledby="reportsDropdown"
             >
+              <li>
+                <a class="dropdown-item" [routerLink]="['/taskDashboard']"
+                  >Assign Task</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/userDetails']"
+                  >User Task</a
+                >
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a

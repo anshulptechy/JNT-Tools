@@ -15,7 +15,7 @@ export class CreateProjectDialogComponent implements OnInit {
   projectForm: FormGroup | any;
 
 
-  countries: string[] = ['India', 'Australia', 'United States', 'England', 'Russia', 'China','Canada','Dubai','Quator','Japan','Italy','Israel'];
+  countries: string[] = ['USA', 'Canada', 'UK', 'Germany', 'France', 'Australia', 'Japan', 'South Korea', 'Singapore', 'India', 'Brazil', 'Mexico', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland'];
   
   
   constructor(

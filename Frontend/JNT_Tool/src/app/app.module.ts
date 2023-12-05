@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './calendar/calendar.component';
+
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
@@ -38,8 +39,13 @@ import{MatSelectModule} from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/material-moment-adapter';
 
+import { DialogRef } from '@angular/cdk/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 import { ProjectReportComponent } from './project-report/project-report.component';
+
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +60,7 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     UserDetailsComponent,
  
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
-    ProjectReportComponent,
+    ProjectReportComponent,HeaderComponent 
 
   ],
   imports: [
@@ -87,7 +93,9 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     DatePipe,
     MatSelectModule,
     MatSnackBarModule,
-    MatMomentDateModule,FormsModule,
+    MatMomentDateModule,FormsModule,MatButtonModule,
+    MatIconModule, RouterModule,NgxUiLoaderModule,ReactiveFormsModule,FormsModule,CommonModule,MatPaginatorModule
+    
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
   { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },],
