@@ -33,6 +33,7 @@ import { FormsModule } from '@angular/forms';
 import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
 import { ApplyLeaveComponent } from './lms component/apply-leave/apply-leave.component';
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
     DatePipe,
     MatSelectModule,
     MatSnackBarModule,
-    MatMomentDateModule,FormsModule,
+    MatMomentDateModule,FormsModule,RouterModule,NgxUiLoaderModule,MatButtonModule,
+    MatIconModule,
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
   { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },],

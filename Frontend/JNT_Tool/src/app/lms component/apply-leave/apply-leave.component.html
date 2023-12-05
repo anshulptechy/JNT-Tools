@@ -3,7 +3,7 @@
   <div class="popup" *ngIf="isPopupOpen">
     <div class="popup-content">
       <button class="close-button" (click)="closeLeaveApplicationPopup()">X</button>
-      <form (ngSubmit)="submitLeaveApplication()">
+      <form (ngSubmit)="submitLeaveApplication()" #leaveApplicationForm="ngForm">
 
         <label for="employeeInputType">Select Input Type:</label>
         <select id="employeeInputType" name="employeeInputType" [(ngModel)]="employeeInputType">
@@ -22,6 +22,7 @@
           <label for="managerNameText">Manager Name:</label>
           <input type="text" id="managerNameText" name="managerNameText" [(ngModel)]="leaveApplication.managerName" required>
         </div>
+
         <label for="EmployeeName">Employee Name:</label>
         <input type="text" id="EmployeeNameText" name="EmployeeNameText" [(ngModel)]="leaveApplication.employeeName" required><br>
 
@@ -35,13 +36,18 @@
         <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
           <option value="vacation">Vacation</option>
           <option value="sick">Sick Leave</option>
-          
         </select><br>
 
         <label for="reason">Reason:</label>
         <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required></textarea>
 
-        <button type="submit">Submit</button>
+        <!-- Display validation messages -->
+        <div *ngIf="leaveApplicationForm.submitted && leaveApplicationForm.invalid" class="validation-message">
+          All fields are required.
+        </div>
+
+        <!-- Add the [disabled] attribute binding to the submit button -->
+        <button type="submit" [disabled]="!leaveApplicationForm.valid">Submit</button>
         <button type="button" (click)="resetLeaveApplication()">Reset</button>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LmsService } from '../lms service/lms.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class LeaveManagementComponent  implements OnInit {
   getLeaveStatusForManaged() {
     debugger;
     // Retrieve the manager's name from localStorage
-    const managerName = localStorage.getItem('username'); // Assuming the manager's name is the username
+    const managerName = localStorage.getItem('firstName'); // Assuming the manager's name is the username
 
     if (managerName) {
       // Call the service to get leave status data for managed users
@@ -42,13 +43,21 @@ export class LeaveManagementComponent  implements OnInit {
   approveLeave(leave: any) {
     // Update leave status to 'Approved' and display success toast message
     this.updateLeaveStatus(leave, 'Approved');
-    // this.toastr.success('Leave Approved', 'Success');
+    Swal.fire({
+      icon: 'success',
+      title: 'Approved Successful!',
+      text: ' leave approved successfully.',
+    });
   }
 
   rejectLeave(leave: any) {
     // Update leave status to 'Rejected' and display error toast message
     this.updateLeaveStatus(leave, 'Rejected');
-    // this.toastr.error('Leave Rejected', 'Rejected');
+    Swal.fire({
+      icon: 'success',
+      title: 'Rejected Successful!',
+      text: ' leave Rejected successfully.',
+    });
   }
 
   private updateLeaveStatus(leave: any, status: string) {

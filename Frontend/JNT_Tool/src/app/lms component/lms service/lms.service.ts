@@ -39,6 +39,6 @@ export class LmsService {
   }
   
   GetLeaveStatusForManagedUsers(managerName: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/GetLeaveApplicationsByMatchingNames`);
+    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
   }
 }

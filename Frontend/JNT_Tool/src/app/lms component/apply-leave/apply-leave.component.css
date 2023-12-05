@@ -1,6 +1,6 @@
 /* Popup Styles */
 .popup-content {
-  background-color: #f3ebeb;
+  background-color: #cac6c6;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -8,7 +8,6 @@
   max-height: 550px; /* Adjust the max height as needed */
   overflow-y: auto; /* Enable vertical scrolling if the content exceeds max height */
   position: relative; /* Set position to relative for absolute positioning of the close button */
-  
 }
 
 .popup-content form input[type="text"],
@@ -70,4 +69,9 @@
   font-size: 10px;
  
   color: #e41515; /* Red color for the close button */
+}
+button[disabled] {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }

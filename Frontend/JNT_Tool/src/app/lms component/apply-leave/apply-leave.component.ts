@@ -5,6 +5,7 @@ import { LeaveApplication } from '../model'; // Import the LeaveApplication mode
 import { HttpClient } from '@angular/common/http';
 
 import { createClient } from '@supabase/supabase-js'; // Import Supabase client for authentication
+import Swal from 'sweetalert2';
 
 
 
@@ -14,25 +15,23 @@ import { createClient } from '@supabase/supabase-js'; // Import Supabase client 
   styleUrls: ['./apply-leave.component.css']
 })
 export class ApplyLeaveComponent {
-  
+
   isPopupOpen = true; // Flag to track if the leave application popup is open
   managerNames: string[] = []; // Array to store manager names
   employeeInputType: string = 'dropdown'; // Default employee input type
   leaveApplication: LeaveApplication = {} as LeaveApplication; // Object to store leave application details
-  username: string | undefined; // Variable to store the username
+  // username: string | undefined; // Variable to store the username
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private lmsService: LmsService, 
-    
-   
-  ) {}
+    private lmsService: LmsService,
+
+
+  ) { }
 
   ngOnInit() {
-    // Retrieve the username from localStorage
-    this.username = localStorage.getItem('username')!;
-
+    
     // Fetch manager names when the component is initialized
     this.getManagerNames();
   }
@@ -52,8 +51,7 @@ export class ApplyLeaveComponent {
 
   openLeaveApplicationPopup() {
     // Close the sidenav and set the popup flag to true
- 
-    this.isPopupOpen = true;
+     this.isPopupOpen = true;
   }
 
   closeLeaveApplicationPopup() {
@@ -73,9 +71,13 @@ export class ApplyLeaveComponent {
         (response) => {
           console.log(this.leaveApplication);
         });
-      
-      // Display success toast message and close the popup
-      
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Applied Successful!',
+        text: 'Your leave has been applied successfully.',
+      });// Display success toast message and close the popup
+
       this.closeLeaveApplicationPopup();
     }
   }

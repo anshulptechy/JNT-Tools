@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model'; 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -105,15 +106,30 @@ export class LeavestatusComponent  implements OnInit{
           console.log('Leave updated successfully:', response);
           this.isPopupOpen = false; // Close the leave application popup
           this.getLeaveStatusByuserId(); // Refresh the leave status data
+  
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Leave Updated!',
+            text: 'Your leave application has been updated successfully.',
+          });
         },
         (error: any) => {
           console.error('Error updating leave:', error);
+  
+          // Display SweetAlert error message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while updating your leave application. Please try again.',
+          });
         }
       );
     } else {
       console.error('Invalid Id for leave application.');
     }
   }
+  
   
 
   resetLeaveApplication() {
@@ -127,24 +143,47 @@ export class LeavestatusComponent  implements OnInit{
   }
 
   deleteLeave(leave: any) {
-    // Confirm the deletion with the user
-    const confirmDelete = confirm('Are you sure you want to delete this leave entry?');
-
-    if (confirmDelete) {
-      const leaveId = leave.id;
-
-      // Call the service to delete the leave entry
-      this.lmsService.deleteLeave(leaveId).subscribe(
-        (response: any) => {
-          console.log('Leave deleted successfully:', response);
-          this.getLeaveStatusByuserId(); // Refresh the leave status data
-        },
-        (error: any) => {
-          console.error('Error deleting leave:', error);
-        }
-      );
-    }
+    // Display SweetAlert confirmation
+    Swal.fire({
+      title: 'Delete Leave',
+      text: 'Are you sure you want to delete this leave entry?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const leaveId = leave.id;
+  
+        // Call the service to delete the leave entry
+        this.lmsService.deleteLeave(leaveId).subscribe(
+          (response: any) => {
+            console.log('Leave deleted successfully:', response);
+            this.getLeaveStatusByuserId(); // Refresh the leave status data
+  
+            // Display SweetAlert success message
+            Swal.fire({
+              icon: 'success',
+              title: 'Leave Deleted!',
+              text: 'The leave entry has been deleted successfully.',
+            });
+          },
+          (error: any) => {
+            console.error('Error deleting leave:', error);
+  
+            // Display SweetAlert error message
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'An error occurred while deleting the leave entry. Please try again.',
+            });
+          }
+        );
+      }
+    });
   }
+  
 
 
 }
