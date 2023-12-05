@@ -14,11 +14,11 @@ import { ProjectReportComponent } from './project-report/project-report.componen
 
 
 
-const routes: Routes = [{path:"mainpage",component:TenantListComponent},{path:"signup",component:SignupComponent},{path:'login',component:LoginComponent},{ path: '', redirectTo: '/signup', pathMatch: 'full' },
-{ path: 'dashboard', component: DashboardComponent},
-{ path: 'update', component: UpdateButtonComponent }
-  , { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-{ path: 'confirmation-dialog', component: ConfirmationDialogComponent },{path:'projectReport',component:ProjectReportComponent,canActivate: [AuthGuard]}
+const routes: Routes = [{path:"mainpage",component:TenantListComponent},{path:"signup",component:SignupComponent},{path:'login',component:LoginComponent},{ path: '', redirectTo: '/signup', pathMatch: 'full'  },
+{ path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard]},
+{ path: 'update', component: UpdateButtonComponent,canActivate: [AuthGuard] }
+  , { path: 'create-project-dialog', component: CreateProjectDialogComponent ,canActivate: [AuthGuard]},
+{ path: 'confirmation-dialog', component: ConfirmationDialogComponent ,canActivate: [AuthGuard]},{path:'projectReport',component:ProjectReportComponent,canActivate: [AuthGuard]}
 ];
 
 
