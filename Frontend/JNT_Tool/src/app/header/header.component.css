@@ -322,3 +322,22 @@
     cursor: pointer;
   }
   
+  .navbar{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  }
+
+  .navbar-toggler{
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
+  }
+
+  h5{
+    color: white;
+  }
+
+  button{
+    border: 1px solid white;
+  }
+
+  .offcanvas{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%))
+  }

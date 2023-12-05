@@ -23,7 +23,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   isAddEventFormOpen: boolean = false;
   isEditEventFormOpen: boolean = false;
   intervalSubscription!: Subscription;
-  showLoader: boolean = false;
 
   newEvent: any = {
     title: '',
@@ -77,7 +76,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       const userId = localStorage.getItem('userId');
       const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
       if (storedEvents) {
-        authorizeButton!.innerText = 'Refresh';
+        authorizeButton!.innerHTML = '<i class="bi bi-arrow-repeat"></i>';
         signoutButton.style.visibility = 'visible';
       } else {
         signoutButton.style.visibility = 'hidden';
@@ -168,7 +167,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       }
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
-        authorizeButton.innerText = 'Refresh';
+        authorizeButton.innerHTML = '<i class="bi bi-arrow-repeat"></i>';
       }
       this.calendarOptions.selectable = true;
       this.listUpcomingEvents();
@@ -325,7 +324,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // List upcoming events
   async listUpcomingEvents() {
     try {
-      this.showLoader = false;
       const userId = localStorage.getItem('userId');
       const request = {
         calendarId: 'primary',

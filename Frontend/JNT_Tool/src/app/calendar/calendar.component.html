@@ -1,11 +1,15 @@
 <app-header></app-header>
 <div class="container">
-  <button class="button" id="authorize_button" (click)="handleAuthClick()">
+  <div class="d-grid gap-2 col-1">
+    <button class="btn btn-primary mx-auto" id="authorize_button" (click)="handleAuthClick()" type="button">Sync</button>
+    <button class="btn btn-primary mx-auto" id="signout_button" (click)="handleSignoutClick()" type="button">SyncOut</button>
+  </div>
+  <!-- <button class="button" id="authorize_button" (click)="handleAuthClick()">
     Sync
   </button><br><br>
   <button class="button" id="signout_button" (click)="handleSignoutClick()">
     Syncout
-  </button>
+  </button> -->
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
@@ -51,4 +55,3 @@
     </button>
   </div>
 </div>
-<ngx-ui-loader *ngIf="showLoader" text="Please Wait..." fgsColor="#0d6efd"></ngx-ui-loader>

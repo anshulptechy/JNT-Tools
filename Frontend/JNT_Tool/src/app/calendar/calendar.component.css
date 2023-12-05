@@ -1,11 +1,17 @@
 .container {
   width: 52%;
   margin-left: 25%;
-  position: absolute;
+  /* position: absolute; */
   bottom: 10px;
+  margin-top: 145px;
 }
 
-.button {
+.gap-2{
+  margin-bottom: -160px;
+  margin-left: -100px;
+}
+
+/* .button {
   position: relative;
   border-radius: 4px;
   background-color: #007bff;
@@ -14,7 +20,7 @@
   right: 100px;
   top: 200px;
   color: white;
-}
+} */
 
 #authorize_button{
   right: 124px;
@@ -108,3 +114,6 @@
 .modal-content2 button:hover {
   background-color: #45a049;
 }
+
+
+
