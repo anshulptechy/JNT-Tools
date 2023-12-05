@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from './crudProjectComponents/confirmatio
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
+import { ProjectReportComponent } from './project-report/project-report.component';
 
 
 
@@ -17,8 +18,10 @@ const routes: Routes = [{path:"mainpage",component:TenantListComponent},{path:"s
 { path: 'dashboard', component: DashboardComponent},
 { path: 'update', component: UpdateButtonComponent }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-{ path: 'confirmation-dialog', component: ConfirmationDialogComponent },
+{ path: 'confirmation-dialog', component: ConfirmationDialogComponent },{path:'projectReport',component:ProjectReportComponent,canActivate: [AuthGuard]}
 ];
+
+
 
 
 @NgModule({
