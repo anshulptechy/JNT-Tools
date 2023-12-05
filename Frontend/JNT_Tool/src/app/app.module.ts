@@ -30,6 +30,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/mate
 
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,10 @@ import { FormsModule } from '@angular/forms';
     DatePipe,
     MatSelectModule,
     MatSnackBarModule,
-    MatMomentDateModule,FormsModule,
+    MatMomentDateModule,FormsModule,MatButtonModule,
+    MatIconModule,
+    MatInputModule,RouterModule, // Add this line
+   
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
   { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },],
