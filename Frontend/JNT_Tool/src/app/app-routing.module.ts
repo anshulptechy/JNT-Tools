@@ -14,18 +14,19 @@ import { TaskDashboardComponent } from './task-dashboard/task-dashboard.componen
 import { UserDetailsComponent } from './user-details/user-details.component';
 
 
-
-
-const routes: Routes = [{path:"mainpage",component:TenantListComponent},{path:"signup",component:SignupComponent},{path:'login',component:LoginComponent},{ path: '', redirectTo: '/signup', pathMatch: 'full' },
+const routes: Routes = [
+{path:"mainpage",component:TenantListComponent},
+{path:"signup",component:SignupComponent},
+{path:'login',component:LoginComponent},
+{ path: '', redirectTo: '/signup', pathMatch: 'full' },
 { path: 'dashboard', component: DashboardComponent},
-{ path: 'update', component: UpdateButtonComponent }
-  , { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-{ path: 'confirmation-dialog', component: ConfirmationDialogComponent },{path:'projectReport',component:ProjectReportComponent,canActivate: [AuthGuard]},{path:'taskDashboard',component:TaskDashboardComponent,canActivate:[AuthGuard]},
+{ path: 'update', component: UpdateButtonComponent },
+{ path: 'create-project-dialog', component: CreateProjectDialogComponent },
+{ path: 'confirmation-dialog', component: ConfirmationDialogComponent },
+ {path:'projectReport',component:ProjectReportComponent,canActivate: [AuthGuard]},
+ {path:'taskDashboard',component:TaskDashboardComponent,canActivate:[AuthGuard]},
 {path:'userDetails',component:UserDetailsComponent,canActivate:[AuthGuard]}
 ];
-
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
