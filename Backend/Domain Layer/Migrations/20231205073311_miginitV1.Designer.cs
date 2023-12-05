@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231204095056_diviV4")]
-    partial class diviV4
+    [Migration("20231205073311_miginitV1")]
+    partial class miginitV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,44 @@ namespace Domain_Layer.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Managements");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<int>("Budget")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("projectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("projectDataTable");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.taskStructure", b =>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class diviV4 : Migration
+    public partial class miginitV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +27,25 @@ namespace Domain_Layer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Managements", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "projectDataTable",
+                columns: table => new
+                {
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    projectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Client = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Budget = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_projectDataTable", x => x.ProjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,6 +72,9 @@ namespace Domain_Layer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Managements");
+
+            migrationBuilder.DropTable(
+                name: "projectDataTable");
 
             migrationBuilder.DropTable(
                 name: "taskTable3");

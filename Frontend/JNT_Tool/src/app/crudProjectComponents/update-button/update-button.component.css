@@ -1,0 +1,50 @@
+/* Button Container */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px; /* Add some space above the button container */
+}
+
+/* Dialog Actions */
+.mat-dialog-actions {
+  margin-top: 20px;
+  text-align: right; /* Align the actions to the right */
+}
+
+/* Form Container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px; /* Add some padding for better spacing */
+  border: 1px solid #e0e0e0; /* Add a subtle border for a container effect */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  background-color: #fafafa; /* Light background color */
+}
+
+/* Form Row */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Add some space between form rows */
+}
+
+/* Form Field */
+.form-field {
+  width: 48%;
+  padding: 10px; /* Add padding for a comfortable input area */
+  border: 1px solid #ccc; /* Add a border for a clean separation */
+  border-radius: 4px; /* Rounded corners for a softer look */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+/* Hover effect for Form Field */
+.form-field:hover {
+  border-color: #4caf50; /* Change border color on hover */
+}
+
+/* Focus effect for Form Field */
+.form-field:focus {
+  outline: none; /* Remove default focus outline */
+  border-color: #2196f3; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); /* Add a subtle box shadow on focus */
+}
