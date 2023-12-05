@@ -56,7 +56,7 @@
         <ng-container matColumnDef="actions">
           <th style="padding: 25px;" mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
           <td mat-cell *matCellDef="let row">
-            <button mat-icon-button color="primary" >
+            <button mat-icon-button color="primary" (click)="openEditForm(row)">
               <mat-icon>edit</mat-icon>
             </button>&nbsp;
             <button mat-icon-button color="warn" (click)="deleteCoupons(row.id)">
@@ -83,7 +83,7 @@
   <div *ngIf="showDeleteConfirmation" class="delete-confirmation">
     <div class="confirmation-box">
       <p>Are you sure you want to delete this coupon?</p>
-      <button style="border: 1px solid red;" mat-button >Yes</button>
+      <button style="border: 1px solid red;" mat-button (click)=" confirmDelete()">Yes</button>
       <button style="border: 1px solid #3498db;" mat-button (click)="cancelDelete()">No</button>
     </div>
   </div>
