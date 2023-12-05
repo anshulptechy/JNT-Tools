@@ -1,0 +1,76 @@
+/* component-specific styles.css */
+
+/* Style for the table */
+.container1{
+  margin:100px
+}
+
+.tableGrid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tableGrid th,
+.tableGrid td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tableGrid th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.tableGrid tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tableGrid tr:hover {
+  background-color: #e0e0e0;
+}
+
+.tableGrid td button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.tableGrid td button:hover {
+  background-color: #0056b3;
+}
+
+/* Style for the "Add Task" button */
+/* component-specific styles.css */
+
+/* Style for the "Add Task" button */
+.addUserButton {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-left: 1020px; /* Shift the button to the right */
+}
+
+.addUserButton:hover {
+  background-color: #0056b3;
+}
+
+/* Style for spacing between buttons */
+.custom-button {
+  margin-right: 5px;
+}
+
+/* Optional: If you want to align the buttons to the right */
+.tableData td:last-child {
+  text-align: left;
+}

@@ -8,6 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+
+import { TaskUpdateComponent } from './task-update/task-update.component';
+import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
+import { TaskDialogComponent } from './task-dialog/task-dialog.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { UserDetailsComponent } from './user-details/user-details.component';
+ 
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -36,6 +45,12 @@ import { FormsModule } from '@angular/forms';
     TenantListComponent,
     SignupComponent,
     LoginComponent,
+    HeaderComponent,
+    TaskDashboardComponent,
+    TaskDialogComponent,
+    TaskUpdateComponent,
+    UserDetailsComponent,
+ 
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
     ProjectReportComponent,
 
@@ -44,7 +59,16 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatNativeDateModule,
+    MatIconModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule
