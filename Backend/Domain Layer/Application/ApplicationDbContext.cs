@@ -27,6 +27,9 @@ namespace Domain_Layer.Application
             set;
         }
         public DbSet<Event> Events { get; set; }
+        public DbSet<taskStructure> taskTable3 { get; set; }
+   
+
 
     }
 }

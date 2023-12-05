@@ -1,101 +1,103 @@
-<body>
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px">
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                <p
-                  class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 login-heading"
-                >
-                  Login
-                </p>
+<section class="background-radial-gradient overflow-hidden">
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <h1
+          class="my-5 display-5 fw-bold ls-tight"
+          style="color: hsl(218, 81%, 95%)"
+        >
+          JNT <br />
+          <span style="color: hsl(218, 81%, 75%); margin-left: 60px"
+            >Tools</span
+          >
+        </h1>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          Complete solution for Office management including leaves, Accounts and
+          Reports module
+        </p>
+      </div>
 
-                <!-- Your Angular form starts here -->
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <label for="email"
-                      >Email<span class="required">*</span></label
-                    >
-                    <input
-                      type="email"
-                      id="email"
-                      formControlName="email"
-                      [ngClass]="{
-                        'is-invalid':
-                          loginForm.get('email')?.invalid &&
-                          loginForm.get('email')?.touched
-                      }"
-                    />
-                    <div
-                      *ngIf="
-                        loginForm.get('email')?.hasError('required') &&
-                        loginForm.get('email')?.touched
-                      "
-                      class="error-message"
-                    >
-                      Email is required
-                    </div>
-                    <div
-                      *ngIf="
-                        loginForm.get('email')?.hasError('email') &&
-                        loginForm.get('email')?.touched
-                      "
-                      class="error-message"
-                    >
-                      Please enter a valid email address
-                    </div>
-                  </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div
+          id="radius-shape-1"
+          class="position-absolute rounded-circle shadow-5-strong"
+        ></div>
+        <div
+          id="radius-shape-2"
+          class="position-absolute shadow-5-strong"
+        ></div>
 
-                  <div
-                    class="form-group"
-                    [ngClass]="{
-                      error:
-                        loginForm.get('password')?.invalid &&
-                        (loginForm.get('password')?.touched ||
-                          loginForm.get('password')?.dirty)
-                    }"
-                  >
-                    <label for="password"
-                      >Password<span class="required">*</span></label
-                    >
-                    <input
-                      type="password"
-                      id="password"
-                      formControlName="password"
-                    />
-                    <div
-                      *ngIf="
-                        loginForm.get('password')?.invalid &&
-                        (loginForm.get('password')?.touched ||
-                          loginForm.get('password')?.dirty)
-                      "
-                      class="error-message"
-                    >
-                      Please enter password.
-                    </div>
-                  </div>
-
-                  <button type="submit" [disabled]="!loginForm.valid">
-                    Login
-                  </button>
-                  <p>
-                    Don't have an account? <a routerLink="/signup">Sign Up</a>
-                  </p>
-                </form>
-                <!-- Your Angular form ends here -->
-              </div>
-              <div
-                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
-              >
-                <img
-                  src="assets/signin-image.jpg"
-                  class="img-fluid"
-                  alt="Sample image"
+        <div class="card bg-glass" style="width: 600px">
+          <div class="card-body px-4 py-5 px-md-5">
+            <form
+              [formGroup]="loginForm"
+              (ngSubmit)="onSubmit()"
+              style="width: 500px"
+            >
+              <div class="form-group">
+                <label for="email">Email<span class="required">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid':
+                      loginForm.get('email')?.invalid &&
+                      loginForm.get('email')?.touched
+                  }"
                 />
+                <div
+                  *ngIf="
+                    loginForm.get('email')?.hasError('required') &&
+                    loginForm.get('email')?.touched
+                  "
+                  class="error-message"
+                >
+                  Email is required
+                </div>
+                <div
+                  *ngIf="
+                    loginForm.get('email')?.hasError('email') &&
+                    loginForm.get('email')?.touched
+                  "
+                  class="error-message"
+                >
+                  Please enter a valid email address
+                </div>
               </div>
-            </div>
+
+              <div
+                class="form-group"
+                [ngClass]="{
+                  error:
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.touched ||
+                      loginForm.get('password')?.dirty)
+                }"
+              >
+                <label for="password"
+                  >Password<span class="required">*</span></label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                />
+                <div
+                  *ngIf="
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.touched ||
+                      loginForm.get('password')?.dirty)
+                  "
+                  class="error-message"
+                >
+                  Please enter password.
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="!loginForm.valid">Login</button>
+              <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+            </form>
           </div>
         </div>
       </div>
@@ -103,3 +105,4 @@
   </div>
 </body>
 <ngx-ui-loader text="Please Wait..." fgsColor="#0d6efd"></ngx-ui-loader>
+</section>
