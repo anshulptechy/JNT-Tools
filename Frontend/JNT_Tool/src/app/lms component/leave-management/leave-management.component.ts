@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LmsService } from '../lms service/lms.service';
-import { ToastrService } from 'ngx-toastr'; 
+
 
 @Component({
   selector: 'app-leave-management',
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LeaveManagementComponent  implements OnInit {
   leaveManagementData: any[] | undefined; // Array to store leave management data
 
-  constructor(private router: Router, private lmsService: LmsService, private toastr: ToastrService) { }
+  constructor(private router: Router, private lmsService: LmsService) { }
 
   ngOnInit() {
     // Fetch leave management data when the component is initialized
@@ -42,13 +42,13 @@ export class LeaveManagementComponent  implements OnInit {
   approveLeave(leave: any) {
     // Update leave status to 'Approved' and display success toast message
     this.updateLeaveStatus(leave, 'Approved');
-    this.toastr.success('Leave Approved', 'Success');
+    // this.toastr.success('Leave Approved', 'Success');
   }
 
   rejectLeave(leave: any) {
     // Update leave status to 'Rejected' and display error toast message
     this.updateLeaveStatus(leave, 'Rejected');
-    this.toastr.error('Leave Rejected', 'Rejected');
+    // this.toastr.error('Leave Rejected', 'Rejected');
   }
 
   private updateLeaveStatus(leave: any, status: string) {

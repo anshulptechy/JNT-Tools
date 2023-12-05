@@ -29,6 +29,11 @@ builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 
 builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 
+builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
+
+builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
+
+
 #endregion
 
 var app = builder.Build();

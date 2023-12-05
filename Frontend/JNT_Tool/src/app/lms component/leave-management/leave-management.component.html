@@ -1,5 +1,6 @@
-
-<div class="container">
+<app-header></app-header>
+<div class="upperMargin">
+  <div class="container">
     <h2>Leave Management</h2>
   
     <div *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
@@ -37,3 +38,4 @@
       <p>No leave data available.</p>
     </ng-template>
   </div>
+</div>

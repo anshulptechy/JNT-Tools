@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model'; // Import the LeaveApplication model
@@ -26,7 +25,7 @@ export class ApplyLeaveComponent {
     private httpClient: HttpClient,
     private router: Router,
     private lmsService: LmsService, 
-    private toastr: ToastrService 
+    
    
   ) {}
 
@@ -76,7 +75,7 @@ export class ApplyLeaveComponent {
         });
       
       // Display success toast message and close the popup
-      this.toastr.success('Leave Submitted Successfully');
+      
       this.closeLeaveApplicationPopup();
     }
   }

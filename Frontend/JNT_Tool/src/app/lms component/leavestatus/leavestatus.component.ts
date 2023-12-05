@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model'; 
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr'; 
+
 
 @Component({
   selector: 'app-leavestatus',
@@ -20,8 +20,7 @@ export class LeavestatusComponent  implements OnInit{
 
   constructor(
     private lmsService: LmsService, // Inject LMSService for leave management operations
-    private router: Router,
-    private toastr: ToastrService, // Inject ToastrService for displaying toast messages
+    private router: Router, // Inject ToastrService for displaying toast messages
     private formBuilder: FormBuilder // Inject FormBuilder for creating reactive forms
   ) {
     // Initialize the leave application form with form controls and validators

@@ -1,5 +1,6 @@
-
-<div class="popup" *ngIf="isPopupOpen">
+<app-header></app-header>
+<div class="upperMargin">
+  <div class="popup" *ngIf="isPopupOpen">
     <div class="popup-content">
       <button class="close-button" (click)="closeLeaveApplicationPopup()">X</button>
       <form (ngSubmit)="submitLeaveApplication()">
@@ -45,3 +46,4 @@
       </form>
     </div>
   </div>
+</div>

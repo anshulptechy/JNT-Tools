@@ -14,6 +14,9 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { FormsModule } from '@angular/forms';
+import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
+import { ApplyLeaveComponent } from './lms component/apply-leave/apply-leave.component';
+import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
-    ProjectReportComponent,
+    ProjectReportComponent,LeaveManagementComponent,ApplyLeaveComponent,LeavestatusComponent
 
   ],
   imports: [
