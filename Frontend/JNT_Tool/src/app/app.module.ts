@@ -40,7 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/material-moment-adapter';
 
 import { DialogRef } from '@angular/cdk/dialog';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 import { ProjectReportComponent } from './project-report/project-report.component';
@@ -94,7 +94,7 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     MatSnackBarModule,
     MatMomentDateModule,FormsModule,MatButtonModule,
-    MatIconModule, RouterModule,NgxUiLoaderModule,ReactiveFormsModule,FormsModule,CommonModule,
+    MatIconModule, RouterModule,NgxUiLoaderModule,ReactiveFormsModule,FormsModule,CommonModule,MatPaginatorModule
     
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
