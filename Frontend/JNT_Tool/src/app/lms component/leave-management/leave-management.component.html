@@ -1,0 +1,39 @@
+
+<div class="container">
+    <h2>Leave Management</h2>
+  
+    <div *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Leave Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Reason</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of leaveManagementData">
+            <td>{{ leave.employeeName }}</td>
+            <td>{{ leave.leaveType }}</td>
+            <td>{{ leave.startDate | date: 'shortDate' }}</td>
+            <td>{{ leave.endDate | date: 'shortDate' }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>
+              
+              <button (click)="approveLeave(leave)">Approve</button>
+              <button (click)="rejectLeave(leave)">Reject</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noData>
+      
+      <p>No leave data available.</p>
+    </ng-template>
+  </div>

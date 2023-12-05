@@ -1,0 +1,47 @@
+
+<div class="popup" *ngIf="isPopupOpen">
+    <div class="popup-content">
+      <button class="close-button" (click)="closeLeaveApplicationPopup()">X</button>
+      <form (ngSubmit)="submitLeaveApplication()">
+
+        <label for="employeeInputType">Select Input Type:</label>
+        <select id="employeeInputType" name="employeeInputType" [(ngModel)]="employeeInputType">
+          <option value="dropdown">Dropdown</option>
+          <option value="text">Text</option>
+        </select>
+
+        <div *ngIf="employeeInputType === 'dropdown'">
+          <label for="managerNameDropdown">Manager Name:</label>
+          <select id="managerNameDropdown" name="managerNameDropdown" [(ngModel)]="leaveApplication.managerName" required>
+            <option *ngFor="let name of managerNames" [value]="name">{{ name }}</option>
+          </select>
+        </div>
+
+        <div *ngIf="employeeInputType === 'text'">
+          <label for="managerNameText">Manager Name:</label>
+          <input type="text" id="managerNameText" name="managerNameText" [(ngModel)]="leaveApplication.managerName" required>
+        </div>
+        <label for="EmployeeName">Employee Name:</label>
+        <input type="text" id="EmployeeNameText" name="EmployeeNameText" [(ngModel)]="leaveApplication.employeeName" required><br>
+
+        <label for="StartDate">Leave Start Date:</label>
+        <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
+
+        <label for="EndDate">Leave End Date:</label>
+        <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
+
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
+          <option value="vacation">Vacation</option>
+          <option value="sick">Sick Leave</option>
+          
+        </select><br>
+
+        <label for="reason">Reason:</label>
+        <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required></textarea>
+
+        <button type="submit">Submit</button>
+        <button type="button" (click)="resetLeaveApplication()">Reset</button>
+      </form>
+    </div>
+  </div>
