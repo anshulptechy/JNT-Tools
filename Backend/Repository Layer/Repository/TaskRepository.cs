@@ -38,6 +38,10 @@ namespace Repository_Layer.Repository
         {
             return entities.AsEnumerable();
         }
+        public IEnumerable<T> GetTasksByUserAndTenant(string userName, string tenantName)
+        {
+            return entities.Where(e => e.userName == userName && e.tenantName == tenantName).ToList();
+        }
         public T Get(int Id)
         {
             return entities.SingleOrDefault(c => c.Id == Id);

@@ -80,5 +80,6 @@ export class TaskDashboardComponent {
       this.serve.getTenantTask(this.tenantName).subscribe((result) => {
         this.tasks = result as any;
       });
-  }
+      
+  }   
 }

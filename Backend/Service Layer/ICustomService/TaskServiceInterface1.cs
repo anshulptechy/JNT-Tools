@@ -10,6 +10,7 @@ namespace Service_Layer.ICustomService
     {
         IEnumerable<T> GetAll();
         IEnumerable<T> GetTasksByTenantName(string tenantName);
+        IEnumerable<T> GetTasksByUserAndTenant(string userName, string tenantName);
         T Get(int Id);
         void Insert(T entity);
         void Update(T entity);

@@ -67,6 +67,28 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
+        public IEnumerable<taskStructure> GetTasksByUserAndTenant(string userName, string tenantName)
+        {
+            try
+            {
+                var obj = _taskRepository.GetTasksByUserAndTenant(userName, tenantName);
+
+                // Check if obj is not null or empty before returning
+                if (obj != null && obj.Any())
+                {
+                    return obj;
+                }
+                else
+                {
+                    return new List<taskStructure>(); // Return an empty list if no tasks are found
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public IEnumerable<taskStructure> GetAll()
         {
             try

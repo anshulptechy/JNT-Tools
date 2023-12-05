@@ -9,7 +9,7 @@ import { SignupComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 // import { LoginuserComponent } from './loginuser/loginuser.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,10 +21,12 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-
+import { UserDetailsComponent } from './user-details/user-details.component';
+ 
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS,MatMomentDateModule} from '@angular/material-moment-adapter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +36,9 @@ import { MatIconModule } from '@angular/material/icon';
     HeaderComponent,
     TaskDashboardComponent,
     TaskDialogComponent,
-    TaskUpdateComponent
-
+    TaskUpdateComponent,
+    UserDetailsComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -53,9 +56,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
-    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule,
+ 
   ],
-  providers: [],
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, /* optional */
+  { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

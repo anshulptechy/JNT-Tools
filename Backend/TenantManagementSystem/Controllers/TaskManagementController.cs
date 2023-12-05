@@ -51,6 +51,38 @@ namespace TenantManagementSystem.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetByUserName))]
+        public IActionResult GetByUserName(string userName, string tenant)
+        {
+            try
+            {
+                // Assuming _customService.GetByUserName accepts both userName and tenant
+                var obj = _customService.GetTasksByUserAndTenant(userName, tenant);
+
+                if (obj == null)
+                {
+                    if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(tenant))
+                    {
+                        // Handle the case where either userName or tenant is empty
+                        return Ok(new List<taskStructure>()); // Or return NotFound("No data found for the specified parameters");
+                    }
+                    else
+                    {
+                        return NotFound($"No data found for the specified userName: {userName} and tenant: {tenant}");
+                    }
+                }
+                else
+                {
+                    return Ok(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+            }
+        }
+
 
         [HttpGet(nameof(GetById))]
         public IActionResult GetById(int Id)
