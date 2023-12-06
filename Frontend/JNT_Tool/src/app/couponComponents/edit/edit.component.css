@@ -1,17 +1,18 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
     margin: 0;
   }
   
   .container {
     max-width: 600px;
     margin: auto;
-    background-color: #fff;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    
   }
   
   h1 {
@@ -19,7 +20,7 @@ body {
     color: #333;
     padding: 20px;
     margin: 0;
-    background-color: #3498db;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
     color: #fff;
     border-bottom: 2px solid #2980b9;
   }
@@ -47,15 +48,11 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
-  /* input[type="radio"] {
-    margin-right: 5px;
-  } */
+ 
   
   .button-container {
     display: flex;
-    /* Change from space-between to center */
-    margin-top: 20px; /* Add margin-top for spacing */
+    margin-top: 20px; 
   }
   
   button {
@@ -65,7 +62,7 @@ body {
     justify-content: center;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #ecf0f1; /* Add a background color for better visibility */
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));  
   }
   
   .add-button{
@@ -74,7 +71,7 @@ body {
   }
   
   button:hover {
-    background-color: #bdc3c7; /* Change color on hover */
+    background-color: #bdc3c7; 
   }
   
   
@@ -95,22 +92,8 @@ body {
     text-align: center;
     display: none;
   }
-  
-  .loader {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-  }
-  
-  .loading-message {
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-  }
-  
+
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -154,4 +137,16 @@ body {
   .dialog-button.submit {
     background-color: #2ecc71;
   }
+  
+
+
+
+
+
+
+
+
+
+
+
   

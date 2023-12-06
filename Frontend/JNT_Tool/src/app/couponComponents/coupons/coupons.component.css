@@ -1,62 +1,60 @@
+/* my coupons css */
 .container-fluid {
-    margin: 20px;
-   }
-  
-  .mat-elevation-z8 {
-    width: 100%;
-    margin-top: 100px;
-    margin-right: 50px;
-  }
-  
-  mat-toolbar {
-    background-color: rgb(86, 167, 204); 
-    color: white;
-  }
-  
-  mat-form-field {
-    width: 300px; 
-  
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd; 
-    padding: 8px; 
-    text-align: left;
-  }
-  
-  th {
-    background-color: #4CAF50; 
-    color: rgb(17, 16, 16);
-  }
-  
-  .mat-row {
-    background-color: #f2f2f2; 
-  }
-  
-  .delete-confirmation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-  }
-  
-  .confirmation-box {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  
-  }
-  
+  margin: 20px;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+  margin-top: 100px;
+  margin-right: 50px;
+}
+
+mat-toolbar {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2; /* Match the background color of table header in Headers CSS */
+  color: black; /* Adjust the text color as needed */
+}
+
+.mat-row {
+  background-color: #f2f2f2; /* Match the background color of table rows in Headers CSS */
+}
+
+.delete-confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}

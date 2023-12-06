@@ -1,5 +1,7 @@
 body {
-    font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: #fff; 
     background-color: #f5f5f5;
     margin: 0;
   }
@@ -7,7 +9,7 @@ body {
   .container {
     max-width: 600px;
     margin: auto;
-    background-color: #fff;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -16,10 +18,10 @@ body {
   
   h1 {
     text-align: center;
-    color: #333;
+    color: #fff;
     padding: 20px;
     margin: 0;
-    background-color: #3498db;
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 70%, 21%));
     color: #fff;
     border-bottom: 2px solid #2980b9;
   }
@@ -65,26 +67,28 @@ body {
     justify-content: center;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #ecf0f1; /* Add a background color for better visibility */
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%)); 
+    
   }
   
   .add-button{
     margin-left: 170px;
-    
   }
   
   button:hover {
-    background-color: #bdc3c7; /* Change color on hover */
-  }
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%)); /* Change color on hover */
+}
   
   
-  button.save {
-    background-color: #2ecc71;
-  }
   
-  button.cancel {
-    background-color: #e74c3c;
-  }
+button.save {
+  background: linear-gradient(to bottom right, #2ecc71, #27ae60);
+}
+
+
+button.cancel {
+  background: linear-gradient(to bottom right, #e74c3c, #c0392b);
+}
   
   /* Loader Styles */
   .loader-container {
@@ -120,8 +124,8 @@ body {
   .dialog-container {
     max-width: 400px;
     margin: auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -148,15 +152,18 @@ body {
   }
   
   .dialog-button.close {
-    background-color: #e74c3c;
-  }
+    background: linear-gradient(to bottom right, #e74c3c, #c0392b);
+}
   
-  .dialog-button.submit {
-    background-color: #2ecc71;
-  }
-  .coupon-form {
-    width: 300px; /* Adjust the width as needed */
-  }
+
+.dialog-button.submit {
+  background: linear-gradient(to bottom right, #2ecc71, #27ae60);
+}
+  /* coupon form styles */
+.coupon-form {
+  width: 300px;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%))/* Use the same gradient as in Headers CSS */
+}
   
   .error-input {
     border: 1px solid red;
