@@ -1,15 +1,9 @@
 <app-header></app-header>
 <div class="container">
   <div class="d-grid gap-2 col-1">
-    <button class="btn btn-primary mx-auto" id="authorize_button" (click)="handleAuthClick()" type="button">Sync</button>
-    <button class="btn btn-primary mx-auto" id="signout_button" (click)="handleSignoutClick()" type="button">SyncOut</button>
+    <button class="btn mx-auto" id="authorize_button" (click)="handleAuthClick()" type="button">Sync</button>
+    <button class="btn mx-auto" id="signout_button" (click)="handleSignoutClick()" type="button">SyncOut</button>
   </div>
-  <!-- <button class="button" id="authorize_button" (click)="handleAuthClick()">
-    Sync
-  </button><br><br>
-  <button class="button" id="signout_button" (click)="handleSignoutClick()">
-    Syncout
-  </button> -->
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
@@ -20,7 +14,7 @@
     <h2>{{ selectedEvent.title }}</h2>
     <p><strong>Start:</strong> {{ selectedEvent.start }}</p>
     <p><strong>End:</strong> {{ selectedEvent.end }}</p>
-    <button (click)="openEditForm()">Edit</button>
+    <button (click)="openEditForm()">Edit</button> <br>
     <button (click)="removeEvent()">Remove</button>
   </div>
 </div>
