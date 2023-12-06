@@ -35,9 +35,15 @@ builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 builder.Services.AddScoped(typeof(TaskInterface1<>), typeof(TaskRepository<>));
 builder.Services.AddScoped<TaskServiceInterface1<taskStructure>, TaskService>();
 
+
+
+
 builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
 builder.Services.AddScoped<IEventService<Event>, EventService>();
+
+builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
+builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 #endregion
 

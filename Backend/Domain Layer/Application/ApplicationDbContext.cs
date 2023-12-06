@@ -28,8 +28,14 @@ namespace Domain_Layer.Application
         }
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
-   
 
+        public DbSet<SalaryRecord> SalaryRecords { get; set;}
+
+        public DbSet<EmployeeSalary> EmployeeSalaryRecords { get; set;}
+
+
+
+        
 
     }
 }
