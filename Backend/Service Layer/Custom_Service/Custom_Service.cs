@@ -83,7 +83,6 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        
         public void Update(Management entity)
         {
             try

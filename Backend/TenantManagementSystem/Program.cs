@@ -19,13 +19,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add repository to the container
-builder.Services.AddScoped(typeof(ICouponRepo<>), typeof(CouponRepo<>));
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 
 // Add services to the container.
-builder.Services.AddScoped<ICouponServices<Coupon>, CouponServices>();
+
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
+//inject dependency
+builder.Services.AddScoped(typeof(IAttRepository<>), typeof(AttRepository<>));
+builder.Services.AddScoped<IAttService<Attendences>, AttService>();
+builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
+builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
 
 
 

@@ -14,20 +14,24 @@ namespace Domain_Layer.Application
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Coupon>().Property(e => e.Discount).HasColumnType("decimal(10, 4)");
-
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Coupon>()
-        .HasIndex(c => c.CouponCode)
-        .IsUnique();
         }
         public DbSet<Management> Managements
         {
             get;
             set;
         }
-        public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<Attendences> AttendenceRecord
+        {
+            get;
+            set;
+        }
+        public DbSet<Screenshots> Screenshot
+        {
+            get;
+            set;
+        }
+
 
     }
 }

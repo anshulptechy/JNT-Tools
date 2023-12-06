@@ -1,73 +1,46 @@
 
+<app-header></app-header>
+<br><br>
+<section class="main">
+   
+  <div class="main-top">
 
-<div class="selectdrop">
-    <section>
-      <h1 style="color:blue;">Attendence Report</h1>
-      <hr>
-      <button class="hover" mat-button (click)="toggleDropdown()" (click)="onClick()">
-        <div>
-          <span >Attendence Report</span>
-        </div>
-      </button>
-      <span *ngIf="showDropdown" class="button-dropdowns">
-
-        <form [formGroup]="attendanceForm">
-          <span>
-            <span>
-              <mat-form-field>
-                <mat-label>Select Month</mat-label>
-                <mat-select formControlName="selectedMonth" (selectionChange)="generateMonthReport()"
-                  [(value)]="selectedMonth">
-                  <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </span>
-            &nbsp;&nbsp;&nbsp;
-            <span>
-              <mat-form-field>
-                <mat-label>Select Employee</mat-label>
-                <mat-select formControlName="selectedEmployee" (selectionChange)="generateEmpReport()"
-                  [(value)]="selectedEmployee">
-                  <mat-option *ngFor="let EmpName of employeeNames" [value]="EmpName">{{ EmpName }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-
-            </span>
-          </span>
-        </form>
-      </span>
-    </section>
-
-    <!-- Your attendance report content goes here -->
-    <div *ngIf="showTable" class="table-container" class="scrollable-container">
-      <table class="table">
-        <thead style="padding: 50px;">
-          <tr>
-            <!-- <th style="color:blue;">EmpId</th> -->
-            <th style="color:blue;">EmpName</th>
-            <th style="color:blue;">Designation</th>
-            <th style="color:blue;">Date</th>
-            <th style="color:blue;">Status</th>
-            <th style="color:blue;">Login Time</th>
-            <th style="color:blue;">Logout Time</th>
-            <th style="color:blue;">Hours</th>
-            <th style="color:blue;">Months</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let record of gridData">
-            <!-- <td style="color: green;">{{ record.empid }}</td> -->
-            <td style="color: green;">{{ record.empName }}</td>
-            <td>{{ record.designation }}</td>
-            <td>{{ record.date | date }}</td>
-            <td>{{ record.status }}</td>
-            <td>{{ record.loginTime | date:'HH:mm'}}</td>
-            <td>{{ record.logoutTime |date:'HH:mm' }}</td>
-            <td>{{ record.hours }}</td>
-            <td style="color: orangered;">{{record.month}}</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
+    <hr>
+    
+    <img src="assets/Attendence.jpg" alt="Attendance Image">
+    
   </div>
+</section>
+ 
+  
+    <!-- Table Section -->
+    <div class="row">
+      <div class="col">
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>LoginTime</th>
+                <th>LogoutTime</th>
+                <th>Hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tenant of tenants" (click)="setFormValues(tenant)">
+                <td>{{ tenant.id }}</td>
+                <td>{{ tenant.firstName }}</td>
+                <td>{{ tenant.lastName }}</td>
+                <td>{{ tenant.LoginTime }}</td>
+                <td>{{ tenant.LogoutTime }}</td>
+                <td>{{ tenant.Hours }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  
