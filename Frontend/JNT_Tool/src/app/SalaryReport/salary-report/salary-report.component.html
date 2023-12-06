@@ -1,51 +1,48 @@
 <app-header></app-header>
-<div *ngIf="showReportOptions" class="button-dropdowns">
-    <!-- Report Content -->
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label for="selectedMonth" class="form-label">Select Month</label>
-            <select class="form-select" [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-              <option *ngFor="let month of months" [value]="month">{{month}}</option>
-            </select>
-          </div>
-          
-          <div class="col-md-4">
-            <label for="selectedEmployee" class="form-label">Select Employee</label>
-            <select class="form-select" [(ngModel)]="selectedEmployee.id" (ngModelChange)="generateReport()" name="selectedEmployee">
-              <option *ngFor="let employee of employeeData" [value]="employee.id">{{employee.employeeName}}</option>
-            </select>
-          </div>
-    </div>
-  
-    <div *ngIf="showReportGrid">
-      <!-- Bootstrap table to display the report -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Employee ID</th>
-            <th>Employee Name</th>
-            <th>Role</th>
-            <th>Salary Month</th>
-            <th>Salary</th>
-            <th>Leaves</th>
-            <th>Deductions</th>
-            <th>Net Pay</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let record of reportData">
-                <td>{{ selectedEmployee.id }}</td>
-                <td>{{ selectedEmployee.employeeName }}</td> 
-                <td>{{ record.role }}</td>
-                <td>{{ record.salaryMonth }}</td>
-                <td>{{ record.salary }}</td>
-                <td>{{ record.leaves }}</td>
-                <td>{{ record.deductions }}</td>
-                <td>{{ record.netPay }}</td>
-              </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
 
+<div *ngIf="showReportOptions" class="button-dropdowns">
+  <!-- Report Content -->
+  <mat-form-field>
+    <mat-label>Select Month</mat-label>
+    <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
+      <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Select Employee</mat-label>
+    <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
+      <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee.employeeName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="showReportGrid">
+    <!-- Grid to display the report -->
+    <table>
+      <thead>
+        <tr>
+          <th>EmployeeID</th>
+          <th>Employee Name</th>
+          <th>Role</th>
+          <th>Salary Month</th>
+          <th>Salary</th>
+          <th>Leaves</th>
+          <th>Deductions</th>
+          <th>Net Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of reportData">
+          <td>{{ selectedEmployee.id }}</td>
+          <td>{{ selectedEmployee.employeeName }}</td>
+          <td>{{record.role}}</td>
+          <td>{{ record.salaryMonth }}</td>
+          <td>{{ record.salary }}</td>
+          <td>{{ record.leaves }}</td>
+          <td>{{ record.deductions }}</td>
+          <td>{{ record.netPay }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

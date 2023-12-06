@@ -1,3 +1,4 @@
+// salary-report.component.ts
 import { Component } from '@angular/core';
 import { SalaryService } from '../SalaryService/salary.service';
 import { Router } from '@angular/router';
@@ -12,11 +13,6 @@ export class SalaryReportComponent {
   showRecordOptions: boolean = true;
   selectedEmployee: { id: number, employeeName: string } = { id: 0, employeeName: '' };
   selectedMonth: string = '';
-  selectedEmployeeName: string = '';
-  Leaves: number = 0;
-  dailySalary: number = 0;
-  deductions: number = 0;
-  netSalary: number = 0;
   showReportOptions: boolean = true;
   showReportGrid: boolean = false;
   months: string[] = [];
@@ -24,35 +20,37 @@ export class SalaryReportComponent {
 
   constructor(
     private router: Router,
-    private employeeService: SalaryService,
-  
+    private employeeService: SalaryService
   ) {}
 
-
-
   ngOnInit(): void {
+    this.loadEmployeeData();
+    this.loadMonths();
+  }
+
+  loadEmployeeData() {
     this.employeeService.getAllEmployees().subscribe(
       (data: any[]) => {
         this.employeeData = data;
-       
       },
-      (      error: any) => {
+      (error: any) => {
         console.error('Error fetching employees:', error);
       }
     );
+  }
 
+  loadMonths() {
     this.employeeService.getMonths().subscribe(
       (months: string[]) => {
         this.months = months;
       },
-      (      error: any) => {
+      (error: any) => {
         console.error('Error fetching months:', error);
       }
     );
   }
 
   generateReport() {
-   
     if (this.selectedMonth && this.selectedEmployee.id) {
       this.employeeService.getSalaryData(this.selectedMonth, this.selectedEmployee.id).subscribe(
         (data: any[]) => {
@@ -66,4 +64,10 @@ export class SalaryReportComponent {
     }
   }
 
+  updateSelectedEmployee() {
+    const selectedEmployee = this.employeeData.find(e => e.id === this.selectedEmployee.id);
+    if (selectedEmployee) {
+      this.selectedEmployee.employeeName = selectedEmployee.employeeName;
+    }
+  }
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SalaryService {
-  private baseUrl = 'https://localhost:7126/api/Report'; 
+  private baseUrl = 'https://localhost:7126/api/SalaryReport';
 
   constructor(private http: HttpClient) { }
 
@@ -16,14 +16,12 @@ export class SalaryService {
   }
 
   getAllEmployees(): Observable<any[]> {
-    const url = `https://localhost:7126/api/Salary/employee-names`;
+    const url = `${this.baseUrl}/all-employees`;
     return this.http.get<any[]>(url);
   }
 
-  
-  getSalaryData(month: string, employeeId: number): Observable<any[]> {
+  getSalaryData(month: string,employeeId: number,): Observable<any[]> {
     const url = `${this.baseUrl}/salary-records/${month}/${employeeId}`;
     return this.http.get<any[]>(url);
   }
-
 }
