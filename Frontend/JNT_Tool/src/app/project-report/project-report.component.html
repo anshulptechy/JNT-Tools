@@ -2,7 +2,7 @@
 <div class="container customUpperMargin">
   <div class="row">
     <div class="d-flex justify-content-end">
-      <button class="btn btn-l btn-primary" (click)="exportToCSV()">
+      <button class="btn btn-l customCsv text-white" (click)="exportToCSV()">
         Export to CSV
       </button>
     </div>
@@ -86,7 +86,7 @@
     <tbody>
       <ng-container *ngIf="filteredProjects.length > 0; else noDataMessage">
         <tr *ngFor="let project of filteredProjects">
-          <th scope="row">{{ project.projectId }}</th>
+          <td scope="row">{{ project.projectId }}</td>
           <td>{{ project.projectName }}</td>
           <td>{{ project.client }}</td>
           <td>{{ project.startDate | date : "yyyy-MM-dd" }}</td>
