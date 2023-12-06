@@ -44,10 +44,21 @@ export class CouponsComponent  implements OnInit {
       next: (res) => {
         this.getCouponsList();
         this.showDeleteConfirmation = false;
+  
+        // Check if the data source is empty, then clear the table
+        if (this.dataSource.data.length === 0) {
+          this.dataSource.data = []; // Assign an empty array to clear the table
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
       },
       error: console.log,
     });
   }
+  
+  
+  
+  
 
   cancelDelete() {
     this.showDeleteConfirmation = false;

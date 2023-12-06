@@ -28,6 +28,15 @@ namespace Domain_Layer.Application
             set;
         }
         public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<projectModel> projectDataTable
+        {
+            get;
+            set;
+        }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<taskStructure> taskTable3 { get; set; }
+   
+
 
     }
 }

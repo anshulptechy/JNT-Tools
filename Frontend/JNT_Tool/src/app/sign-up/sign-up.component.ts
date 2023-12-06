@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 import { TenantService } from '../tenant.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
@@ -32,7 +33,7 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, { validators: this.passwordMatchValidator });
 
-  constructor(private router: Router, private tenantService: TenantService) {}
+  constructor(private router: Router, private tenantService: TenantService, private userservice: UserService) {}
 
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
@@ -88,6 +89,7 @@ export class SignupComponent {
           return;
         }
 
+        const userId = this.userservice.generateUserId();
         // Sign up the user with Supabase
         const signupResult = await this.supabase.auth.signUp({
           email: (email ?? '').toString(),
@@ -102,6 +104,7 @@ export class SignupComponent {
         // After successful signup, create a new tenant
         const tenantRequest = {
           id: 0,
+          userId,
           email,
           department,
           firstName,
@@ -112,8 +115,11 @@ export class SignupComponent {
         
         const { id,confirmPassword, ...dataWithoutId } = this.signupForm.value;
         const { data: userData, error: userError } = await this.supabase
-          .from('usertable')
-          .upsert([dataWithoutId]);
+        .from('usertable')
+        .upsert([{
+          ...dataWithoutId,
+          userId: userId, // Include the userId in the upsert operation
+        }]);
            
         
 

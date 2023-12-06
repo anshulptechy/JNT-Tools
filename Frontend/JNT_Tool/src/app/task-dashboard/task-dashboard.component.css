@@ -1,0 +1,74 @@
+/* Add this CSS to your component's stylesheet */
+
+.container1 {
+  background-color: rgba(255, 255, 255, 0);
+  margin: 100px ;
+  font-family: var(--bs-body-font-family);
+}
+
+.tableGrid {
+  width: 100%;
+
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #bdc3c7;
+}
+
+.tableHead th {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
+  color: white;
+  padding: 15px;
+  border: 1px solid #bdc3c7;
+}
+
+.tableData td {
+  border: 1px solid #bdc3c7;
+  padding: 15px;
+}
+
+.custom-button {
+  padding: 10px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background: linear-gradient(to bottom right, hsl(219, 38%, 30%), hsl(219, 27%, 50%));
+}
+
+.addUserButton {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.addUserButton:hover {
+  background: linear-gradient(to bottom right, hsl(218, 34%, 27%), hsl(219, 34%, 55%));
+}
+
+/* If you want to hide the border and background for the last row, you can add the following: */
+.tableData tr:last-child td {
+  border-bottom: none;
+}
+
+/* Adjustments for small screens (optional) */
+@media (max-width: 768px) {
+  .container1 {
+    margin-top: 0;
+  }
+
+  .addUserButton {
+    margin-bottom: 10px;
+  }
+}

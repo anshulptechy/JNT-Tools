@@ -1,0 +1,49 @@
+<body>
+  <app-header></app-header>
+<!-- dashboard.component.html -->
+<div class="container">
+  <main>
+
+    <div *ngIf="showContent">
+      <button *ngIf="showProjectsTable" class="create-button" (click)="openCreateProjectDialog()">
+        Create New Project
+      </button>
+      <table *ngIf="showProjectsTable" class="project-table" border="1px">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Client</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Country</th>
+            <th>Budget</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add your table content here -->
+          <tr *ngFor="let project of projects">
+            <td>{{ project.projectName }}</td>
+            <td>{{ project.client }}</td>
+            <td>{{ project.startDate | date:'shortDate'}}</td>
+            <td>{{ project.endDate | date:'shortDate'}}</td>
+            <td>{{ project.country }}</td>
+            <td>{{ project.budget }}</td>
+            <td>{{ project.status }}</td>
+            <td>
+              <!-- Action buttons for each row -->
+              <button mat-icon-button (click)="openUpdateProjectDialog(project)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="openConfirmationDialog(project)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>

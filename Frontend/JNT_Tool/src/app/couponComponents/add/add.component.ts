@@ -51,7 +51,7 @@ export class AddComponent {
   }
 
   async onSaveClick() {
-
+   
     try {
       // Get form data and add the coupon using the CouponService
       const formData = this.couponForm.value;

@@ -11,6 +11,9 @@ baseUrl='https://localhost:7126/api/Values/'
   {
     return this.userHttp.get(this.baseUrl+'GetAllTenant');
   }
+  getUserByTenant(tenantName: string){
+    return this.userHttp.get(`https://localhost:7126/api/Values/GetUsersByTenantName?tenantName=${tenantName}`)
+  }
   createTenants(newTenantData:any){
     return this.userHttp.post(this.baseUrl+'CreateTenant',newTenantData)
     
