@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { SupabaseService } from '../supabase.service';
 
 
@@ -11,16 +11,15 @@ import { SupabaseService } from '../supabase.service';
 export class CouponService {
   constructor(private _http: HttpClient, private supaService: SupabaseService) { }
 
-  async addCoupon(data: any): Promise<Observable<any>> { debugger;
+  
+  async addCoupon(data: any): Promise<Observable<any>> {
     try {
-      debugger;
       const userDetails = await this.supaService.getUserDetails();
       const supabaseUserId = userDetails?.id;
 
       if (supabaseUserId) {
-         console.log(data);
-        const response = await this._http.post('https://localhost:7126/api/Coupon/Create', data);
-        console.log('data'+data);
+        data.SupabaseUserId = supabaseUserId;
+        const response = await this._http.post('https://localhost:7126/api/Coupon/Create', data).toPromise();
         return new Observable(observer => {
           observer.next(response);
           observer.complete();
@@ -33,19 +32,20 @@ export class CouponService {
       throw error; 
     }
   }
+  
 
   updateCoupon(data: any): Observable<any> {
     return this._http.put(`https://localhost:7126/api/Coupon/Update`, data);
   }
 
-  async getCouponsListForUser(): Promise<Observable<any>> { debugger;
+  async getCouponsListForUser(): Promise<Observable<any>> { 
     try {
-      debugger;
+   
       const userDetails = await this.supaService.getUserDetails();
       const supabaseUserId = userDetails?.id;
 
       if (supabaseUserId) {
-        console.log(supabaseUserId);
+     
         const url = `https://localhost:7126/api/Coupon/${supabaseUserId}`;
         return this._http.get(url);
       } else {

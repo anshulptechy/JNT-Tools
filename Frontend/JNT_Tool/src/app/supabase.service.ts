@@ -21,50 +21,50 @@ export class SupabaseService {
   }
 
 
-  async signUpAndInsertUserData(name: string, email: string, password: string) {
-    try {
-      // Check if the email is already registered
-      const { data: existingUser } = await this.supabase_client
-        .from('CMS')
-        .select('id')
-        .eq('email', email);
+  // async signUpAndInsertUserData(name: string, email: string, password: string) {
+  //   try {
+  //     // Check if the email is already registered
+  //     const { data: existingUser } = await this.supabase_client
+  //       .from('CMS')
+  //       .select('id')
+  //       .eq('email', email);
   
-      if (existingUser && existingUser.length > 0) {       
-        throw { message: 'Email is already registered' };
-      }
+  //     if (existingUser && existingUser.length > 0) {       
+  //       throw { message: 'Email is already registered' };
+  //     }
 
-      // Register the user
-      this.userIdCounter++;
-      const signUpResponse = await this.supabase_client.auth.signUp({ email, password });
+  //     // Register the user
+  //     this.userIdCounter++;
+  //     const signUpResponse = await this.supabase_client.auth.signUp({ email, password });
   
-      if (signUpResponse.error) {
-        console.error('Error signing up:', signUpResponse.error.message);
-        throw signUpResponse.error;
-      }
+  //     if (signUpResponse.error) {
+  //       console.error('Error signing up:', signUpResponse.error.message);
+  //       throw signUpResponse.error;
+  //     }
   
-      // Insert user data into CMS table
-      const { error } = await this.supabase_client
-        .from('CMS')
-        .upsert([
-          {
-            id: this.userIdCounter,
-            name,
-            email,
-            password,
-          }
-        ]);
+  //     // Insert user data into CMS table
+  //     const { error } = await this.supabase_client
+  //       .from('CMS')
+  //       .upsert([
+  //         {
+  //           id: this.userIdCounter,
+  //           name,
+  //           email,
+  //           password,
+  //         }
+  //       ]);
   
-      if (error) {
-        console.error('Error inserting user data into CMS table:', error.message);
-        throw error;
-      }
+  //     if (error) {
+  //       console.error('Error inserting user data into CMS table:', error.message);
+  //       throw error;
+  //     }
   
-      return signUpResponse;
-    } catch (error) {
-      console.error('Error during registration and data insertion:', (error as Error).message);
-      throw error;
-    }
-  }
+  //     return signUpResponse;
+  //   } catch (error) {
+  //     console.error('Error during registration and data insertion:', (error as Error).message);
+  //     throw error;
+  //   }
+  // }
   
 
 
@@ -86,7 +86,6 @@ export class SupabaseService {
 async getUserDetails(): Promise<User | null> {
   try {
     const { data, error } = await this.supabase_client.auth.getUser();
-console.log(data);
     if (error) {
       console.error('Error fetching user details:', error.message);
       return null;
@@ -104,7 +103,7 @@ console.log(data);
 }
 
 
-  setSupabaseID(supabaseID: string): void { debugger;
+  setSupabaseID(supabaseID: string): void { 
     localStorage.setItem(this.supabaseIDKey, supabaseID);
   }
   getSupabaseID(): string | null {

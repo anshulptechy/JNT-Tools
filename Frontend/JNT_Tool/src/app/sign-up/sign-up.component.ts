@@ -46,7 +46,7 @@ export class SignupComponent {
   }
 
   async onSubmit() {
-    debugger;
+
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')

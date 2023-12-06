@@ -20,19 +20,19 @@ export class EditComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.updateForm = this.fb.group({
-         // Initialize the form with default values and validators
-      id: [0],
-      couponCode: ['', [Validators.required]],
-      couponName: ['', [Validators.required]],
-      description: [''],
-      discount: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      discountType: ['', [Validators.required]],
-      supabaseUserId: ['', [Validators.required]]
-    }, { validators: this.dateValidator }); 
-  }
+      // Initialize the form with default values and validators
+   id: [0],
+   couponCode: ['', [Validators.required]],
+   couponName: ['', [Validators.required]],
+   description: [''],
+   discount: ['', [Validators.required, Validators.min(1)]],
+   quantity: ['', [Validators.required, Validators.min(1)]],
+   startDate: ['', [Validators.required]],
+   endDate: ['', [Validators.required]],
+   discountType: ['', [Validators.required]],
+   supabaseUserId: ['', [Validators.required]]
+ });
+}
 
   ngOnInit() {
     // Populate the form with existing coupon data on component initialization
@@ -51,7 +51,7 @@ export class EditComponent {
         quantity: result.quantity,
         startDate: this.formatDate(result.startDate),
         endDate: this.formatDate(result.endDate),
-        discountType: result.discountType,
+        discountType: result.discountType || '',
         supabaseUserId: result.supabaseUserId,
       });
     });

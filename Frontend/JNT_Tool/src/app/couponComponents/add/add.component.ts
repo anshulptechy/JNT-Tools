@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { SupabaseService } from 'src/app/supabase.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add',
@@ -61,6 +62,11 @@ export class AddComponent {
     } finally {
       this.dialogRef.close();
       this.loading = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Added!',
+        text: 'coupons added successfully',
+      });
     }
   }
 
