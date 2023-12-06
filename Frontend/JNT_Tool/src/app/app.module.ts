@@ -34,6 +34,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { RouterModule } from '@angular/router';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
 
 @NgModule({
@@ -76,6 +78,18 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     MatSnackBarModule,
     MatMomentDateModule,
     RouterModule,
+    MatPaginatorModule, 
+    MatMomentDateModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    NgxUiLoaderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    MatInputModule,
+    NgxUiLoaderModule,
   ],
   providers: [
     DatePipe,
