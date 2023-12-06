@@ -1,96 +1,80 @@
-/* component-specific styles.css */
-
-/* Style for the page container */
 .page {
-    margin: 100px;
-  }
-  
-  /* Style for the dialog content */
-  .dialog-content {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .form-field {
-    margin-bottom: 20px;
-  }
-  
-  .show-grid-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    margin-left: auto; /* Shift the button to the right */
-  }
-  
-  .show-grid-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Style for the table */
-  .tableGrid {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .tableGrid th,
-  .tableGrid td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .tableGrid th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  .tableGrid tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .tableGrid tr:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .tableGrid td button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  .tableGrid td button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Style for spacing between buttons */
-  .custom-button {
-    margin-right: 5px;
-  }
-  
-  /* Optional: If you want to align the buttons to the right */
-  .tableData td:last-child {
-    text-align: left;
-  }
-  
-  /* Style for the table row */
-  .tableRow {
-    cursor: pointer;
-  }
-  
-  /* Style for the mat-icon inside buttons */
-  .edit-button mat-icon,
-  .delete-button mat-icon {
-    vertical-align: text-bottom;
-    margin-right: 5px;
-  }
-  
+  background-color: rgba(255, 255, 255, 0);
+  margin: 100px;
+  padding: 20px;
+  flex-grow: 1;
+  font-family: var(--bs-body-font-family);
+
+}
+
+.dialog-content {
+  margin-bottom: 20px;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #bdc3c7;
+  text-align: center;
+}
+
+.tableHead {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  padding: 15px;
+  height: 50px;
+  border: 1px solid #bdc3c7;
+}
+.tableHead th {
+  border: 1px solid #bdc3c7;
+}
+
+
+.tableData td {
+  border: 1px solid #bdc3c7;
+  padding: 15px;
+}
+
+.custom-button {
+  padding: 10px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background: linear-gradient(to bottom right, hsl(219, 38%, 30%), hsl(219, 27%, 50%));
+}
+
+.edit-button, .delete-button {
+  display: inline-block;
+}
+
+.tableRow {
+  background-color: aliceblue;
+}
+
+.show-grid-button {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.show-grid-button:hover {
+  background: linear-gradient(to bottom right, hsl(219, 38%, 30%), hsl(219, 27%, 50%));
+}
