@@ -72,7 +72,7 @@ namespace TenantManagementSystem.Controllers
 
                 {
                     // Assuming UserId in Attendence corresponds to the Id in Management
-                    var management = _applicationDbContext.Managements.FirstOrDefault(m => m.id == Attendence.id);
+                    var management = _applicationDbContext.Managements.FirstOrDefault(Managements => Managements.id == Attendence.id);
 
                     if (management != null)
                     {
@@ -124,35 +124,36 @@ namespace TenantManagementSystem.Controllers
             }
 
         }
-        [HttpGet(nameof(GetAllAttendenceWithManagement))]
-        public IActionResult GetAllAttendenceWithManagement()
+        [HttpPost(nameof(CreateManagementAndAttendance))]
+        public IActionResult CreateManagementAndAttendance(Management management)
         {
             try
             {
-                var attendanceRecords = _AttendenceServices.GetAll();
-                var ids = attendanceRecords.Select(att => att.id).ToList();
-
-                var Managements = _applicationDbContext.Managements
-                    .Where(management => ids.Contains(management.id))
-                    .ToList();
-
-                var result = attendanceRecords.Select(attendance => new
+                if (management != null)
                 {
-                    id = attendance.id,
-                 
-                    LoginTime = attendance.LoginTime,
-                    LogoutTime = attendance.LogoutTime,
-                    Hours = attendance.Hours,
-                    ManagementInfo = Managements.FirstOrDefault(m => m.id == attendance.id)
-                }).ToList();
+                    _applicationDbContext.Managements.Add(management);
+                    _applicationDbContext.SaveChanges();
 
-                _AttendenceServices.CalculateHours(attendanceRecords);
+                    Attendences newAttendanceEntry = new Attendences
+                    {
+                        id = management.id,
+                        LoginTime = DateTime.Now,
+                        LogoutTime = DateTime.Now.AddHours(8), // Adjust this as needed
+                        Hours = TimeSpan.FromHours(8) // Adjust this as needed
+                    };
 
-                return Ok(result);
+                    _AttendenceServices.Insert(newAttendanceEntry);
+
+                    return Ok("User created successfully with attendance entry.");
+                }
+                else
+                {
+                    return BadRequest("Invalid Management data");
+                }
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error retrieving or calculating hours: {ex.Message}");
+                return BadRequest($"Error creating user and attendance: {ex.Message}");
             }
         }
 

@@ -59,6 +59,8 @@ namespace Domain_Layer.Migrations
                 name: "Attendence",
                 columns: table => new
                 {
+                    AttendenceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     id = table.Column<int>(type: "int", nullable: false),
                     LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -66,7 +68,7 @@ namespace Domain_Layer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendence", x => x.id);
+                    table.PrimaryKey("PK_Attendence", x => x.AttendenceId);
                     table.ForeignKey(
                         name: "FK_Attendence_Managements_id",
                         column: x => x.id,
@@ -74,6 +76,11 @@ namespace Domain_Layer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendence_id",
+                table: "Attendence",
+                column: "id");
         }
 
         /// <inheritdoc />

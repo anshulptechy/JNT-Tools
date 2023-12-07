@@ -2,6 +2,7 @@
 using Domain_Layer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Service_Layer.Custom_Service;
 using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
@@ -11,11 +12,13 @@ namespace TenantManagementSystem.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly ICustomService<Management> _customService;
+        private readonly IAttService<Attendences> _AttendenceServices;
         private readonly ApplicationDbContext _applicationDbContext;
-        public ValuesController(ICustomService<Management> customService, ApplicationDbContext applicationDbContext)
+        public ValuesController(ICustomService<Management> customService, IAttService<Attendences> AttendenceServices, ApplicationDbContext applicationDbContext)
         {
             _customService = customService;
             _applicationDbContext = applicationDbContext;
+            _AttendenceServices = AttendenceServices;
         }
         [HttpGet(nameof(GetTenantById))]
         public IActionResult GetTenantById(int Id)
@@ -48,7 +51,8 @@ namespace TenantManagementSystem.Controllers
         {
             if (student != null)
             {
-                _customService.Insert(student);
+                _AttendenceServices.CreateManagementUserAndAttendance(student);
+                //_customService.Insert(student);
                 return Ok("Created Successfully");
             }
             else
@@ -97,5 +101,6 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest("Something went wrong");
             }
         }
+
     }
 }

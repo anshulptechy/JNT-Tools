@@ -14,7 +14,12 @@ namespace Domain_Layer.Application
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Attendences>()
+                 .HasOne(a => a.Management)
+                 .WithOne()
+                 .HasForeignKey<Attendences>(a => a.id)
+                 .IsRequired();
         }
         public DbSet<Management> Managements
         {

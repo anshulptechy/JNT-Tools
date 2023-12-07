@@ -1,4 +1,6 @@
-﻿using Domain_Layer.Models;
+﻿using Domain_Layer.Application;
+using Domain_Layer.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository_Layer.IRepository;
 using Service_Layer.Custom_Service;
 using System;
@@ -12,11 +14,13 @@ namespace Service_Layer.ICustomService
     public class AttService : IAttService<Attendences>
     {
         private readonly IAttRepository<Attendences> _AttendenceRepository;
-        public AttService(IAttRepository<Attendences> AttendenceRepository)
+        private readonly ApplicationDbContext _applicationDbContext;
+
+        public AttService(IAttRepository<Attendences> AttendenceRepository, ApplicationDbContext applicationDbContext)
         {
             _AttendenceRepository = AttendenceRepository;
+            _applicationDbContext = applicationDbContext;
         }
-
         public IAttRepository<Attendences>? AttendenceRepository
         {
             get; private set;
@@ -155,6 +159,24 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
-       
+        public void CreateManagementUserAndAttendance(Management management)
+        {
+            // Add the new user to the Management table
+            _applicationDbContext.Managements.Add(management);
+            _applicationDbContext.SaveChanges();
+
+            // Create a corresponding entry in the Attendences table
+            Attendences attendance = new Attendences
+            {
+                id = management.id,
+                LoginTime = DateTime.Now,
+                LogoutTime = DateTime.Now, // Set as needed
+                Hours = TimeSpan.Zero // Set as needed
+            };
+
+            _applicationDbContext.Attendence.Add(attendance);
+            _applicationDbContext.SaveChanges();
+        }
     }
 }
+

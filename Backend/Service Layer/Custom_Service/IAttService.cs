@@ -16,6 +16,7 @@ namespace Service_Layer.Custom_Service
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void CreateManagementUserAndAttendance(Management management);
 
     }
 }

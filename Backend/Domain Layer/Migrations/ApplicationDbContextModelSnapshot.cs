@@ -24,8 +24,11 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("AttendenceId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendenceId"));
 
                     b.Property<TimeSpan?>("Hours")
                         .HasColumnType("time");
@@ -36,7 +39,12 @@ namespace Domain_Layer.Migrations
                     b.Property<DateTime>("LogoutTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttendenceId");
+
+                    b.HasIndex("id");
 
                     b.ToTable("Attendence");
                 });

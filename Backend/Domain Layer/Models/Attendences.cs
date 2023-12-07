@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Principal;
@@ -10,28 +11,17 @@ namespace Domain_Layer.Models
 {
     public class Attendences
     {
+        [Key]
+        public int AttendenceId { get; set; }
+
         [ForeignKey("id")]
-        public Management Management { get; set; }
-        public int id
-        {
-            get;
-            set;
-        }
-        public DateTime LoginTime
-        {
-            get;
-            set;
-        }
-        public DateTime LogoutTime
-        {
-            get;
-            set;
-        }
-        public TimeSpan? Hours
-        {
-            get;
-            set;
-        }
+        public virtual Management Management { get; set; }
+        public int id { get; set; }
+        
+
+        public DateTime LoginTime { get; set; }
+        public DateTime LogoutTime { get; set; }
+        public TimeSpan? Hours { get; set; }
 
     }
 }
