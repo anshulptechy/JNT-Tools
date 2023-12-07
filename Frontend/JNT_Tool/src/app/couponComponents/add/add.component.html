@@ -2,6 +2,7 @@
 <div>
     <h1>Create Coupon</h1>
     <form [formGroup]="couponForm" >
+      <div class="container1">
         <div class="row">
         <label>Coupon Name<span style="color: red;">*</span></label>
         <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName"><br>
@@ -57,7 +58,7 @@
         *ngIf="couponForm.get('discountType')?.hasError('required') && couponForm.get('discountType')?.touched">
         Discount Type is required.
       </div>   </div>
-
+    </div>
         <div class="add-button">
             <button type="submit" (click)="onSaveClick()">Save</button>&nbsp;
             <button type="button" (click)="onCancelClick()" >Cancel</button>

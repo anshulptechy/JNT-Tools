@@ -58,3 +58,11 @@ th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+
+.btn{
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}

@@ -46,15 +46,19 @@ export class CouponsComponent  implements OnInit {
         this.showDeleteConfirmation = false;
   
         // Check if the data source is empty, then clear the table
-        if (this.dataSource.data.length === 0) {
-          this.dataSource.data = []; // Assign an empty array to clear the table
+        if (this.dataSource.data.length === 1) {
+          this.dataSource.data = [];
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+  
+          // Reload the page manually
+          window.location.reload();
         }
       },
       error: console.log,
     });
   }
+  
   
   
   
@@ -65,15 +69,17 @@ export class CouponsComponent  implements OnInit {
   }
 
   openAddForm() {
-    const DialogRef = this._dialog.open(AddComponent);
-    DialogRef.afterClosed().subscribe({
-      next: (val: CouponsModel) => {
-        if (val) {
-          this.getCouponsList();
-        }
+    const dialogRef = this._dialog.open(AddComponent);
+  
+    dialogRef.afterClosed().subscribe(async (val: CouponsModel) => {
+      if (val) {
+        // Fetch the updated list of coupons after adding a new coupon
+        await this.getCouponsList();
       }
     });
   }
+  
+  
 
   async getCouponsList() {
     try {
@@ -114,4 +120,5 @@ export class CouponsComponent  implements OnInit {
       this.getCouponsList();
     });
   }
+  
 }

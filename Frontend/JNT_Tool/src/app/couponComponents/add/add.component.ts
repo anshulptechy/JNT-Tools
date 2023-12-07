@@ -60,7 +60,7 @@ export class AddComponent {
     } catch (error) {
       console.error('Error adding coupon:', error);
     } finally {
-      this.dialogRef.close();
+      this.dialogRef.close(this.couponForm);
       this.loading = false;
       Swal.fire({
         icon: 'success',
