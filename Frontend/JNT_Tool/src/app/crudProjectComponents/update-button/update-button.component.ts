@@ -14,7 +14,7 @@ import { ProjectService } from '../../crudProjectService/services/project.servic
 export class UpdateButtonComponent implements OnInit {
   updateForm: FormGroup | any;
   
-  countries: string[] = ['India', 'Australia', 'United states', 'England', 'Russia', 'China','Canada','Dubai','Quator','Japan','Italy','Israel'];
+  countries: string[] = ['USA', 'Canada', 'UK', 'Germany', 'France', 'Australia', 'Japan', 'South Korea', 'Singapore', 'India', 'Brazil', 'Mexico', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland'];
 
   constructor(public dialogRef: MatDialogRef<UpdateButtonComponent>,  @Inject(MAT_DIALOG_DATA) public data: any, 
   private fb: FormBuilder, private serve:ProjectService) {
