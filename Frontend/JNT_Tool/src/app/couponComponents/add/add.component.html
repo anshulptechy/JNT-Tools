@@ -1,67 +1,66 @@
 <app-header></app-header>
-<div>
-    <h1>Create Coupon</h1>
-    <form [formGroup]="couponForm" >
-      <div class="container1">
-        <div class="row">
-        <label>Coupon Name<span style="color: red;">*</span></label>
-        <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName"><br>
-        <div style="color: red;" *ngIf="couponForm.get('couponName')?.hasError('required') && couponForm.get('couponName')?.touched">
-            Coupon Name is required.
-          </div>   
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <label>Description</label>
-        <input type="text" placeholder="" formControlName="description">
-        
+<h2 mat-dialog-title>Create New Coupons</h2>
+<form [formGroup]="couponForm" class="container1">
+  <div class="row">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Coupon Name</mat-label>
+      <input matInput placeholder="Ex. Diwali Coupon" formControlName="couponName">
+     
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="" formControlName="description">
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Discount</mat-label>
+      <input matInput type="number" placeholder="" formControlName="discount">
+      
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Quantity</mat-label>
+      <input matInput type="number" placeholder="" formControlName="quantity">
+    
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+      
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+     
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div>
+      <mat-label><b>Discount Type</b></mat-label>&nbsp;&nbsp;
+      <mat-radio-group formControlName="discountType">
+        <mat-radio-button value="Fixed Amount">Fixed Amount</mat-radio-button>
+        <mat-radio-button value="Percentage">Percentage</mat-radio-button>
+      </mat-radio-group>
+
     </div>
-    <div class="row">
-        <label>Discount<span style="color: red;">*</span></label>
-        <input type="number" placeholder="" formControlName="discount">
-        <div style="color: red;"
-        *ngIf="couponForm.get('discount')?.hasError('required') && couponForm.get('discount')?.touched">
-        Discount is required.
-      </div>  
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <label>Quantity<span style="color: red;">*</span></label>
-        <input type="number" placeholder="" formControlName="quantity">
-        <div style="color: red;"
-        *ngIf="couponForm.get('quantity')?.hasError('required') && couponForm.get('quantity')?.touched">
-        Quantity is required.
-      </div>  
-    </div>
-        <div class="row">
-        <label>Start Date<span style="color: red;">*</span></label>
-        <input type="date" formControlName="startDate">
-        <div style="color: red;"
-        *ngIf="couponForm.get('startDate')?.hasError('required') && couponForm.get('startDate')?.touched">
-        Start Date is required.
-      </div>  
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <label>End Date<span style="color: red;">*</span></label>
-        <input type="date" formControlName="endDate">
-        <div style="color: red;"
-        *ngIf="couponForm.get('endDate')?.hasError('required') && couponForm.get('endDate')?.touched">
-        End Date is required.
-      </div>  
-    </div>
-        <div class="row">
-        <div>
-            <label><b>Discount Type<span style="color: red;">*</span></b></label>&nbsp;&nbsp;
-            <label>
-                <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
-            </label>&nbsp;&nbsp;
-            <label>
-                <input type="radio" value="Percentage" formControlName="discountType"> Percentage
-            </label>
-        </div>   
-        <div style="color: red;"
-        *ngIf="couponForm.get('discountType')?.hasError('required') && couponForm.get('discountType')?.touched">
-        Discount Type is required.
-      </div>   </div>
-    </div>
-        <div class="add-button">
-            <button type="submit" (click)="onSaveClick()">Save</button>&nbsp;
-            <button type="button" (click)="onCancelClick()" >Cancel</button>
-        </div>
-    </form>
+  </div>
+</form>
+<div *ngIf="couponForm.invalid && (couponForm.dirty || couponForm.touched)" style="color: red; margin-left: 150px;">
+  *Please fill in all the required fields!
+</div>
+<div mat-dialog-actions class="button-container">
+  <button style="margin-right: 5px;" (click)="onSaveClick()" [disabled]="isSaveButtonDisabled()">Save</button>
+  <button  (click)="onCancelClick()">Cancel</button>
 </div>

@@ -1,201 +1,78 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-  color: #fff; 
-    background-color: #f5f5f5;
-    margin: 0;
-  }
-  
-  .container {
-    max-width: 600px;
-    margin: auto;
-    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  h1 {
-   
-    color: #fff;
-  
-    margin-left: 30px;
-    /* background: linear-gradient(to bottom right, #3c035d, hsl(218, 70%, 21%)); */
-    color: black;
-    margin-top: 10px;
-    /* border-bottom: 2px solid #2980b9; */
-  }
-  
-  form {
-    padding: 10px;
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-   
-  }
-  
-  label {
-    flex: 1;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    flex: 2;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  input[type="radio"] {
-    margin-right: 5px;
-  }
-  
-  .button-container {
-    display: flex;
-    /* Change from space-between to center */
-    margin-top: 20px; /* Add margin-top for spacing */
-   
-  }
-  
-  button {
-    padding: 10px 20px;
-    color: white;
-    border: none;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%)); 
-    
-  }
-  
-  .add-button{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%)); /* Change color on hover */
-}
-  
-  
-  
-button.save {
-  background: linear-gradient(to bottom right, #2ecc71, #27ae60);
-}
-
-
-button.cancel {
-  background: linear-gradient(to bottom right, #e74c3c, #c0392b);
-}
-  
-  /* Loader Styles */
-  .loader-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    display: none;
-  }
-  
-  .loader {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-  }
-  
-  .loading-message {
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Dialog Styles */
-  .dialog-container {
-    max-width: 400px;
-    margin: auto;
-    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-  border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .dialog-row {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-  }
-  
-  .dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-  
-  .dialog-button {
-    padding: 10px 20px;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .dialog-button.close {
-    background: linear-gradient(to bottom right, #e74c3c, #c0392b);
-}
-  
-
-.dialog-button.submit {
-  background: linear-gradient(to bottom right, #2ecc71, #27ae60);
-}
-  /* coupon form styles */
-.coupon-form {
-  width: 300px;
-  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%))/* Use the same gradient as in Headers CSS */
-}
-  
-  .error-input {
-    border: 1px solid red;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  .input-icon {
-    position: relative;
-  }
-  
-  .input-icon i {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 10px;
-    color: #ccc;
-  }
-  
-.container1{
+.container1 {
   display: flex;
   flex-direction: column;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 8px; 
-  background-color: #f5f5f5; 
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+.button-container button {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+}
+
+.button-container button:hover{
+  background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
+}
+
+.mat-dialog-actions {
+  margin-top: 20px;
+  text-align: right; 
+}
+
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; 
+}
+
+
+.form-field {
+  width: 48%;
+  padding: 10px;
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  box-sizing: border-box; 
+}
+.form-field:hover {
+  border-color: #375a76; 
+}
+.form-field:focus {
+  outline: none; 
+  border-color: #4cae4c; 
+  box-shadow: 0 0 5px rgba(76, 174, 76, 0.5); 
+}
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.half-width {
+  flex: 0 0 calc(50% - 10px); 
+  margin-right: 10px; 
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px; 
+ 
+}
+.button-container button {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+}
+h2{
+  margin-top: 30px;
 }

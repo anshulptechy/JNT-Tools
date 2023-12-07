@@ -14,11 +14,11 @@ import { EditComponent } from '../edit/edit.component';
   templateUrl: './coupons.component.html',
   styleUrls: ['./coupons.component.css']
 })
-export class CouponsComponent  implements OnInit {
+export class CouponsComponent implements OnInit {
   showDeleteConfirmation = false;
   couponIdToDelete!: number;
 
-  displayedColumns: string[] = ['id', 'couponCode', 'couponName', 'description', 'discount', 'startDate', 'endDate', 'discountType', 'actions'];
+  displayedColumns: string[] = ['couponCode', 'couponName', 'description', 'discount', 'startDate', 'endDate', 'discountType', 'actions'];
   dataSource!: MatTableDataSource<CouponsModel>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -27,7 +27,7 @@ export class CouponsComponent  implements OnInit {
   constructor(
     private _dialog: MatDialog,
     private _couponService: CouponService,
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -44,25 +44,22 @@ export class CouponsComponent  implements OnInit {
       next: (res) => {
         this.getCouponsList();
         this.showDeleteConfirmation = false;
-  
         // Check if the data source is empty, then clear the table
         if (this.dataSource.data.length === 1) {
           this.dataSource.data = [];
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-  
-          // Reload the page manually
           window.location.reload();
         }
       },
       error: console.log,
     });
   }
-  
-  
-  
-  
-  
+
+
+
+
+
 
   cancelDelete() {
     this.showDeleteConfirmation = false;
@@ -70,7 +67,7 @@ export class CouponsComponent  implements OnInit {
 
   openAddForm() {
     const dialogRef = this._dialog.open(AddComponent);
-  
+
     dialogRef.afterClosed().subscribe(async (val: CouponsModel) => {
       if (val) {
         // Fetch the updated list of coupons after adding a new coupon
@@ -78,8 +75,8 @@ export class CouponsComponent  implements OnInit {
       }
     });
   }
-  
-  
+
+
 
   async getCouponsList() {
     try {
@@ -120,5 +117,5 @@ export class CouponsComponent  implements OnInit {
       this.getCouponsList();
     });
   }
-  
+
 }

@@ -358,3 +358,8 @@
   background-color: #007bff; /* Set hover background color */
   color: #fff; /* Set hover text color */
 }
+.border {
+  border-style: inset;
+  border-color: azure;
+  background-color: aliceblue;
+}

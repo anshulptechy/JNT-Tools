@@ -1,12 +1,12 @@
-/* my coupons css */
 .container-fluid {
   margin: 20px;
 }
 
 .mat-elevation-z8 {
-  width: 100%;
+  width: 90%;
   margin-top: 100px;
   margin-right: 50px;
+  margin-left: 50px;
 }
 
 mat-toolbar {
@@ -31,12 +31,12 @@ td {
 }
 
 th {
-  background-color: #f2f2f2; /* Match the background color of table header in Headers CSS */
-  color: black; /* Adjust the text color as needed */
+  background-color: #f2f2f2; 
+  color: black; 
 }
 
 .mat-row {
-  background-color: #f2f2f2; /* Match the background color of table rows in Headers CSS */
+  background-color: #f2f2f2; 
 }
 
 .delete-confirmation {
@@ -66,3 +66,4 @@ th {
   border-radius: 3px;
   transition: background-color 0.3s ease;
 }
+

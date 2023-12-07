@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { SupabaseService } from 'src/app/supabase.service';
 import Swal from 'sweetalert2';
@@ -51,7 +51,12 @@ export class AddComponent {
   }
 
   async onSaveClick() {
-   
+    if (this.couponForm.invalid) {
+      // Form is invalid, do not submit
+      return;
+    }
+    else
+    {
     try {
       // Get form data and add the coupon using the CouponService
       const formData = this.couponForm.value;
@@ -69,10 +74,31 @@ export class AddComponent {
       });
     }
   }
+  }
 
   // Method called when the "Cancel" button is clicked
   onCancelClick() {
     this.dialogRef.close(true);
+  }
+  isSaveButtonDisabled(): boolean {
+    
+    return this.couponForm.invalid;
+  }
+
+  dateValidator(form: FormGroup) {
+    const startDateControl = form.get('startDate');
+    const endDateControl = form.get('endDate');
+  
+    if (startDateControl && endDateControl) {
+      const startDate = startDateControl.value;
+      const endDate = endDateControl.value;
+  
+      if (startDate && endDate && new Date(startDate) >= new Date(endDate)) {
+        endDateControl.setErrors({ dateError: true });
+      } else {
+        endDateControl.setErrors(null);
+      }
+    }
   }
   
   }
