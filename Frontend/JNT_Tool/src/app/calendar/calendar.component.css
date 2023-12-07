@@ -1,28 +1,17 @@
 .container {
   width: 52%;
   margin-left: 25%;
-  /* position: absolute; */
   bottom: 10px;
   margin-top: 145px;
 }
 
-.gap-2{
+.gap-2 {
   margin-bottom: -160px;
   margin-left: -100px;
 }
 
-/* .button {
-  position: relative;
-  border-radius: 4px;
-  background-color: #007bff;
-  cursor: pointer;
-  font-size: 14px;
-  right: 100px;
-  top: 200px;
-  color: white;
-} */
 
-#authorize_button{
+#authorize_button {
   right: 124px;
 }
 
@@ -103,7 +92,7 @@
 }
 
 .modal-content2 button {
-  background-color: #4caf50;
+  background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
   color: white;
   padding: 10px 15px;
   border: none;
@@ -112,8 +101,19 @@
 }
 
 .modal-content2 button:hover {
-  background-color: #45a049;
+  background: linear-gradient(to bottom right, #615c64, hsl(218, 66%, 29%));
 }
 
+.btn {
+  background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
+  color: white;
+}
 
+.btn:hover{
+  background: linear-gradient(to bottom right, #615c64, hsl(218, 66%, 29%));
+}
 
+.modal-content button{
+  background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
+  color: white;
+}

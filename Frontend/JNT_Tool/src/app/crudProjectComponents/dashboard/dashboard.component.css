@@ -19,7 +19,7 @@ table {
 }
 
 th {
-  background-color: #084874;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
 
   color: white;
   padding: 15px;
@@ -35,7 +35,7 @@ button {
   padding: 10px 15px;
   margin-right: 5px;
   cursor: pointer;
-  background-color: #084874;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
 
   color: white;
   border: none;
@@ -44,7 +44,8 @@ button {
 }
 
 button:hover {
-  background-color: #2980b9;
+  background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
+
 }
 
 .create-button {
