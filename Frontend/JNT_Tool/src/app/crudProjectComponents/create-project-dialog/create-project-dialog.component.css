@@ -3,8 +3,16 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 20px; 
+ 
+}
+.button-container button {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
 }
 
+.button-container button:hover{
+  background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
+}
 
 .mat-dialog-actions {
   margin-top: 20px;
@@ -39,7 +47,7 @@
 
 
 .form-field:hover {
-  border-color: #66afe9; 
+  border-color: #375a76; 
 }
 
 
@@ -48,3 +56,4 @@
   border-color: #4cae4c; 
   box-shadow: 0 0 5px rgba(76, 174, 76, 0.5); 
 }
+

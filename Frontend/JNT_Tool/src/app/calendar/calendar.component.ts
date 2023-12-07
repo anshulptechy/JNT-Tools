@@ -36,9 +36,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     headerToolbar: {
-      left: 'title',
-      center: '',
-      right: 'today prev,next dayGridMonth,dayGridWeek,dayGridDay',
+      left: 'today prev,next',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay',
     },
     plugins: [dayGridPlugin, interactionPlugin],
     events: [],
@@ -76,7 +76,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       const userId = localStorage.getItem('userId');
       const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
       if (storedEvents) {
-        authorizeButton!.innerHTML = '<i class="bi bi-arrow-repeat"></i>';
+        authorizeButton!.innerText = 'Refresh';
         signoutButton.style.visibility = 'visible';
       } else {
         signoutButton.style.visibility = 'hidden';
@@ -167,7 +167,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       }
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
-        authorizeButton.innerHTML = '<i class="bi bi-arrow-repeat"></i>';
+        authorizeButton.innerText = 'Refresh';
       }
       this.calendarOptions.selectable = true;
       this.listUpcomingEvents();
@@ -183,6 +183,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     } else {
       this.tokenClient.requestAccessToken({ prompt: '' });
     }
+      // this.tokenClient.requestAccessToken({ prompt: '' });
     this.calendarOptions.eventClick = this.handleEventClick.bind(this);
   }
 
