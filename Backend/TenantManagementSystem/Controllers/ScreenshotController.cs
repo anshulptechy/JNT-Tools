@@ -23,11 +23,11 @@ namespace TenantManagementSystem.Controllers
         }
 
 
-        [HttpGet("GetByUserId/{userId}")]
-        public ActionResult<IEnumerable<Screenshots>> GetByUserId(int userId)
+        [HttpGet("GetByUserId/{id}")]
+        public ActionResult<IEnumerable<Screenshots>> GetByUserId(int id)
         {
             // Retrieve logs based on UserId from the database
-            var logs = _applicationDbContext.Screenshot.Where(s => s.UserId == userId).ToList();
+            var logs = _applicationDbContext.Screenshot.Where(s => s.id == id).ToList();
 
             if (logs == null || logs.Count == 0)
             {
@@ -38,7 +38,7 @@ namespace TenantManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostScreenshot([FromForm] IFormFile file, [FromForm] int userId)
+        public async Task<IActionResult> PostScreenshot([FromForm] IFormFile file, [FromForm] int id)
 
         {
             if (file == null || file.Length == 0)
@@ -60,13 +60,13 @@ namespace TenantManagementSystem.Controllers
                     {
                         ImageData = memoryStream.ToArray(),
                         CreatedAt = indianTime,
-                        UserId = userId // Associate the screenshot with the Signup based on UserId
+                        id = id // Associate the screenshot with the Signup based on UserId
                     };
 
                     _applicationDbContext.Screenshot.Add(screenshot);
                     await _applicationDbContext.SaveChangesAsync();
 
-                    return Ok($"Screenshot saved with Id: {screenshot.Id}");
+                    return Ok($"Screenshot saved with Id: {screenshot.id}");
                 }
             }
             catch (Exception ex)

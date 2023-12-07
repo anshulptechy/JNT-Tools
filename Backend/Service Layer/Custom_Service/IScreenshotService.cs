@@ -9,10 +9,10 @@ namespace Service_Layer.Custom_Service
     public interface IScreenshotService<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(int Id);
+        T Get(int id);
         void Insert(T entity);
         //void Update(T entity);
-        bool DeleteScreenshot(int Id);
+        bool DeleteScreenshot(int id);
 
 
     }

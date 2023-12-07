@@ -21,7 +21,9 @@ export class AttendanceReportComponent implements OnInit {
   result: any[] = [];
  
   constructor(private router: Router,private formBuilder: FormBuilder,private serve:AttendanceService) {
-    serve.getAllData().subscribe((result)=>{
+    serve. getAllAttendenceWithManagement().subscribe((result)=>{
+      console.log(result);
+      
       this.gridData=result as any;
        console.log(this.gridData);
     });
@@ -37,7 +39,7 @@ export class AttendanceReportComponent implements OnInit {
     generateMReport() {
       if (this.selectedMonth ) {
         console.log('Selected Month:', this.selectedMonth);
-        this.serve.getAllData().subscribe((result) => {
+        this.serve. getAllAttendenceWithManagement().subscribe((result) => {
           console.log('All Data:', result);
           if (Array.isArray(result)) {
             this.gridData = result.filter((record) => {
@@ -53,7 +55,7 @@ export class AttendanceReportComponent implements OnInit {
     }
     generateEReport() {
       if (this.selectedEmployee) {
-        this.serve.getAllData().subscribe((result) => {
+        this.serve.getAllAttendenceWithManagement().subscribe((result) => {
           if (Array.isArray(result)) {
             this.gridData = result.filter((record) => {
               return record['empName'] === this.selectedEmployee;

@@ -12,7 +12,7 @@ namespace Service_Layer.Custom_Service
         IEnumerable<T> GetAll();
       
         void CalculateHours(IEnumerable<Attendences> records);
-        T Get(int UserId);
+        T Get(int id);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);

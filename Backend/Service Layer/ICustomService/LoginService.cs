@@ -12,12 +12,12 @@ namespace Service_Layer.ICustomService
     public class LoginService : ILoginService
     {
         private readonly ILoginRepo _loginRepository;
-        private readonly ISignupService<Signup> _signupService;
+        
 
-        public LoginService(ILoginRepo loginRepo, ISignupService<Signup> signupService)
+        public LoginService(ILoginRepo loginRepo)
         {
             _loginRepository = loginRepo;
-            _signupService = signupService;
+            
         }
 
         public async Task<Login> Get(string email, string password)
@@ -28,27 +28,12 @@ namespace Service_Layer.ICustomService
             {
                 return user;
             }
-            else
-            {
-                var signupUser = await _signupService.GetByEmailAndPasswordAsync(email, password);
-
-                if (signupUser != null)
-                {
-                    // Create a new Login object with UserId
-                    var login = new Login
-                    {
-                        Email = signupUser.Email,
-                        Password = signupUser.Password,
-                        UserId = signupUser.UserId // Set UserId here
-                    };
-
-                    return login;
-                }
+          
                 else
                 {
                     return null;
                 }
             }
         }
-    }
+    
 }

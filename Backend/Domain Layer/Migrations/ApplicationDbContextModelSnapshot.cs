@@ -25,10 +25,7 @@ namespace Domain_Layer.Migrations
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<TimeSpan?>("Hours")
                         .HasColumnType("time");
@@ -38,9 +35,6 @@ namespace Domain_Layer.Migrations
 
                     b.Property<DateTime>("LogoutTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -55,10 +49,8 @@ namespace Domain_Layer.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("id")
                         .HasColumnType("int");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Login");
                 });
@@ -102,11 +94,11 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.Screenshots", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -115,48 +107,20 @@ namespace Domain_Layer.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Screenshot");
                 });
 
-            modelBuilder.Entity("Domain_Layer.Models.Signup", b =>
+            modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Signup");
-                });
-
-            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
-                {
-                    b.HasOne("Domain_Layer.Models.Signup", "Signup")
+                    b.HasOne("Domain_Layer.Models.Management", "Management")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Signup");
+                    b.Navigation("Management");
                 });
 #pragma warning restore 612, 618
         }

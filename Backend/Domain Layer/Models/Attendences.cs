@@ -10,13 +10,13 @@ namespace Domain_Layer.Models
 {
     public class Attendences
     {
-
+        [ForeignKey("id")]
+        public Management Management { get; set; }
         public int id
         {
             get;
             set;
         }
-        public int UserId { get; set; }
         public DateTime LoginTime
         {
             get;

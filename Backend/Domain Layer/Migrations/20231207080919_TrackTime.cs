@@ -6,25 +6,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class AttendanceTrack : Migration
+    public partial class TrackTime : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Attendence",
+                name: "Login",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Hours = table.Column<TimeSpan>(type: "time", nullable: true)
+                    id = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendence", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,55 +45,35 @@ namespace Domain_Layer.Migrations
                 name: "Screenshot",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Screenshot", x => x.Id);
+                    table.PrimaryKey("PK_Screenshot", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Signup",
+                name: "Attendence",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    id = table.Column<int>(type: "int", nullable: false),
+                    LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Hours = table.Column<TimeSpan>(type: "time", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Signup", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Login",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
+                    table.PrimaryKey("PK_Attendence", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Login_Signup_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Signup",
-                        principalColumn: "UserId",
+                        name: "FK_Attendence_Managements_id",
+                        column: x => x.id,
+                        principalTable: "Managements",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Login_UserId",
-                table: "Login",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -110,13 +86,10 @@ namespace Domain_Layer.Migrations
                 name: "Login");
 
             migrationBuilder.DropTable(
-                name: "Managements");
-
-            migrationBuilder.DropTable(
                 name: "Screenshot");
 
             migrationBuilder.DropTable(
-                name: "Signup");
+                name: "Managements");
         }
     }
 }

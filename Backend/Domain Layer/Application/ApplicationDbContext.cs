@@ -31,8 +31,6 @@ namespace Domain_Layer.Application
             get;
             set;
         }
-          public DbSet<Signup> Signup 
-        { get; set; }
 
         public DbSet<Login> Login
         {  get; set; }

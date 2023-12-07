@@ -10,10 +10,10 @@ namespace Repository_Layer.IRepository
     public interface IScreenshotRepository<T> where T : Screenshots
     {
         IEnumerable<T> GetAll();
-        T Get(int Id);
+        T Get(int id);
         void Insert(T entity);
         //void Update(T entity);
-        void Delete(int Id);
+        void Delete(int id);
         void SaveChanges();
     }
 }

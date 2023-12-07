@@ -38,9 +38,9 @@ namespace Repository_Layer.Repository
             entities.Remove(entity);
             _applicationDbContext.SaveChanges();
         }
-        public T Get(int UserId)
+        public T Get(int id)
         {
-            return entities.SingleOrDefault(x => x.UserId == UserId);
+            return entities.SingleOrDefault(x => x.id == id);
         }
 
         public IEnumerable<T> GetAll()

@@ -36,8 +36,6 @@ builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>()
 builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
 builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
 
-builder.Services.AddScoped(typeof(ISignupRepo<>), typeof(SignupRepo<>));
-builder.Services.AddScoped<ISignupService<Signup>, SignupService>();
 
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
 builder.Services.AddScoped<ILoginService, LoginService>();

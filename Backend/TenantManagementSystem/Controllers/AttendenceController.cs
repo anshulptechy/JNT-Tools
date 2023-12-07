@@ -15,12 +15,12 @@ namespace TenantManagementSystem.Controllers
 
         private readonly IAttService<Attendences> _AttendenceServices;
 
-        private readonly ApplicationDbContext _appDbContext;
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly Attendences Attendence;
         public AttendenceController(IAttService<Attendences> AttendenceServices, ApplicationDbContext appDbContext)
         {
             _AttendenceServices = AttendenceServices;
-            _appDbContext = appDbContext;
+            _applicationDbContext = appDbContext;
         }
         [HttpGet(nameof(GetAttendenceById))]
         public IActionResult GetAttendenceById(int EmpId)
@@ -60,21 +60,43 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving or calculating hours: {ex.Message}");
             }
         }
-       
+
+ 
         [HttpPost(nameof(CreateAttendence))]
         public IActionResult CreateAttendence(Attendences Attendence)
         {
-            if (Attendence != null)
+            try
             {
-                _AttendenceServices.Insert(Attendence);
-                return Ok("Created Successfully");
-            }
-            else
-            {
-                return BadRequest("Somethingwent wrong");
-            }
+                if (Attendence != null)
 
+
+                {
+                    // Assuming UserId in Attendence corresponds to the Id in Management
+                    var management = _applicationDbContext.Managements.FirstOrDefault(m => m.id == Attendence.id);
+
+                    if (management != null)
+                    {
+                        _AttendenceServices.Insert(Attendence);
+                        return Ok("Created Successfully");
+                    }
+                    else
+                    {
+                        return NotFound("Management not found");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Invalid Attendence data");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error creating attendence: {ex.Message}");
+            }
         }
+
+
+
         [HttpPut(nameof(UpdateAttendence))]
         public IActionResult UpdateAttendence(Attendences Attendence)
         {
@@ -100,6 +122,39 @@ namespace TenantManagementSystem.Controllers
             {
                 return BadRequest("Something went wrong");
             }
+
         }
+        [HttpGet(nameof(GetAllAttendenceWithManagement))]
+        public IActionResult GetAllAttendenceWithManagement()
+        {
+            try
+            {
+                var attendanceRecords = _AttendenceServices.GetAll();
+                var ids = attendanceRecords.Select(att => att.id).ToList();
+
+                var Managements = _applicationDbContext.Managements
+                    .Where(management => ids.Contains(management.id))
+                    .ToList();
+
+                var result = attendanceRecords.Select(attendance => new
+                {
+                    id = attendance.id,
+                 
+                    LoginTime = attendance.LoginTime,
+                    LogoutTime = attendance.LogoutTime,
+                    Hours = attendance.Hours,
+                    ManagementInfo = Managements.FirstOrDefault(m => m.id == attendance.id)
+                }).ToList();
+
+                _AttendenceServices.CalculateHours(attendanceRecords);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving or calculating hours: {ex.Message}");
+            }
+        }
+
     }
 }

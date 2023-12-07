@@ -11,9 +11,8 @@ namespace Domain_Layer.Models
     [Keyless]
     public class Login
     {
-        [ForeignKey("UserId")]
-        public Signup Signup { get; set; } // Navigation property for the Department  entity
-        public int UserId { get; set; } // Add this property 
+      
+        public int id { get; set; } // Add this property 
         public string? Email { get; set; }
         public string? Password { get; set; }
     }

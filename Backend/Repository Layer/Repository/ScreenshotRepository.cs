@@ -23,18 +23,18 @@ namespace Repository_Layer.Repository
             entities = _appDbContext.Set<T>();
         }
         #endregion
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            var result = _appDbContext.Screenshot.FirstOrDefault(l => l.Id == Id);
+            var result = _appDbContext.Screenshot.FirstOrDefault(l => l.id == id);
             if (result != null)
             {
                 _appDbContext.Screenshot.Remove(result);
                 _appDbContext.SaveChanges();
             }
         }
-        public T Get(int Id)
+        public T Get(int id)
         {
-            return entities.SingleOrDefault(c => c.Id == Id);
+            return entities.SingleOrDefault(c => c.id == id);
         }
         public IEnumerable<T> GetAll()
         {

@@ -11,7 +11,7 @@ namespace Repository_Layer.IRepository
     {
 
         IEnumerable<T> GetAll();
-        T Get(int UserId);
+        T Get(int id);
         void Insert(T entity);
         void Update(T entity);
         void SaveChanges();

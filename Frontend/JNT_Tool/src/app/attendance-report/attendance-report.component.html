@@ -37,7 +37,7 @@
             <mat-form-field>
               <mat-label>Select Employee</mat-label>
               <mat-select formControlName="selectedEmployee" (selectionChange)="generateEReport()" [(value)]="selectedEmployee">
-                <mat-option *ngFor="let empName of employeeNames" [value]="empName">{{ empName }}</mat-option>
+                <mat-option *ngFor="let firstName of employeeNames" [value]="firstName">{{ firstName }}</mat-option>
               </mat-select>
             </mat-form-field>
          
@@ -64,11 +64,10 @@
                 <tr *ngFor="let record of gridData">
                     <td style="color: green;">{{ record.firstname }}</td>
                     <td>{{ record.lastname }}</td>
-                    <td>{{ record.date | date }}</td>
-                    <td>{{ record.status }}</td>
+                    <td>{{ record.Department  }}</td>
                     <td>{{ record.loginTime | date:'HH:mm'}}</td>
                     <td>{{ record.logoutTime |date:'HH:mm' }}</td>
-                    <td>{{ record.hours | date:'HH:mm' }}</td>
+                    <td>{{ (record.hours ) }}</td>
                     <td style="color: orangered;">{{record.month}}</td>
                 </tr>
             </tbody>

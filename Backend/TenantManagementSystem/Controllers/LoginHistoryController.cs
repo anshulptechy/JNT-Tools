@@ -18,7 +18,7 @@ namespace TenantManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostLoginHistory([FromBody] Attendences Attendence, [FromForm] int userId)
+        public async Task<IActionResult> PostLoginHistory([FromBody] Attendences Attendence, [FromForm] int id)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace TenantManagementSystem.Controllers
                 // Save login and logout times to the backend
                 var LoginHistory = new Attendences
                 {
-                    UserId = userId,
+                    id = id,
                     LoginTime = loginTimeIst,
                     LogoutTime = logoutTimeIst,
 

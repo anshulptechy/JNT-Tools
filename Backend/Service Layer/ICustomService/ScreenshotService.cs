@@ -22,12 +22,12 @@ namespace Service_Layer.ICustomService
             get; private set;
         }
 
-        public bool DeleteScreenshot(int Id)
+        public bool DeleteScreenshot(int id)
         {
 
             try
             {
-                _ScreenshotRepository.Delete(Id);
+                _ScreenshotRepository.Delete(id);
                 return true;
             }
             catch (Exception ex)
@@ -39,11 +39,11 @@ namespace Service_Layer.ICustomService
         }
 
 
-        public Screenshots Get(int Id)
+        public Screenshots Get(int id)
         {
             try
             {
-                var obj = _ScreenshotRepository.Get(Id);
+                var obj = _ScreenshotRepository.Get(id);
                 if (obj != null)
                 {
                     return obj;
