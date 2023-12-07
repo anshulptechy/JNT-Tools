@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Models
 {
-    public class Screenshots 
+    public class Screenshots
     {
         public int Id { get; set; }
-        public int EmpId { get; set; } // Add employee ID
+        public int UserId { get; set; }
         public byte[] ImageData { get; set; }
         public DateTime CreatedAt { get; set; }
         public string GetFormattedCaptureTime()

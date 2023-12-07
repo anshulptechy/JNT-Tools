@@ -21,7 +21,7 @@ namespace Domain_Layer.Application
             get;
             set;
         }
-        public DbSet<Attendences> AttendenceRecord
+        public DbSet<Attendences> Attendence
         {
             get;
             set;
@@ -31,7 +31,12 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+          public DbSet<Signup> Signup 
+        { get; set; }
 
+        public DbSet<Login> Login
+        {  get; set; }
 
+       
     }
 }

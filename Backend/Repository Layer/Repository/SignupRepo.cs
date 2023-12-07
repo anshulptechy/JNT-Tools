@@ -4,71 +4,71 @@ using Microsoft.EntityFrameworkCore;
 using Repository_Layer.IRepository;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository_Layer.Repository
 {
-    public class AttRepository<T> : IAttRepository<T> where T : Attendences
+    public class SignupRepo<T> : ISignupRepo<T> where T : Signup
     {
         #region property
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly DbSet<T> entities;
+        private DbSet<T> entities;
         #endregion
         #region Constructor
-        public AttRepository(ApplicationDbContext applicationDbContext)
+        public SignupRepo(ApplicationDbContext ApplicationDbContext)
         {
-            _applicationDbContext = applicationDbContext;
+            _applicationDbContext = ApplicationDbContext;
             entities = _applicationDbContext.Set<T>();
         }
         #endregion
-
-
-
-      
-
-    public void Delete(T entity)
+        public void Delete(int Id)
         {
-            if (entity == null)
+            var result = _applicationDbContext.Signup.FirstOrDefault(l => l.UserId == Id);
+            if (result != null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                _applicationDbContext.Signup.Remove(result);
+                _applicationDbContext.SaveChanges();
             }
-            entities.Remove(entity);
-            _applicationDbContext.SaveChanges();
         }
-        public T Get(int UserId)
+        public T Get(int Id)
         {
-            return entities.SingleOrDefault(x => x.UserId == UserId);
+            return entities.SingleOrDefault(c => c.UserId == Id);
         }
-
         public IEnumerable<T> GetAll()
         {
             return entities.AsEnumerable();
         }
+
+        public async Task<T> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await entities.FirstOrDefaultAsync(c => c.Email == email && c.Password == password);
+        }
+
         public void Insert(T entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException("entity");
             }
             entities.Add(entity);
             _applicationDbContext.SaveChanges();
         }
+
         public void SaveChanges()
         {
             _applicationDbContext.SaveChanges();
+
         }
         public void Update(T entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException("entity");
             }
             entities.Update(entity);
             _applicationDbContext.SaveChanges();
         }
-
     }
 }

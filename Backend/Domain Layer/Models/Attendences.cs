@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -7,47 +8,21 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Models
 {
-    public class Attendences 
+    public class Attendences
     {
-        public int Id { get; set; }
-        public int EmpId
-        {
-            get;
-            set;
-        }
-        public string EmpName
-        {
-            get;
-            set;
-        }
-        public string? month
-        {
-            get;
-            set;
-        }
 
-        public string? Designation
+        public int id
         {
             get;
             set;
         }
-        public DateTime? Date
+        public int UserId { get; set; }
+        public DateTime LoginTime
         {
             get;
             set;
         }
-
-        public string? Status
-        {
-            get;
-            set;
-        }
-        public DateTime? LoginTime
-        {
-            get;
-            set;
-        }
-        public DateTime? LogoutTime
+        public DateTime LogoutTime
         {
             get;
             set;

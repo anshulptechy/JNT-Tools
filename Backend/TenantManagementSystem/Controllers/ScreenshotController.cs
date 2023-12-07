@@ -5,6 +5,7 @@ using Service_Layer.Custom_Service;
 using System.Globalization;
 using System;
 using Domain_Layer.Application;
+using Microsoft.EntityFrameworkCore;
 
 namespace TenantManagementSystem.Controllers
 {
@@ -13,55 +14,20 @@ namespace TenantManagementSystem.Controllers
     public class ScreenshotController : ControllerBase
     {
         private readonly IScreenshotService<Screenshots> _screenshotService;
-        private readonly ApplicationDbContext _appDbContext;
+        private readonly ApplicationDbContext _applicationDbContext;
 
         public ScreenshotController(IScreenshotService<Screenshots> screenshotService, ApplicationDbContext context)
         {
             _screenshotService = screenshotService;
-            _appDbContext = context;
+            _applicationDbContext = context;
         }
 
 
-        [HttpGet("GetById/{EmpId}")]
-        public ActionResult<IEnumerable<Screenshots>> GetByEmpId(int EmpId)
+        [HttpGet("GetByUserId/{userId}")]
+        public ActionResult<IEnumerable<Screenshots>> GetByUserId(int userId)
         {
-            // Retrieve logs based on SignupId from the database
-            var logs = _appDbContext.Screenshot.Where(s => s.EmpId == EmpId).ToList();
-
-            if (logs == null || logs.Count == 0)
-            {
-                return NotFound(); // Return 404 if no logs are found
-            }
-
-            return Ok(logs); // Return the logs if found
-        }
-        [HttpGet(nameof(GetAll))]
-        public IActionResult GetAll()
-        {
-            var obj = _screenshotService.GetAll();
-
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(obj);
-            }
-        }
-        [HttpDelete("Delete/{EmpId}")]
-        public IActionResult Delete(int EmpId)
-        {
-            var screenshot = _screenshotService.DeleteScreenshot(EmpId);
-            return Ok(screenshot);
-        }
-
-
-        [HttpGet("GetByEmpId/{EmpId}")]
-        public ActionResult<IEnumerable<Screenshots>> GetById(int EmpId)
-        {
-            // Retrieve logs based on SignupId from the database
-            var logs = _appDbContext.Screenshot.Where(s => s.EmpId == EmpId).ToList();
+            // Retrieve logs based on UserId from the database
+            var logs = _applicationDbContext.Screenshot.Where(s => s.UserId == userId).ToList();
 
             if (logs == null || logs.Count == 0)
             {
@@ -72,7 +38,7 @@ namespace TenantManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostScreenshot([FromForm] IFormFile file, [FromForm] int EmpId)
+        public async Task<IActionResult> PostScreenshot([FromForm] IFormFile file, [FromForm] int userId)
 
         {
             if (file == null || file.Length == 0)
@@ -90,18 +56,17 @@ namespace TenantManagementSystem.Controllers
                     TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, indianTimeZone);
 
-                    // Assuming Screenshots is an interface and ScreenshotsImplementation is a class implementing it
                     var screenshot = new Screenshots
                     {
                         ImageData = memoryStream.ToArray(),
                         CreatedAt = indianTime,
-                        EmpId = EmpId
+                        UserId = userId // Associate the screenshot with the Signup based on UserId
                     };
 
-                    _appDbContext.Screenshot.Add(screenshot);
-                    await _appDbContext.SaveChangesAsync();
+                    _applicationDbContext.Screenshot.Add(screenshot);
+                    await _applicationDbContext.SaveChangesAsync();
 
-                    return Ok($"Screenshot saved with Id: {screenshot.EmpId}");
+                    return Ok($"Screenshot saved with Id: {screenshot.Id}");
                 }
             }
             catch (Exception ex)
@@ -111,3 +76,4 @@ namespace TenantManagementSystem.Controllers
         }
     }
 }
+

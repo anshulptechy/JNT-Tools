@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231206065858_TrackTime")]
-    partial class TrackTime
+    [Migration("20231206145524_AttendanceTrack")]
+    partial class AttendanceTrack
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,43 +27,43 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Designation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmpId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmpName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<TimeSpan?>("Hours")
                         .HasColumnType("time");
 
-                    b.Property<DateTime?>("LoginTime")
+                    b.Property<DateTime>("LoginTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LogoutTime")
+                    b.Property<DateTime>("LogoutTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Attendence");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("month")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.ToTable("AttendenceRecord");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>
@@ -114,16 +114,52 @@ namespace Domain_Layer.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmpId")
-                        .HasColumnType("int");
-
                     b.Property<byte[]>("ImageData")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Screenshot");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Signup", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Signup");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Signup", "Signup")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Signup");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,323 +1,292 @@
-/* tenant-list.component.css */
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+@import url("");
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-.table th, .table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+body {
+    background: #dfe9f5;
 }
 
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
+.container {
+    display: flex;
 }
 
-.table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.fullhight {
+    height: 100vh;
 }
 
-.table tr:hover {
-  background-color: #e0e0e0;
+nav {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    background: rgb(181, 179, 231);
+    width: 280px;
+    overflow: hidden;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
 
-.table td button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+.logo {
+    text-align: center;
+    display: flex;
+    margin: 10px 0 0 10px;
 }
 
-.table td button:hover {
-  background-color: #0056b3;
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
 }
 
-/* dashboard.component.css */
-
-button.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+.logo span {
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
-button.btn-primary:hover {
-  background-color: #0056b3;
+a {
+    position: relative;
+    color: rgb(70, 67, 67);
+    font-size: 14px;
+    display: table;
+    width: 280px;
+    padding: 10px;
 }
 
-/* Form Container */
-.form-container {
-  width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+.nav-item {
+    position: relative;
+    top: 12px;
 }
 
-/* Form Input Fields */
-.form-group {
-  margin-bottom: 15px;
+a:hover {
+    background: #eee;
 }
 
-.form-group label {
-  font-weight: bold;
-  display: block;
+.logout {
+    position: absolute;
+    bottom: 0;
+}
+/* Main Section */
+
+.main {
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    background-color: #f0f0f0;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+.main-top {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Submit Button */
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
+.main-top i {
+    position: absolute;
+    right: 0;
+    margin: 10px 30px;
+    color: rgb(110, 109, 109);
+    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+.hover:hover {
+    background: #d3cbcb;
+    background-color: blue;
+}
+/* Style the image */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+/* Style the h1 heading */
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 20px 0;
 }
 
-/* Add this CSS to your component's CSS file or in your global CSS file */
-
-/* Style for the "Create User" button */
-.btn-create-user {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
+h1:after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #000;
+    margin-top: 5px;
 }
 
-.btn-create-user:hover {
-  background-color: #0056b3;
+.matbutton {
+    color: rgb(14, 27, 197);
 }
 
-/* Style for spacing between buttons */
-.button-spacing {
-  margin-left: 10px;
+mat-menu-item {
+    margin-left: 40PX;
 }
 
-/* Style for the table */
-.table-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 100px; /* Adjust the margin-top value as needed */
-  margin-bottom: 20px; /* Adjust margin as needed */
+.spacer {
+    flex-grow: 1;
 }
 
-/* Style for the "Edit" button (yellow background) */
-.btn-edit {
-  background-color: yellow;
-  color: #000; /* Text color, adjust as needed */
+.logout-button {
+    font-size: 15px;
+    color: #fff;
+    background-color: #1976D2;
+    border: #000000;
+    margin-left: 10px;
 }
 
-/* Style for the "Delete" button (red background) */
-.btn-delete {
-  background-color: red;
-  color: #fff; /* Text color, adjust as needed */
-}
-.upperMargin{
-  margin-top: 7rem;
-}
-.marginLeft{
-  margin-left: 15px;
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-}
-.navbar{
-  background-color: #007bff;
-}
-/* Style for invalid input */
-/* Style for invalid input */
-/* Style for form */
-#editUserModal form {
-  display: flex;
-  flex-direction: column;
+.mat-nav-list a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    transition: all 0.3s;
 }
 
-/* Style for form groups */
-#editUserModal .form-group {
-  margin-bottom: 15px;
+.mat-nav-list a:hover {
+    background: #ddd;
+    color: #000;
 }
 
-/* Style for labels */
-#editUserModal label {
-  font-weight: bold;
+.mat-sidenav-content {
+    padding: 20px;
+    flex: 1;
+    box-sizing: border-box;
 }
 
-/* Style for input fields */
-#editUserModal input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.show-report-button-container {
+    margin-left: 150px;
+    margin-bottom: 20px;
 }
 
-/* Style for invalid feedback messages */
-#editUserModal .invalid-feedback {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
+.sidenav-container {
+    display: flex;
+    height: 100vh;
+}
+/* Style for the toolbar */
+
+.mat-toolbar {
+    background-color: #1976D2;
+    color: #fff;
+}
+/* Style for the button containers */
+
+.button-dropdowns {
+    margin: 20px;
 }
 
-/* Style for highlighting invalid input fields */
-#editUserModal .is-invalid {
-  border: 1px solid red;
-}
-/* Style for invalid feedback messages */
-.invalid-feedback {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-/* Style for highlighting invalid input fields */
-.is-invalid {
-  border: 1px solid red;
-}
-
-/* Optional: Style for form groups */
-#createUserModal .form-group {
-  margin-bottom: 15px;
-}
-
-/* Optional: Style for labels */
-#createUserModal label {
-  font-weight: bold;
-}
-
-/* Optional: Style for input fields */
-#createUserModal input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-label .required {
-  color: red;
-  margin-left: 3px; 
-}
-
-.error-message {
-  color: #e74c3c;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-label .required {
-  color: red;
-  margin-left: 3px; 
-}
-
-label[for="confirmPassword"] {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-#confirmPassword {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px; /* Add margin-bottom for spacing */
-}
-
-.invalid-password {
-  border: 1px solid #ff0000;
-}
-
-.error-message {
-  color: #ff0000;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.required-field {
-  color: #ff0000;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label[for="password"] {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-#password {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.error-message {
-  color: #ff0000;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.required-field {
-  color: #ff0000;
-}
-
-.error {
-  border: 1px solid #ff0000;
+.show-report-button-container,
+.show-record-button-container {
+    margin-top: 10px;
 }
 
 button {
-  background-color: #007bff; /* Blue color */
-  color: #fff; /* White text color */
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+    margin: 5px;
 }
 
-button:disabled {
-  background-color: #a0a0a0;
-  cursor: not-allowed;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.modal {
-  color: #000; /* Set the text color for the modal */
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-.nav-item:hover{
-  cursor: pointer;
+th {
+    background-color: #f2f2f2;
+}
+
+.selectdrop {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+.button-dropdowns {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.mat-select {
+    width: 100px;
+    color: blue;
+    text-align: justify;
+}
+
+.mat-form-field {
+    margin-right: 10px;
+}
+
+.table-container {
+    margin: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f0f0f0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #f2f2f2;
 }

@@ -21,26 +21,7 @@ namespace Service_Layer.ICustomService
         {
             get; private set;
         }
-        public IEnumerable<Attendences> GetAttendanceByMonth(string month)
-        {
-            return _AttendenceRepository.GetAttendenceByMonth(month);
-        }
-
-        public IEnumerable<Attendences> GetAttendanceByEmployeeName(string employeeName)
-        {
-            return _AttendenceRepository.GetAttendanceByEmployeeName(employeeName);
-        }
-        public async Task<IEnumerable<string>> GetAllEmployeeNames()
-        {
-            return await _AttendenceRepository.GetAllEmployeeNames();
-        }
-        public async Task<IEnumerable<string>> GetAllMonthsAsync()
-        {
-            return await _AttendenceRepository.GetAllMonthsAsync();
-        }
-
-
-
+     
 
         public void Delete(Attendences entity)
         {
@@ -57,11 +38,13 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
-        public Attendences? Get(int EmpId)
+       
+
+        public Attendences? Get(int UserId)
         {
             try
             {
-                var obj = _AttendenceRepository.Get(EmpId);
+                var obj = _AttendenceRepository.Get(UserId);
                 if (obj != null)
                 {
                     return (Attendences)obj;
@@ -172,5 +155,6 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
+       
     }
 }

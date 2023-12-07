@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Repository_Layer.IRepository
 {
-    public interface IAttRepository<T> where T : Attendences
+    public interface ISignupRepo<T> where T : Signup
     {
-
         IEnumerable<T> GetAll();
-        T Get(int UserId);
+        T Get(int Id);
         void Insert(T entity);
         void Update(T entity);
+        void Delete(int Id);
         void SaveChanges();
-        void Delete(T entity);
-     
+        Task<T> GetByEmailAndPasswordAsync(string email, string password);
     }
+
 }
