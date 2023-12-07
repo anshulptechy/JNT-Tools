@@ -34,7 +34,7 @@ namespace Repository_Layer.Repository
         }
         public IEnumerable<string> GetUsersByTenantName(string tenantName)
         {
-            return entities.Where(e => e.tenantName == tenantName).Select(e => e.firstName).Distinct().ToList();
+            return entities.Where(e => e.tenantName == tenantName).Select(e => e.email).Distinct().ToList();
         }
         public T Get(int Id)
         {
