@@ -1,4 +1,6 @@
 export interface LeaveApplication {
+    employeeInputType: any;
+    status: string;
     id?:number;
     employeeName?:string;
     managerName?: string;

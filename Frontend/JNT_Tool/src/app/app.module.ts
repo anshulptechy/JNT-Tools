@@ -39,7 +39,6 @@ import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
 
 import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
-import { ApplyLeaveComponent } from './lms component/apply-leave/apply-leave.component';
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 import { RouterModule } from '@angular/router';
 
@@ -51,7 +50,7 @@ import { RouterModule } from '@angular/router';
     SignupComponent,
     LoginComponent,
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
-    ProjectReportComponent,LeaveManagementComponent,ApplyLeaveComponent,LeavestatusComponent,
+    ProjectReportComponent,LeaveManagementComponent,LeavestatusComponent,
     CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,

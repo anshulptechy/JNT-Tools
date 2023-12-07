@@ -1,103 +1,118 @@
-.leave-status {
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  button {
-    padding: 5px 10px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Optional: Add some margin or padding to buttons */
-  button:not(:last-child) {
-    margin-right: 5px;
-  }
-  .popup-content {
-    background-color: #f7f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 400px; /* Adjust the width as needed */
-  }
-  
-.popup-content form input[type="text"],
-.popup-content form input[type="date"],
-.popup-content form select,
-.popup-content form textarea {
-  width: 85%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+h2 {
+  font-size: 30px; /* Adjust the font size as needed */
+  color: #0a0a0a; /* Change the color to your preferred color code */
+  /* Add any additional styling if necessary */
 }
 
-.popup-content form select {
-    height: 40px; /* Adjust the height as needed */
-  }
-  
-  .popup-content form button {
-    background-color: #1877f2; /* Facebook blue */
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .popup-content form button[type="submit"]:hover {
-    background-color: #0e5091; /* Darker blue on hover */
-  }
-  
-  .popup-content form button[type="button"] {
-    background-color: #ccc; /* Light gray for the reset button */
-  }
-  
-  .popup-content form button[type="button"]:hover {
-    background-color: #bbb; /* Slightly darker gray on hover */
-  }
-  .popup {
-    /* Center the popup both horizontally and vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
-    z-index: 999; /* Ensure it's above other elements */
-  }
-  .popup-content form cross{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-   
-  }
-  .upperMargin{
-    margin-top: 5rem;
-  }
+.leave-status {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 15px; /* Adjust the font size as needed */
+}
+
+table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+thead {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+.button-container {
+  text-align: right;
+  margin-right: 9rem;
+  margin-bottom: 10px;
+}
+button:not(:last-child) {
+  margin-right: 5px;
+}
+.button-container {
+  text-align: right;
+  margin-bottom: 10px;
+}
+/* Add your general styles here */
+.modal-content {
+  /* Customize the modal content */
+  padding: 20px;
+}
+
+.modal-header {
+  /* Customize the modal header */
+  background-color: hsl(218, 41%, 15%);
+  color: #fff;
+}
+
+.modal-body {
+  /* Customize the modal body */
+}
+
+.modal-footer {
+  /* Customize the modal footer */
+  background-color: #f8f9fa;
+}
+
+/* Style for form elements */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.validation-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Style for buttons */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Disable the button when it's not valid */
+.btn-primary[disabled],
+.btn-secondary[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.upperMargin {
+  margin-top: 5rem;
+}

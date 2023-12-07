@@ -1,34 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model'; 
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-leavestatus',
   templateUrl: './leavestatus.component.html',
   styleUrls: ['./leavestatus.component.css']
 })
-export class LeavestatusComponent  implements OnInit{
-  
-  leaveStatusData: any[] | undefined; // Array to store leave status data
-  leaveApplicationForm: FormGroup; // Reactive form group for leave application
-  employeeInputType: string = 'dropdown'; // Default employee input type
-  managerNames: string[] = []; // Array to store manager names
-  isPopupOpen = false; // Flag to track if the leave application popup is open
+export class LeavestatusComponent implements OnInit {
+  // @ViewChild('leaveApplicationForm', { static: false }) leaveApplicationFormViewChild!: NgForm;
+  // @ViewChild('editLeaveForm', { static: false }) editLeaveForm!: NgForm;
+
+  leaveStatusData: any[] | undefined;
+  leaveApplicationForm: FormGroup; // Renamed property to avoid conflict
+  employeeInputType: string = 'dropdown';
+  managerNames: string[] = [];
+  isPopupOpen = false;
+  leaveApplication: LeaveApplication = {} as LeaveApplication; 
 
   constructor(
-    private lmsService: LmsService, // Inject LMSService for leave management operations
-    private router: Router, // Inject ToastrService for displaying toast messages
-    private formBuilder: FormBuilder // Inject FormBuilder for creating reactive forms
+    private lmsService: LmsService,
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
-    // Initialize the leave application form with form controls and validators
     this.leaveApplicationForm = this.formBuilder.group({
       employeeInputType: ['dropdown'],
       managerName: [''],
-      id: [null, Validators.required],  // Ensure this line is present for the Id field
+      id: [null, Validators.required],
       userId: [null],
       employeeName: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -38,8 +39,30 @@ export class LeavestatusComponent  implements OnInit{
     });
   }
 
+  submitLeaveApplication() {
+    const userId = localStorage.getItem('id');
+
+    if (userId !== null) {
+      this.leaveApplication.userId = parseInt(userId, 10);
+
+      this.lmsService.submitLeaveApplication(this.leaveApplication).subscribe(
+        (response) => {
+          console.log(this.leaveApplication);
+          
+        });
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Applied Successful!',
+        text: 'Your leave has been applied successfully.',
+      });
+
+      this.closeLeaveApplicationPopup();
+      window.location.reload();
+    }
+  }
+
   ngOnInit() {
-    // Fetch leave status data and manager names when the component is initialized
     this.getLeaveStatusByuserId();
     this.getManagerNames();
   }
@@ -49,7 +72,6 @@ export class LeavestatusComponent  implements OnInit{
     const userId = localStorage.getItem('id');
 
     if (userId) {
-      // Call the service to get leave status data based on user id
       this.lmsService.getLeaveStatusByUserId(userId).subscribe(
         (data: any[] | undefined) => {
           console.log('Leave Status Data:', data);
@@ -63,28 +85,37 @@ export class LeavestatusComponent  implements OnInit{
   }
 
   editLeave(leave: any) {
-    const isoStartDate = new Date(leave.startDate).toISOString().split('T')[0];
-    const isoEndDate = new Date(leave.endDate).toISOString().split('T')[0];
-
-    // Patch form values with leave data to populate the form for editing
+    debugger
+    const formattedStartDate = this.formatDate(leave.startDate);
+    const formattedEndDate = this.formatDate(leave.endDate);
+  
     this.leaveApplicationForm.patchValue({
       employeeInputType: this.employeeInputType,
       managerName: leave.managerName,
       id: leave.id,
       userId: leave.userId,
       employeeName: leave.employeeName,
-      startDate: isoStartDate,
-      endDate: isoEndDate,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
       leaveType: leave.leaveType,
       reason: leave.reason,
     });
+    
+    this.leaveApplication = { ...this.leaveApplicationForm.value };
+  }
+  
+  
 
-    // Set the popup flag to true to open the leave application popup
-    this.isPopupOpen = true;
+  formatDate(date: string): string {
+    const dateObject = new Date(date);
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   getManagerNames() {
-    // Call the service to get manager names
     this.lmsService.getManagerNames().subscribe(
       (data: string[]) => {
         this.managerNames = data;
@@ -95,55 +126,56 @@ export class LeavestatusComponent  implements OnInit{
     );
   }
 
-  submitUpdatedLeaveApplication() {
-    debugger;
-    const updatedLeaveApplication = this.leaveApplicationForm.value;
-  
-    if (updatedLeaveApplication.id != null) {
-      // Call the service to update the leave application
-      this.lmsService.updateLeaveApplication(updatedLeaveApplication).subscribe(
-        (response: any) => {
-          console.log('Leave updated successfully:', response);
-          this.isPopupOpen = false; // Close the leave application popup
-          this.getLeaveStatusByuserId(); // Refresh the leave status data
-  
-          // Display SweetAlert success message
-          Swal.fire({
-            icon: 'success',
-            title: 'Leave Updated!',
-            text: 'Your leave application has been updated successfully.',
-          });
-        },
-        (error: any) => {
-          console.error('Error updating leave:', error);
-  
-          // Display SweetAlert error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while updating your leave application. Please try again.',
-          });
-        }
-      );
-    } else {
-      console.error('Invalid Id for leave application.');
-    }
-  }
-  
-  
+
+submitUpdatedLeaveApplication() {
+  debugger;
+  const updatedLeaveApplication = this.leaveApplication;
+
+  // Call the service to update the leave application
+  this.lmsService.updateLeaveApplication(updatedLeaveApplication)
+    .subscribe(
+      response => {
+        console.log('Leave application updated successfully', response);
+        
+        // Show success message using Swal.fire
+        Swal.fire({
+          icon: 'success',
+          title: 'Leave Updated!',
+          text: 'Your leave application has been updated successfully.',
+        });
+
+        // Optionally, you can perform additional actions here
+        window.location.reload();
+        // Reload the page
+         
+      },
+      error => {
+        console.error('Error updating leave application', error);
+
+        // Show error message using Swal.fire
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while updating your leave application. Please try again.',
+        });
+        
+
+        // Optionally, you can perform additional error handling here
+      }
+    );this.getLeaveStatusByuserId();
+}
+
+
 
   resetLeaveApplication() {
-    // Reset the leave application form
     this.leaveApplicationForm.reset();
   }
 
   closeLeaveApplicationPopup() {
-    // Set the popup flag to false to close the leave application popup
     this.isPopupOpen = false;
   }
 
   deleteLeave(leave: any) {
-    // Display SweetAlert confirmation
     Swal.fire({
       title: 'Delete Leave',
       text: 'Are you sure you want to delete this leave entry?',
@@ -156,13 +188,11 @@ export class LeavestatusComponent  implements OnInit{
       if (result.isConfirmed) {
         const leaveId = leave.id;
   
-        // Call the service to delete the leave entry
         this.lmsService.deleteLeave(leaveId).subscribe(
           (response: any) => {
             console.log('Leave deleted successfully:', response);
-            this.getLeaveStatusByuserId(); // Refresh the leave status data
+            this.getLeaveStatusByuserId();
   
-            // Display SweetAlert success message
             Swal.fire({
               icon: 'success',
               title: 'Leave Deleted!',
@@ -172,7 +202,6 @@ export class LeavestatusComponent  implements OnInit{
           (error: any) => {
             console.error('Error deleting leave:', error);
   
-            // Display SweetAlert error message
             Swal.fire({
               icon: 'error',
               title: 'Error',
@@ -183,7 +212,4 @@ export class LeavestatusComponent  implements OnInit{
       }
     });
   }
-  
-
-
 }
