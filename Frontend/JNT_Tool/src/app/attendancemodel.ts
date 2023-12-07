@@ -1,5 +1,5 @@
 export interface AttendenceRecord {
-    Id:number,
+    id:number,
     LoginTime: Date,
     LogoutTime: Date,
     Hours: Date,

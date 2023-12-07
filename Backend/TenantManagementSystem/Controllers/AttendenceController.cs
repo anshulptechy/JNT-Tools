@@ -124,38 +124,92 @@ namespace TenantManagementSystem.Controllers
             }
 
         }
-        [HttpPost(nameof(CreateManagementAndAttendance))]
-        public IActionResult CreateManagementAndAttendance(Management management)
+        [HttpGet(nameof(GetAllManagementAndAttendance))]
+        public IActionResult GetAllManagementAndAttendance()
         {
             try
             {
-                if (management != null)
-                {
-                    _applicationDbContext.Managements.Add(management);
-                    _applicationDbContext.SaveChanges();
+                List<Management> allManagements = _applicationDbContext.Managements.ToList();
+                List<object> result = new List<object>();
 
-                    Attendences newAttendanceEntry = new Attendences
+                foreach (Management management in allManagements)
+                {
+                    Attendences attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+
+                    if (attendance != null)
                     {
-                        id = management.id,
-                        LoginTime = DateTime.Now,
-                        LogoutTime = DateTime.Now.AddHours(8), // Adjust this as needed
-                        Hours = TimeSpan.FromHours(8) // Adjust this as needed
-                    };
+                        // Customize the response format based on your needs
+                        var entry = new
+                        {
+                            Management = management,
+                            Attendance = attendance
+                        };
 
-                    _AttendenceServices.Insert(newAttendanceEntry);
+                        result.Add(entry);
+                    }
+                }
 
-                    return Ok("User created successfully with attendance entry.");
-                }
-                else
-                {
-                    return BadRequest("Invalid Management data");
-                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error creating user and attendance: {ex.Message}");
+                return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
+        public IActionResult GetAllManagementAndAttendanceByFirstName(string firstName)
+        {
+            try
+            {
+                List<Management> filteredManagements = _applicationDbContext.Managements
+                    .Where(m => m.firstName == firstName)
+                    .ToList();
+
+                List<object> result = new List<object>();
+
+                foreach (Management management in filteredManagements)
+                {
+                    Attendences attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+
+                    if (attendance != null)
+                    {
+                        // Customize the response format based on your needs
+                        var entry = new
+                        {
+                            Management = management,
+                            Attendance = attendance
+                        };
+
+                        result.Add(entry);
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving management and attendance entries by first name: {ex.Message}");
+            }
+        }
+        [HttpGet(nameof(GetAllFirstNames))]
+        public IActionResult GetAllFirstNames()
+        {
+            try
+            {
+                List<string> allFirstNames = _applicationDbContext.Managements
+                    .Select(m => m.firstName)
+                    .Distinct()
+                    .ToList();
+
+                return Ok(allFirstNames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving all first names: {ex.Message}");
+            }
+        }
+
+
 
     }
 }

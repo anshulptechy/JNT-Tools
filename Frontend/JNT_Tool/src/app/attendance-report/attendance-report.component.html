@@ -37,7 +37,7 @@
             <mat-form-field>
               <mat-label>Select Employee</mat-label>
               <mat-select formControlName="selectedEmployee" (selectionChange)="generateEReport()" [(value)]="selectedEmployee">
-                <mat-option *ngFor="let firstName of employeeNames" [value]="firstName">{{ firstName }}</mat-option>
+                <mat-option *ngFor="let employee of employeeNames" [value]="employee">{{ employee }}</mat-option>
               </mat-select>
             </mat-form-field>
          
@@ -51,26 +51,28 @@
         <table class="table">
             <thead style="padding: 50px;">
                 <tr>
+                  <th style="color:blue;">AttendenceId</th>
                     <th style="color:blue;">FirstName</th>
                     <th style="color:blue;">LastName</th>
                     <th style="color:blue;">Department</th>
                     <th style="color:blue;">Login Time</th>
                     <th style="color:blue;">Logout Time</th>
                     <th style="color:blue;">Hours</th>
-                    <th style="color:blue;">Months</th>
+                    <!-- <th style="color:blue;">Months</th> -->
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let record of gridData">
-                    <td style="color: green;">{{ record.firstname }}</td>
-                    <td>{{ record.lastname }}</td>
-                    <td>{{ record.Department  }}</td>
-                    <td>{{ record.loginTime | date:'HH:mm'}}</td>
-                    <td>{{ record.logoutTime |date:'HH:mm' }}</td>
-                    <td>{{ (record.hours ) }}</td>
-                    <td style="color: orangered;">{{record.month}}</td>
-                </tr>
-            </tbody>
+              <tr *ngFor="let record of gridData">
+                <td>{{ record.attendance.attendenceId }}</td>
+                <td style="color: green;">{{ record.management.firstName }}</td>
+                <td>{{ record.management.lastName }}</td>
+                <td>{{ record.management.department }}</td>
+                <td>{{ record.attendance.loginTime | date:'HH:mm' }}</td>
+                <td>{{ record.attendance.logoutTime | date:'HH:mm' }}</td>
+                <td>{{ record.attendance.hours }}</td>
+                <!-- <td style="color: orangered;">{{record.month}}</td> -->
+              </tr>
+            </tbody>         
         </table>
  
     </div>

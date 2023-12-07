@@ -159,6 +159,10 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
+        public Attendences GetAttendanceByManagementId(int id)
+        {
+            return _applicationDbContext.Attendence.SingleOrDefault(a => a.id == id);
+        }
         public void CreateManagementUserAndAttendance(Management management)
         {
             // Add the new user to the Management table
