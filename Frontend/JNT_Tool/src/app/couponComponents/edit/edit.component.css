@@ -1,10 +1,4 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-  margin: 0;
-}
-
-.container {
+/* .container {
   max-width: 600px;
   margin: auto;
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
@@ -13,7 +7,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
-}
+} */
 
 h1 {
   color: #fff;
@@ -68,8 +62,9 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
-  background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
+
+.add-button button:hover{
+  background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
 }
 
 

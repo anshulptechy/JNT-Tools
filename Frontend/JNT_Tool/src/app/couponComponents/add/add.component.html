@@ -1,6 +1,8 @@
 <app-header></app-header>
-<h2 mat-dialog-title>Create New Coupons</h2>
-<form [formGroup]="couponForm" class="container1">
+<div class="body">
+<h1 mat-dialog-title>Create New Coupons</h1>
+<form [formGroup]="couponForm">
+  <div  class="container1">
   <div class="row">
     <mat-form-field appearance="fill" class="half-width">
       <mat-label>Coupon Name</mat-label>
@@ -56,12 +58,11 @@
 
     </div>
   </div>
+  </div>
 </form>
 <div *ngIf="couponForm.invalid && (couponForm.dirty || couponForm.touched)" style="color: red; margin-left: 150px;">
-  *Please fill in all the required fields
-  <span *ngIf="couponForm.get('discountType')?.invalid">*</span>
-</div>
-
+  *Please fill in all the required fields!
+</div></div>
 <div mat-dialog-actions class="button-container">
   <button style="margin-right: 5px;" (click)="onSaveClick()" [disabled]="isSaveButtonDisabled()">Save</button>
   <button  (click)="onCancelClick()">Cancel</button>
