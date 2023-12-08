@@ -1,0 +1,39 @@
+
+<app-header></app-header>
+<div class="container1">
+  <button (click)="openDialog()" class="addUserButton">Add Task</button>
+
+  <table class="tableGrid">
+    <thead class="tableHead">
+      <tr>
+        <th>Task No.</th>
+        <th>Task Name</th>
+        <th>Task Description</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>User Email</th>
+        <th style="display: none;" >Tenant Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody class="tableData">
+      <tr *ngFor="let task of tasks ; let i =index">
+        <td>{{ i +1 }}</td>
+        <td>{{ task.taskName }}</td>
+        <td>{{ task.taskDescription }}</td>
+        <td>{{ task.taskStartTime | date:'yyyy-MM-dd' }}</td>
+        <td>{{ task.taskEndTime | date:'yyyy-MM-dd' }}</td>
+        <td>{{task.userName}}</td>
+        <td style="display: none;">{{task.tenantName}}</td>
+        <td>
+          <button (click)="editTask(task)" class="edit-button custom-button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteTask(task.id)" class="delete-button custom-button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

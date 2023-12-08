@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Models;
+using Repository_Layer.Repository;
 using Service_Layer.ICustomService;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,25 @@ namespace Service_Layer.Custom_Service
                 return false;
             }
         }
-
+        public IEnumerable<string> GetUsersByTenantName(string tenantName)
+        {
+            try
+            {
+                var obj = _studentRepository.GetUsersByTenantName(tenantName);
+                if (obj != null)
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public Management Get(int Id)
         {
             try
