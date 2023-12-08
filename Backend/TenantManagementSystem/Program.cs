@@ -25,9 +25,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region Service Injected
+// Add repository to the container
+builder.Services.AddScoped(typeof(ICouponRepo<>), typeof(CouponRepo<>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+
+// Add services to the container.
+builder.Services.AddScoped<ICouponServices<Coupon>, CouponServices>();
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 
 builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
@@ -38,8 +42,6 @@ builder.Services.AddScoped<TaskServiceInterface1<taskStructure>, TaskService>();
 builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
 builder.Services.AddScoped<IEventService<Event>, EventService>();
-
-#endregion
 
 var app = builder.Build();
 
