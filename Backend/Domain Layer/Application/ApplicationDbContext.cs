@@ -45,5 +45,11 @@ namespace Domain_Layer.Application
 
  
 
+        public DbSet<ApplyLeave> ApplyLeaves
+        {
+            get;
+            set;
+        }
+
     }
 }
