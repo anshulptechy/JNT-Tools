@@ -42,9 +42,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     },
     plugins: [dayGridPlugin, interactionPlugin],
     events: [],
-    eventClick: this.handleEventClick.bind(this), // Handle event click
+    eventClick: this.handleEventClick.bind(this), 
     selectable: false,
-    select: (selectInfo: any) => this.handleDateSelect(selectInfo), // Specify the callback for date selection
+    select: (selectInfo: any) => this.handleDateSelect(selectInfo),
   };
 
   // Google Calendar API configuration
