@@ -1,5 +1,5 @@
 .customUpperMargin {
-    margin-top: 10rem;
+    margin-top: 6rem;
   }
   
   table {
@@ -13,7 +13,8 @@
     padding: 8px;
   }
   th{
-    background-color: #084874;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
   }
   .col-6 .dropdown,
   .col-6 .dropdown button,
@@ -38,10 +39,12 @@
     text-align: center;
   }
   .dropdown-toggle{
-    background-color: #084874;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
   }
   .customCsv{
-    background-color: #084874;
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
   }
   /* .mt-3 {
     margin-top: 3rem; /* Adjust the margin as needed 
