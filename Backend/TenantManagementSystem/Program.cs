@@ -46,6 +46,12 @@ builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
 builder.Services.AddScoped<IEventService<Event>, EventService>();
 
+builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
+
+builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
+
+
+
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
