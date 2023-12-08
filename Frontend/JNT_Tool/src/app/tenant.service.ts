@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http'
   providedIn: 'root'
 })
 export class TenantService {
-baseUrl='https://localhost:7126/api/Values/'
+baseUrl='https://localhost:7126/api/Tenant/'
   constructor(private userHttp:HttpClient) { }
   
   getAllTenants()
@@ -12,7 +12,7 @@ baseUrl='https://localhost:7126/api/Values/'
     return this.userHttp.get(this.baseUrl+'GetAllTenant');
   }
   getUserByTenant(tenantName: string){
-    return this.userHttp.get(`https://localhost:7126/api/Values/GetUsersByTenantName?tenantName=${tenantName}`)
+    return this.userHttp.get(`https://localhost:7126/api/Tenant/GetUsersByTenantName?tenantName=${tenantName}`)
   }
   createTenants(newTenantData:any){
     return this.userHttp.post(this.baseUrl+'CreateTenant',newTenantData)

@@ -2,7 +2,7 @@
 <div class="page">
   <div class="dialog-content" [formGroup]="userTasks">
     <mat-form-field class="form-field">
-      <mat-label>User Name</mat-label>
+      <mat-label>User Email</mat-label>
       <input matInput formControlName="userName" id="userName" />
     </mat-form-field>
     <button type="submit" class="show-grid-button" (click)="getUserTasks(userTasks.value.userName)">Show Grid</button>
@@ -17,7 +17,7 @@
           <th>Task Description</th>
           <th>Start Time</th>
           <th>End Time</th>
-          <th>User Name</th>
+          <th>User Email</th>
           <th>Action</th>
         </tr>
       </thead>

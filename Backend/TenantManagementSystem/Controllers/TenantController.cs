@@ -8,11 +8,11 @@ namespace TenantManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TenantController : ControllerBase
     {
         private readonly ICustomService<Management> _customService;
         private readonly ApplicationDbContext _applicationDbContext;
-        public ValuesController(ICustomService<Management> customService, ApplicationDbContext applicationDbContext)
+        public TenantController(ICustomService<Management> customService, ApplicationDbContext applicationDbContext)
         {
             _customService = customService;
             _applicationDbContext = applicationDbContext;
