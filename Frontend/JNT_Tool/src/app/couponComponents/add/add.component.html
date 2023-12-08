@@ -48,7 +48,7 @@
 
   <div class="row">
     <div>
-      <mat-label><b>Discount Type</b></mat-label>&nbsp;&nbsp;
+      <mat-label style="color: grey;"><b>Discount Type*</b></mat-label>&nbsp;&nbsp;
       <mat-radio-group formControlName="discountType">
         <mat-radio-button value="Fixed Amount">Fixed Amount</mat-radio-button>
         <mat-radio-button value="Percentage">Percentage</mat-radio-button>
@@ -58,8 +58,10 @@
   </div>
 </form>
 <div *ngIf="couponForm.invalid && (couponForm.dirty || couponForm.touched)" style="color: red; margin-left: 150px;">
-  *Please fill in all the required fields!
+  *Please fill in all the required fields
+  <span *ngIf="couponForm.get('discountType')?.invalid">*</span>
 </div>
+
 <div mat-dialog-actions class="button-container">
   <button style="margin-right: 5px;" (click)="onSaveClick()" [disabled]="isSaveButtonDisabled()">Save</button>
   <button  (click)="onCancelClick()">Cancel</button>
