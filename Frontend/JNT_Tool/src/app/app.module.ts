@@ -46,6 +46,7 @@ import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
+import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,8 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     CreateProjectDialogComponent,
     UpdateButtonComponent,
     ProjectReportComponent,
+    SalaryReportComponent,
+
   ],
   imports: [
     MatRadioModule,
