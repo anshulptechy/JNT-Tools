@@ -25,8 +25,9 @@
             <td>{{ leave.reason }}</td>
             <td>
               
-              <button (click)="approveLeave(leave)">Approve</button>
-              <button (click)="rejectLeave(leave)">Reject</button>
+              <button class="button-approve" (click)="approveLeave(leave)">Approve</button>
+              <button class="button-reject" (click)="rejectLeave(leave)">Reject</button>
+              
             </td>
           </tr>
         </tbody>

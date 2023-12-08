@@ -1,100 +1,85 @@
-.upperMargin{
-    margin-top: 5rem;
+.upperMargin {
+  margin-top: 8rem;
 }
-/* leave-management.component.css */
+
+h2 {
+  font-size: 30px; /* Adjust the font size as needed */
+  color: #0a0a0a; /* Change the color to your preferred color code */
+  /* Add any additional styling if necessary */
+}
 
 .container {
-    margin: 20px;
-  }
-  
-  h2 {
-    color: #333;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .table th {
-    background-color: #f2f2f2;
-  }
-  
-  .table td {
-    background-color: #fff;
-  }
-  
-  .table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .no-data-message {
-    color: #555;
-    margin-top: 10px;
-  }
-  
-  button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-  }
-  .dashboard {
-    height: 100vh; /* Ensure the dashboard takes up the full height of the viewport */
-    display: flex;
-    width: 100%;
-  }
-  
-  .sidenav-container {
-    flex: 100%; /* Fix the width of the sidenav container */
-  }
-  
-  .sidenav {
-    width: 200px; 
-    background-color: rgb(167, 161, 161);/* Set the width of the sidenav */
-  }
-  
-  .content {
-    flex: 1; /* Allow the content to take up remaining space */
-    padding: 16px; /* Add padding for better spacing */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-  }
-  
-  /* Navbar Styles */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
-    padding: 8px;
-    width: 100%;
-  }
-  
-  .navbar button {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .welcome {
-    font-weight: bold;
-  }
-  
-  .logout-button {
-    background-color: #d9534f; /* Bootstrap's danger color */
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  
+  margin-top: 20px;
+  text-align: center;
+  font-size: 15px; /* Adjust the font size as needed */
+}
+
+
+
+
+.table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+
+ th {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: #ffffff; /* Header text color */
+}
+/* Style for the "Approve" button */
+/* Center the buttons within the cell */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the "Approve" button */
+.button-approve {
+  background-color: #28a745; /* Green background color */
+  color: #ffffff; /* Text color */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: none; /* Remove border for a cleaner look */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for "Approve" button */
+.button-approve:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Style for the "Reject" button */
+.button-reject {
+  background-color: #dc3545; /* Red background color */
+  color: #ffffff; /* Text color */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: none; /* Remove border for a cleaner look */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for "Reject" button */
+.button-reject:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+
+
+button:hover {
+  background-color: #45a049;
+}
+
+.noDataMessage {
+  margin-top: 20px;
+  color: #777;
+}
+
+/* Optional: Add more styling based on your design preferences */
