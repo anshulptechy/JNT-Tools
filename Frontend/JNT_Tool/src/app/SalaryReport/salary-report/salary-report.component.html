@@ -1,20 +1,26 @@
 <app-header></app-header>
 
-<div *ngIf="showReportOptions" class="button-dropdowns">
+<div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
   <!-- Report Content -->
-  <mat-form-field>
-    <mat-label>Select Month</mat-label>
-    <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-      <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  
+    
+      <mat-form-field>
+        <mat-label>Select Month</mat-label>
+        <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
+          <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
 
-  <mat-form-field>
-    <mat-label>Select Employee</mat-label>
-    <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-      <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    
+      <mat-form-field class="customMargin">
+        <mat-label>Select Employee</mat-label>
+        <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
+          <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+  
 
   <div *ngIf="showReportGrid">
     <!-- Grid to display the report -->

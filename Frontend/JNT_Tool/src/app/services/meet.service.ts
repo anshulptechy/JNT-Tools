@@ -14,7 +14,7 @@ export class MeetService {
   constructor(private http: HttpClient) {}
 
   addEvent(events: any[]): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/ValuesEvent/AddEvent`, events);
+    return this.http.post<any>(`${this.apiUrl}/Scheduler/AddEvent`, events);
   }
 
   deleteEvent(eventToDelete: any): Observable<any> {
@@ -25,13 +25,13 @@ export class MeetService {
       body: eventToDelete,
     };
     return this.http.delete<any>(
-      `${this.apiUrl}/ValuesEvent/DeleteEvent`,
+      `${this.apiUrl}/Scheduler/DeleteEvent`,
       options
     );
   }
 
   updateEvent(updatedEvent: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/ValuesEvent/UpdateEvent`, updatedEvent);
+    return this.http.put<Event>(`${this.apiUrl}/Scheduler/UpdateEvent`, updatedEvent);
   }
 }
 
