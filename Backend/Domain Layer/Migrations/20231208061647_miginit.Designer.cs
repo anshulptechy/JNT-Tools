@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Backend/Domain Layer/Migrations/20231207082331_mignit.Designer.cs
-    [Migration("20231207082331_mignit")]
-    partial class mignit
-========
-    [Migration("20231206095359_miginit")]
+    [Migration("20231208061647_miginit")]
     partial class miginit
->>>>>>>> 98927b254db10271d9674ec6299033cda73e1867:Backend/Domain Layer/Migrations/20231206095359_miginit.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

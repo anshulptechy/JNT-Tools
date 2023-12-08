@@ -183,7 +183,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
     } else {
       this.tokenClient.requestAccessToken({ prompt: '' });
     }
-      // this.tokenClient.requestAccessToken({ prompt: '' });
     this.calendarOptions.eventClick = this.handleEventClick.bind(this);
   }
 
