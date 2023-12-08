@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
+  <!-- Report Content -->
+  
+    
+      <mat-form-field>
+        <mat-label>Select Month</mat-label>
+        <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
+          <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+
+    
+      <mat-form-field class="customMargin">
+        <mat-label>Select Employee</mat-label>
+        <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
+          <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+  
+
+  <div *ngIf="showReportGrid">
+    <!-- Grid to display the report -->
+    <table>
+      <thead>
+        <tr>
+          <th>EmployeeID</th>
+          <th>Employee Name</th>
+          <th>Role</th>
+          <th>Salary Month</th>
+          <th>Salary</th>
+          <th>Leaves</th>
+          <th>Deductions</th>
+          <th>Net Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of reportData">
+          <td>{{ record.management.id }}</td>
+          <td>{{ record.management.firstName}}</td>
+          <td>{{ record.management.department }}</td>
+          <td>{{ record.salaryMonth }}</td>
+          <td>{{ record.salary }}</td>
+          <td>{{ record.leaves }}</td>
+          <td>{{ record.deductions }}</td>
+          <td>{{ record.netPay }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -56,9 +56,9 @@ export class LeavestatusComponent implements OnInit {
         title: 'Applied Successful!',
         text: 'Your leave has been applied successfully.',
       });
-
-      this.closeLeaveApplicationPopup();
       window.location.reload();
+      this.closeLeaveApplicationPopup();
+      
     }
   }
 

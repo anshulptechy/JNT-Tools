@@ -59,6 +59,55 @@ namespace Domain_Layer.Migrations
                     b.ToTable("ApplyLeaves");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CouponCode")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("CouponName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(10, 4)");
+
+                    b.Property<string>("DiscountType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SupabaseUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CouponCode")
+                        .IsUnique();
+
+                    b.ToTable("Coupons");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -125,6 +174,40 @@ namespace Domain_Layer.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Managements");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
+                {
+                    b.Property<int>("SalaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryId"));
+
+                    b.Property<int>("Deductions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Leaves")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NetPay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SalaryMonth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SalaryId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("SalaryRecords");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
@@ -198,6 +281,17 @@ namespace Domain_Layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("taskTable3");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Management", "Management")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Management");
                 });
 #pragma warning restore 612, 618
         }

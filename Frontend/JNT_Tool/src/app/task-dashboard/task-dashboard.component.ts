@@ -58,7 +58,7 @@ export class TaskDashboardComponent {
   // Function to open a dialog for adding a new task
   openDialog() {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '400px',
+      width: '600px',
       data: {},
     });
 
