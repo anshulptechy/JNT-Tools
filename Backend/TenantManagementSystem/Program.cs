@@ -2,10 +2,22 @@ using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Repository_Layer.EventRepo;
+using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
+using Repository_Layer.ProjectRepo;
+
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Repository_Layer.EventRepo;
+using Repository_Layer.IEventRepo;
+using Repository_Layer.IRepository;
+using Repository_Layer.ProjectRepo;
+
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
+using Service_Layer.EventService;
 using Service_Layer.ICustomService;
+using Service_Layer.IEventService;
 using static Repository_Layer.IRepository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,9 +44,19 @@ builder.Services.AddScoped<IAttService<Attendences>, AttService>();
 builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
 builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
 
+builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
+
 
 builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
 builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
+
+builder.Services.AddScoped(typeof(TaskInterface1<>), typeof(TaskRepository<>));
+builder.Services.AddScoped<TaskServiceInterface1<taskStructure>, TaskService>();
+
+builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
+builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
+builder.Services.AddScoped<IEventService<Event>, EventService>();
+
 
 
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();

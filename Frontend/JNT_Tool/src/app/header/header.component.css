@@ -115,7 +115,7 @@
   .btn-create-user:hover {
     background-color: #0056b3;
   }
-  
+ 
   /* Style for spacing between buttons */
   .button-spacing {
     margin-left: 10px;
@@ -322,3 +322,44 @@
     cursor: pointer;
   }
   
+  .navbar{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  }
+
+  .navbar-toggler{
+    background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
+  }
+
+  h5{
+    color: white;
+  }
+
+  button{
+    border: 1px solid white;
+  }
+
+  .offcanvas{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%))
+  }
+  /* Override Bootstrap dropdown menu styles */
+.navbar-nav .dropdown-menu {
+  background-color: transparent; /* Set background to transparent */
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove box shadow */
+}
+
+/* Override Bootstrap dropdown item styles */
+.navbar-nav .dropdown-menu .dropdown-item {
+  color: #fff; /* Set text color */
+}
+
+/* Override Bootstrap dropdown item hover styles */
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+  background-color: #007bff; /* Set hover background color */
+  color: #fff; /* Set hover text color */
+}
+.border {
+  border-style: inset;
+  border-color: azure;
+  background-color: aliceblue;
+}

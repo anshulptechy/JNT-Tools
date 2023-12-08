@@ -44,9 +44,41 @@ namespace Domain_Layer.Migrations
 
                     b.HasKey("AttendenceId");
 
-                    b.HasIndex("id");
+                    b.HasIndex("id")
+                        .IsUnique();
 
                     b.ToTable("Attendence");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GoogleCalendarEventId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("end")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.Login", b =>
@@ -120,11 +152,84 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Screenshot");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<int>("Budget")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("projectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("projectDataTable");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.taskStructure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("taskDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("taskEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("taskName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("taskStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tenantName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("taskTable3");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
                     b.HasOne("Domain_Layer.Models.Management", "Management")
-                        .WithMany()
-                        .HasForeignKey("id")
+                        .WithOne()
+                        .HasForeignKey("Domain_Layer.Models.Attendences", "id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

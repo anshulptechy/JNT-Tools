@@ -6,11 +6,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class TrackTime : Migration
+    public partial class miginit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    userId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GoogleCalendarEventId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    end = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Login",
                 columns: table => new
@@ -42,6 +59,25 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "projectDataTable",
+                columns: table => new
+                {
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    projectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Client = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Budget = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_projectDataTable", x => x.ProjectId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Screenshot",
                 columns: table => new
                 {
@@ -53,6 +89,24 @@ namespace Domain_Layer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Screenshot", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "taskTable3",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    taskName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    taskDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    taskStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    taskEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tenantName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_taskTable3", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,7 +134,8 @@ namespace Domain_Layer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Attendence_id",
                 table: "Attendence",
-                column: "id");
+                column: "id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -90,10 +145,19 @@ namespace Domain_Layer.Migrations
                 name: "Attendence");
 
             migrationBuilder.DropTable(
+                name: "Events");
+
+            migrationBuilder.DropTable(
                 name: "Login");
 
             migrationBuilder.DropTable(
+                name: "projectDataTable");
+
+            migrationBuilder.DropTable(
                 name: "Screenshot");
+
+            migrationBuilder.DropTable(
+                name: "taskTable3");
 
             migrationBuilder.DropTable(
                 name: "Managements");

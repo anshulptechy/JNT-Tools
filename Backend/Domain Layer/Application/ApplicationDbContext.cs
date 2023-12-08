@@ -26,20 +26,31 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+
         public DbSet<Attendences> Attendence
         {
             get;
             set;
         }
-        public DbSet<Screenshots> Screenshot
+        public DbSet<Screenshots> Screenshot { get; set; }
+
+        public DbSet<projectModel> projectDataTable
+
         {
             get;
             set;
         }
 
+
         public DbSet<Login> Login
         {  get; set; }
 
        
+
+        public DbSet<Event> Events { get; set; }
+        public DbSet<taskStructure> taskTable3 { get; set; }
+   
+
+
     }
 }
