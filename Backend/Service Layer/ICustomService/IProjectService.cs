@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.ICustomService
 {
-    public interface ICustomService<T> where T : class
+    public interface IProjectService<T> where T : class
     {
         IEnumerable<T> GetAll();
-        IEnumerable<string> GetUsersByTenantName(string tenantName);
-        
         T Get(int Id);
         void Insert(T entity);
         void Update(T entity);
-        bool Delete(string Id);
-        Task<T> GetByEmailAndPasswordAsync(string email, string password);
 
+        IEnumerable<(int ProjectId, string ProjectName)> GetAllProjectNames();
+
+        IEnumerable<T> GetProjectsByMonth(int month);
     }
 }

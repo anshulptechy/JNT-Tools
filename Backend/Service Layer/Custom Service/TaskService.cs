@@ -1,40 +1,39 @@
 ﻿using Domain_Layer.Models;
-using Repository_Layer.Repository;
+using Repository_Layer.IRepository;
 using Service_Layer.ICustomService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Repository_Layer.IRepository.IRepository;
 
 namespace Service_Layer.Custom_Service
 {
-    public class Custom_Service : ICustomService<Management>
+    public class TaskService : TaskServiceInterface1<taskStructure>
     {
-        private readonly IRepository<Management> _studentRepository;
-        public Custom_Service(IRepository<Management> studentRepository)
+        private readonly TaskInterface1<taskStructure> _taskRepository;
+        public TaskService(TaskInterface1<taskStructure> taskRepository)
         {
-            _studentRepository = studentRepository;
+            _taskRepository = taskRepository;
         }
         public bool Delete(string Id)
         {
             try
             {
-                _studentRepository.Delete(Convert.ToInt32(Id));
+                _taskRepository.Delete(Convert.ToInt32(Id));
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log the exception or handle it appropriately
                 return false;
             }
         }
-        public IEnumerable<string> GetUsersByTenantName(string tenantName)
+       
+        public taskStructure Get(int Id)
         {
             try
             {
-                var obj = _studentRepository.GetUsersByTenantName(tenantName);
+                var obj = _taskRepository.Get(Id);
                 if (obj != null)
                 {
                     return obj;
@@ -49,11 +48,11 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public Management Get(int Id)
+        public IEnumerable<taskStructure> GetTasksByTenantName(string tenantName)
         {
             try
             {
-                var obj = _studentRepository.Get(Id);
+                var obj = _taskRepository.GetTasksByTenantName(tenantName);
                 if (obj != null)
                 {
                     return obj;
@@ -68,11 +67,33 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public IEnumerable<Management> GetAll()
+        public IEnumerable<taskStructure> GetTasksByUserAndTenant(string userName, string tenantName)
         {
             try
             {
-                var obj = _studentRepository.GetAll();
+                var obj = _taskRepository.GetTasksByUserAndTenant(userName, tenantName);
+
+                // Check if obj is not null or empty before returning
+                if (obj != null && obj.Any())
+                {
+                    return obj;
+                }
+                else
+                {
+                    return new List<taskStructure>(); // Return an empty list if no tasks are found
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<taskStructure> GetAll()
+        {
+            try
+            {
+                var obj = _taskRepository.GetAll();
                 if (obj != null)
                 {
                     return obj;
@@ -87,19 +108,14 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public async Task<Management> GetByEmailAndPasswordAsync(string email, string password)
-        {
-            Management signupUser = await _studentRepository.GetByEmailAndPasswordAsync(email, password);
-            return signupUser;
-        }
-        public void Insert(Management entity)
+        public void Insert(taskStructure entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _studentRepository.Insert(entity);
-                    _studentRepository.SaveChanges();
+                    _taskRepository.Insert(entity);
+                    _taskRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -107,15 +123,15 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        
-        public void Update(Management entity)
+
+        public void Update(taskStructure entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _studentRepository.Update(entity);
-                    _studentRepository.SaveChanges();
+                    _taskRepository.Update(entity);
+                    _taskRepository.SaveChanges();
                 }
             }
             catch (Exception)

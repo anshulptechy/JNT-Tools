@@ -1,40 +1,27 @@
 ﻿using Domain_Layer.Models;
-using Repository_Layer.Repository;
+using Repository_Layer.IRepository;
 using Service_Layer.ICustomService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Repository_Layer.IRepository.IRepository;
 
 namespace Service_Layer.Custom_Service
 {
-    public class Custom_Service : ICustomService<Management>
+    public class ProjectService : IProjectService<projectModel>
     {
-        private readonly IRepository<Management> _studentRepository;
-        public Custom_Service(IRepository<Management> studentRepository)
+        private readonly IProjectRepo<projectModel> _projectRepository;
+        public ProjectService(IProjectRepo<projectModel> ProjectRepo)
         {
-            _studentRepository = studentRepository;
+            _projectRepository = ProjectRepo;
         }
-        public bool Delete(string Id)
+        public projectModel Get(int Id)
         {
+
             try
             {
-                _studentRepository.Delete(Convert.ToInt32(Id));
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it appropriately
-                return false;
-            }
-        }
-        public IEnumerable<string> GetUsersByTenantName(string tenantName)
-        {
-            try
-            {
-                var obj = _studentRepository.GetUsersByTenantName(tenantName);
+                var obj = _projectRepository.Get(Id);
                 if (obj != null)
                 {
                     return obj;
@@ -49,11 +36,12 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public Management Get(int Id)
+
+        public IEnumerable<projectModel> GetAll()
         {
             try
             {
-                var obj = _studentRepository.Get(Id);
+                var obj = _projectRepository.GetAll();
                 if (obj != null)
                 {
                     return obj;
@@ -68,14 +56,17 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public IEnumerable<Management> GetAll()
+
+        public IEnumerable<(int ProjectId, string ProjectName)> GetAllProjectNames()
         {
             try
             {
-                var obj = _studentRepository.GetAll();
-                if (obj != null)
+                var projects = _projectRepository.GetAll();
+
+                if (projects != null)
                 {
-                    return obj;
+
+                    return projects.Select(p => (p.ProjectId, p.projectName)).ToList();
                 }
                 else
                 {
@@ -87,19 +78,36 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public async Task<Management> GetByEmailAndPasswordAsync(string email, string password)
+
+        public IEnumerable<projectModel> GetProjectsByMonth(int month)
         {
-            Management signupUser = await _studentRepository.GetByEmailAndPasswordAsync(email, password);
-            return signupUser;
+            try
+            {
+                var projects = _projectRepository.GetProjectsByMonth(month);
+
+                if (projects != null)
+                {
+                    return projects;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
-        public void Insert(Management entity)
+
+        public void Insert(projectModel entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _studentRepository.Insert(entity);
-                    _studentRepository.SaveChanges();
+                    _projectRepository.Insert(entity);
+                    _projectRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -107,15 +115,15 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        
-        public void Update(Management entity)
+
+        public void Update(projectModel entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _studentRepository.Update(entity);
-                    _studentRepository.SaveChanges();
+                    _projectRepository.Update(entity);
+                    _projectRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -123,5 +131,7 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
+
+
     }
 }
