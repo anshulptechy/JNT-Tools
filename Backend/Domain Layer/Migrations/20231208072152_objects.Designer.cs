@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231208051613_miginit")]
-    partial class miginit
+    [Migration("20231208072152_objects")]
+    partial class objects
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,23 +24,6 @@ namespace Domain_Layer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain_Layer.Models.EmployeeSalary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmployeeSalaryRecords");
-                });
 
             modelBuilder.Entity("Domain_Layer.Models.Event", b =>
                 {
@@ -112,11 +95,11 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("SalaryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryId"));
 
                     b.Property<int>("Deductions")
                         .HasColumnType("int");
@@ -130,10 +113,6 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("NetPay")
                         .HasColumnType("int");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
@@ -141,7 +120,7 @@ namespace Domain_Layer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SalaryId");
 
                     b.HasIndex("EmployeeId");
 
@@ -223,18 +202,13 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
                 {
-                    b.HasOne("Domain_Layer.Models.EmployeeSalary", "Employee")
-                        .WithMany("SalaryRecords")
+                    b.HasOne("Domain_Layer.Models.Management", "Management")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("Domain_Layer.Models.EmployeeSalary", b =>
-                {
-                    b.Navigation("SalaryRecords");
+                    b.Navigation("Management");
                 });
 #pragma warning restore 612, 618
         }

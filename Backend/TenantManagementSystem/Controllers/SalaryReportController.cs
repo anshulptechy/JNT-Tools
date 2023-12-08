@@ -1,7 +1,13 @@
-﻿using Domain_Layer.Models;
+﻿using Domain_Layer.Application;
+using Domain_Layer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service_Layer.ICustomService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TenantManagementSystem.Controllers
 {
@@ -10,17 +16,30 @@ namespace TenantManagementSystem.Controllers
     public class SalaryReportController : ControllerBase
     {
         private readonly ISalaryService _service;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public SalaryReportController(ISalaryService service)
+        public SalaryReportController(ISalaryService service, ApplicationDbContext appDbContext)
         {
             _service = service;
+            _applicationDbContext = appDbContext;
         }
 
-        [HttpGet("all-employees")]
-        public async Task<ActionResult<IEnumerable<EmployeeSalary>>> GetAllEmployees()
+        [HttpGet(nameof(GetAllFirstNames))]
+        public IActionResult GetAllFirstNames()
         {
-            var employees = await _service.GetAllEmployeesAsync();
-            return Ok(employees);
+            try
+            {
+                List<string> allFirstNames = _applicationDbContext.Managements
+                    .Select(m => m.firstName)
+                    .Distinct()
+                    .ToList();
+
+                return Ok(allFirstNames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving all first names: {ex.Message}");
+            }
         }
 
         [HttpGet("employee-details/{employeeId}")]
@@ -63,6 +82,33 @@ namespace TenantManagementSystem.Controllers
         {
             var salaryRecords = await _service.GetSalaryRecordsByMonthAndEmployeeAsync(month, employeeId);
             return Ok(salaryRecords);
+        }
+        [HttpGet("getSalaryData/{firstName}/{salaryMonth}")]
+        public async Task<IActionResult> GetSalaryData(string firstName, string salaryMonth)
+        {
+            try
+            {
+                // Retrieve EmployeeId from Management table based on FirstName
+                var employee = await _applicationDbContext.Managements
+                    .Where(m => m.firstName == firstName)
+                    .FirstOrDefaultAsync();
+
+                if (employee == null)
+                {
+                    return NotFound("Employee not found");
+                }
+
+                // Retrieve Salary Records for the specified EmployeeId and SalaryMonth
+                var salaryRecords = await _applicationDbContext.SalaryRecords
+                    .Where(s => s.EmployeeId == employee.id && s.SalaryMonth == salaryMonth)
+                    .ToListAsync();
+
+                return Ok(salaryRecords);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
     }

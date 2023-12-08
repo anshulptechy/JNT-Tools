@@ -9,13 +9,11 @@ namespace Service_Layer.ICustomService
 {
     public interface ISalaryService
     {
-        Task<IEnumerable<EmployeeSalary>> GetAllEmployeesAsync();
         Task<IEnumerable<SalaryRecord>> GetEmployeeDetailsAsync(int employeeId);
         Task<IEnumerable<SalaryRecord>> GetSalaryRecordsByMonthAsync(string month);
         Task<bool> AddSalaryRecordAsync(SalaryRecord salaryRecord);
-
         Task<IEnumerable<string>> GetAllMonthsAsync();
-
         Task<IEnumerable<SalaryRecord>> GetSalaryRecordsByMonthAndEmployeeAsync(string month, int employeeId);
+        Task<IEnumerable<SalaryRecord>> GetAllEmployeesAsync();
     }
 }

@@ -12,9 +12,13 @@ namespace Domain_Layer.Application
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            modelBuilder.Entity<SalaryRecord>()
+                .HasOne(a => a.Management)
+                .WithMany()
+                .HasForeignKey(a => a.EmployeeId)
+                .IsRequired();
         }
         public DbSet<Management> Managements
         {
@@ -31,11 +35,7 @@ namespace Domain_Layer.Application
 
         public DbSet<SalaryRecord> SalaryRecords { get; set;}
 
-        public DbSet<EmployeeSalary> EmployeeSalaryRecords { get; set;}
-
-
-
-        
+ 
 
     }
 }

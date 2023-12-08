@@ -1,4 +1,5 @@
-﻿using Domain_Layer.Models;
+﻿using Domain_Layer.Application;
+using Domain_Layer.Models;
 using Repository_Layer.IRepository;
 using Service_Layer.ICustomService;
 using System;
@@ -11,18 +12,21 @@ namespace Service_Layer.Custom_Service
 {
     public class SalaryService : ISalaryService
     {
-        private readonly ISalaryReport<EmployeeSalary> _employeeRepository;
+      
         private readonly ISalaryReport<SalaryRecord> _salaryRecordRepository;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public SalaryService(ISalaryReport<EmployeeSalary> employeeRepository, ISalaryReport<SalaryRecord> salaryRecordRepository)
+        public SalaryService( ISalaryReport<SalaryRecord> salaryRecordRepository, ApplicationDbContext applicationDbContext)
         {
-            _employeeRepository = employeeRepository;
+           
             _salaryRecordRepository = salaryRecordRepository;
+            _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<IEnumerable<EmployeeSalary>> GetAllEmployeesAsync()
+        public async Task<IEnumerable<SalaryRecord>> GetAllEmployeesAsync()
         {
-            return await _employeeRepository.GetAllAsync();
+            var employees = await _salaryRecordRepository.GetAllAsync();
+            return employees;
         }
 
         public async Task<IEnumerable<SalaryRecord>> GetEmployeeDetailsAsync(int employeeId)

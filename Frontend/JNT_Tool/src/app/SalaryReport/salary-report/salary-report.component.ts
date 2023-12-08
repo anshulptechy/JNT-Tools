@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SalaryReportComponent {
   employeeData: any[] = [];
   showRecordOptions: boolean = true;
-  selectedEmployee: { id: number, employeeName: string } = { id: 0, employeeName: '' };
+  selectedEmployee: any = {}; 
   selectedMonth: string = '';
   showReportOptions: boolean = true;
   showReportGrid: boolean = false;
@@ -32,6 +32,7 @@ export class SalaryReportComponent {
     this.employeeService.getAllEmployees().subscribe(
       (data: any[]) => {
         this.employeeData = data;
+        console.log(data);
       },
       (error: any) => {
         console.error('Error fetching employees:', error);
@@ -51,8 +52,9 @@ export class SalaryReportComponent {
   }
 
   generateReport() {
-    if (this.selectedMonth && this.selectedEmployee.id) {
-      this.employeeService.getSalaryData(this.selectedMonth, this.selectedEmployee.id).subscribe(
+    debugger;
+    if (this.selectedEmployee && this.selectedMonth) {
+      this.employeeService.getSalaryData(this.selectedEmployee,this.selectedMonth).subscribe(
         (data: any[]) => {
           this.reportData = data;
           this.showReportGrid = true;
@@ -63,6 +65,8 @@ export class SalaryReportComponent {
       );
     }
   }
+  
+  
 
   updateSelectedEmployee() {
     const selectedEmployee = this.employeeData.find(e => e.id === this.selectedEmployee.id);

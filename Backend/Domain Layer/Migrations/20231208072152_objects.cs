@@ -6,24 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class miginit : Migration
+    public partial class objects : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "EmployeeSalaryRecords",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeSalaryRecords", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Events",
                 columns: table => new
@@ -100,10 +87,9 @@ namespace Domain_Layer.Migrations
                 name: "SalaryRecords",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    SalaryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SalaryMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
                     Leaves = table.Column<int>(type: "int", nullable: false),
@@ -112,12 +98,12 @@ namespace Domain_Layer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalaryRecords", x => x.Id);
+                    table.PrimaryKey("PK_SalaryRecords", x => x.SalaryId);
                     table.ForeignKey(
-                        name: "FK_SalaryRecords_EmployeeSalaryRecords_EmployeeId",
+                        name: "FK_SalaryRecords_Managements_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "EmployeeSalaryRecords",
-                        principalColumn: "Id",
+                        principalTable: "Managements",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -134,9 +120,6 @@ namespace Domain_Layer.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Managements");
-
-            migrationBuilder.DropTable(
                 name: "projectDataTable");
 
             migrationBuilder.DropTable(
@@ -146,7 +129,7 @@ namespace Domain_Layer.Migrations
                 name: "taskTable3");
 
             migrationBuilder.DropTable(
-                name: "EmployeeSalaryRecords");
+                name: "Managements");
         }
     }
 }

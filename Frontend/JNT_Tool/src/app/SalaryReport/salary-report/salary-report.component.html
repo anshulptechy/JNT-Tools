@@ -12,7 +12,7 @@
   <mat-form-field>
     <mat-label>Select Employee</mat-label>
     <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-      <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee.employeeName}}</mat-option>
+      <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee}}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -33,9 +33,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let record of reportData">
-          <td>{{ selectedEmployee.id }}</td>
-          <td>{{ selectedEmployee.employeeName }}</td>
-          <td>{{record.role}}</td>
+          <td>{{ record.management.id }}</td>
+          <td>{{ record.management.firstName}}</td>
+          <td>{{ record.management.department }}</td>
           <td>{{ record.salaryMonth }}</td>
           <td>{{ record.salary }}</td>
           <td>{{ record.leaves }}</td>

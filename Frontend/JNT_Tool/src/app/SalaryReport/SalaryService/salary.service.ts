@@ -16,12 +16,13 @@ export class SalaryService {
   }
 
   getAllEmployees(): Observable<any[]> {
-    const url = `${this.baseUrl}/all-employees`;
+    const url = `${this.baseUrl}/GetAllFirstNames`;
     return this.http.get<any[]>(url);
   }
 
-  getSalaryData(month: string,employeeId: number,): Observable<any[]> {
-    const url = `${this.baseUrl}/salary-records/${month}/${employeeId}`;
+  getSalaryData(firstName: string,salaryMonth: string): Observable<any[]> {
+    const url = `${this.baseUrl}/getSalaryData/${firstName}/${salaryMonth}`;
+
     return this.http.get<any[]>(url);
   }
 }
