@@ -5,6 +5,9 @@ import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { SignupComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { CouponsComponent } from './couponComponents/coupons/coupons.component';
+import { AddComponent } from './couponComponents/add/add.component';
+import { EditComponent } from './couponComponents/edit/edit.component';
 
 import { CalendarComponent } from './calendar/calendar.component';
 
@@ -16,11 +19,15 @@ import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
 
 const routes: Routes = [
 { path: "mainpage", component: TenantListComponent },
   { path: "signup", component: SignupComponent },
+  { path: "add", component: AddComponent },
+  { path: "coupons", component: CouponsComponent },
+  { path: "edit", component:EditComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'update', component: UpdateButtonComponent },
@@ -30,6 +37,7 @@ const routes: Routes = [
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+  {path:'salary-report',component:SalaryReportComponent},
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
 ];
 

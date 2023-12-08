@@ -4,6 +4,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditComponent } from './couponComponents/edit/edit.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { CouponsComponent } from './couponComponents/coupons/coupons.component';
+import { AddComponent } from './couponComponents/add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './sign-up/sign-up.component';
@@ -37,6 +46,7 @@ import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
+import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +55,9 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     SignupComponent,
     LoginComponent,
     HeaderComponent,
+    CouponsComponent,
+    AddComponent,
+    EditComponent,
     CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,
@@ -55,8 +68,31 @@ import { ProjectReportComponent } from './project-report/project-report.componen
     CreateProjectDialogComponent,
     UpdateButtonComponent,
     ProjectReportComponent,
+    SalaryReportComponent,
+
   ],
   imports: [
+    MatRadioModule,
+    BrowserModule,
+    MatTableModule,
+    AppRoutingModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatDialogModule,
+    HttpClientModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    DatePipe,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule, RouterModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
