@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private apiUrl = 'https://localhost:7126';
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +17,10 @@ export class AttendanceService {
     return this.http.get('https://localhost:7126/api/Attendence/GetAllFirstNames');
   }
   getMonths() {
-    return this.http.get('https://localhost:7290/api/Attendence/all-months');
+    return this.http.get('https://localhost:7126/api/Attendence/months');
+  }
+  getbyMonthName(month: string) {
+    return this.http.get(`https://localhost:7126/api/Attendence/GetAllDataByMonth?monthName=${month}`);
   }
 
 }

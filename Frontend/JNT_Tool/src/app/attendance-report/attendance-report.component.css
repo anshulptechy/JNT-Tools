@@ -290,3 +290,13 @@ th {
 .table tbody tr:hover {
     background-color: #f2f2f2;
 }
+.container {
+    display: flex;
+    margin: 0 auto;
+  }
+  
+  .scrollable-container {
+    max-height: 260px;
+    overflow-y: auto;
+    margin-bottom: -55px;
+  }

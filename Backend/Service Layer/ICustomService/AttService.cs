@@ -5,6 +5,7 @@ using Repository_Layer.IRepository;
 using Service_Layer.Custom_Service;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,15 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
-       
+        public Attendences GetAttendanceByManagementIdAndMonth(int id, string monthName)
+        {
+            // Parse the month name to get the corresponding integer
+            int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
+
+            return _applicationDbContext.Attendence
+                .FirstOrDefault(a => a.id == id && a.LoginTime.Month == targetMonth);
+        }
+
 
         public Attendences? Get(int UserId)
         {

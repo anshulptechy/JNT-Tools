@@ -18,6 +18,7 @@ namespace Service_Layer.Custom_Service
         void Delete(T entity);
         void CreateManagementUserAndAttendance(Management management);
         Attendences GetAttendanceByManagementId(int id);
+        Attendences GetAttendanceByManagementIdAndMonth(int id, string monthName);
     }
 }
 

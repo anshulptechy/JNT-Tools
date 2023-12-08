@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service_Layer.Custom_Service;
 using System.Globalization;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace TenantManagementSystem.Controllers
 {
@@ -208,8 +209,65 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all first names: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetAllDataByMonth))]
+        public IActionResult GetAllDataByMonth(string monthName)
+        {
+            try
+            {
+                // Fetch all data from the database
+                List<Management> allManagements = _applicationDbContext.Managements.ToList();
+
+                // Filter data based on the specified month
+                List<object> result = new List<object>();
+
+                foreach (var management in allManagements)
+                {
+                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+
+                    if (attendance != null)
+                    {
+                        result.Add(new
+                        {
+                            Management = management,
+                            Attendance = attendance
+                        });
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving all data by month: {ex.Message}");
+            }
+        }
 
 
+
+        [HttpGet("months")]
+        public IActionResult GetMonths()
+        {
+            try
+            {
+                // Fetch attendance data from the database
+                var attendances = _applicationDbContext.Attendence.ToList();
+
+                // Extract month names
+                List<string> monthNames = new List<string>();
+                foreach (var attendance in attendances)
+                {
+                    string monthName = attendance.LoginTime.ToString("MMMM");
+                    monthNames.Add(monthName);
+                }
+
+                return Ok(monthNames);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
     }
 }

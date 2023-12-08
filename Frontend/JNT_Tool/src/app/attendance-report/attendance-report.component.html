@@ -1,7 +1,7 @@
 <app-header>
 </app-header>
 <br><br><br>
-<section class="main">
+<!-- <section class="main">
  
     <div class="main-top">
  
@@ -10,12 +10,12 @@
         <img src="assets/Attendence.jpg" alt="Attendance Image">
  
     </div>
-</section>
+</section> -->
  
 <div class="selectdrop">
  
     <section>
-        <h1 style="color:blue;">Attendence Report</h1>
+        <h1 style="color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));">Attendence Report</h1>
         <hr>
  
         <span *ngIf="showDropdown" class="button-dropdowns">
@@ -26,9 +26,9 @@
             <span>
               <mat-form-field>
                 <mat-label>Select Month</mat-label>
-                <mat-select formControlName="selectedMonth" (selectionChange)="generateMReport()" [(value)]="selectedMonth">
+                <mat-select formControlName="selectedMonth" (selectionChange)="getbyMonthName($event.value)">
                   <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
-              </mat-select>
+                </mat-select>
               </mat-form-field>
             </span>
         </span>
@@ -47,24 +47,24 @@
     </section>
  
     <!-- Your attendance report content goes here -->
-    <div *ngIf="showTable" class="table-container">
+    <div *ngIf="showTable" class="table-container" class="scrollable-container">
         <table class="table">
             <thead style="padding: 50px;">
                 <tr>
-                  <th style="color:blue;">AttendenceId</th>
-                    <th style="color:blue;">FirstName</th>
-                    <th style="color:blue;">LastName</th>
-                    <th style="color:blue;">Department</th>
-                    <th style="color:blue;">Login Time</th>
-                    <th style="color:blue;">Logout Time</th>
-                    <th style="color:blue;">Hours</th>
+                  <!-- <th style="color:blue;">AttendenceId</th> -->
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">FirstName</th>
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">LastName</th>
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Department</th>
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Login Time</th>
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Logout Time</th>
+                    <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Hours</th>
                     <!-- <th style="color:blue;">Months</th> -->
                 </tr>
             </thead>
             <tbody>
               <tr *ngFor="let record of gridData">
-                <td>{{ record.attendance.attendenceId }}</td>
-                <td style="color: green;">{{ record.management.firstName }}</td>
+                <!-- <td>{{ record.attendance.attendenceId }}</td> -->
+                <td>{{ record.management.firstName }}</td>
                 <td>{{ record.management.lastName }}</td>
                 <td>{{ record.management.department }}</td>
                 <td>{{ record.attendance.loginTime | date:'HH:mm' }}</td>
