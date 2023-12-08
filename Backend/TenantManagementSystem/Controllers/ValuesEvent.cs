@@ -9,11 +9,11 @@ namespace TenantManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesEvent : ControllerBase
+    public class Scheduler : ControllerBase
     {
         private readonly IEventService<Event> _customService;   //Service for managing employee entities
         private readonly ApplicationDbContext _applicationDbContext;   //Database context for additional operations
-        public ValuesEvent(IEventService<Event> customService, ApplicationDbContext applicationDbContext)
+        public Scheduler(IEventService<Event> customService, ApplicationDbContext applicationDbContext)
         {
             _customService = customService;
             _applicationDbContext = applicationDbContext;

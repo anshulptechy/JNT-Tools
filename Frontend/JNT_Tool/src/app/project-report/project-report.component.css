@@ -12,7 +12,10 @@
     border: 1px solid #ddd;
     padding: 8px;
   }
-  
+  th{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
+  }
   .col-6 .dropdown,
   .col-6 .dropdown button,
   .col-6 .dropdown-toggle,
@@ -35,7 +38,14 @@
   .text-center {
     text-align: center;
   }
-  
+  .dropdown-toggle{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
+  }
+  .customCsv{
+    background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
+  }
   /* .mt-3 {
     margin-top: 3rem; /* Adjust the margin as needed 
   } */

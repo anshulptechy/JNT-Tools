@@ -1,76 +1,74 @@
-/* component-specific styles.css */
+/* Add this CSS to your component's stylesheet */
 
-/* Style for the table */
-.container1{
-  margin:100px
+.container1 {
+  background-color: rgba(255, 255, 255, 0);
+  margin: 100px ;
+  font-family: var(--bs-body-font-family);
 }
 
 .tableGrid {
   width: 100%;
+
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  border: 1px solid #bdc3c7;
 }
 
-.tableGrid th,
-.tableGrid td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.tableHead th {
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+
+  color: white;
+  padding: 15px;
+  border: 1px solid #bdc3c7;
 }
 
-.tableGrid th {
-  background-color: #f2f2f2;
-  font-weight: bold;
+.tableData td {
+  border: 1px solid #bdc3c7;
+  padding: 15px;
 }
 
-.tableGrid tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.tableGrid tr:hover {
-  background-color: #e0e0e0;
-}
-
-.tableGrid td button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
+.custom-button {
+  padding: 10px 15px;
+  margin-right: 5px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
-.tableGrid td button:hover {
-  background-color: #0056b3;
+.custom-button:hover {
+  background: linear-gradient(to bottom right, hsl(219, 38%, 30%), hsl(219, 27%, 50%));
 }
 
-/* Style for the "Add Task" button */
-/* component-specific styles.css */
-
-/* Style for the "Add Task" button */
 .addUserButton {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
   margin-bottom: 20px;
-  margin-left: 1020px; /* Shift the button to the right */
+  padding: 10px 15px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
 .addUserButton:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to bottom right, hsl(218, 34%, 27%), hsl(219, 34%, 55%));
 }
 
-/* Style for spacing between buttons */
-.custom-button {
-  margin-right: 5px;
+/* If you want to hide the border and background for the last row, you can add the following: */
+.tableData tr:last-child td {
+  border-bottom: none;
 }
 
-/* Optional: If you want to align the buttons to the right */
-.tableData td:last-child {
-  text-align: left;
+/* Adjustments for small screens (optional) */
+@media (max-width: 768px) {
+  .container1 {
+    margin-top: 0;
+  }
+
+  .addUserButton {
+    margin-bottom: 10px;
+  }
 }

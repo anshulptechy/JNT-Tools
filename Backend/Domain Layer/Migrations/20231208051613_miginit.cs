@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class EMP1 : Migration
+    public partial class miginit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
