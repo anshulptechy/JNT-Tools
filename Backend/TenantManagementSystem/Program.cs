@@ -2,12 +2,14 @@ using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+
 using Repository_Layer.IRepository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repository_Layer.EventRepo;
 using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
+
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
 using Service_Layer.EventService;
@@ -55,6 +57,8 @@ builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 
+
+#endregion
 
 var app = builder.Build();
 
