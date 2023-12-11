@@ -74,6 +74,7 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
     TaskDialogComponent,
     TaskUpdateComponent,
     UserDetailsComponent,
+    AttendanceReportComponent,
     SalaryReportComponent,
   ],
   imports: [
