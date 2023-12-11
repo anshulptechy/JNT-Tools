@@ -67,34 +67,16 @@ namespace TenantManagementSystem.Controllers
         [HttpPost(nameof(CreateAttendence))]
         public IActionResult CreateAttendence(Attendences Attendence)
         {
-            try
+            if (Attendence != null)
             {
-                if (Attendence != null)
-
-
-                {
-                    // Assuming UserId in Attendence corresponds to the Id in Management
-                    var management = _applicationDbContext.Managements.FirstOrDefault(Managements => Managements.id == Attendence.id);
-
-                    if (management != null)
-                    {
-                        _AttendenceServices.Insert(Attendence);
-                        return Ok("Created Successfully");
-                    }
-                    else
-                    {
-                        return NotFound("Management not found");
-                    }
-                }
-                else
-                {
-                    return BadRequest("Invalid Attendence data");
-                }
+                _AttendenceServices.Insert(Attendence);
+                return Ok("Created Successfully");
             }
-            catch (Exception ex)
+            else
             {
-                return BadRequest($"Error creating attendence: {ex.Message}");
+                return BadRequest("Somethingwent wrong");
             }
+
         }
 
 
@@ -151,6 +133,10 @@ namespace TenantManagementSystem.Controllers
                     }
                 }
 
+                // Extract the Attendences objects from the result and pass them to CalculateHours
+                var attendencesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendencesList);
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -158,6 +144,7 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
             }
         }
+
 
         [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
         public IActionResult GetAllManagementAndAttendanceByFirstName(string firstName)
@@ -221,6 +208,10 @@ namespace TenantManagementSystem.Controllers
                         });
                     }
                 }
+
+                // Extract the Attendences objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }

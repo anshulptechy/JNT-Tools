@@ -36,12 +36,15 @@ export class AttendanceReportComponent implements OnInit {
 
   formatDate(dateTimeString: string): string {
     if (dateTimeString) {
-      // Assuming date format: "2023-12-11T10:06:30.2383121"
-      const date = new Date(dateTimeString);
-      return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        // Assuming date format: "2023-12-11T10:06:30.2383121"
+        const date = new Date(dateTimeString);
+        
+        // Use { second: '2-digit' } in the options
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
     return '';
-  }
+}
+
   ngOnInit(): void {
     // You can add any additional initialization logic here if needed.
   }
@@ -54,7 +57,7 @@ export class AttendanceReportComponent implements OnInit {
             return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
           });
           this.showTable = true;
-          this.selectedEmployee = '';
+    
         }
       });
     } else {
@@ -62,6 +65,7 @@ export class AttendanceReportComponent implements OnInit {
       this.selectedEmployee = '';
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         this.gridData = result as any;
+        
       });
     }
   }
