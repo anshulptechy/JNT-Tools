@@ -1,4 +1,4 @@
-﻿using Domain_Layer.Models;
+using Domain_Layer.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace Domain_Layer.Application
 {
     public class ApplicationDbContext : DbContext
@@ -20,9 +20,9 @@ namespace Domain_Layer.Application
                 .HasForeignKey(a => a.EmployeeId)
                 .IsRequired();
             modelBuilder.Entity<Coupon>().Property(e => e.Discount).HasColumnType("decimal(10, 4)");
-
+ 
             base.OnModelCreating(modelBuilder);
-
+ 
             modelBuilder.Entity<Coupon>()
         .HasIndex(c => c.CouponCode)
         .IsUnique();
@@ -40,16 +40,15 @@ namespace Domain_Layer.Application
         }
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
-
-        public DbSet<SalaryRecord> SalaryRecords { get; set;}
-
  
-
+        public DbSet<SalaryRecord> SalaryRecords { get; set;}
+ 
+ 
         public DbSet<ApplyLeave> ApplyLeaves
         {
             get;
             set;
         }
-
+ 
     }
 }

@@ -26,7 +26,6 @@
     <ProjectReference Include="..\Domain Layer\Domain Layer.csproj" />
     <ProjectReference Include="..\Repository Layer\Repository Layer.csproj" />
     <ProjectReference Include="..\Service Layer\Service Layer.csproj" />
-    <ProjectReference Include="..\SharedUtilities\SharedUtilities.csproj" />
   </ItemGroup>
 
 </Project>
