@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { CouponsModel } from 'src/app/models/couponModels';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit',
@@ -59,22 +58,12 @@ export class EditComponent {
   }
 
   onUpdateClick(data1: CouponsModel) {
-    if (this.updateForm.invalid) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Invalid',
-        text: ' *Please fill in all the required fields!',
-      });
-      // return;
-    }
-    else {
     // Set the ID for the coupon data and send an update request to the server
     data1.id = this.data.data.id;
     this.serve.updateCoupon(data1).subscribe(() => {
       this.dialogRef.close();
     });
   }
-}
 
   onCancelClick() {
     this.dialogRef.close(true);
