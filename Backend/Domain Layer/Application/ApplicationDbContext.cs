@@ -12,8 +12,9 @@ namespace Domain_Layer.Application
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
+
             modelBuilder.Entity<SalaryRecord>()
                 .HasOne(a => a.Management)
                 .WithMany()
@@ -26,12 +27,16 @@ namespace Domain_Layer.Application
             modelBuilder.Entity<Coupon>()
         .HasIndex(c => c.CouponCode)
         .IsUnique();
+
+            base.OnModelCreating(builder);
+
         }
         public DbSet<Management> Managements
         {
             get;
             set;
         }
+
         public DbSet<Coupon> Coupons { get; set; }
         public DbSet<projectModel> projectDataTable
         {
@@ -50,6 +55,7 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+
 
     }
 }

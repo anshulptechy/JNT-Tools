@@ -2,12 +2,14 @@ using Domain_Layer.Application;
 using Domain_Layer.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+
 using Repository_Layer.IRepository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repository_Layer.EventRepo;
 using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
+
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
 using Service_Layer.EventService;
@@ -25,13 +27,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add repository to the container
-builder.Services.AddScoped(typeof(ICouponRepo<>), typeof(CouponRepo<>));
+#region Service Injected
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-
-// Add services to the container.
-builder.Services.AddScoped<ICouponServices<Coupon>, CouponServices>();
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 
 builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
@@ -56,6 +54,8 @@ builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 
+
+#endregion
 
 var app = builder.Build();
 
