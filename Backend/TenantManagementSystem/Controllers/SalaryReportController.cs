@@ -1,0 +1,110 @@
+﻿using Domain_Layer.Application;
+using Domain_Layer.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Service_Layer.ICustomService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace TenantManagementSystem.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SalaryReportController : ControllerBase
+    {
+        private readonly ISalaryService _service;
+        private readonly ApplicationDbContext _applicationDbContext;
+
+        public SalaryReportController(ISalaryService service, ApplicationDbContext appDbContext)
+        {
+            _service = service;
+            _applicationDbContext = appDbContext;
+        }
+
+        [HttpGet(nameof(GetAllFirstNames))]
+        public IActionResult GetAllFirstNames()
+        {
+            try
+            {
+                List<string> allFirstNames = _applicationDbContext.Managements
+                    .Select(m => m.firstName)
+                    .Distinct()
+                    .ToList();
+
+                return Ok(allFirstNames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving all first names: {ex.Message}");
+            }
+        }
+
+        [HttpGet("employee-details/{employeeId}")]
+        public async Task<ActionResult<IEnumerable<SalaryRecord>>> GetEmployeeDetails(int employeeId)
+        {
+            var employeeDetails = await _service.GetEmployeeDetailsAsync(employeeId);
+            return Ok(employeeDetails);
+        }
+
+        [HttpGet("salary-records/{month}")]
+        public async Task<ActionResult<IEnumerable<SalaryRecord>>> GetSalaryRecordsByMonth(string month)
+        {
+            var salaryRecords = await _service.GetSalaryRecordsByMonthAsync(month);
+            return Ok(salaryRecords);
+        }
+
+        [HttpPost("add-salary-record")]
+        public async Task<ActionResult> AddSalaryRecord([FromBody] SalaryRecord salaryRecord)
+        {
+            var result = await _service.AddSalaryRecordAsync(salaryRecord);
+
+            if (result)
+            {
+                return Ok("Salary record added successfully");
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add salary record");
+            }
+        }
+        [HttpGet("all-months")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllMonths()
+        {
+            var months = await _service.GetAllMonthsAsync();
+            return Ok(months);
+        }
+
+     
+        [HttpGet("getSalaryData/{firstName}/{salaryMonth}")]
+        public async Task<IActionResult> GetSalaryData(string firstName, string salaryMonth)
+        {
+            try
+            {
+                // Retrieve EmployeeId from Management table based on FirstName
+                var employee = await _applicationDbContext.Managements
+                    .Where(m => m.firstName == firstName)
+                    .FirstOrDefaultAsync();
+
+                if (employee == null)
+                {
+                    return NotFound("Employee not found");
+                }
+
+                // Retrieve Salary Records for the specified EmployeeId and SalaryMonth
+                var salaryRecords = await _applicationDbContext.SalaryRecords
+                    .Where(s => s.EmployeeId == employee.id && s.SalaryMonth == salaryMonth)
+                    .ToListAsync();
+
+                return Ok(salaryRecords);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+    }
+}
