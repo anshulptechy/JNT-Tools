@@ -18,9 +18,7 @@ users: any[] = []
 
 // Constructor to inject dependencies
 constructor(public dialogRef: MatDialogRef<TaskUpdateComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-  private fb: FormBuilder, private serve: TaskService, private baseServe: TenantService) {
-  // Check if the user is an admin
-}
+  private fb: FormBuilder, private serve: TaskService, private baseServe: TenantService) { }
 
 // Lifecycle hook called after the component is initialized
 ngOnInit() {
@@ -40,7 +38,6 @@ async loadUsernames() {
     }
   });
 }
-
 
 // Method to initialize the form
 initializeForm() {
