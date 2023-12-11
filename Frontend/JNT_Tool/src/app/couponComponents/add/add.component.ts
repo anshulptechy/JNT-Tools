@@ -54,7 +54,7 @@ export class AddComponent {
       Swal.fire({
         icon: 'error',
         title: 'Invalid Form',
-        text: ' *Please validate all the required fields!',
+        text: ' *Please Fill in all the required fields!',
       });
       // return;
     }
