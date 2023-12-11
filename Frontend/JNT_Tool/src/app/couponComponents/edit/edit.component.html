@@ -6,7 +6,7 @@
             <div class="row">
                 <label>Coupon Name</label>&nbsp;&nbsp;
                 <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName">
-
+ 
                 &nbsp;&nbsp;
                 <label>Description</label>&nbsp;&nbsp;
                 <input type="text" placeholder="" formControlName="description">
@@ -14,23 +14,23 @@
             <div class="row">
                 <label>Discount</label>&nbsp;&nbsp;
                 <input type="number" placeholder="" formControlName="discount">
-
+ 
                 &nbsp;&nbsp;
                 <label>Quantity</label>&nbsp;&nbsp;
                 <input type="number" placeholder="" formControlName="quantity" readonly>
-
+ 
             </div>
             <div class="row">
                 <label>Start Date</label>&nbsp;&nbsp;
                 <input type="date" formControlName="startDate">
-
+ 
                 &nbsp;&nbsp;
                 <label>End Date</label>&nbsp;&nbsp;
                 <input type="date" formControlName="endDate">
-
+ 
             </div>
             <div class="row">
-
+ 
                 <label><b>Discount Type</b></label>
                 <label>
                     <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
@@ -38,7 +38,7 @@
                 <label>
                     <input type="radio" value="Percentage" formControlName="discountType"> Percentage
                 </label>
-
+ 
             </div>
         </div>
         <div *ngIf="updateForm.get('startDate')!.hasError('pastDateError')">

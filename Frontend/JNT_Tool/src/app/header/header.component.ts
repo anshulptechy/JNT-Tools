@@ -49,9 +49,9 @@ export class HeaderComponent implements OnInit {
   loggedInUserName: string = '';
 
   logOut() {
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     this.auth.signOut().then(() => {
-    this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     });
     Swal.fire({
       icon: 'success',
