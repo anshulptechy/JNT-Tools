@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231208103621_miginit")]
+    [Migration("20231211053120_miginit")]
     partial class miginit
     {
         /// <inheritdoc />
@@ -24,6 +24,43 @@ namespace Domain_Layer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain_Layer.Models.ApplyLeave", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EmployeeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LeaveType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplyLeaves");
+                });
 
             modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
                 {
@@ -142,6 +179,40 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Managements");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
+                {
+                    b.Property<int>("SalaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryId"));
+
+                    b.Property<int>("Deductions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Leaves")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NetPay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SalaryMonth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SalaryId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("SalaryRecords");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -213,6 +284,17 @@ namespace Domain_Layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("taskTable3");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Management", "Management")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Management");
                 });
 #pragma warning restore 612, 618
         }

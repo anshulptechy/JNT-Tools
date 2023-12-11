@@ -14,6 +14,11 @@ namespace Domain_Layer.Application
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SalaryRecord>()
+                .HasOne(a => a.Management)
+                .WithMany()
+                .HasForeignKey(a => a.EmployeeId)
+                .IsRequired();
             modelBuilder.Entity<Coupon>().Property(e => e.Discount).HasColumnType("decimal(10, 4)");
 
             base.OnModelCreating(modelBuilder);
@@ -35,8 +40,16 @@ namespace Domain_Layer.Application
         }
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
-   
 
+        public DbSet<SalaryRecord> SalaryRecords { get; set;}
+
+ 
+
+        public DbSet<ApplyLeave> ApplyLeaves
+        {
+            get;
+            set;
+        }
 
     }
 }
