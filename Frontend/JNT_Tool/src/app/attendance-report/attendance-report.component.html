@@ -63,16 +63,16 @@
             </thead>
             <tbody>
               <tr *ngFor="let record of gridData">
-                <!-- <td>{{ record.attendance.attendenceId }}</td> -->
                 <td>{{ record.management.firstName }}</td>
                 <td>{{ record.management.lastName }}</td>
                 <td>{{ record.management.department }}</td>
-                <td>{{ record.attendance.loginTime | date:'HH:mm' }}</td>
-                <td>{{ record.attendance.logoutTime | date:'HH:mm' }}</td>
-                <td>{{ record.attendance.hours }}</td>
-                <!-- <td style="color: orangered;">{{record.month}}</td> -->
+                <td>{{ formatDate(record.attendance?.loginTime) }}</td>
+                <!-- <td>{{ formatDate(record.attendances?.[0]?.loginTime) }}</td> -->
+                <td>{{ formatDate(record.attendance?.logoutTime) }}</td>
+                <td>{{ record.attendance?.hours }}</td>
               </tr>
-            </tbody>         
+            </tbody>
+                
         </table>
  
     </div>

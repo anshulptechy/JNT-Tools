@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service_Layer.Custom_Service;
+using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {

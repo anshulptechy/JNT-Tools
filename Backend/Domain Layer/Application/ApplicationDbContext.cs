@@ -15,11 +15,8 @@ namespace Domain_Layer.Application
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Attendences>()
-                 .HasOne(a => a.Management)
-                 .WithOne()
-                 .HasForeignKey<Attendences>(a => a.id)
-                 .IsRequired();
+
+            base.OnModelCreating(modelBuilder);
         }
         public DbSet<Management> Managements
         {

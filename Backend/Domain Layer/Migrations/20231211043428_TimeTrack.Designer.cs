@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231207125109_miginit")]
-    partial class miginit
+    [Migration("20231211043428_TimeTrack")]
+    partial class TimeTrack
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,9 +46,6 @@ namespace Domain_Layer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AttendenceId");
-
-                    b.HasIndex("id")
-                        .IsUnique();
 
                     b.ToTable("Attendence");
                 });
@@ -86,14 +83,16 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.Login", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("id")
                         .HasColumnType("int");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("id");
 
                     b.ToTable("Login");
                 });
@@ -137,11 +136,11 @@ namespace Domain_Layer.Migrations
 
             modelBuilder.Entity("Domain_Layer.Models.Screenshots", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ScreenshotId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenshotId"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -150,7 +149,10 @@ namespace Domain_Layer.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.HasKey("id");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("ScreenshotId");
 
                     b.ToTable("Screenshot");
                 });
@@ -228,15 +230,15 @@ namespace Domain_Layer.Migrations
                     b.ToTable("taskTable3");
                 });
 
-            modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
                 {
-                    b.HasOne("Domain_Layer.Models.Management", "Management")
-                        .WithOne()
-                        .HasForeignKey("Domain_Layer.Models.Attendences", "id")
+                    b.HasOne("Domain_Layer.Models.Management", "Managements")
+                        .WithMany()
+                        .HasForeignKey("id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Management");
+                    b.Navigation("Managements");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,45 +10,28 @@ namespace TenantManagementSystem.Controllers
     [ApiController]
     public class LoginHistoryController : ControllerBase
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         public LoginHistoryController(ApplicationDbContext dbContext)
         {
-            _applicationDbContext = dbContext;
+            _dbContext = dbContext;
         }
-
         [HttpPost]
-        public async Task<IActionResult> PostLoginHistory([FromBody] Attendences Attendence, [FromForm] int id)
+        public async Task<ActionResult<Attendences>> PostLoginHistory(Attendences loginHistory)
         {
             try
             {
-                // Convert the login and logout times to IST
-                TimeZoneInfo istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                DateTime loginTimeIst = TimeZoneInfo.ConvertTimeToUtc((DateTime)Attendence.LoginTime, istTimeZone);
-                DateTime logoutTimeIst = TimeZoneInfo.ConvertTimeToUtc((DateTime)Attendence.LogoutTime, istTimeZone);
 
+                _dbContext.Attendence.Add(loginHistory);
+                await _dbContext.SaveChangesAsync();
 
-                // Save login and logout times to the backend
-                var LoginHistory = new Attendences
-                {
-                    id = id,
-                    LoginTime = loginTimeIst,
-                    LogoutTime = logoutTimeIst,
-
-                };
-
-                // Save login history to the database
-                _applicationDbContext.Attendence.Add(Attendence);
-                await _applicationDbContext.SaveChangesAsync();
-
-                return Ok("Login history saved successfully.");
+                return Ok(); // You can customize the response if needed
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error saving login history: {ex.Message}");
+                return BadRequest($"Failed to save login and logout times. Error: {ex.Message}");
             }
         }
-
 
 
         [HttpGet]
@@ -56,7 +39,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                var loginHistories = await _applicationDbContext.Attendence.ToListAsync();
+                var loginHistories = await _dbContext.Attendence.ToListAsync();
 
                 // Convert the date and time in each login history record to Indian Standard Time (IST)
                 foreach (var history in loginHistories)
@@ -81,3 +64,4 @@ namespace TenantManagementSystem.Controllers
         }
     }
 }
+

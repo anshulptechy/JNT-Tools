@@ -1,8 +1,7 @@
 ﻿using Domain_Layer.Application;
 using Domain_Layer.Models;
-using Microsoft.EntityFrameworkCore;
 using Repository_Layer.IRepository;
-using Service_Layer.Custom_Service;
+using Service_Layer.ICustomService;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service_Layer.ICustomService
+namespace Service_Layer.Custom_Service
 {
     public class AttService : IAttService<Attendences>
     {
@@ -26,7 +25,7 @@ namespace Service_Layer.ICustomService
         {
             get; private set;
         }
-     
+
 
         public void Delete(Attendences entity)
         {
@@ -48,10 +47,13 @@ namespace Service_Layer.ICustomService
             // Parse the month name to get the corresponding integer
             int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            return _applicationDbContext.Attendence
+            var res= _applicationDbContext.Attendence
                 .FirstOrDefault(a => a.id == id && a.LoginTime.Month == targetMonth);
+
+            return res;
         }
 
+      
 
         public Attendences? Get(int UserId)
         {
@@ -91,6 +93,11 @@ namespace Service_Layer.ICustomService
             {
                 throw;
             }
+        }
+        public List<Attendences> GetAllAttendances()
+        {
+           
+            return _applicationDbContext.Attendence.ToList();
         }
         public void CalculateHours(IEnumerable<Attendences> records)
         {
@@ -168,10 +175,13 @@ namespace Service_Layer.ICustomService
                 throw;
             }
         }
-        public Attendences GetAttendanceByManagementId(int id)
+        public List<Attendences> GetAttendanceByManagementId(int id)
         {
-            return _applicationDbContext.Attendence.SingleOrDefault(a => a.id == id);
+            return _applicationDbContext.Attendence
+                .Where(a => a.id == id)
+                .ToList();
         }
+
         public void CreateManagementUserAndAttendance(Management management)
         {
             // Add the new user to the Management table

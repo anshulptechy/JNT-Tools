@@ -6,6 +6,7 @@ using Service_Layer.Custom_Service;
 using System.Globalization;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {
@@ -62,7 +63,7 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
- 
+
         [HttpPost(nameof(CreateAttendence))]
         public IActionResult CreateAttendence(Attendences Attendence)
         {
@@ -131,19 +132,19 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 List<Management> allManagements = _applicationDbContext.Managements.ToList();
-                List<object> result = new List<object>();
+
+                var result = new List<object>();
 
                 foreach (Management management in allManagements)
                 {
-                    Attendences attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
 
-                    if (attendance != null)
+                    if (attendance != null && attendance.Any())
                     {
-                        // Customize the response format based on your needs
                         var entry = new
                         {
                             Management = management,
-                            Attendance = attendance
+                            Attendance = attendance.First() // Assuming each management has only one attendance record
                         };
 
                         result.Add(entry);
@@ -157,11 +158,13 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
             }
         }
+
         [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
         public IActionResult GetAllManagementAndAttendanceByFirstName(string firstName)
         {
             try
             {
+                // Filter management entries by first name
                 List<Management> filteredManagements = _applicationDbContext.Managements
                     .Where(m => m.firstName == firstName)
                     .ToList();
@@ -170,15 +173,16 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (Management management in filteredManagements)
                 {
-                    Attendences attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+                    // Assuming GetAttendanceByManagementId returns a list of attendances
+                    List<Attendences> attendances = _AttendenceServices.GetAttendanceByManagementId(management.id);
 
-                    if (attendance != null)
+                    if (attendances != null && attendances.Any())
                     {
                         // Customize the response format based on your needs
                         var entry = new
                         {
                             Management = management,
-                            Attendance = attendance
+                            Attendance = attendances
                         };
 
                         result.Add(entry);
@@ -192,6 +196,40 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving management and attendance entries by first name: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetAllManagementAndAttendanceByMonth))]
+        public IActionResult GetAllManagementAndAttendanceByMonth(string monthName)
+        {
+            try
+            {
+                // Fetch all data from the database
+                List<Management> allManagements = _applicationDbContext.Managements.ToList();
+
+                // Filter data based on the specified month
+                List<object> result = new List<object>();
+
+                foreach (var management in allManagements)
+                {
+                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+
+                    if (attendance != null)
+                    {
+                        // Replace "attendence" with "attendances" in the anonymous object
+                        result.Add(new
+                        {
+                            Management = management,
+                            Attendance = attendance // Change the key here
+                        });
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving management and attendance entries by month: {ex.Message}");
+            }
+        }
+
         [HttpGet(nameof(GetAllFirstNames))]
         public IActionResult GetAllFirstNames()
         {
@@ -209,40 +247,6 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all first names: {ex.Message}");
             }
         }
-        [HttpGet(nameof(GetAllDataByMonth))]
-        public IActionResult GetAllDataByMonth(string monthName)
-        {
-            try
-            {
-                // Fetch all data from the database
-                List<Management> allManagements = _applicationDbContext.Managements.ToList();
-
-                // Filter data based on the specified month
-                List<object> result = new List<object>();
-
-                foreach (var management in allManagements)
-                {
-                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
-
-                    if (attendance != null)
-                    {
-                        result.Add(new
-                        {
-                            Management = management,
-                            Attendance = attendance
-                        });
-                    }
-                }
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error retrieving all data by month: {ex.Message}");
-            }
-        }
-
-
 
         [HttpGet("months")]
         public IActionResult GetMonths()

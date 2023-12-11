@@ -25,33 +25,39 @@ export class AttendanceReportComponent implements OnInit {
     });
 
     this.serve.getAllAttendenceWithManagement().subscribe((result) => {
+      // console.log(result);
+      
       this.gridData = result as any;
+      console.log(this.gridData);
+      
       this.populateEmployeeNames();
     });
   }
 
+  formatDate(dateTimeString: string): string {
+    if (dateTimeString) {
+      // Assuming date format: "2023-12-11T10:06:30.2383121"
+      const date = new Date(dateTimeString);
+      return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+    return '';
+  }
   ngOnInit(): void {
     // You can add any additional initialization logic here if needed.
   }
 
   generateMReport() {
     if (this.selectedMonth) {
-      console.log('Selected Month:', this.selectedMonth);
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        console.log('All Data:', result);
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
-            console.log('Record Month:', record['month']);
             return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
           });
-          console.log('Filtered Data:', this.gridData);
           this.showTable = true;
           this.selectedEmployee = '';
         }
       });
-    } 
-    else {
-      // If no month is selected, show all data
+    } else {
       this.showTable = true;
       this.selectedEmployee = '';
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
@@ -59,15 +65,19 @@ export class AttendanceReportComponent implements OnInit {
       });
     }
   }
+  
+  // Assuming `getbyMonthName` is not being used, you can remove it if unnecessary
+  
 
   getbyMonthName(selectedMonth: string) {
     this.serve.getbyMonthName(selectedMonth).subscribe(
       
       (result) => {
         // Handle the response data as needed
-        console.log('Data for selected month:', result);
+        console.log( result);
         this.gridData = result as any; // Set the data to the gridData property
         this.showTable = true; // Show the table
+
         this.selectedEmployee = ''; 
       },
       (error) => {

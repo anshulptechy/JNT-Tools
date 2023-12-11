@@ -13,12 +13,7 @@ namespace Domain_Layer.Models
     {
         [Key]
         public int AttendenceId { get; set; }
-
-        [ForeignKey("id")]
-        public virtual Management Management { get; set; }
         public int id { get; set; }
-        
-
         public DateTime LoginTime { get; set; }
         public DateTime LogoutTime { get; set; }
         public TimeSpan? Hours { get; set; }

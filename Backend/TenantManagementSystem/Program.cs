@@ -41,14 +41,11 @@ builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 //inject dependency
 builder.Services.AddScoped(typeof(IAttRepository<>), typeof(AttRepository<>));
 builder.Services.AddScoped<IAttService<Attendences>, AttService>();
-builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
-builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
+
 
 builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 
 
-builder.Services.AddScoped(typeof(IScreenshotRepository<>), typeof(ScreenshotRepository<>));
-builder.Services.AddScoped<IScreenshotService<Screenshots>, ScreenshotService>();
 
 builder.Services.AddScoped(typeof(TaskInterface1<>), typeof(TaskRepository<>));
 builder.Services.AddScoped<TaskServiceInterface1<taskStructure>, TaskService>();

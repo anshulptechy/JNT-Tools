@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Models
 {
+
     [Keyless]
     public class Login
     {
-      
+        [ForeignKey("id")]
+        public Management Managements { get; set; }
         public int id { get; set; } // Add this property 
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public string? email { get; set; }
+        public string? password { get; set; }
     }
 }

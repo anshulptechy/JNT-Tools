@@ -40,6 +40,10 @@ namespace Repository_Layer.Repository
         {
             return entities.SingleOrDefault(c => c.id == Id);
         }
+        public async Task<T> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await entities.FirstOrDefaultAsync(c => c.email == email && c.password == password);
+        }
         public IEnumerable<T> GetAll()
         {
             return entities.AsEnumerable();

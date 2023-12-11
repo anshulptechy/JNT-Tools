@@ -20,7 +20,7 @@ export class AttendanceService {
     return this.http.get('https://localhost:7126/api/Attendence/months');
   }
   getbyMonthName(month: string) {
-    return this.http.get(`https://localhost:7126/api/Attendence/GetAllDataByMonth?monthName=${month}`);
+    return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonth?monthName=${month}`);
   }
 
 }

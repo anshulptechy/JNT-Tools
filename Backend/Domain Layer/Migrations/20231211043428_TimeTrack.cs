@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class miginit : Migration
+    public partial class TimeTrack : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Attendence",
+                columns: table => new
+                {
+                    AttendenceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    id = table.Column<int>(type: "int", nullable: false),
+                    LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Hours = table.Column<TimeSpan>(type: "time", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendence", x => x.AttendenceId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Events",
                 columns: table => new
@@ -26,18 +42,6 @@ namespace Domain_Layer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Login",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
                 });
 
             migrationBuilder.CreateTable(
@@ -81,14 +85,15 @@ namespace Domain_Layer.Migrations
                 name: "Screenshot",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    ScreenshotId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    id = table.Column<int>(type: "int", nullable: false),
                     ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Screenshot", x => x.id);
+                    table.PrimaryKey("PK_Screenshot", x => x.ScreenshotId);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,21 +115,17 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attendence",
+                name: "Login",
                 columns: table => new
                 {
-                    AttendenceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     id = table.Column<int>(type: "int", nullable: false),
-                    LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Hours = table.Column<TimeSpan>(type: "time", nullable: true)
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendence", x => x.AttendenceId);
                     table.ForeignKey(
-                        name: "FK_Attendence_Managements_id",
+                        name: "FK_Login_Managements_id",
                         column: x => x.id,
                         principalTable: "Managements",
                         principalColumn: "id",
@@ -132,10 +133,9 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendence_id",
-                table: "Attendence",
-                column: "id",
-                unique: true);
+                name: "IX_Login_id",
+                table: "Login",
+                column: "id");
         }
 
         /// <inheritdoc />
