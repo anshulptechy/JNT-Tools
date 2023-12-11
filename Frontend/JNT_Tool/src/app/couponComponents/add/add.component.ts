@@ -30,7 +30,7 @@ export class AddComponent {
       couponName: ['', [Validators.required]],
       description: [''],
       discount: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required,  Validators.min(1)]],
+      quantity: ['', [Validators.required, Validators.min(1)]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       discountType: ['', [Validators.required]],
@@ -52,28 +52,31 @@ export class AddComponent {
 
   async onSaveClick() {
     if (this.couponForm.invalid) {
-      // Form is invalid, do not submit
-      return;
-    }
-    else
-    {
-    try {
-      // Get form data and add the coupon using the CouponService
-      const formData = this.couponForm.value;
-      await this.serve.addCoupon(formData);
-      this.dialogRef.close(true);
-    } catch (error) {
-      console.error('Error adding coupon:', error);
-    } finally {
-      this.dialogRef.close(this.couponForm);
-      this.loading = false;
       Swal.fire({
-        icon: 'success',
-        title: 'Added!',
-        text: 'coupons added successfully',
+        icon: 'error',
+        title: 'Invalid',
+        text: ' *Please fill in all the required fields!',
       });
+      // return;
     }
-  }
+    else {
+      try {
+        // Get form data and add the coupon using the CouponService
+        const formData = this.couponForm.value;
+        await this.serve.addCoupon(formData);
+        this.dialogRef.close(true);
+      } catch (error) {
+        console.error('Error adding coupon:', error);
+      } finally {
+        this.dialogRef.close(this.couponForm);
+        this.loading = false;
+        Swal.fire({
+          icon: 'success',
+          title: 'Added!',
+          text: 'coupons added successfully',
+        });
+      }
+    }
   }
 
   // Method called when the "Cancel" button is clicked
@@ -81,18 +84,18 @@ export class AddComponent {
     this.dialogRef.close(true);
   }
   isSaveButtonDisabled(): boolean {
-    
+
     return this.couponForm.invalid;
   }
 
   dateValidator(form: FormGroup) {
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
-  
+
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
-  
+
       if (startDate && endDate && new Date(startDate) >= new Date(endDate)) {
         endDateControl.setErrors({ dateError: true });
       } else {
@@ -100,5 +103,5 @@ export class AddComponent {
       }
     }
   }
-  
-  }
+
+}
