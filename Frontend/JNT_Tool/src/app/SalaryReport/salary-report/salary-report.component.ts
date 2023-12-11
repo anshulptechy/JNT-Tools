@@ -14,9 +14,10 @@ export class SalaryReportComponent {
   selectedEmployee: any = {}; 
   selectedMonth: string = '';
   showReportOptions: boolean = true;
-  showReportGrid: boolean = false;
+  showReportGrid: boolean = true;
   months: string[] = [];
   reportData: any[] = [];
+  
 
   constructor(
     private router: Router,
