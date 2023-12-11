@@ -69,7 +69,7 @@
                       class="form-control"
                       formControlName="lastName"
                     />
-                    <label class="form-label" for="lastName">Last Name</label>
+                    <label class="form-label" for="lastName">Last Name<span class="required">*</span></label>
                     <div
                       *ngIf="
                         signupForm.get('lastName')?.invalid &&

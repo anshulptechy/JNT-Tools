@@ -41,26 +41,27 @@ export class LeaveManagementComponent  implements OnInit {
   }
 
   approveLeave(leave: any) {
-    // Update leave status to 'Approved' and display success toast message
     this.updateLeaveStatus(leave, 'Approved');
+    leave.status = 'Approved'; // Update the status property immediately
     Swal.fire({
       icon: 'success',
       title: 'Approved Successful!',
-      text: ' leave approved successfully.',
+      text: 'Leave approved successfully.',
     });
   }
-
+  
   rejectLeave(leave: any) {
-    // Update leave status to 'Rejected' and display error toast message
     this.updateLeaveStatus(leave, 'Rejected');
+    leave.status = 'Rejected'; // Update the status property immediately
     Swal.fire({
       icon: 'success',
       title: 'Rejected Successful!',
-      text: ' leave Rejected successfully.',
+      text: 'Leave rejected successfully.',
     });
   }
 
   private updateLeaveStatus(leave: any, status: string) {
+    debugger;
     // Extract relevant information from the leave object
     const userId = leave.userId;
     const startDate = leave.startDate;

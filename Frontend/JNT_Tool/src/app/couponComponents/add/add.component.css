@@ -1,4 +1,8 @@
+.body{
+  height: 390px;
+}
 .container1 {
+  height: 400px;
   display: flex;
   flex-direction: column;
   padding: 20px;
