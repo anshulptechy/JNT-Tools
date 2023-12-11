@@ -8,10 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CouponsComponent } from './couponComponents/coupons/coupons.component';
 import { AddComponent } from './couponComponents/add/add.component';
 import { EditComponent } from './couponComponents/edit/edit.component';
-
 import { CalendarComponent } from './calendar/calendar.component';
-
-
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
