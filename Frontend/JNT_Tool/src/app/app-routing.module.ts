@@ -26,28 +26,26 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 
 
 const routes: Routes = [
-{ path: "mainpage", component: TenantListComponent },
-  { path: "signup", component: SignupComponent },
-  { path: "add", component: AddComponent },
-  { path: "coupons", component: CouponsComponent },
-  { path: "edit", component:EditComponent },
+  { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] },
+  { path: "signup", component: SignupComponent, canActivate: [AuthGuard] },
+  { path: "add", component: AddComponent, canActivate: [AuthGuard] },
+  { path: "coupons", component: CouponsComponent, canActivate: [AuthGuard] },
+  { path: "edit", component: EditComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'update', component: UpdateButtonComponent },
-  { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] },
+  { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] },
   { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/signup', pathMatch: 'full' }, { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, { path: '', redirectTo: '/signup', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
-  , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
-  {path:'salary-report',component:SalaryReportComponent},
+  { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] },
+  { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
+  { path: 'salary-report', component: SalaryReportComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
