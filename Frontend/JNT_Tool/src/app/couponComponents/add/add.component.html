@@ -1,0 +1,68 @@
+<app-header></app-header>
+<div class="body">
+  <h1 mat-dialog-title>Create New Coupons</h1>
+  <form [formGroup]="couponForm">
+    <div class="container1">
+      <div class="row">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Coupon Name</mat-label>
+          <input matInput placeholder="Ex. Diwali Coupon" formControlName="couponName">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="" formControlName="description">
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Discount</mat-label>
+          <input matInput type="number" placeholder="" formControlName="discount">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" placeholder="" formControlName="quantity">
+
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div>
+          <mat-label style="color: grey;"><b>Discount Type*</b></mat-label>&nbsp;&nbsp;
+          <mat-radio-group formControlName="discountType">
+            <mat-radio-button value="Fixed Amount">Fixed Amount</mat-radio-button>
+            <mat-radio-button value="Percentage">Percentage</mat-radio-button>
+          </mat-radio-group>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div mat-dialog-actions class="button-container">
+  <button style="margin-right: 5px;" (click)="onSaveClick()">Save</button>
+  <button (click)="onCancelClick()">Cancel</button>
+</div>

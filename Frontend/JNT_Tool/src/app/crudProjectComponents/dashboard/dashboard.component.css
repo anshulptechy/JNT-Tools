@@ -1,7 +1,7 @@
 .container {
   background-color: rgba(255, 255, 255, 0);
   margin-top: 70px;
-  /* height: 500px; Set the desired height */
+  overflow-y: auto;
 }
 
 main {
