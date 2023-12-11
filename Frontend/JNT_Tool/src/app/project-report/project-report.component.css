@@ -1,12 +1,11 @@
 .customUpperMargin {
-    margin-top: 10rem;
+    margin-top: 6rem;
   }
   
   table {
     border: 1px solid #ddd;
     border-collapse: collapse;
   }
-  
   th,
   td {
     border: 1px solid #ddd;

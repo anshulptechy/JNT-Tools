@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
 import { SupabaseService } from '../supabase.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-tenant-list',
@@ -37,7 +38,8 @@ export class TenantListComponent {
     private tenantData: TenantService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private auth: SupabaseService
+    private auth: SupabaseService,
+    private userservice: UserService
   ) {
     this.createUserForm = this.formBuilder.group({
       id: new FormControl(0),
@@ -108,10 +110,10 @@ export class TenantListComponent {
       .select('*')
       .eq('email', this.createUserForm.value.email)
       .single();
-
+ 
     if (existingUser.data) {
       // User already exists
-      
+     
       Swal.fire({
         icon: 'error',
         title: 'Signup Error',
@@ -121,17 +123,19 @@ export class TenantListComponent {
     }
     if (this.createUserForm.valid) {
       const formData = this.createUserForm.value;
-
+ 
       // Fetch the stored tenantName from local storage
       const storedTenantName = localStorage.getItem('tenantName');
-
+ 
       if (!storedTenantName) {
         console.error('TenantName not found in local storage.');
         return;
       }
-
+ 
+      const userId = this.userservice.generateUserId();
       const tenantRequest = {
         id: formData.id,
+        userId: userId,
         email: formData.email,
         department: formData.department,
         firstName: formData.firstName,
@@ -139,14 +143,14 @@ export class TenantListComponent {
         password: formData.password,
         tenantName: storedTenantName, // Use the stored tenantName from local storage
       };
-
+ 
       try {
         // Sign up the user with Supabase
         const signupResult = await this.supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
         });
-
+ 
         if (signupResult.error) {
           console.error('Supabase signup error:', signupResult.error);
           return;
@@ -170,15 +174,15 @@ export class TenantListComponent {
         const { data: userData, error: userError } = await this.supabase
           .from('usertable')
           .upsert([incrementedTenantRequest]);
-
+ 
         if (userError) {
           console.error('Supabase user creation error:', userError);
           return;
         }
-
+ 
         // Call the createTenants API with the extracted data
-        
-
+       
+ 
         // Successful signup
         Swal.fire({
           icon: 'success',
