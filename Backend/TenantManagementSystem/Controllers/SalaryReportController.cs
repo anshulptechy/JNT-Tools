@@ -77,12 +77,7 @@ namespace TenantManagementSystem.Controllers
             return Ok(months);
         }
 
-        [HttpGet("salary-records/{month}/{employeeId}")]
-        public async Task<ActionResult<IEnumerable<SalaryRecord>>> GetSalaryRecordsByMonthAndEmployee(string month, int employeeId)
-        {
-            var salaryRecords = await _service.GetSalaryRecordsByMonthAndEmployeeAsync(month, employeeId);
-            return Ok(salaryRecords);
-        }
+     
         [HttpGet("getSalaryData/{firstName}/{salaryMonth}")]
         public async Task<IActionResult> GetSalaryData(string firstName, string salaryMonth)
         {
