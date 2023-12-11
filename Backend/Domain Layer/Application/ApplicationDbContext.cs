@@ -15,6 +15,8 @@ namespace Domain_Layer.Application
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
+            base.OnModelCreating(builder);
+
             modelBuilder.Entity<SalaryRecord>()
                 .HasOne(a => a.Management)
                 .WithMany()
@@ -28,6 +30,7 @@ namespace Domain_Layer.Application
         .HasIndex(c => c.CouponCode)
         .IsUnique();
 
+
             base.OnModelCreating(builder);
 
         }
@@ -38,6 +41,7 @@ namespace Domain_Layer.Application
         }
 
         public DbSet<Coupon> Coupons { get; set; }
+
         public DbSet<projectModel> projectDataTable
         {
             get;
@@ -45,6 +49,7 @@ namespace Domain_Layer.Application
         }
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
+
 
         public DbSet<SalaryRecord> SalaryRecords { get; set;}
 
@@ -55,6 +60,7 @@ namespace Domain_Layer.Application
             get;
             set;
         }
+
 
 
     }

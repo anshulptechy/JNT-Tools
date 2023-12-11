@@ -44,6 +44,9 @@ builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
 builder.Services.AddScoped<IEventService<Event>, EventService>();
 
+
+#endregion
+
 builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
 
 builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));

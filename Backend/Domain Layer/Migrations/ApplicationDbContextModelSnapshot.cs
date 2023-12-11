@@ -108,6 +108,7 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Coupons");
                 });
 
+
             modelBuilder.Entity("Domain_Layer.Models.Event", b =>
                 {
                     b.Property<int>("Id")
