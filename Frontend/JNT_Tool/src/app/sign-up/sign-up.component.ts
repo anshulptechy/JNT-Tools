@@ -16,7 +16,9 @@ export class SignupComponent {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
   );
 
-  signupForm = new FormGroup({
+  signupForm = new FormGroup(
+    
+    {
     id: new FormControl(0),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -45,6 +47,7 @@ export class SignupComponent {
   }
 
   async onSubmit() {
+
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')
