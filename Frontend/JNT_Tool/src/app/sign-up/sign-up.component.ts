@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 import { TenantService } from '../tenant.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
@@ -15,7 +16,9 @@ export class SignupComponent {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
   );
 
-  signupForm = new FormGroup({
+  signupForm = new FormGroup(
+    
+    {
     id: new FormControl(0),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', ),
@@ -30,7 +33,7 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, { validators: this.passwordMatchValidator });
 
-  constructor(private router: Router, private tenantService: TenantService) {}
+  constructor(private router: Router, private tenantService: TenantService, private userservice: UserService) {}
 
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
@@ -44,6 +47,7 @@ export class SignupComponent {
   }
 
   async onSubmit() {
+
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')
@@ -85,6 +89,7 @@ export class SignupComponent {
           return;
         }
 
+        const userId = this.userservice.generateUserId();
         // Sign up the user with Supabase
         const signupResult = await this.supabase.auth.signUp({
           email: (email ?? '').toString(),
@@ -99,6 +104,7 @@ export class SignupComponent {
         // After successful signup, create a new tenant
         const tenantRequest = {
           id: 0,
+          userId,
           email,
           department,
           firstName,
@@ -109,8 +115,11 @@ export class SignupComponent {
         
         const { id,confirmPassword, ...dataWithoutId } = this.signupForm.value;
         const { data: userData, error: userError } = await this.supabase
-          .from('usertable')
-          .upsert([dataWithoutId]);
+        .from('usertable')
+        .upsert([{
+          ...dataWithoutId,
+          userId: userId, // Include the userId in the upsert operation
+        }]);
            
         
 

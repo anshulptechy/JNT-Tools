@@ -8,11 +8,11 @@ namespace TenantManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TenantController : ControllerBase
     {
         private readonly ICustomService<Management> _customService;
         private readonly ApplicationDbContext _applicationDbContext;
-        public ValuesController(ICustomService<Management> customService, ApplicationDbContext applicationDbContext)
+        public TenantController(ICustomService<Management> customService, ApplicationDbContext applicationDbContext)
         {
             _customService = customService;
             _applicationDbContext = applicationDbContext;
@@ -28,6 +28,37 @@ namespace TenantManagementSystem.Controllers
             else
             {
                 return Ok(obj);
+            }
+        }
+        [HttpGet(nameof(GetUsersByTenantName))]
+        public IActionResult GetUsersByTenantName(string tenantName)
+        {
+            try
+            {
+                var users = _customService.GetUsersByTenantName(tenantName);
+
+                if (users == null || !users.Any())
+                {
+                    if (string.IsNullOrEmpty(tenantName))
+                    {
+                        // Handle the case where tenantName is empty and return an appropriate response.
+                        // For example, you might want to return an empty list or a specific message.
+                        return Ok(new List<string>()); // Or return NotFound("No data found for empty tenantName");
+                    }
+                    else
+                    {
+                        return NotFound($"No users found for the specified tenantName: {tenantName}");
+                    }
+                }
+                else
+                {
+                    return Ok(users);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
             }
         }
         [HttpGet(nameof(GetAllTenant))]

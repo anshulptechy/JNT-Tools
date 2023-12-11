@@ -1,0 +1,74 @@
+<app-header></app-header>
+<div class="container">
+  <div class="d-grid gap-2 col-1">
+    <button
+      class="btn mx-auto"
+      id="authorize_button"
+      (click)="handleAuthClick()"
+      type="button"
+    >
+      Sync
+    </button>
+    <button
+      class="btn mx-auto"
+      id="signout_button"
+      (click)="handleSignoutClick()"
+      type="button"
+    >
+      SyncOut
+    </button>
+  </div>
+  <!-- Show Bootstrap Alert when selectable is false -->
+  <div *ngIf="!calendarOptions.selectable" class="alert alert-primary" style="height: 10px; padding-top: 4px; padding-bottom: 20px; margin-right: -22%; margin-left: -22%;">
+    Refresh or Sync your account now.
+  </div>
+
+  <!-- Always render the full-calendar component -->
+  <full-calendar
+    [options]="calendarOptions"
+    (eventClick)="handleEventClick($event)"
+  ></full-calendar>
+</div>
+
+<!-- Show Detail Modal -->
+<div *ngIf="selectedEvent" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>{{ selectedEvent.title }}</h2>
+    <p><strong>Start:</strong> {{ selectedEvent.start }}</p>
+    <p><strong>End:</strong> {{ selectedEvent.end }}</p>
+    <button (click)="openEditForm()">Edit</button> <br />
+    <button (click)="removeEvent()">Remove</button>
+  </div>
+</div>
+
+<!-- Add Event Modal -->
+<div *ngIf="isAddEventFormOpen || isEditEventFormOpen" class="modal2">
+  <div class="modal-content2">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <!-- Add Event Form -->
+    <h2>{{ selectedEvent ? "Edit Event" : "Add Event" }}</h2>
+    <label for="eventTitle">Title:</label>
+    <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required />
+
+    <label for="eventStart">Start Date and Time:</label>
+    <input
+      type="datetime-local"
+      id="eventStart"
+      [(ngModel)]="newEvent.start"
+      required
+    />
+
+    <label for="eventEnd">End Date and Time:</label>
+    <input
+      type="datetime-local"
+      id="eventEnd"
+      [(ngModel)]="newEvent.end"
+      required
+    />
+
+    <button (click)="selectedEvent ? updateEvent() : addEvent()">
+      {{ selectedEvent ? "Update Event" : "Add Event" }}
+    </button>
+  </div>
+</div>
