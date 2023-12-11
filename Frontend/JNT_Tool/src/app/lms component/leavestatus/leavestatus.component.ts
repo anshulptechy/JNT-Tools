@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
-import { LeaveApplication } from '../model'; 
+import { LeaveApplication } from '../model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -11,15 +11,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leavestatus.component.css']
 })
 export class LeavestatusComponent implements OnInit {
-  // @ViewChild('leaveApplicationForm', { static: false }) leaveApplicationFormViewChild!: NgForm;
-  // @ViewChild('editLeaveForm', { static: false }) editLeaveForm!: NgForm;
+ 
 
   leaveStatusData: any[] | undefined;
-  leaveApplicationForm: FormGroup; // Renamed property to avoid conflict
+  leaveApplicationForm: FormGroup; 
   employeeInputType: string = 'dropdown';
   managerNames: string[] = [];
   isPopupOpen = false;
-  leaveApplication: LeaveApplication = {} as LeaveApplication; 
+  leaveApplication: LeaveApplication = {} as LeaveApplication;
 
   constructor(
     private lmsService: LmsService,
@@ -43,12 +42,13 @@ export class LeavestatusComponent implements OnInit {
     const userId = localStorage.getItem('id');
 
     if (userId !== null) {
+      this.leaveApplication.status = 'Pending';
       this.leaveApplication.userId = parseInt(userId, 10);
 
       this.lmsService.submitLeaveApplication(this.leaveApplication).subscribe(
         (response) => {
           console.log(this.leaveApplication);
-          
+
         });
 
       Swal.fire({
@@ -58,7 +58,7 @@ export class LeavestatusComponent implements OnInit {
       });
       window.location.reload();
       this.closeLeaveApplicationPopup();
-      
+
     }
   }
 
@@ -88,7 +88,7 @@ export class LeavestatusComponent implements OnInit {
     debugger
     const formattedStartDate = this.formatDate(leave.startDate);
     const formattedEndDate = this.formatDate(leave.endDate);
-  
+
     this.leaveApplicationForm.patchValue({
       employeeInputType: this.employeeInputType,
       managerName: leave.managerName,
@@ -100,11 +100,11 @@ export class LeavestatusComponent implements OnInit {
       leaveType: leave.leaveType,
       reason: leave.reason,
     });
-    
+
     this.leaveApplication = { ...this.leaveApplicationForm.value };
   }
-  
-  
+
+
 
   formatDate(date: string): string {
     const dateObject = new Date(date);
@@ -127,52 +127,43 @@ export class LeavestatusComponent implements OnInit {
   }
 
 
-submitUpdatedLeaveApplication() {
-  debugger;
-  const updatedLeaveApplication = this.leaveApplication;
+  submitUpdatedLeaveApplication() {
+    debugger;
+    const updatedLeaveApplication = this.leaveApplication;
+    updatedLeaveApplication.status = 'Pending';
 
-  // Call the service to update the leave application
-  this.lmsService.updateLeaveApplication(updatedLeaveApplication)
-    .subscribe(
-      response => {
-        console.log('Leave application updated successfully', response);
-        
-        // Show success message using Swal.fire
-        Swal.fire({
-          icon: 'success',
-          title: 'Leave Updated!',
-          text: 'Your leave application has been updated successfully.',
-        });
+    // Call the service to update the leave application
+    this.lmsService.updateLeaveApplication(updatedLeaveApplication)
+      .subscribe(
+        response => {
+          console.log('Leave application updated successfully', response);
 
-        // Optionally, you can perform additional actions here
-        window.location.reload();
-        // Reload the page
-         
-      },
-      error => {
-        console.error('Error updating leave application', error);
+          // Show success message using Swal.fire
+          Swal.fire({
+            icon: 'success',
+            title: 'Leave Updated!',
+            text: 'Your leave application has been updated successfully.',
+          });
 
-        // Show error message using Swal.fire
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'An error occurred while updating your leave application. Please try again.',
-        });
-        
+          // Optionally, you can perform additional actions here
+          window.location.reload();
+          // Reload the page
 
-        // Optionally, you can perform additional error handling here
-      }
-    );this.getLeaveStatusByuserId();
-}
+        },
+        error => {
+          console.error('Error updating leave application', error);
 
-
-
-  resetLeaveApplication() {
-    this.leaveApplicationForm.reset();
+          // Show error message using Swal.fire
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while updating your leave application. Please try again.',
+          });
+        }
+      ); this.getLeaveStatusByuserId();
   }
-
-  closeLeaveApplicationPopup() {
-    this.isPopupOpen = false;
+ closeLeaveApplicationPopup() {
+    window.location.reload();
   }
 
   deleteLeave(leave: any) {
@@ -187,12 +178,12 @@ submitUpdatedLeaveApplication() {
     }).then((result) => {
       if (result.isConfirmed) {
         const leaveId = leave.id;
-  
+
         this.lmsService.deleteLeave(leaveId).subscribe(
           (response: any) => {
             console.log('Leave deleted successfully:', response);
             this.getLeaveStatusByuserId();
-  
+
             Swal.fire({
               icon: 'success',
               title: 'Leave Deleted!',
@@ -201,7 +192,7 @@ submitUpdatedLeaveApplication() {
           },
           (error: any) => {
             console.error('Error deleting leave:', error);
-  
+
             Swal.fire({
               icon: 'error',
               title: 'Error',
