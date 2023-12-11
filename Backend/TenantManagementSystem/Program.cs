@@ -5,13 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Repository_Layer.EventRepo;
 using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
+
 using Repository_Layer.ProjectRepo;
+
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repository_Layer.EventRepo;
 using Repository_Layer.IEventRepo;
 using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
+
 
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
@@ -38,7 +41,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // Add services to the container.
 
 builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
-//inject dependency
+
 builder.Services.AddScoped(typeof(IAttRepository<>), typeof(AttRepository<>));
 builder.Services.AddScoped<IAttService<Attendences>, AttService>();
 
@@ -50,14 +53,30 @@ builder.Services.AddScoped(typeof(IProjectRepo<>), typeof(ProjectRepo<>));
 builder.Services.AddScoped(typeof(TaskInterface1<>), typeof(TaskRepository<>));
 builder.Services.AddScoped<TaskServiceInterface1<taskStructure>, TaskService>();
 
+
+
+
 builder.Services.AddScoped<IProjectService<projectModel>, ProjectService>();
 builder.Services.AddScoped(typeof(IEventRepo<>), typeof(EventRepo<>));
 builder.Services.AddScoped<IEventService<Event>, EventService>();
 
 
 
+
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+
+builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
+
+builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
+
+
+
+builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
+builder.Services.AddScoped<ISalaryService, SalaryService>();
+
+
+
 
 var app = builder.Build();
 

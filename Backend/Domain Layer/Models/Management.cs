@@ -46,6 +46,6 @@ namespace Domain_Layer.Models
             get;
             set;
         }
-       
+
     }
 }
