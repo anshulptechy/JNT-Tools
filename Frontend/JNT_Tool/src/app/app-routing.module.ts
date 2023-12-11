@@ -27,7 +27,7 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 
 const routes: Routes = [
   { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] },
-  { path: "signup", component: SignupComponent, canActivate: [AuthGuard] },
+  { path: "signup", component: SignupComponent},
   { path: "add", component: AddComponent, canActivate: [AuthGuard] },
   { path: "coupons", component: CouponsComponent, canActivate: [AuthGuard] },
   { path: "edit", component: EditComponent, canActivate: [AuthGuard] },
