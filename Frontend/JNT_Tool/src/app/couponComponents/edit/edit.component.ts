@@ -22,18 +22,18 @@ export class EditComponent {
   ) {
     this.updateForm = this.fb.group({
       // Initialize the form with default values and validators
-   id: [0],
-   couponCode: ['', [Validators.required]],
-   couponName: ['', [Validators.required]],
-   description: [''],
-   discount: ['', [Validators.required, Validators.min(1)]],
-   quantity: ['', [Validators.required, Validators.min(1)]],
-   startDate: ['', [Validators.required]],
-   endDate: ['', [Validators.required]],
-   discountType: ['', [Validators.required]],
-   supabaseUserId: ['', [Validators.required]]
- });
-}
+      id: [0],
+      couponCode: ['string'],
+      couponName: ['', [Validators.required]],
+      description: [''],
+      discount: ['', [Validators.required, Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.min(1)]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      discountType: ['', [Validators.required]],
+      supabaseUserId: ['', [Validators.required]],
+    }, { validator: this.dateValidator.bind(this) }); // Add custom validator to the form group
+  }
 
   ngOnInit() {
     // Populate the form with existing coupon data on component initialization
@@ -63,7 +63,7 @@ export class EditComponent {
       Swal.fire({
         icon: 'error',
         title: 'Invalid',
-        text: ' *Please fill in all the required fields!',
+        text: ' *Please validate all the required fields!',
       });
       // return;
     }
@@ -98,8 +98,24 @@ export class EditComponent {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
   
-      if (startDate && endDate && new Date(startDate) >= new Date(endDate)) {
-        endDateControl.setErrors({ dateError: true });
+      // Get the current date in the local timezone
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0); 
+  
+      // Parse the selected start date and end date strings to Date objects
+      const parsedStartDate = startDate ? new Date(startDate) : null;
+      const parsedEndDate = endDate ? new Date(endDate) : null;
+  
+      // Check if the selected start date is in the past or the same as the current date
+      if (parsedStartDate && parsedStartDate < currentDate) {
+        startDateControl.setErrors({ pastDateError: 'Please choose a date from today or later.' });
+      } else {
+        startDateControl.setErrors(null);
+      }
+  
+      // Check if the end date is before the start date or the same as the start date
+      if (parsedStartDate && parsedEndDate && parsedEndDate < parsedStartDate) {
+        endDateControl.setErrors({ dateError: 'End date must be after the start date.' });
       } else {
         endDateControl.setErrors(null);
       }
