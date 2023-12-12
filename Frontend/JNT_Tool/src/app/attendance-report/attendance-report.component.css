@@ -296,7 +296,7 @@ th {
   }
   
   .scrollable-container {
-    max-height: 460px;
+    max-height: 400px;
     overflow-y: auto;
     margin-bottom: -55px;
   }

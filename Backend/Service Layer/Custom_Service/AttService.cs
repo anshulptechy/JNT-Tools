@@ -55,11 +55,11 @@ namespace Service_Layer.Custom_Service
 
       
 
-        public Attendences? Get(int UserId)
+        public Attendences? Get(int id)
         {
             try
             {
-                var obj = _AttendenceRepository.Get(UserId);
+                var obj = _AttendenceRepository.Get(id);
                 if (obj != null)
                 {
                     return (Attendences)obj;
