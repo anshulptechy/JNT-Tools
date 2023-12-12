@@ -20,11 +20,13 @@
                 <mat-form-field appearance="fill" class="half-width">
                     <mat-label>Discount</mat-label>
                     <input matInput type="number" placeholder="" formControlName="discount">
+                    <mat-error *ngIf="updateForm.get('discount')?.hasError('max')">Discount should not exceed 100000 characters</mat-error>
                     <mat-error *ngIf="updateForm.get('discount')?.hasError('required')">Discount is required</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="half-width">
                     <mat-label>Quantity</mat-label>
+                    <mat-error *ngIf="updateForm.get('quantity')?.hasError('max')">Quantity should not exceed 10000 characters</mat-error>
                     <input matInput type="number" placeholder="" formControlName="quantity" readonly>
                 </mat-form-field>
             </div>

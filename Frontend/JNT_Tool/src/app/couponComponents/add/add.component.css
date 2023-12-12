@@ -35,6 +35,10 @@ form {
 
 .mat-input-element {
   word-wrap: break-word;
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
 }
 .form-field {
   width: 48%;
@@ -89,4 +93,5 @@ h1{
 .error-message {
   white-space: nowrap;
   overflow: hidden;
+  
 }

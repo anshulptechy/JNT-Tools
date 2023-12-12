@@ -31,8 +31,8 @@ export class AddComponent {
       couponCode: ['string'],
       couponName: ['', [Validators.required, Validators.maxLength(100)]],
       description: [''],
-      discount: ['', [Validators.required, Validators.min(0)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      discount: ['', [Validators.required, Validators.min(0),Validators.max(1000000)]],
+      quantity: ['', [Validators.required, Validators.min(1),Validators.max(100000)]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       discountType: ['', [Validators.required]],
@@ -61,13 +61,16 @@ export class AddComponent {
     this.couponForm.get('couponName')?.markAsTouched();
     return;
   }
+  if (this.couponForm.get('discount')?.hasError('max')) {
+    this.couponForm.get('discount')?.markAsTouched();
+    return;
+  }
+  if (this.couponForm.get('quantity')?.hasError('maxlength')) {
+    this.couponForm.get('quantity')?.markAsTouched();
+    return;
+  }
     else {
       if (this.couponForm.invalid) {
-        // Swal.fire({
-        //   icon: 'error',
-        //   title: 'Invalid Form',
-        //   text: ' *Please Fill in all the required fields!',
-        // });
          return;
       }else
       try {

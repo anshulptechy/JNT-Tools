@@ -26,15 +26,14 @@ export class EditComponent {
       couponCode: ['string'],
       couponName: ['', [Validators.required, Validators.maxLength(100)]],
       description: [''],
-      discount: ['', [Validators.required, Validators.min(0)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      discount: ['', [Validators.required, Validators.min(0),Validators.max(1000000)]],
+      quantity: ['', [Validators.required, Validators.min(1),Validators.max(100000)]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       discountType: ['', [Validators.required]],
       supabaseUserId: ['', [Validators.required]],
-    }, { validator: this.dateValidator.bind(this) });
+    }, { validator: this.dateValidator.bind(this) }); 
   }
-
   ngOnInit() {
     // Populate the form with existing coupon data on component initialization
     this.populateForm();
@@ -68,7 +67,14 @@ export class EditComponent {
     this.updateForm.get('couponName')?.markAsTouched();
     return;
   }
-
+  if (this.updateForm.get('discount')?.hasError('max')) {
+    this.updateForm.get('discount')?.markAsTouched();
+    return;
+  }
+  if (this.updateForm.get('quantity')?.hasError('maxlength')) {
+    this.updateForm.get('quantity')?.markAsTouched();
+    return;
+  }
     if (this.updateForm.invalid) {
       return;
     }
