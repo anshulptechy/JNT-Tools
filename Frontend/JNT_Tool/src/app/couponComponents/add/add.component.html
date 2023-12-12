@@ -7,7 +7,8 @@
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Coupon Name</mat-label>
           <input matInput placeholder="Ex. Diwali Coupon" formControlName="couponName">
-
+          <mat-error *ngIf="couponForm.get('couponName')?.hasError('maxlength')">Coupon Name should not exceed 100 characters</mat-error>
+          <mat-error *ngIf="couponForm.get('couponName')?.hasError('required')">Coupon Name is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="half-width">
@@ -24,7 +25,7 @@
           <div *ngIf="couponForm.get('startDate')!.hasError('pastDateError')">
             <mat-error>{{ couponForm.get('startDate')!.getError('pastDateError') }}</mat-error>
           </div>
-          
+          <mat-error *ngIf="couponForm.get('startDate')?.hasError('required')">Start Date is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="half-width">
@@ -35,22 +36,22 @@
           <div *ngIf="couponForm.get('endDate')!.hasError('dateError')">
             <mat-error>{{ couponForm.get('endDate')!.getError('dateError') }}</mat-error>
           </div>
+          <mat-error *ngIf="couponForm.get('endDate')?.hasError('required')">End Date is required</mat-error>
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Discount</mat-label>
           <input matInput type="number" placeholder="" formControlName="discount">
-
+          <mat-error *ngIf="couponForm.get('discount')?.hasError('required')">Discount is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Quantity</mat-label>
           <input matInput type="number" placeholder="" formControlName="quantity">
-
+          <mat-error *ngIf="couponForm.get('quantity')?.hasError('required')">Quantity is required</mat-error>
         </mat-form-field>
       </div>
-
      
 
       <div class="row">
@@ -60,9 +61,10 @@
             <mat-radio-button value="Fixed Amount">Fixed Amount</mat-radio-button>
             <mat-radio-button value="Percentage">Percentage</mat-radio-button>
           </mat-radio-group>
-
+          <mat-error *ngIf="submitted && couponForm.get('discountType')?.hasError('required')">Discount is required</mat-error>
         </div>
       </div>
+      
     </div>
   </form>
 

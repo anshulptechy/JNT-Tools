@@ -34,7 +34,9 @@ form {
   margin-bottom: 15px; 
 }
 
-
+.mat-input-element {
+  word-wrap: break-word;
+}
 .form-field {
   width: 48%;
   padding: 10px;
@@ -82,4 +84,10 @@ form {
 }
 h1{
   margin-bottom: -15px;
+}
+
+/* Add this to your component's CSS file or style section */
+.error-message {
+  white-space: nowrap;
+  overflow: hidden;
 }
