@@ -80,14 +80,23 @@ export class AttendanceReportComponent  {
       }
     );
   }
- 
-  
+
+
   private populateEmployeeNames() {
     this.employeeNames = Array.from(new Set(this.gridData.map(record => record.management.firstName)));
   }
 
+  setValueOfSelectedMonth(value: string) {
+    const selectedMonthControl = this.attendanceForm.get('selectedMonth');
+    if (selectedMonthControl) {
+      selectedMonthControl.setValue(value);
+    }
+  }
+  
+
   generateEReport() {
-    if (this.selectedEmployee) { 
+    debugger;
+    if (this.selectedEmployee) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
@@ -95,8 +104,10 @@ export class AttendanceReportComponent  {
           });
           this.showTable = true;
           this.selectedMonth = '';
+          console.log("Selected Month after clearing:", this.selectedMonth);
         }
       });
     }
   }
+  
 }
