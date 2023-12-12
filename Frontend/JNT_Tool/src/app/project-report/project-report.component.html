@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <table class="table table-striped mt-3">
+  <table class="table table-striped mt-3 project-table">
     <thead>
       <tr class="table-dark">
         <th scope="col">Project Id</th>
@@ -87,8 +87,8 @@
       <ng-container *ngIf="filteredProjects.length > 0; else noDataMessage">
         <tr *ngFor="let project of filteredProjects">
           <td scope="row">{{ project.projectId }}</td>
-          <td>{{ project.projectName }}</td>
-          <td>{{ project.client }}</td>
+          <td class="project-name">{{ project.projectName }}</td>
+          <td class="project-name">{{ project.client }}</td>
           <td>{{ project.startDate | date : "yyyy-MM-dd" }}</td>
           <td>{{ project.endDate | date : "yyyy-MM-dd" }}</td>
           <td>{{ project.country }}</td>
