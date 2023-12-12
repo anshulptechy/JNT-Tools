@@ -12,6 +12,26 @@ namespace Domain_Layer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ApplyLeaves",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LeaveType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplyLeaves", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Coupons",
                 columns: table => new
                 {
@@ -104,16 +124,48 @@ namespace Domain_Layer.Migrations
                     table.PrimaryKey("PK_taskTable3", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SalaryRecords",
+                columns: table => new
+                {
+                    SalaryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    SalaryMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<int>(type: "int", nullable: false),
+                    Leaves = table.Column<int>(type: "int", nullable: false),
+                    Deductions = table.Column<int>(type: "int", nullable: false),
+                    NetPay = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalaryRecords", x => x.SalaryId);
+                    table.ForeignKey(
+                        name: "FK_SalaryRecords_Managements_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Managements",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Coupons_CouponCode",
                 table: "Coupons",
                 column: "CouponCode",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalaryRecords_EmployeeId",
+                table: "SalaryRecords",
+                column: "EmployeeId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplyLeaves");
+
             migrationBuilder.DropTable(
                 name: "Coupons");
 
@@ -121,13 +173,16 @@ namespace Domain_Layer.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Managements");
-
-            migrationBuilder.DropTable(
                 name: "projectDataTable");
 
             migrationBuilder.DropTable(
+                name: "SalaryRecords");
+
+            migrationBuilder.DropTable(
                 name: "taskTable3");
+
+            migrationBuilder.DropTable(
+                name: "Managements");
         }
     }
 }
