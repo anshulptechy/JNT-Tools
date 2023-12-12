@@ -2,7 +2,6 @@
   height: 470px;
 }
 .container1 {
-  /* height: 400px; */
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -34,7 +33,13 @@ form {
   margin-bottom: 15px; 
 }
 
-
+.mat-input-element {
+  word-wrap: break-word;
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
 .form-field {
   width: 48%;
   padding: 10px;
@@ -82,4 +87,11 @@ form {
 }
 h1{
   margin-bottom: -15px;
+}
+
+/* Add this to your component's CSS file or style section */
+.error-message {
+  white-space: nowrap;
+  overflow: hidden;
+  
 }
