@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../service/attendance.service';
@@ -8,7 +8,7 @@ import { AttendanceService } from '../service/attendance.service';
   templateUrl: './attendance-report.component.html',
   styleUrls: ['./attendance-report.component.css']
 })
-export class AttendanceReportComponent implements OnInit {
+export class AttendanceReportComponent  {
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   employeeNames: string[] = [];
   showTable: boolean = true;
@@ -36,18 +36,15 @@ export class AttendanceReportComponent implements OnInit {
 
   formatDate(dateTimeString: string): string {
     if (dateTimeString) {
-        // Assuming date format: "2023-12-11T10:06:30.2383121"
         const date = new Date(dateTimeString);
-        
-        // Use { second: '2-digit' } in the options
-        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const timeString = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const dateString = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        return `${dateString} ${timeString}`;
     }
     return '';
 }
 
-  ngOnInit(): void {
-    // You can add any additional initialization logic here if needed.
-  }
+
 
   generateMReport() {
     if (this.selectedMonth) {
@@ -69,23 +66,16 @@ export class AttendanceReportComponent implements OnInit {
       });
     }
   }
-  
-  // Assuming `getbyMonthName` is not being used, you can remove it if unnecessary
-  
-
   getbyMonthName(selectedMonth: string) {
     this.serve.getbyMonthName(selectedMonth).subscribe(
       
       (result) => {
-        // Handle the response data as needed
         console.log( result);
-        this.gridData = result as any; // Set the data to the gridData property
-        this.showTable = true; // Show the table
-
+        this.gridData = result as any; 
+        this.showTable = true;
         this.selectedEmployee = ''; 
       },
       (error) => {
-        // Handle any errors
         console.error('Error:', error);
       }
     );
