@@ -3,7 +3,7 @@
   <div class="container">
     <h2>Leave Management</h2>
   
-   
+    <div *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
       
       <table class="table">
         <thead>
@@ -17,8 +17,6 @@
           </tr>
         </thead>
         <tbody>
-       
-          <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
           <tr *ngFor="let leave of leaveManagementData">
             <td>{{ leave.employeeName }}</td>
             <td>{{ leave.leaveType }}</td>
@@ -26,23 +24,19 @@
             <td>{{ leave.endDate | date: 'shortDate' }}</td>
             <td>{{ leave.reason }}</td>
             <td>
-              <ng-container *ngIf="leave.status === 'Pending'; else statusText">
-                <button class="button-approve" (click)="approveLeave(leave)">Approve</button>
-                <button class="button-reject" (click)="rejectLeave(leave)">Reject</button>
-              </ng-container>
-              <ng-template #statusText>
-                {{ leave.status }}
-              </ng-template>
+              
+              <button class="button-approve" (click)="approveLeave(leave)">Approve</button>
+              <button class="button-reject" (click)="rejectLeave(leave)">Reject</button>
+              
             </td>
           </tr>
-        </ng-container>
         </tbody>
       </table>
     </div>
   
     <ng-template #noData>
-      <tr>
-        <td colspan="9">No data available</td>
-      </tr>
+      
+      <p>No leave data available.</p>
     </ng-template>
   </div>
+</div>

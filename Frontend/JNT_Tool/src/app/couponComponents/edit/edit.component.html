@@ -2,45 +2,51 @@
 <div class="body">
     <h1>Update Coupon</h1>
     <form [formGroup]="updateForm">
-      <div class="container1">
-        <div class="row">
-            <label>Coupon Name</label>&nbsp;&nbsp;
-            <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName">
-          
-            &nbsp;&nbsp;
-            <label>Description</label>&nbsp;&nbsp;
-            <input type="text" placeholder="" formControlName="description">
+        <div class="container1">
+            <div class="row">
+                <label>Coupon Name</label>&nbsp;&nbsp;
+                <input type="text" placeholder="Ex. Diwali Coupon" formControlName="couponName">
+ 
+                &nbsp;&nbsp;
+                <label>Description</label>&nbsp;&nbsp;
+                <input type="text" placeholder="" formControlName="description">
+            </div>
+            <div class="row">
+                <label>Discount</label>&nbsp;&nbsp;
+                <input type="number" placeholder="" formControlName="discount">
+ 
+                &nbsp;&nbsp;
+                <label>Quantity</label>&nbsp;&nbsp;
+                <input type="number" placeholder="" formControlName="quantity" readonly>
+ 
+            </div>
+            <div class="row">
+                <label>Start Date</label>&nbsp;&nbsp;
+                <input type="date" formControlName="startDate">
+ 
+                &nbsp;&nbsp;
+                <label>End Date</label>&nbsp;&nbsp;
+                <input type="date" formControlName="endDate">
+ 
+            </div>
+            <div class="row">
+ 
+                <label><b>Discount Type</b></label>
+                <label>
+                    <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
+                </label>
+                <label>
+                    <input type="radio" value="Percentage" formControlName="discountType"> Percentage
+                </label>
+ 
+            </div>
         </div>
-        <div class="row">
-            <label>Discount</label>&nbsp;&nbsp;
-            <input type="number" placeholder="" formControlName="discount">
-        
-            &nbsp;&nbsp;
-            <label>Quantity</label>&nbsp;&nbsp;
-            <input type="number" placeholder="" formControlName="quantity" readonly>
-           
+        <div *ngIf="updateForm.get('startDate')!.hasError('pastDateError')">
+            <mat-error>{{ updateForm.get('startDate')!.getError('pastDateError') }}</mat-error>
         </div>
-        <div class="row">
-            <label>Start Date</label>&nbsp;&nbsp;
-            <input type="date" formControlName="startDate">
-        
-            &nbsp;&nbsp;
-            <label>End Date</label>&nbsp;&nbsp;
-            <input type="date" formControlName="endDate">
-        
+        <div *ngIf="updateForm.get('endDate')!.hasError('dateError')">
+            <mat-error>{{ updateForm.get('endDate')!.getError('dateError') }}</mat-error>
         </div>
-        <div class="row">
-
-            <label><b>Discount Type</b></label>
-            <label>
-                <input type="radio" value="Fixed Amount" formControlName="discountType"> Fixed Amount
-            </label>
-            <label>
-                <input type="radio" value="Percentage" formControlName="discountType"> Percentage
-            </label>
-   
-        </div>
-      </div>
         <div class="add-button">
             <button type="submit" (click)="onUpdateClick(updateForm.value)">Update</button>&nbsp;
             <button type="button" (click)="onCancelClick()">Cancel</button>
