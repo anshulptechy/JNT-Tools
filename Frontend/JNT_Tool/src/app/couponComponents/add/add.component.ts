@@ -53,13 +53,23 @@ export class AddComponent {
 
   async onSaveClick() {
     this.submitted = true;
-  // Check if couponName exceeds 100 characters
+     // Mark all form controls as touched to trigger the display of error messages
+     Object.values(this.couponForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
   if (this.couponForm.get('couponName')?.hasError('maxlength')) {
-    // Display the error message for couponName length
     this.couponForm.get('couponName')?.markAsTouched();
     return;
   }
     else {
+      if (this.couponForm.invalid) {
+        // Swal.fire({
+        //   icon: 'error',
+        //   title: 'Invalid Form',
+        //   text: ' *Please Fill in all the required fields!',
+        // });
+         return;
+      }else
       try {
         // Get form data and add the coupon using the CouponService
         const formData = this.couponForm.value;

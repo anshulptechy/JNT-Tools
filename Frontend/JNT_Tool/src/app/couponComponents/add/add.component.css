@@ -2,7 +2,6 @@
   height: 470px;
 }
 .container1 {
-  /* height: 400px; */
   display: flex;
   flex-direction: column;
   padding: 20px;
