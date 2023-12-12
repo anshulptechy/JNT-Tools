@@ -25,11 +25,44 @@ namespace TenantManagementSystem.Controllers
                 _dbContext.Attendence.Add(loginHistory);
                 await _dbContext.SaveChangesAsync();
 
-                return Ok(); // You can customize the response if needed
+                //return Ok();
+                return Ok(loginHistory.AttendenceId);// You can customize the response if needed
             }
             catch (Exception ex)
             {
                 return BadRequest($"Failed to save login and logout times. Error: {ex.Message}");
+            }
+        }
+        [HttpPut("{attendenceId}")]
+        public async Task<IActionResult> UpdateLogoutTime(int attendenceId)
+        {
+            try
+            {
+                var loginHistory = await _dbContext.Attendence.FindAsync(attendenceId);
+
+                if (loginHistory == null)
+                {
+                    return NotFound($"Login history with ID {attendenceId} not found.");
+                }
+
+                // Check if the elapsed time is more than twelve hours
+                TimeSpan elapsed = DateTime.Now - loginHistory.LoginTime;
+
+                if (elapsed.TotalHours <= 12)
+                {
+                    loginHistory.LogoutTime = DateTime.Now;
+                    await _dbContext.SaveChangesAsync();
+
+                    return Ok($"Logout time updated for login history with ID {attendenceId}.");
+                }
+                else
+                {
+                    return Ok($"Logout time not updated for login history with ID {attendenceId}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error updating logout time: {ex.Message}");
             }
         }
 

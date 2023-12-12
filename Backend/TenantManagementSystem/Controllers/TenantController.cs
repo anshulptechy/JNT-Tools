@@ -86,8 +86,8 @@ namespace TenantManagementSystem.Controllers
         {
             if (student != null)
             {
-                _AttendenceServices.CreateManagementUserAndAttendance(student);
-                //_customService.Insert(student);
+               // _AttendenceServices.CreateManagementUserAndAttendance(student);
+                _customService.Insert(student);
                 return Ok("Created Successfully");
             }
             else
