@@ -87,7 +87,7 @@ export class AttendanceReportComponent  {
   }
 
   generateEReport() {
-    if (this.selectedEmployee) {
+    if (this.selectedEmployee) { 
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
