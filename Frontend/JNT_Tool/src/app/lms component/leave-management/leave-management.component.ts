@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './leave-management.component.html',
   styleUrls: ['./leave-management.component.css']
 })
-export class LeaveManagementComponent  implements OnInit {
+export class LeaveManagementComponent implements OnInit {
   leaveManagementData: any[] | undefined; // Array to store leave management data
 
   constructor(private router: Router, private lmsService: LmsService) { }
@@ -19,6 +19,8 @@ export class LeaveManagementComponent  implements OnInit {
     this.getLeaveStatusForManaged();
   }
 
+
+  
   getLeaveStatusForManaged() {
     debugger;
     // Retrieve the manager's name from localStorage
@@ -41,32 +43,32 @@ export class LeaveManagementComponent  implements OnInit {
   }
 
   approveLeave(leave: any) {
-    // Update leave status to 'Approved' and display success toast message
     this.updateLeaveStatus(leave, 'Approved');
+    leave.status = 'Approved'; // Update the status property immediately
     Swal.fire({
       icon: 'success',
       title: 'Approved Successful!',
-      text: ' leave approved successfully.',
+      text: 'Leave approved successfully.',
     });
   }
 
   rejectLeave(leave: any) {
-    // Update leave status to 'Rejected' and display error toast message
     this.updateLeaveStatus(leave, 'Rejected');
+    leave.status = 'Rejected'; // Update the status property immediately
     Swal.fire({
       icon: 'success',
       title: 'Rejected Successful!',
-      text: ' leave Rejected successfully.',
+      text: 'Leave rejected successfully.',
     });
   }
 
   private updateLeaveStatus(leave: any, status: string) {
+    debugger;
     // Extract relevant information from the leave object
     const userId = leave.userId;
     const startDate = leave.startDate;
     const endDate = leave.endDate;
 
-    // Call the service to update the leave status
     this.lmsService.updateLeaveStatus(userId, startDate, endDate, status).subscribe(
       () => {
         leave.status = status; // Update the status property of the leave object
