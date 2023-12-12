@@ -45,10 +45,14 @@
     background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
 
   }
-  /* .mt-3 {
-    margin-top: 3rem; /* Adjust the margin as needed 
-  } */
-  /* .text-msg{
-    margin-left: 1000px;
-  } */
+  .project-name {
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  .project-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
   
