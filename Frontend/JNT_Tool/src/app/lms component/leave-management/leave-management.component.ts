@@ -19,6 +19,7 @@ export class LeaveManagementComponent implements OnInit {
     this.getLeaveStatusForManaged();
   }
 
+  
   getLeaveStatusForManaged() {
     debugger;
     // Retrieve the manager's name from localStorage
