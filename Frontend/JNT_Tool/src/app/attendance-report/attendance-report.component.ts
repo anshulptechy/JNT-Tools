@@ -101,12 +101,12 @@ export class AttendanceReportComponent implements OnInit {
     this.serve.getAllAttendenceWithManagement().subscribe((result) => {
       this.gridData = result as any;
       this.populateEmployeeNames();
+      this.loadEmployeeData();
     });
   }
 
   generateEReport() {
     if (this.selectedEmployee) {
-      this.loadEmployeeData();
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
