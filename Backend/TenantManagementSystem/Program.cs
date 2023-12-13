@@ -9,11 +9,6 @@ using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
 
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Repository_Layer.EventRepo;
-using Repository_Layer.IEventRepo;
-using Repository_Layer.IRepository;
-using Repository_Layer.ProjectRepo;
 
 
 using Repository_Layer.Repository;
@@ -75,7 +70,14 @@ builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
+// Add repository to the container
+builder.Services.AddScoped(typeof(ICouponRepo<>), typeof(CouponRepo<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+
+// Add services to the container.
+builder.Services.AddScoped<ICouponServices<Coupon>, CouponServices>();
+builder.Services.AddScoped<ICustomService<Management>, Custom_Service>();
 
 
 var app = builder.Build();
