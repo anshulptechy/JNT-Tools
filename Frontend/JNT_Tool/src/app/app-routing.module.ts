@@ -8,10 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CouponsComponent } from './couponComponents/coupons/coupons.component';
 import { AddComponent } from './couponComponents/add/add.component';
 import { EditComponent } from './couponComponents/edit/edit.component';
-
 import { CalendarComponent } from './calendar/calendar.component';
-
-
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
@@ -33,10 +30,10 @@ const routes: Routes = [
   { path: "coupons", component: CouponsComponent },
   { path: "edit", component:EditComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'update', component: UpdateButtonComponent },
-  { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] },
+  { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] },
   { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
@@ -49,6 +46,7 @@ const routes: Routes = [
   {path:'salary-report',component:SalaryReportComponent},
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -53,7 +53,6 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
 import { RouterModule } from '@angular/router';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

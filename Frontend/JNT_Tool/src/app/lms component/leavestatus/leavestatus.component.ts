@@ -39,6 +39,7 @@ export class LeavestatusComponent implements OnInit {
   }
 
   submitLeaveApplication() {
+    debugger;
     const userId = localStorage.getItem('id');
 
     if (userId !== null) {

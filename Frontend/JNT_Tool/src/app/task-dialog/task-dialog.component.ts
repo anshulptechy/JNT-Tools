@@ -20,8 +20,8 @@ export class TaskDialogComponent {
   ) {
     // Initialize form controls
     this.taskDetails = this.fb.group({
-      taskName: ['', Validators.required],
-      taskDescription: ['', Validators.required],
+      taskName: ['', [Validators.required, Validators.maxLength(100)]],
+      taskDescription: ['',[ Validators.required, Validators.maxLength(500)]],
       taskStartTime: ['', Validators.required],
       taskEndTime: ['', Validators.required],
       userName: ['', Validators.required],
