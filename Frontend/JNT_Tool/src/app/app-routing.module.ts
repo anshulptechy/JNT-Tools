@@ -22,6 +22,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
 
+
 const routes: Routes = [
 { path: "mainpage", component: TenantListComponent },
   { path: "signup", component: SignupComponent },

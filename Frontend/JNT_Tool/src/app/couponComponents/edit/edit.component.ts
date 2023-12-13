@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { CouponsModel } from 'src/app/models/couponModels';
 import Swal from 'sweetalert2';
-
+ 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -32,13 +32,13 @@ export class EditComponent {
       endDate: ['', [Validators.required]],
       discountType: ['', [Validators.required]],
       supabaseUserId: ['', [Validators.required]],
-    }, { validator: this.dateValidator.bind(this) }); 
+    }, { validator: this.dateValidator.bind(this) });
   }
   ngOnInit() {
     // Populate the form with existing coupon data on component initialization
     this.populateForm();
   }
-
+ 
   // Fetch coupon details by ID and populate the form with the data
   populateForm() {
     this.serve.GetCouponById(this.data.data.id).subscribe((result: CouponsModel) => {
@@ -56,7 +56,7 @@ export class EditComponent {
       });
     });
   }
-
+ 
   onUpdateClick(data1: CouponsModel) {
     this.submitted = true;
     // Mark all form controls as touched to trigger the display of error messages
@@ -86,37 +86,37 @@ export class EditComponent {
       });
     }
   }
-
+ 
   onCancelClick() {
     this.dialogRef.close(true);
   }
-
+ 
   // Helper method to format dates in 'YYYY-MM-DD' format
   private formatDate(date: Date | string): string {
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     const year = dateObj.getFullYear();
     const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
     const day = dateObj.getDate().toString().padStart(2, '0');
-
+ 
     return `${year}-${month}-${day}`;
   }
-
+ 
   dateValidator(form: FormGroup) {
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
-  
+ 
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
-  
+ 
       // Get the current date in the local timezone
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
-  
+ 
       // Parse the selected start date and end date strings to Date objects
       const parsedStartDate = startDate ? new Date(startDate) : null;
       const parsedEndDate = endDate ? new Date(endDate) : null;
-  
+ 
       // Check if the start date is provided
       if (!parsedStartDate) {
         startDateControl.setErrors({ requiredError: 'Start date is required.' });
@@ -128,7 +128,7 @@ export class EditComponent {
           startDateControl.setErrors(null);
         }
       }
-  
+ 
       // Check if the end date is provided
       if (!parsedEndDate) {
         endDateControl.setErrors({ requiredError: 'End date is required.' });
@@ -142,6 +142,6 @@ export class EditComponent {
       }
     }
   }
-
-
+ 
+ 
 }
