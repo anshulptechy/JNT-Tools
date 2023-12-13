@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model';
@@ -19,6 +19,9 @@ export class LeavestatusComponent implements OnInit {
   managerNames: string[] = [];
   isPopupOpen = false;
   leaveApplication: LeaveApplication = {} as LeaveApplication;
+  
+  
+  allNames: any[] = [];
 
   constructor(
     private lmsService: LmsService,
@@ -34,7 +37,7 @@ export class LeavestatusComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       leaveType: ['', Validators.required],
-      reason: ['', Validators.required],
+      reason: ['', [Validators.required, Validators.maxLength(150)]],
     });
   }
 
@@ -66,6 +69,7 @@ export class LeavestatusComponent implements OnInit {
   ngOnInit() {
     this.getLeaveStatusByuserId();
     this.getManagerNames();
+    this.getAllNames();
   }
 
   getLeaveStatusByuserId() {
@@ -83,6 +87,21 @@ export class LeavestatusComponent implements OnInit {
         }
       );
     }
+  }
+
+  getAllNames() {debugger;
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName); 
+    this.lmsService.getAllNames(tenantName)
+    .subscribe(
+      names => {
+        this.allNames = names;
+        console.log('allNames:', this.allNames);
+      },
+      error => {
+        console.error('Error retrieving names:', error);
+      }
+    );
   }
 
   editLeave(leave: any) {
