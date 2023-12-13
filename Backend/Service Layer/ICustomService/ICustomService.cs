@@ -15,6 +15,6 @@ namespace Service_Layer.ICustomService
         void Insert(T entity);
         void Update(T entity);
         bool Delete(string Id);
-        
+        Task<T> GetByEmailAndPasswordAsync(string email, string password);
     }
 }

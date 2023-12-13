@@ -51,7 +51,7 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 import { RouterModule } from '@angular/router';
-
+import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     CouponsComponent,
     AddComponent,
-    EditComponent,
+    EditComponent,AttendanceReportComponent,
     CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,

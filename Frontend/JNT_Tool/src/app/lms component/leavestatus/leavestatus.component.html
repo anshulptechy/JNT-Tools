@@ -85,11 +85,10 @@
               required>
           </div>
 
-          <label for="EmployeeNameSelect">Employee Name: <span class="text-danger">*</span></label>
-          <select id="EmployeeNameSelect" name="EmployeeNameSelect" [(ngModel)]="leaveApplication.employeeName"
-            required>
-            <option *ngFor="let name of allNames" [value]="name.firstName">{{ name.firstName }}</option>
-          </select>
+          <div>
+            <label for="EmployeeNameSelect">Employee Name: <span class="text-danger">*</span></label>
+            <input type="text" id="EmployeeNameSelect" name="EmployeeNameSelect" [(ngModel)]="leaveApplication.employeeName" required disabled>
+          </div>
           <br>
 
           <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
@@ -155,9 +154,13 @@
               required>
           </div>
 
-          <label for="EmployeeNameText">Employee Name: <span class="text-danger">*</span></label>
+          <!-- <label for="EmployeeNameText">Employee Name: <span class="text-danger">*</span></label>
           <input type="text" id="EmployeeNameText" name="EmployeeNameText" [(ngModel)]="leaveApplication.employeeName"
-            required>
+            required> -->
+            <div>
+              <label for="EmployeeNameSelect">Employee Name: <span class="text-danger">*</span></label>
+              <input type="text" id="EmployeeNameSelect" name="EmployeeNameSelect" [(ngModel)]="leaveApplication.employeeName" required disabled>
+            </div>
           <br>
           <div *ngIf="editLeaveForm.hasError('notSameName') && editLeaveForm.dirty" class="validation-message">
             Manager name and employee name should not be the same.
@@ -194,3 +197,4 @@
     </div>
   </div>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

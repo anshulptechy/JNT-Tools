@@ -60,7 +60,7 @@ export class SalaryReportComponent {
   }
 
   generateReport() {
-    debugger;
+    
     if (this.selectedEmployee && this.selectedMonth) {
       this.employeeService.getSalaryData(this.selectedEmployee,this.selectedMonth).subscribe(
         (data: any[]) => {
