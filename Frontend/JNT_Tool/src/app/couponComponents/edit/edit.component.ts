@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { CouponsModel } from 'src/app/models/couponModels';
@@ -59,22 +59,11 @@ export class EditComponent {
  
   onUpdateClick(data1: CouponsModel) {
     this.submitted = true;
-    // Mark all form controls as touched to trigger the display of error messages
-    Object.values(this.updateForm.controls).forEach(control => {
-     control.markAsTouched();
-   });
-   if (this.updateForm.get('couponName')?.hasError('maxlength')) {
-    this.updateForm.get('couponName')?.markAsTouched();
-    return;
-  }
-  if (this.updateForm.get('discount')?.hasError('max')) {
-    this.updateForm.get('discount')?.markAsTouched();
-    return;
-  }
-  if (this.updateForm.get('quantity')?.hasError('maxlength')) {
-    this.updateForm.get('quantity')?.markAsTouched();
-    return;
-  }
+   // Mark all form controls as touched to trigger the display of error messages
+   Object.values(this.updateForm.controls).forEach(control => {
+    control.markAsTouched();
+  });
+   
     if (this.updateForm.invalid) {
       return;
     }
@@ -142,6 +131,10 @@ export class EditComponent {
       }
     }
   }
- 
- 
+  handleMaxLengthError(control: AbstractControl, maxLength: number): void {
+    if (control?.hasError('maxlength')) {
+      control.markAsTouched();
+  
+    }
+  }
 }

@@ -118,4 +118,28 @@ export class CouponsComponent implements OnInit {
     });
   }
 
+
+breakWords(text: string, maxLength: number): string {
+  if (text.length > maxLength) {
+    const words = text.split(' ');
+    let currentLength = 0;
+    let result = '';
+
+    for (const word of words) {
+      currentLength += word.length + 1; // Add 1 for the space between words
+      if (currentLength > maxLength) {
+        result += '\n' + word + ' ';
+        currentLength = word.length + 1;
+      } else {
+        result += word + ' ';
+      }
+    }
+
+    return result.trim(); // Remove trailing space
+  } else {
+    return text;
+  }
+}
+
+
 }
