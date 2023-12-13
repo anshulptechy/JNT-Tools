@@ -69,7 +69,6 @@ export class LeaveManagementComponent implements OnInit {
     const startDate = leave.startDate;
     const endDate = leave.endDate;
 
-    // Call the service to update the leave status
     this.lmsService.updateLeaveStatus(userId, startDate, endDate, status).subscribe(
       () => {
         leave.status = status; // Update the status property of the leave object

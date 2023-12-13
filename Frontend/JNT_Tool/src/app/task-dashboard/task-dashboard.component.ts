@@ -76,6 +76,9 @@ export class TaskDashboardComponent {
   tenantName:string=''
   // Reload site data after every functionality
   reloadSite() {
+    if(this.tasks.length==1){
+      this.tasks=[]
+    }
      this.tenantName= localStorage.getItem('tenantName')||''
       this.serve.getTenantTask(this.tenantName).subscribe((result) => {
         this.tasks = result as any;

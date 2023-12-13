@@ -8,10 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CouponsComponent } from './couponComponents/coupons/coupons.component';
 import { AddComponent } from './couponComponents/add/add.component';
 import { EditComponent } from './couponComponents/edit/edit.component';
-
 import { CalendarComponent } from './calendar/calendar.component';
-
-
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
@@ -26,26 +23,26 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 
 
 const routes: Routes = [
-{ path: "mainpage", component: TenantListComponent },
+{ path: "mainpage", component: TenantListComponent , canActivate: [AuthGuard]},
   { path: "signup", component: SignupComponent },
-  { path: "add", component: AddComponent },
-  { path: "coupons", component: CouponsComponent },
-  { path: "edit", component:EditComponent },
+  { path: "add", component: AddComponent , canActivate: [AuthGuard]},
+  { path: "coupons", component: CouponsComponent, canActivate: [AuthGuard] },
+  { path: "edit", component:EditComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'update', component: UpdateButtonComponent },
-  { path: 'create-project-dialog', component: CreateProjectDialogComponent },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] },
+  { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] },
   { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/signup', pathMatch: 'full' }, { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, { path: '', redirectTo: '/signup', pathMatch: 'full' },
+  { path: '', redirectTo: '/signup', pathMatch: 'full' }, { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent}, { path: 'login', component: LoginComponent}, { path: '', redirectTo: '/signup', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
   { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
-  {path:'salary-report',component:SalaryReportComponent},
+  {path:'salary-report',component:SalaryReportComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
 ];
 

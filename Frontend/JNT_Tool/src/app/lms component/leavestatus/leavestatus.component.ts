@@ -133,6 +133,7 @@ export class LeavestatusComponent implements OnInit {
     const day = dateObject.getDate().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+
   }
 
   getManagerNames() {
