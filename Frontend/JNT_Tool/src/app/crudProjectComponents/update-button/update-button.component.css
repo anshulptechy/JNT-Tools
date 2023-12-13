@@ -9,7 +9,10 @@
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
   color: white;
 }
-
+.button-container button:disabled {
+  background: lightgray; /* Light color for the disabled state */
+  cursor: not-allowed;
+}
 .button-container button:hover{
   background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
 }

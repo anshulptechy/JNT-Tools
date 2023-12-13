@@ -33,7 +33,7 @@
             <td>{{ leave.endDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.leaveType }}</td>
             <td>{{ leave.reason }}</td>
-            <td>{{ leave.status || 'Pending' }}</td>
+            <td>{{ leave.status  }}</td>
             <td>
               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal" (click)="editLeave(leave)">
                 <i class="fa fa-pencil"></i>
@@ -112,7 +112,7 @@
 
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" [disabled]="!leaveApplicationForm.valid" (click)="submitLeaveApplication()" data-bs-toggle="modal">Submit</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" (click)=" closeLeaveApplicationPopup() " data-bs-dismiss="modal">
           Cancel
         </button>
       </div>
@@ -177,7 +177,7 @@
 
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" [disabled]="!leaveApplicationForm.valid" (click)="submitUpdatedLeaveApplication()" data-bs-toggle="modal">Submit</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" (click)=" closeLeaveApplicationPopup() " data-bs-dismiss="modal">
           Cancel
         </button>
       </div>
