@@ -76,6 +76,7 @@ import { RouterModule } from '@angular/router';
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+ 
 
   ],
   imports: [

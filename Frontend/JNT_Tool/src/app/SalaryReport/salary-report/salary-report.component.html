@@ -1,28 +1,31 @@
 <app-header></app-header>
 
-<div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
-  <!-- Report Content -->
-  
-    
-      <mat-form-field>
-        <mat-label>Select Month</mat-label>
-        <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-          <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    
+<div class="Heading">
+  <strong>SALARY REPORT</strong>
+</div>
 
-    
-      <mat-form-field class="customMargin">
-        <mat-label>Select Employee</mat-label>
-        <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-          <mat-option *ngFor="let employee of employeeData" [value]="employee">{{employee}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-  
+<div class="container">
+  <div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
+    <!-- Report Content -->
+    <mat-form-field>
+      <mat-label>Select Month</mat-label>
+      <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
+        <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <div *ngIf="showReportGrid">
+    <mat-form-field class="customMargin">
+      <mat-label>Select Employee</mat-label>
+      <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
+        <mat-option *ngFor="let employee of employeeData" [value]="employee.firstName">{{ employee.firstName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div *ngIf="showReportGrid">
+  <!-- Check if reportData is available -->
+  <ng-container *ngIf="reportData && reportData.length > 0; else noData">
     <!-- Grid to display the report -->
     <table>
       <thead>
@@ -50,5 +53,10 @@
         </tr>
       </tbody>
     </table>
-  </div>
-</div>
+  </ng-container>
+
+  <ng-template #noData >
+    <div class="no-data-message">
+      <p>Data not available</p>
+    </div>
+  </ng-template>

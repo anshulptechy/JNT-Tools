@@ -91,7 +91,7 @@ export class AddComponent {
   dateValidator(form: FormGroup) {
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
-  
+
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
@@ -132,7 +132,7 @@ export class AddComponent {
   handleMaxLengthError(control: AbstractControl, maxLength: number): void {
     if (control?.hasError('maxlength')) {
       control.markAsTouched();
-      // Handle the error (e.g., display a message)
+     
     }
   }
 }

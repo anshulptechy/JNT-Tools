@@ -51,7 +51,6 @@ export class LeaveManagementComponent implements OnInit {
       text: 'Leave approved successfully.',
     });
   }
-
   rejectLeave(leave: any) {
     this.updateLeaveStatus(leave, 'Rejected');
     leave.status = 'Rejected'; // Update the status property immediately
