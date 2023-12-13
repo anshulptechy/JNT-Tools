@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../service/attendance.service';
@@ -8,7 +8,7 @@ import { AttendanceService } from '../service/attendance.service';
   templateUrl: './attendance-report.component.html',
   styleUrls: ['./attendance-report.component.css']
 })
-export class AttendanceReportComponent  {
+export class AttendanceReportComponent implements OnInit {
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   employeeNames: string[] = [];
   showTable: boolean = true;
@@ -23,28 +23,41 @@ export class AttendanceReportComponent  {
       selectedMonth: [''],
       selectedEmployee: ['']
     });
+  }
 
-    this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-      // console.log(result);
-      
-      this.gridData = result as any;
-      console.log(this.gridData);
-      
-      this.populateEmployeeNames();
-    });
+  ngOnInit(): void {
+    this.loadEmployeeData();
+    this.loadData();
+  }
+
+  loadEmployeeData() {
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName);
+
+    this.serve.getAllEmployees(tenantNameString).subscribe(
+      (data: any | any[]) => {
+        this.employeeNames = data;
+        console.log(data);
+      },
+      (error: any) => {
+        console.error('Error fetching employees:', error);
+      }
+    );
+  }
+
+  populateEmployeeNames() {
+    this.employeeNames = Array.from(new Set(this.gridData.map(record => record.management.firstName)));
   }
 
   formatDate(dateTimeString: string): string {
     if (dateTimeString) {
-        const date = new Date(dateTimeString);
-        const timeString = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const dateString = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-        return `${dateString} ${timeString}`;
+      const date = new Date(dateTimeString);
+      const timeString = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const dateString = date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      return `${dateString} ${timeString}`;
     }
     return '';
-}
-
-
+  }
 
   generateMReport() {
     if (this.selectedMonth) {
@@ -54,36 +67,27 @@ export class AttendanceReportComponent  {
             return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
           });
           this.showTable = true;
-    
         }
       });
     } else {
       this.showTable = true;
       this.selectedEmployee = '';
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        this.gridData = result as any;
-        
-      });
+      this.loadData();
     }
   }
+
   getbyMonthName(selectedMonth: string) {
     this.serve.getbyMonthName(selectedMonth).subscribe(
-      
       (result) => {
-        console.log( result);
-        this.gridData = result as any; 
+        console.log(result);
+        this.gridData = result as any;
         this.showTable = true;
-        this.selectedEmployee = ''; 
+        this.selectedEmployee = '';
       },
       (error) => {
         console.error('Error:', error);
       }
     );
-  }
-
-
-  private populateEmployeeNames() {
-    this.employeeNames = Array.from(new Set(this.gridData.map(record => record.management.firstName)));
   }
 
   setValueOfSelectedMonth(value: string) {
@@ -92,11 +96,17 @@ export class AttendanceReportComponent  {
       selectedMonthControl.setValue(value);
     }
   }
-  
+
+  private loadData() {
+    this.serve.getAllAttendenceWithManagement().subscribe((result) => {
+      this.gridData = result as any;
+      this.populateEmployeeNames();
+    });
+  }
 
   generateEReport() {
-    debugger;
     if (this.selectedEmployee) {
+      this.loadEmployeeData();
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
@@ -109,5 +119,4 @@ export class AttendanceReportComponent  {
       });
     }
   }
-  
 }
