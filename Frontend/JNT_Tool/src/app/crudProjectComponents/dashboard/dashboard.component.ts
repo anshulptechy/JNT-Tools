@@ -22,7 +22,6 @@ export class DashboardComponent {
   showProjectsTable: boolean = true;
   buttonClicked: boolean = true;
   editedForm: FormGroup | any
-
   constructor(private dialog: MatDialog, private serve: ProjectService, private fb: FormBuilder, private router: Router,
    ) {
    
