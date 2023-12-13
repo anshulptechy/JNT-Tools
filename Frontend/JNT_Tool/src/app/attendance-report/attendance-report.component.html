@@ -26,7 +26,7 @@
             <mat-form-field>
               <mat-label>Select Employee</mat-label>
               <mat-select formControlName="selectedEmployee"  (selectionChange)="generateEReport() ; setValueOfSelectedMonth('')" [(value)]="selectedEmployee"  >
-                <mat-option *ngFor="let employee of employeeNames" [value]="employee">{{ employee }}</mat-option>
+             <mat-option *ngFor="let employee of employeeNames" [value]="employee">{{ employee }}</mat-option>
               </mat-select>
             </mat-form-field>
          

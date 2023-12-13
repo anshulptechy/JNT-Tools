@@ -136,6 +136,6 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest("Something went wrong");
             }
         }
-
+       
     }
 }

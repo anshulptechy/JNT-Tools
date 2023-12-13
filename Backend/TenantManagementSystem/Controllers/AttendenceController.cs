@@ -220,6 +220,25 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving management and attendance entries by month: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetAllFirstNamesByTenant))]
+        public IActionResult GetAllFirstNamesByTenant(string tenantName)
+        {
+            try
+            {
+                List<string> allFirstNames = _applicationDbContext.Managements
+                    .Where(m => m.tenantName == tenantName)
+                    .Select(m => m.firstName)
+                    .Distinct()
+                    .ToList();
+
+                return Ok(allFirstNames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving first names for tenant '{tenantName}': {ex.Message}");
+            }
+        }
+
 
         [HttpGet(nameof(GetAllFirstNames))]
         public IActionResult GetAllFirstNames()
