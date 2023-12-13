@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
@@ -53,42 +53,29 @@ export class AddComponent {
 
   async onSaveClick() {
     this.submitted = true;
-     // Mark all form controls as touched to trigger the display of error messages
-     Object.values(this.couponForm.controls).forEach(control => {
+
+    // Mark all form controls as touched to trigger the display of error messages
+    Object.values(this.couponForm.controls).forEach(control => {
       control.markAsTouched();
     });
-  if (this.couponForm.get('couponName')?.hasError('maxlength')) {
-    this.couponForm.get('couponName')?.markAsTouched();
-    return;
-  }
-  if (this.couponForm.get('discount')?.hasError('max')) {
-    this.couponForm.get('discount')?.markAsTouched();
-    return;
-  }
-  if (this.couponForm.get('quantity')?.hasError('maxlength')) {
-    this.couponForm.get('quantity')?.markAsTouched();
-    return;
-  }
-    else {
-      if (this.couponForm.invalid) {
-         return;
-      }else
-      try {
-        // Get form data and add the coupon using the CouponService
-        const formData = this.couponForm.value;
-        await this.serve.addCoupon(formData);
-        this.dialogRef.close(true);
-      } catch (error) {
-        console.error('Error adding coupon:', error);
-      } finally {
-        this.dialogRef.close(this.couponForm);
-        this.loading = false;
-        Swal.fire({
-          icon: 'success',
-          title: 'Added!',
-          text: 'coupons added successfully',
-        });
-      }
+
+    if (this.couponForm.invalid) {
+      return;
+    }
+
+    try {
+      const formData = this.couponForm.value;
+      await this.serve.addCoupon(formData);
+      Swal.fire({
+        icon: 'success',
+        title: 'Added!',
+        text: 'Coupons added successfully',
+      });
+    } catch (error) {
+      console.error('Error adding coupon:', error);
+    } finally {
+      this.dialogRef.close(this.couponForm);
+      this.loading = false;
     }
   }
 
@@ -142,4 +129,12 @@ export class AddComponent {
       }
     }
   }
-  }  
+  handleMaxLengthError(control: AbstractControl, maxLength: number): void {
+    if (control?.hasError('maxlength')) {
+      control.markAsTouched();
+      // Handle the error (e.g., display a message)
+    }
+  }
+}
+  
+  
