@@ -95,7 +95,7 @@ export class AttendanceReportComponent  {
   
 
   generateEReport() {
-    debugger;
+    
     if (this.selectedEmployee) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
