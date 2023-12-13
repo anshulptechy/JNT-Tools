@@ -2,6 +2,8 @@
 import { Component } from '@angular/core';
 import { SalaryService } from '../SalaryService/salary.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-salary-report',
@@ -17,11 +19,12 @@ export class SalaryReportComponent {
   showReportGrid: boolean = true;
   months: string[] = [];
   reportData: any[] = [];
+  newSalaryAmount: number = 0;
   
 
   constructor(
     private router: Router,
-    private employeeService: SalaryService
+    private employeeService: SalaryService,public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +33,10 @@ export class SalaryReportComponent {
   }
 
   loadEmployeeData() {
-    this.employeeService.getAllEmployees().subscribe(
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName); 
+  
+    this.employeeService.getAllEmployees(tenantNameString).subscribe(
       (data: any[]) => {
         this.employeeData = data;
         console.log(data);
@@ -40,6 +46,7 @@ export class SalaryReportComponent {
       }
     );
   }
+
 
   loadMonths() {
     this.employeeService.getMonths().subscribe(
@@ -66,6 +73,7 @@ export class SalaryReportComponent {
       );
     }
   }
+
   
   
 
@@ -76,3 +84,5 @@ export class SalaryReportComponent {
     }
   }
 }
+
+

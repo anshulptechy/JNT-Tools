@@ -16,6 +16,6 @@ namespace Repository_Layer.IRepository
         Task AddAsync(T entity);
         Task SaveChangesAsync();
 
-        
+
     }
 }

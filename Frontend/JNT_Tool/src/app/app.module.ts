@@ -42,11 +42,17 @@ import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
-import { RouterModule } from '@angular/router';
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
+
+import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
+import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
+import { RouterModule } from '@angular/router';
+
+
 
 @NgModule({
   declarations: [
@@ -54,6 +60,8 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
     TenantListComponent,
     SignupComponent,
     LoginComponent,
+    HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
+    ProjectReportComponent,LeaveManagementComponent,LeavestatusComponent,
     HeaderComponent,
     CouponsComponent,
     AddComponent,
@@ -69,6 +77,7 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+ 
 
   ],
   imports: [
@@ -112,8 +121,9 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
     MatCheckboxModule,
     MatSnackBarModule,
+    MatMomentDateModule,FormsModule,NgxUiLoaderModule,MatButtonModule,
+    MatIconModule,
     MatMomentDateModule,
-    RouterModule,
     MatPaginatorModule, 
     MatMomentDateModule,
     FormsModule,
