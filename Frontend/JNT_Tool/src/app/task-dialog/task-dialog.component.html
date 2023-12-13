@@ -3,11 +3,14 @@
   <mat-form-field class="task-form-field">
     <mat-label>Task Name</mat-label>
     <input matInput formControlName="taskName" id="taskName" />
+    <mat-error *ngIf="taskDetails.get('taskName').hasError('maxlength')">Limit Exceeds max length 100</mat-error>
   </mat-form-field>
   <mat-form-field class="task-form-field">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="taskDescription" id="taskDescription"></textarea>
+    <mat-error *ngIf="taskDetails.get('taskDescription').hasError('maxlength')">Limit Exceeds max length 500</mat-error>
   </mat-form-field>
+
   <mat-form-field class="task-form-field">
     <mat-label>Start Date</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="taskStartTime" id="taskStartTime" />

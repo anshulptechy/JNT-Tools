@@ -2,13 +2,13 @@
   width: 70%;
   margin: 20.3% auto;
 }
-
+ 
 .gap-2 {
   margin-bottom: -30.5%;
   margin-left: -14%;
 }
-
-
+ 
+ 
 .modal {
   display: none;
   position: fixed;
@@ -21,7 +21,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px;
 }
-
+ 
 .modal-content {
   background-color: #fefefe;
   margin: 5% auto;
@@ -29,21 +29,21 @@
   border: 1px solid #888;
   width: 30%;
 }
-
+ 
 .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-
+ 
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-
+ 
 .modal2 {
   display: none;
   position: fixed;
@@ -56,7 +56,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px;
 }
-
+ 
 .modal-content2 {
   background-color: #fefefe;
   margin: 5% auto;
@@ -64,23 +64,23 @@
   border: 1px solid #888;
   width: 30%;
 }
-
+ 
 .modal-content2 h2 {
   margin-bottom: 20px;
 }
-
+ 
 .modal-content2 label {
   display: block;
   margin-bottom: 8px;
 }
-
+ 
 .modal-content2 input {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
   box-sizing: border-box;
 }
-
+ 
 .modal-content2 button {
   background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
   color: white;
@@ -89,21 +89,26 @@
   border-radius: 4px;
   cursor: pointer;
 }
-
+ 
 .modal-content2 button:hover {
   background: linear-gradient(to bottom right, #615c64, hsl(218, 66%, 29%));
 }
-
+ 
 .btn {
   background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
   color: white;
 }
-
+ 
 .btn:hover{
   background: linear-gradient(to bottom right, #615c64, hsl(218, 66%, 29%));
 }
-
+ 
 .modal-content button{
   background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
   color: white;
 }
+ 
+.btns {
+  margin-right: 20px;
+}
+ 
