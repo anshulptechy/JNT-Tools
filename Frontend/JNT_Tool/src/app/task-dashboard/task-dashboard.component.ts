@@ -30,6 +30,9 @@ export class TaskDashboardComponent {
 
   // Function to delete a task
   deleteTask(data: number) {
+    if(this.tasks.length==1){
+      this.tasks=[];
+    }
     this.serve.delete(data).subscribe((result) => {
       this.reloadSite();
     });

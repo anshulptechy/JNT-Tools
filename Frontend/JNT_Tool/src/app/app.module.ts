@@ -68,7 +68,7 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
     LeavestatusComponent,
     CouponsComponent,
     AddComponent,
-    EditComponent,
+    EditComponent,AttendanceReportComponent,
     CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,

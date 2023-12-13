@@ -25,6 +25,14 @@ namespace Domain_Layer.Application
 
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<Attendences> Attendence { get; set; }
+
+
+        public DbSet<Screenshots> Screenshot { get; set; }
+
+
+        public DbSet<Login> Login
+        { get; set; }
         public DbSet<Management> Managements
         {
             get;

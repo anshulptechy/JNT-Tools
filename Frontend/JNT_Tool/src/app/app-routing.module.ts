@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/signup', pathMatch: 'full' }, { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, { path: '', redirectTo: '/signup', pathMatch: 'full' },
+   { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
@@ -49,7 +49,8 @@ const routes: Routes = [
   {path:'salary-report',component:SalaryReportComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/signup', pathMatch: 'full' },{path:"AttendanceReport", component:AttendanceReportComponent},
   {path:'salary-report',component:SalaryReportComponent},
-  { path: '', redirectTo: '/signup', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'attendeceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
 ];
 
 

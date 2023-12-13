@@ -17,6 +17,5 @@ namespace Service_Layer.ICustomService
         bool Delete(string Id);
         Task<T> GetByEmailAndPasswordAsync(string email, string password);
 
-
     }
 }

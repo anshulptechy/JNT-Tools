@@ -19,8 +19,8 @@
     <tbody class="tableData">
       <tr *ngFor="let task of tasks ; let i =index">
         <td>{{ i +1 }}</td>
-        <td>{{ task.taskName }}</td>
-        <td>{{ task.taskDescription }}</td>
+        <td class="taskcss">{{ task.taskName }}</td>
+        <td class="taskcss">{{ task.taskDescription }}</td>
         <td>{{ task.taskStartTime | date:'yyyy-MM-dd' }}</td>
         <td>{{ task.taskEndTime | date:'yyyy-MM-dd' }}</td>
         <td>{{task.userName}}</td>
@@ -37,3 +37,4 @@
     </tbody>
   </table>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../service/attendance.service';
-
+ 
 @Component({
   selector: 'app-attendance-report',
   templateUrl: './attendance-report.component.html',
@@ -17,23 +17,23 @@ export class AttendanceReportComponent implements OnInit {
   gridData: any[] = [];
   attendanceForm: FormGroup;
   showDropdown: boolean = true;
-
+ 
   constructor(private router: Router, private formBuilder: FormBuilder, private serve: AttendanceService) {
     this.attendanceForm = this.formBuilder.group({
       selectedMonth: [''],
       selectedEmployee: ['']
     });
   }
-
+ 
   ngOnInit(): void {
     this.loadEmployeeData();
     this.loadData();
   }
-
+ 
   loadEmployeeData() {
     const tenantName = localStorage.getItem('tenantName') || '';
     const tenantNameString = String(tenantName);
-
+ 
     this.serve.getAllEmployees(tenantNameString).subscribe(
       (data: any | any[]) => {
         this.employeeNames = data;
@@ -44,11 +44,11 @@ export class AttendanceReportComponent implements OnInit {
       }
     );
   }
-
+ 
   populateEmployeeNames() {
     this.employeeNames = Array.from(new Set(this.gridData.map(record => record.management.firstName)));
   }
-
+ 
   formatDate(dateTimeString: string): string {
     if (dateTimeString) {
       const date = new Date(dateTimeString);
@@ -58,7 +58,7 @@ export class AttendanceReportComponent implements OnInit {
     }
     return '';
   }
-
+ 
   generateMReport() {
     if (this.selectedMonth) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
@@ -75,7 +75,7 @@ export class AttendanceReportComponent implements OnInit {
       this.loadData();
     }
   }
-
+ 
   getbyMonthName(selectedMonth: string) {
     this.serve.getbyMonthName(selectedMonth).subscribe(
       (result) => {
@@ -89,14 +89,14 @@ export class AttendanceReportComponent implements OnInit {
       }
     );
   }
-
+ 
   setValueOfSelectedMonth(value: string) {
     const selectedMonthControl = this.attendanceForm.get('selectedMonth');
     if (selectedMonthControl) {
       selectedMonthControl.setValue(value);
     }
   }
-
+ 
   private loadData() {
     this.serve.getAllAttendenceWithManagement().subscribe((result) => {
       this.gridData = result as any;
@@ -104,7 +104,7 @@ export class AttendanceReportComponent implements OnInit {
       this.loadEmployeeData();
     });
   }
-
+ 
   generateEReport() {
     if (this.selectedEmployee) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
@@ -120,3 +120,4 @@ export class AttendanceReportComponent implements OnInit {
     }
   }
 }
+ 

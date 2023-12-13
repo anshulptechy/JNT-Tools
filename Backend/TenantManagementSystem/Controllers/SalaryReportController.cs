@@ -24,21 +24,23 @@ namespace TenantManagementSystem.Controllers
             _applicationDbContext = appDbContext;
         }
 
-        [HttpGet(nameof(GetAllFirstNames))]
-        public IActionResult GetAllFirstNames()
+        [HttpGet(nameof(GetAllNames))]
+        public IActionResult GetAllNames(string tenantName)
         {
             try
             {
-                List<string> allFirstNames = _applicationDbContext.Managements
-                    .Select(m => m.firstName)
+                // Assuming you have a Tenant column in the Management table
+                var allNames = _applicationDbContext.Managements
+                    .Where(m => m.tenantName == tenantName)
+                    .Select(m => new { m.firstName, m.lastName })
                     .Distinct()
                     .ToList();
 
-                return Ok(allFirstNames);
+                return Ok(allNames);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error retrieving all first names: {ex.Message}");
+                return BadRequest($"Error retrieving all names: {ex.Message}");
             }
         }
 
@@ -56,20 +58,7 @@ namespace TenantManagementSystem.Controllers
             return Ok(salaryRecords);
         }
 
-        [HttpPost("add-salary-record")]
-        public async Task<ActionResult> AddSalaryRecord([FromBody] SalaryRecord salaryRecord)
-        {
-            var result = await _service.AddSalaryRecordAsync(salaryRecord);
-
-            if (result)
-            {
-                return Ok("Salary record added successfully");
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add salary record");
-            }
-        }
+      
         [HttpGet("all-months")]
         public async Task<ActionResult<IEnumerable<string>>> GetAllMonths()
         {
@@ -77,7 +66,6 @@ namespace TenantManagementSystem.Controllers
             return Ok(months);
         }
 
-     
         [HttpGet("getSalaryData/{firstName}/{salaryMonth}")]
         public async Task<IActionResult> GetSalaryData(string firstName, string salaryMonth)
         {
@@ -105,6 +93,8 @@ namespace TenantManagementSystem.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
 
     }
 }
