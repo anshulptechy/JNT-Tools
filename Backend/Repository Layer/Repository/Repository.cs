@@ -79,9 +79,6 @@ namespace Repository_Layer.Repository
             _applicationDbContext.SaveChanges();
         }
 
-        public async Task<T> GetByEmailAndPasswordAsync(string email, string password)
-        {
-            return await entities.FirstOrDefaultAsync(c => c.email == email && c.password == password);
-        }
+      
     }
 }
