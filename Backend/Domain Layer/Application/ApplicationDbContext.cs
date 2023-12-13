@@ -29,6 +29,7 @@ namespace Domain_Layer.Application
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
 
+
         public DbSet<Login> Login
         { get; set; }
 
@@ -39,6 +40,7 @@ namespace Domain_Layer.Application
         }
 
         public DbSet<LoginHistory> LoginHistories { get; set; }
+
 
 
 

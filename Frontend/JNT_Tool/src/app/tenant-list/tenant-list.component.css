@@ -12,7 +12,7 @@
   border-bottom: 1px solid #ddd;
 }
 
-.table th {
+.table {
   background-color: #f2f2f2;
   font-weight: bold;
 }
@@ -26,7 +26,7 @@
 }
 
 .table td button {
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -42,7 +42,7 @@
 /* dashboard.component.css */
 
 button.btn-primary {
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -135,7 +135,13 @@ button[type="submit"]:hover {
   background-color: yellow;
   color: #000; /* Text color, adjust as needed */
 }
-
+.customInvite{
+  background-color:#084874 ;
+}
+th{
+  background-color:#084874 ;
+  color: white;
+}
 /* Style for the "Delete" button (red background) */
 .btn-delete {
   background-color: red;
@@ -146,7 +152,7 @@ button[type="submit"]:hover {
 }
 .marginLeft{
   margin-left: 15px;
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   padding: 10px 20px;
   font-size: 16px;
@@ -300,7 +306,7 @@ label[for="password"] {
 }
 
 button {
-  background-color: #007bff; /* Blue color */
+  /* background-color: #007bff; Blue color */
   color: #fff; /* White text color */
   padding: 10px 15px;
   border: none;

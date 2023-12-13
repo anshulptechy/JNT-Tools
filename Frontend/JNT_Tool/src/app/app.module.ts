@@ -5,13 +5,38 @@ import { AppComponent } from './app.component';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
-// import { LoginuserComponent } from './loginuser/loginuser.component';
-import { CommonModule } from '@angular/common';
+import { TaskUpdateComponent } from './task-update/task-update.component';
+import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
+import { TaskDialogComponent } from './task-dialog/task-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from './calendar/calendar.component';
+import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
+import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
+import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
+import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DatePipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
+import { RouterModule } from '@angular/router';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CommonModule } from '@angular/common'; // Add this line
+import { ProjectReportComponent } from './project-report/project-report.component';
 
 @NgModule({
   declarations: [
@@ -20,18 +45,57 @@ import { HeaderComponent } from './header/header.component';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
-
+    CalendarComponent,
+    TaskDashboardComponent,
+    TaskDialogComponent,
+    TaskUpdateComponent,
+    UserDetailsComponent,
+    DashboardComponent,
+    ConfirmationDialogComponent,
+    CreateProjectDialogComponent,
+    UpdateButtonComponent,
+    ProjectReportComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FullCalendarModule,
     ReactiveFormsModule,
+    FormsModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatInputModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
-    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),CommonModule
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatMomentDateModule,
+    RouterModule,
+    MatPaginatorModule, 
+    MatMomentDateModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    NgxUiLoaderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    MatInputModule,
+    NgxUiLoaderModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

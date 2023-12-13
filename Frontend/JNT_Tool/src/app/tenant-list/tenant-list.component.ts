@@ -103,7 +103,6 @@ export class TenantListComponent {
   }
 
   async createUser() {
-    debugger;
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')
@@ -186,7 +185,7 @@ export class TenantListComponent {
           title: 'Signup Successful!',
           text: 'Tenant creation successful',
         });
-        
+        window.location.reload();
         // Redirect to the login page or another appropriate route
       } catch (error) {
         console.error('Supabase error:', error);
