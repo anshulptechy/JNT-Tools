@@ -60,11 +60,17 @@ export class AttendanceReportComponent implements OnInit {
   }
  
   generateMReport() {
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName);
+  
     if (this.selectedMonth) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
         if (Array.isArray(result)) {
           this.gridData = result.filter((record) => {
-            return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
+            return (
+              record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim() &&
+              record['tenantName'] === tenantNameString
+            );
           });
           this.showTable = true;
         }
@@ -75,9 +81,12 @@ export class AttendanceReportComponent implements OnInit {
       this.loadData();
     }
   }
- 
+  
   getbyMonthName(selectedMonth: string) {
-    this.serve.getbyMonthName(selectedMonth).subscribe(
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName);
+  
+    this.serve.getbyMonthName(selectedMonth, tenantNameString).subscribe(
       (result) => {
         console.log(result);
         this.gridData = result as any;
@@ -98,12 +107,10 @@ export class AttendanceReportComponent implements OnInit {
   }
  
   private loadData() {
-    this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-      this.gridData = result as any;
       this.populateEmployeeNames();
       this.loadEmployeeData();
-    });
-  }
+    }
+  
  
   generateEReport() {
     if (this.selectedEmployee) {

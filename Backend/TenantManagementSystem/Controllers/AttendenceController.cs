@@ -183,6 +183,47 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving management and attendance entries by first name: {ex.Message}");
             }
         }
+        [HttpGet(nameof(GetAllManagementAndAttendanceByMonthbytenantName))]
+        public IActionResult GetAllManagementAndAttendanceByMonthbytenantName(string tenantName, string monthName)
+        {
+            try
+            {
+                // Fetch all data from the database for the specified tenant
+                List<Management> allManagements = _applicationDbContext.Managements
+                    .Where(m => m.tenantName == tenantName)
+                    .ToList();
+
+                // Filter data based on the specified month
+                List<object> result = new List<object>();
+
+                foreach (var management in allManagements)
+                {
+                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+
+                    if (attendance != null)
+                    {
+                        // Replace "attendence" with "attendances" in the anonymous object
+                        result.Add(new
+                        {
+                            Management = management,
+                            Attendance = attendance // Change the key here
+                        });
+                    }
+                }
+
+                // Extract the Attendences objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendancesList);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving management and attendance entries by month: {ex.Message}");
+            }
+        }
+
+
         [HttpGet(nameof(GetAllManagementAndAttendanceByMonth))]
         public IActionResult GetAllManagementAndAttendanceByMonth(string monthName)
         {
