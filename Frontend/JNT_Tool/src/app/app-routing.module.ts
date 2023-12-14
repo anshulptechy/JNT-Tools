@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+ 
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { SignupComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './auth/auth.guard';
@@ -16,14 +16,14 @@ import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
-
+ 
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
-
-
-
+ 
+ 
+ 
 const routes: Routes = [
 { path: "mainpage", component: TenantListComponent },
   { path: "signup", component: SignupComponent },
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
   { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-   { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, 
+   { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
@@ -48,12 +48,12 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'attendeceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
 ];
-
-
+ 
+ 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-
+ 
 export class AppRoutingModule { }
-
+ 
