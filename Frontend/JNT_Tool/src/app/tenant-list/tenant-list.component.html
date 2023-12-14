@@ -15,7 +15,7 @@
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Close"
+          aria-label="Close" (click)="resetForm()"
         ></button>
       </div>
       <div class="modal-body">
@@ -206,7 +206,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
           Cancel
         </button>
         <button
@@ -326,7 +326,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 
           Cancel
         </button>
 
@@ -407,4 +407,4 @@
     </div>
   </div>
 </div>
-<ngx-ui-loader text="Please Wait..." fgsColor="#0d6efd"></ngx-ui-loader>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

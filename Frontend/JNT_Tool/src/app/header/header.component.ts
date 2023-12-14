@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   userName: string | null = null;
   userId: string | null = null;
   showCouponDetailsFlag = false;
+  
   supabase: SupabaseClient;
   
 
@@ -49,9 +50,9 @@ export class HeaderComponent implements OnInit {
   loggedInUserName: string = '';
 
   logOut() {
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     this.auth.signOut().then(() => {
-    this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     });
     Swal.fire({
       icon: 'success',

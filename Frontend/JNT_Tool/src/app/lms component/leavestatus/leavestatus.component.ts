@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model';
@@ -11,14 +11,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./leavestatus.component.css']
 })
 export class LeavestatusComponent implements OnInit {
- 
+
 
   leaveStatusData: any[] | undefined;
-  leaveApplicationForm: FormGroup; 
+  leaveApplicationForm: FormGroup;
   employeeInputType: string = 'dropdown';
   managerNames: string[] = [];
   isPopupOpen = false;
   leaveApplication: LeaveApplication = {} as LeaveApplication;
+  loggedInUserName: string = '';
+
+
+  allNames: any[] = [];
 
   constructor(
     private lmsService: LmsService,
@@ -34,11 +38,12 @@ export class LeavestatusComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       leaveType: ['', Validators.required],
-      reason: ['', Validators.required],
+      reason: ['', [Validators.required, Validators.maxLength(150)]],
     });
   }
 
   submitLeaveApplication() {
+    
     const userId = localStorage.getItem('id');
 
     if (userId !== null) {
@@ -65,10 +70,19 @@ export class LeavestatusComponent implements OnInit {
   ngOnInit() {
     this.getLeaveStatusByuserId();
     this.getManagerNames();
+
+    // Retrieve employee name from localStorage
+    const loggedInUserName = localStorage.getItem('firstName');
+
+    if (loggedInUserName) {
+      // Set the employee name in the leaveApplication object
+      this.leaveApplication.employeeName = loggedInUserName;
+    }
   }
 
+
   getLeaveStatusByuserId() {
-    debugger;
+    
     const userId = localStorage.getItem('id');
 
     if (userId) {
@@ -84,8 +98,11 @@ export class LeavestatusComponent implements OnInit {
     }
   }
 
+
+
+
   editLeave(leave: any) {
-    debugger
+    
     const formattedStartDate = this.formatDate(leave.startDate);
     const formattedEndDate = this.formatDate(leave.endDate);
 
@@ -113,6 +130,7 @@ export class LeavestatusComponent implements OnInit {
     const day = dateObject.getDate().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+
   }
 
   getManagerNames() {
@@ -128,7 +146,7 @@ export class LeavestatusComponent implements OnInit {
 
 
   submitUpdatedLeaveApplication() {
-    debugger;
+    
     const updatedLeaveApplication = this.leaveApplication;
     updatedLeaveApplication.status = 'Pending';
 
@@ -162,7 +180,7 @@ export class LeavestatusComponent implements OnInit {
         }
       ); this.getLeaveStatusByuserId();
   }
- closeLeaveApplicationPopup() {
+  closeLeaveApplicationPopup() {
     window.location.reload();
   }
 

@@ -9,7 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class LmsService {
 
+  private apiBaseUrl = 'https://localhost:7126/api/LeaveManagementSystem';
+
   constructor(private http: HttpClient) { }
+
+  getAllNames(tenantName: string): Observable<any[]> {
+    const url = `${this.apiBaseUrl}/GetAllNames?tenantName=${tenantName}`;
+    return this.http.get<any[]>(url);
+  }
   
   getManagerNames(): Observable<string[]> {
     return this.http.get<string[]>('https://localhost:7126/api/LeaveManagementSystem/GetManagerNames');
@@ -37,7 +44,7 @@ export class LmsService {
     // Send a PUT request to the API with an empty body
     return this.http.put(url, {});
   }
-  
+ 
   GetLeaveStatusForManagedUsers(managerName: string): Observable<any[]> {
     return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
   }

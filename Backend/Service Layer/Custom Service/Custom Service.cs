@@ -1,4 +1,5 @@
-﻿using Domain_Layer.Models;
+﻿
+using Domain_Layer.Models;
 using Repository_Layer.Repository;
 using Service_Layer.ICustomService;
 using System;
@@ -48,6 +49,12 @@ namespace Service_Layer.Custom_Service
             {
                 throw;
             }
+        }
+
+        public async Task<Management> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            Management signupUser = await _studentRepository.GetByEmailAndPasswordAsync(email, password);
+            return signupUser;
         }
         public Management Get(int Id)
         {

@@ -2,23 +2,23 @@
 <div class="upperMargin">
   <div class="container">
     <h2>Leave Management</h2>
-  
-   
-      
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Employee Name</th>
-            <th>Leave Type</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Reason</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-       
-          <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
+
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Employee Name</th>
+          <th>Leave Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reason</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
           <tr *ngFor="let leave of leaveManagementData">
             <td>{{ leave.employeeName }}</td>
             <td>{{ leave.leaveType }}</td>
@@ -36,13 +36,14 @@
             </td>
           </tr>
         </ng-container>
-        </tbody>
-      </table>
-    </div>
-  
-    <ng-template #noData>
-      <tr>
-        <td colspan="9">No data available</td>
-      </tr>
-    </ng-template>
+      </tbody>
+    </table>
   </div>
+
+  <ng-template #noData>
+    <tr>
+      <td colspan="9">No data available</td>
+    </tr>
+  </ng-template>
+</div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
