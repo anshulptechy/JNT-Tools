@@ -59,29 +59,7 @@ export class AttendanceReportComponent implements OnInit {
     return '';
   }
  
-  generateMReport() {
-    const tenantName = localStorage.getItem('tenantName') || '';
-    const tenantNameString = String(tenantName);
-  
-    if (this.selectedMonth) {
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        if (Array.isArray(result)) {
-          this.gridData = result.filter((record) => {
-            return (
-              record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim() &&
-              record['tenantName'] === tenantNameString
-            );
-          });
-          this.showTable = true;
-        }
-      });
-    } else {
-      this.showTable = true;
-      this.selectedEmployee = '';
-      this.loadData();
-    }
-  }
-  
+ 
   getbyMonthName(selectedMonth: string) {
     const tenantName = localStorage.getItem('tenantName') || '';
     const tenantNameString = String(tenantName);
