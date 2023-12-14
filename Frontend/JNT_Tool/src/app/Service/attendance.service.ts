@@ -13,8 +13,8 @@ export class AttendanceService {
   getAllAttendenceWithManagement() {
     return this.http.get('https://localhost:7126/api/Attendence/GetAllManagementAndAttendance');
   }
-  getAllEmployees() {
-    return this.http.get('https://localhost:7126/api/Attendence/GetAllFirstNames');
+  getAllEmployees(data:string) {
+    return this.http.get(`https://localhost:7126/api/Attendence/GetAllFirstNamesByTenant?tenantName=${data}`);
   }
   getMonths() {
     return this.http.get('https://localhost:7126/api/Attendence/months');
