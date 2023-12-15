@@ -123,19 +123,22 @@ namespace TenantManagementSystem.Controllers
 
                     if (attendance != null && attendance.Any())
                     {
-                        var entry = new
+                        foreach (var attendanceRecord in attendance)
                         {
-                            Management = management,
-                            Attendance = attendance.First() // Assuming each management has only one attendance record
-                        };
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
 
-                        result.Add(entry);
+                            result.Add(entry);
+                        }
                     }
                 }
 
                 // Extract the Attendences objects from the result and pass them to CalculateHours
-                var attendencesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
-                _AttendenceServices.CalculateHours(attendencesList);
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }
@@ -144,6 +147,7 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
             }
         }
+
 
 
         [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
@@ -198,16 +202,20 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (var management in allManagements)
                 {
-                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
 
-                    if (attendance != null)
+                    if (attendance != null && attendance.Any())
                     {
-                        // Replace "attendence" with "attendances" in the anonymous object
-                        result.Add(new
+                        foreach (var attendanceRecord in attendance)
                         {
-                            Management = management,
-                            Attendance = attendance // Change the key here
-                        });
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
+
+                            result.Add(entry);
+                        }
                     }
                 }
 

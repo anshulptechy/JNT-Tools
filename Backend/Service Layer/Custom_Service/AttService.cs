@@ -42,18 +42,20 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public Attendences GetAttendanceByManagementIdAndMonth(int id, string monthName)
+        public List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName)
         {
             // Parse the month name to get the corresponding integer
             int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            var res= _applicationDbContext.Attendence
-                .FirstOrDefault(a => a.id == id && a.LoginTime.Month == targetMonth);
+            var result = _applicationDbContext.Attendence
+                .Where(a => a.id == id && a.LoginTime.Month == targetMonth)
+                .ToList();
 
-            return res;
+            return result;
         }
 
-      
+
+
 
         public Attendences? Get(int id)
         {

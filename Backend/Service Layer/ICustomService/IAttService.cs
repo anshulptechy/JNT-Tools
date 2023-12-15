@@ -24,7 +24,7 @@ namespace Service_Layer.ICustomService
         List<Attendences> GetAllAttendances();
         void CreateManagementUserAndAttendance(Management management);
         List<Attendences> GetAttendanceByManagementId(int id);
-        Attendences GetAttendanceByManagementIdAndMonth(int id, string monthName);
+        List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName);
     }
    
 }
