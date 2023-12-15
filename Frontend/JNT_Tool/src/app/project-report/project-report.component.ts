@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ProjectDataService } from '../Service/project-data.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import Swal from 'sweetalert2';
+// import { NgxUiLoaderService } from 'ngx-ui-loader';
+// import Swal from 'sweetalert2';
 @Component({
   selector: 'app-project-report',
   templateUrl: './project-report.component.html',
@@ -17,6 +17,7 @@ export class ProjectReportComponent implements OnInit {
   Projects: any[] = [];
   projectNames: any[] = [];
   months: { name: string; value: number }[] = [
+    { name: 'Select Month', value: 0 },
     { name: 'January', value: 1 },
     { name: 'February', value: 2 },
     { name: 'March', value: 3 },
@@ -39,7 +40,7 @@ export class ProjectReportComponent implements OnInit {
   constructor(
     private projectData: ProjectDataService,
     // private toastr: ToastrService,
-    private ngxService: NgxUiLoaderService
+    // private ngxService: NgxUiLoaderService
   ) {}
 
   ngOnInit() {
@@ -159,7 +160,7 @@ export class ProjectReportComponent implements OnInit {
   }
 
   exportToCSV() {
-    this.ngxService.start();
+    // this.ngxService.start();
     const csvData = this.generateCSVData();
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
 
@@ -171,12 +172,12 @@ export class ProjectReportComponent implements OnInit {
     link.click();
 
     document.body.removeChild(link);
-    this.ngxService.stop();
-    Swal.fire({
-      icon: 'success',
-      title: 'Report Downloaded Successfully!',
-      text: 'Your Report has been downloaded successfully.',
-    });
+    // this.ngxService.stop();
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Report Downloaded Successfully!',
+    //   text: 'Your Report has been downloaded successfully.',
+    // });
   }
 
   generateCSVData() {

@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { SupabaseService } from 'src/app/supabase.service';
@@ -78,6 +77,7 @@ export class AddComponent {
       this.loading = false;
     }
   }
+
 
   // Method called when the "Cancel" button is clicked
   onCancelClick() {
