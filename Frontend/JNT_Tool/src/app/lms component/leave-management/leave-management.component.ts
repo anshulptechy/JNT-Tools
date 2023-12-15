@@ -22,7 +22,7 @@ export class LeaveManagementComponent implements OnInit {
 
   
   getLeaveStatusForManaged() {
-    debugger;
+    
     // Retrieve the manager's name from localStorage
     const managerName = localStorage.getItem('firstName'); // Assuming the manager's name is the username
 
@@ -62,7 +62,7 @@ export class LeaveManagementComponent implements OnInit {
   }
 
   private updateLeaveStatus(leave: any, status: string) {
-    debugger;
+    
     // Extract relevant information from the leave object
     const userId = leave.userId;
     const startDate = leave.startDate;

@@ -27,6 +27,14 @@ namespace Domain_Layer.Application
         .HasIndex(c => c.CouponCode)
         .IsUnique();
         }
+        public DbSet<Attendences> Attendence { get; set; }
+
+
+        public DbSet<Screenshots> Screenshot { get; set; }
+
+
+        public DbSet<Login> Login
+        { get; set; }
         public DbSet<Management> Managements
         {
             get;
