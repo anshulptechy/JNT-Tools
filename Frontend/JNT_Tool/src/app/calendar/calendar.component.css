@@ -123,3 +123,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
   right: 0;
 }
+
+
+:host ::ng-deep .fc-event {
+  color: rgb(5, 5, 110);
+  font-size: 15px;
+  background-color: rgb(188, 188, 246);
+}

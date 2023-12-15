@@ -46,6 +46,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     eventClick: this.handleEventClick.bind(this),
     selectable: true,
     select: (selectInfo: any) => this.handleDateSelect(selectInfo),
+    eventColor: 'rgb(69, 18, 87)',
+    eventBackgroundColor: 'rgb(188, 188, 246)',
+    eventTextColor: 'rgb(69, 18, 87)',
   };
 
   // Google Calendar API configuration

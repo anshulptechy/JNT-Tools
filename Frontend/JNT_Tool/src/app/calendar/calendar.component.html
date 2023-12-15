@@ -68,7 +68,7 @@ Refresh or Sync your account now.
     <!-- Add Event Form -->
     <h2>{{ selectedEvent ? "Edit Event" : "Add Event" }}</h2>
     <label for="eventTitle">Title:</label>
-    <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required />
+    <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required maxlength="12"/>
 
     <label for="eventStart">Start Date and Time:</label>
     <input
