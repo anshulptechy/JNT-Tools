@@ -1,25 +1,28 @@
-﻿using Domain_Layer.Application;
-using Domain_Layer.Models;
+﻿using Domain_Layer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Service_Layer.Custom_Service;
+using System.Globalization;
+using System;
+using Domain_Layer.Application;
+using Microsoft.EntityFrameworkCore;
 
 namespace TenantManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScreenshotController : Controller
+    public class ScreenshotController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ScreenshotController( ApplicationDbContext context)
+        public ScreenshotController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-       
 
         [HttpGet("GetByid/{id}")]
-        public ActionResult<IEnumerable<Screenshot>> GetByid(int id)
+        public ActionResult<IEnumerable<Screenshots>> GetByid(int id)
         {
             // Retrieve logs based on id from the database
             var logs = _context.Screenshot.Where(s => s.id == id).ToList();
@@ -51,7 +54,7 @@ namespace TenantManagementSystem.Controllers
                     TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, indianTimeZone);
 
-                    var screenshot = new Screenshot
+                    var screenshot = new Screenshots
                     {
                         ImageData = memoryStream.ToArray(),
                         CreatedAt = indianTime,

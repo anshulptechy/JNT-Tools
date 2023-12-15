@@ -1,4 +1,5 @@
-﻿using Domain_Layer.Models;
+﻿
+using Domain_Layer.Models;
 using Repository_Layer.Repository;
 using Service_Layer.ICustomService;
 using System;
@@ -49,6 +50,7 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
+
         public Management Get(int Id)
         {
             try

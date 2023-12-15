@@ -19,17 +19,27 @@
     </button>
   </div>
   <!-- Show Bootstrap Alert when selectable is false -->
-  <div *ngIf="!calendarOptions.selectable" class="alert alert-primary" style="height: 10px; padding-top: 4px; padding-bottom: 20px; margin-right: -315px; margin-left: -340px;">
+  <div
+    *ngIf="!calendarOptions.selectable"
+    class="alert alert-primary"
+    style="
+      height: 10px;
+      padding-top: 4px;
+      padding-bottom: 20px;
+      margin-right: -22%;
+      margin-left: -22%;
+    "
+  >
     Refresh or Sync your account now.
   </div>
-
+ 
   <!-- Always render the full-calendar component -->
   <full-calendar
     [options]="calendarOptions"
     (eventClick)="handleEventClick($event)"
   ></full-calendar>
 </div>
-
+ 
 <!-- Show Detail Modal -->
 <div *ngIf="selectedEvent" class="modal">
   <div class="modal-content">
@@ -37,11 +47,13 @@
     <h2>{{ selectedEvent.title }}</h2>
     <p><strong>Start:</strong> {{ selectedEvent.start }}</p>
     <p><strong>End:</strong> {{ selectedEvent.end }}</p>
-    <button (click)="openEditForm()">Edit</button> <br />
-    <button (click)="removeEvent()">Remove</button>
+    <div class="btns d-flex justify-content-end" style="margin-top: 20px;">
+      <button class="btn me-3" (click)="openEditForm()">Edit</button>
+      <button class="btn" (click)="removeEvent()">Remove</button>
+    </div>
   </div>
 </div>
-
+ 
 <!-- Add Event Modal -->
 <div *ngIf="isAddEventFormOpen || isEditEventFormOpen" class="modal2">
   <div class="modal-content2">
@@ -50,7 +62,7 @@
     <h2>{{ selectedEvent ? "Edit Event" : "Add Event" }}</h2>
     <label for="eventTitle">Title:</label>
     <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required />
-
+ 
     <label for="eventStart">Start Date and Time:</label>
     <input
       type="datetime-local"
@@ -58,7 +70,7 @@
       [(ngModel)]="newEvent.start"
       required
     />
-
+ 
     <label for="eventEnd">End Date and Time:</label>
     <input
       type="datetime-local"
@@ -66,7 +78,7 @@
       [(ngModel)]="newEvent.end"
       required
     />
-
+ 
     <button (click)="selectedEvent ? updateEvent() : addEvent()">
       {{ selectedEvent ? "Update Event" : "Add Event" }}
     </button>

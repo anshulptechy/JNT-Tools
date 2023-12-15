@@ -1,14 +1,16 @@
 <h2 mat-dialog-title>Create New Project</h2>
 <div mat-dialog-content [formGroup]="projectForm" class="form-container">
   <div class="form-row">
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="projectName" id="name" />
+      <input matInput formControlName="projectName" id="name" [errorStateMatcher]="matcher" />
+      <mat-error *ngIf="projectForm.get('projectName').hasError('maxlength')">Limit Exceeds max length 100</mat-error>
     </mat-form-field>
-
-    <mat-form-field class="form-field">
+    
+    <mat-form-field class="form-field" appearance="fill">
       <mat-label>Client</mat-label>
-      <input matInput formControlName="client" id="client" />
+      <input matInput formControlName="client" id="client" [errorStateMatcher]="matcher" />
+      <mat-error *ngIf="projectForm.get('client').hasError('maxlength')">Limit Exceeds max length 100</mat-error>
     </mat-form-field>
   </div>
 
@@ -40,12 +42,18 @@
 
     <mat-form-field class="form-field">
       <mat-label>Budget</mat-label>
-      <input matInput formControlName="budget" id="budget" type="number" />
+      <input matInput formControlName="budget" id="budget" type="number"/>
+      <mat-error *ngIf="projectForm.get('budget').hasError('max')">
+        Limit exceeds max length 9</mat-error>
     </mat-form-field>
   </div>
 </div>
 <div mat-dialog-actions class="button-container">
   <button mat-button (click)="onCancelClick()" class="btn1">Cancel</button>
-  <button mat-button (click)="onSaveClick(projectForm.value)"
-   class="btn1" >Save</button>
+  <button  mat-button (click)="onSaveClick(projectForm.value)" class="btn1" [disabled]="!projectForm.valid || projectForm.pristine  || !projectForm.get('budget').value || projectForm.get('budget').value === ''"
+  [ngClass]="{'disabled-button': !projectForm.valid || projectForm.pristine 
+  || !projectForm.get('budget').value || projectForm.get('budget').value === ''}" >
+  Save
+</button>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

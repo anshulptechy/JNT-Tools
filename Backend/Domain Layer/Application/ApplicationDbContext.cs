@@ -12,15 +12,35 @@ namespace Domain_Layer.Application
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            modelBuilder.Entity<SalaryRecord>()
+                .HasOne(a => a.Management)
+                .WithMany()
+                .HasForeignKey(a => a.EmployeeId)
+                .IsRequired();
+            modelBuilder.Entity<Coupon>().Property(e => e.Discount).HasColumnType("decimal(10, 4)");
+
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Coupon>()
+        .HasIndex(c => c.CouponCode)
+        .IsUnique();
         }
+        public DbSet<Attendences> Attendence { get; set; }
+
+
+        public DbSet<Screenshots> Screenshot { get; set; }
+
+
+        public DbSet<Login> Login
+        { get; set; }
         public DbSet<Management> Managements
         {
             get;
             set;
         }
+        public DbSet<Coupon> Coupons { get; set; }
         public DbSet<projectModel> projectDataTable
         {
             get;
@@ -29,20 +49,17 @@ namespace Domain_Layer.Application
         public DbSet<Event> Events { get; set; }
         public DbSet<taskStructure> taskTable3 { get; set; }
 
+        public DbSet<LoginHistory> LoginHistories { get; set; }
 
-        public DbSet<Login> Login
-        { get; set; }
+        public DbSet<SalaryRecord> SalaryRecords { get; set;}
 
-        public DbSet<Screenshot> Screenshot
+ 
+
+        public DbSet<ApplyLeave> ApplyLeaves
         {
             get;
             set;
         }
-
-        public DbSet<LoginHistory> LoginHistories { get; set; }
-
-
-
 
     }
 }

@@ -1,10 +1,8 @@
-<body>
-  <app-header></app-header>
+<app-header ></app-header>
 <!-- dashboard.component.html -->
-<div class="container">
+<div class="container ml-5">
   <main>
-
-    <div *ngIf="showContent">
+    <div *ngIf="showContent" class="table-container">
       <button *ngIf="showProjectsTable" class="create-button" (click)="openCreateProjectDialog()">
         Create New Project
       </button>
@@ -24,8 +22,8 @@
         <tbody>
           <!-- Add your table content here -->
           <tr *ngFor="let project of projects">
-            <td>{{ project.projectName }}</td>
-            <td>{{ project.client }}</td>
+            <td class="project-name">{{ project.projectName }}</td>
+            <td class="project-name">{{ project.client }}</td>
             <td>{{ project.startDate | date:'shortDate'}}</td>
             <td>{{ project.endDate | date:'shortDate'}}</td>
             <td>{{ project.country }}</td>
@@ -46,4 +44,4 @@
     </div>
   </main>
 </div>
-</body>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

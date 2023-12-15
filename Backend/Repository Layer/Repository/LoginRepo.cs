@@ -27,4 +27,6 @@ namespace Repository_Layer.Repository
                 .FirstOrDefaultAsync(l => l.email == email && l.password == password);
         }
     }
+
 }
+

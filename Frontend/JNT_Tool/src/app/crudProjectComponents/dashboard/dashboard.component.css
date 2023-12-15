@@ -1,7 +1,9 @@
 .container {
   background-color: rgba(255, 255, 255, 0);
   margin-top: 70px;
-  /* height: 500px; Set the desired height */
+  margin-left: 150px;
+  
+  
 }
 
 main {
@@ -67,4 +69,14 @@ button:hover {
   border-style: inset;
   border-color: azure;
   background-color: aliceblue;
+}
+.project-name {
+  max-width: 30ch; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word; 
+}
+.project-table {
+  width: 100%; 
+  border-collapse: collapse;
 }

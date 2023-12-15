@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { createClient } from '@supabase/supabase-js';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { SupabaseService } from '../supabase.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from '../environment/environment.development';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +11,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  supabase = createClient(
-    'https://lqviihvmwdkabqlpecxh.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
-  );
+  isSidebarOpen = false;
+  userName: string | null = null;
+  userId: string | null = null;
+  showCouponDetailsFlag = false;
+  
+  supabase: SupabaseClient;
+  
 
-  constructor(private auth: SupabaseService, private router: Router) {}
+  constructor(private auth: SupabaseService, private router: Router) {
+    const env = environment ;
+    this.supabase = createClient(env.supabase.url, env.supabase.key);
+  }
 
   ngOnInit() {
+    this.loadUserDetails();
     const storedFirstName = localStorage.getItem('tenantName');
 
     // Set the value to loggedInUserName if it exists
@@ -26,11 +34,24 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  
+  async loadUserDetails() {
+    const userDetails = await this.auth.getUserDetails();
+    if (userDetails) {
+      this.userId = this.auth.extractUserId(userDetails);
+    }
+  }
+
+  showCouponDetails() {
+    this.showCouponDetailsFlag = true;
+
+  }
+
   loggedInUserName: string = '';
 
   logOut() {
+    localStorage.removeItem('token');
     this.auth.signOut().then(() => {
-      localStorage.removeItem('token');
       this.router.navigate(['/login']);
     });
     Swal.fire({

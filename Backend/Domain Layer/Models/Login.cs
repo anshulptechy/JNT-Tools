@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Models
 {
+
     [Keyless]
     public class Login
     {
         [ForeignKey("id")]
+
         public Management Managements { get; set; } // Navigation property for the Department  entity
+
         public int id { get; set; } // Add this property 
         public string? email { get; set; }
         public string? password { get; set; }

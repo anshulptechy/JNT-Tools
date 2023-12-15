@@ -1,14 +1,18 @@
 ﻿using Domain_Layer.Application;
-using Domain_Layer.Models;
+﻿using Domain_Layer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Service_Layer.Custom_Service;
+
 using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class LoginController : ControllerBase, ILoginService
+
     {
         private readonly ILoginService _loginService;
 
@@ -26,7 +30,9 @@ namespace TenantManagementSystem.Controllers
 
                 if (login != null)
                 {
+
                     // You can access login.id here and use it as needed
+
                     return login;
                 }
                 else
@@ -42,3 +48,4 @@ namespace TenantManagementSystem.Controllers
         }
     }
 }
+
