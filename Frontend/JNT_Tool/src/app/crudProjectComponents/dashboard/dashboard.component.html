@@ -14,7 +14,7 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Country</th>
-            <th>Budget</th>
+            <th>Budget ($)</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -31,10 +31,10 @@
             <td>{{ project.status }}</td>
             <td>
               <!-- Action buttons for each row -->
-              <button mat-icon-button (click)="openUpdateProjectDialog(project)">
+              <button mat-icon-button (click)="openUpdateProjectDialog(project)"  class="small-icon edit">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="openConfirmationDialog(project)">
+              <button mat-icon-button (click)="openConfirmationDialog(project)"  class="small-icon delete">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -44,3 +44,4 @@
     </div>
   </main>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

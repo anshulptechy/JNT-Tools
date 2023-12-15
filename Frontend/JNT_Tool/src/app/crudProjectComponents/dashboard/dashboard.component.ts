@@ -1,6 +1,6 @@
 // dashboard.component.ts
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CreateProjectDialogComponent } from '../create-project-dialog/create-project-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateButtonComponent } from '../update-button/update-button.component';
@@ -17,20 +17,27 @@ import { projects } from '../../crud{ProjectModel/model/dataType';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   showContent: boolean = true;
   showProjectsTable: boolean = true;
   buttonClicked: boolean = true;
   editedForm: FormGroup | any
-  constructor(private dialog: MatDialog, private serve: ProjectService, private fb: FormBuilder, private router: Router,
-   ) {
-   
-    serve.getData().subscribe((result) => {
-      this.projects = (result as any[]).filter(project => project.status == 'Active');
-    })
 
+  tenantName=localStorage.getItem('tenantName');
+  constructor(private dialog: MatDialog, private serve: ProjectService, private fb: FormBuilder, private router: Router,
+   )
+    {
+   debugger
+    serve.getData().subscribe((result) => {
+      this.projects = (result as any[]).filter(project => project.status == 'Active' && project.tenantName == this.tenantName);
+    })
+     
   }
- 
+  ngOnInit(){
+    console.log("this"+this.tenantName);
+    
+  }
+  
   // Example data, replace with your actual data
   projects: projects[] = [];
 

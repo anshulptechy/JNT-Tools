@@ -50,5 +50,6 @@ namespace Domain_Layer.Models
             get;
             set;
         }
+        public string tenantName { get; set; }
     }
 }

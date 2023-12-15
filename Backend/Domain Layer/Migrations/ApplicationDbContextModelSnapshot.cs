@@ -59,6 +59,31 @@ namespace Domain_Layer.Migrations
                     b.ToTable("ApplyLeaves");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
+                {
+                    b.Property<int>("AttendenceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendenceId"));
+
+                    b.Property<TimeSpan?>("Hours")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LogoutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttendenceId");
+
+                    b.ToTable("Attendence");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
                 {
                     b.Property<long>("Id")
@@ -139,6 +164,22 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("id");
+
+                    b.ToTable("Login");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>
                 {
                     b.Property<int>("id")
@@ -210,6 +251,29 @@ namespace Domain_Layer.Migrations
                     b.ToTable("SalaryRecords");
                 });
 
+            modelBuilder.Entity("Domain_Layer.Models.Screenshots", b =>
+                {
+                    b.Property<int>("ScreenshotId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenshotId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ImageData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("ScreenshotId");
+
+                    b.ToTable("Screenshot");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -240,6 +304,10 @@ namespace Domain_Layer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("projectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tenantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -281,6 +349,17 @@ namespace Domain_Layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("taskTable3");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Management", "Managements")
+                        .WithMany()
+                        .HasForeignKey("id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Managements");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>

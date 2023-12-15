@@ -2,6 +2,8 @@
   background-color: rgba(255, 255, 255, 0);
   margin-top: 70px;
   margin-left: 150px;
+  
+  
 }
 
 main {
@@ -31,22 +33,22 @@ td {
   padding: 15px;
 }
 
-button {
+.create-button {
   padding: 10px 15px;
-  margin-right: 5px;
+  margin-left: 1100px;
   cursor: pointer;
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-
+margin-top: 10px;
   color: white;
   border: none;
   border-radius: 3px;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+/* button:hover {
   background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
 
-}
+} */
 
 .create-button {
   margin-bottom: 20px;
@@ -77,4 +79,28 @@ button:hover {
 .project-table {
   width: 100%; 
   border-collapse: collapse;
+}
+.edit{
+  padding: 10px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+
+  background-color: #0d6efd;
+
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+.delete{
+  padding: 10px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+
+  background-color: #dc3545;
+
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
