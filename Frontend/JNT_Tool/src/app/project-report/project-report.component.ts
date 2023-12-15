@@ -5,7 +5,7 @@ import { ProjectDataService } from '../Service/project-data.service';
 @Component({
   selector: 'app-project-report',
   templateUrl: './project-report.component.html',
-  styleUrls: ['./project-report.component.css']
+  styleUrls: ['./project-report.component.css'],
 })
 export class ProjectReportComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])
@@ -36,18 +36,17 @@ export class ProjectReportComponent implements OnInit {
   filteredProjects: any[] = [];
   checkedProjectIds: number[] = [];
   selectAll: boolean = false;
-  tenantName=localStorage.getItem('tenantName')
+  tenantName = localStorage.getItem('tenantName');
   constructor(
-    private projectData: ProjectDataService,
-    // private toastr: ToastrService,
-    // private ngxService: NgxUiLoaderService
-  ) {}
+    private projectData: ProjectDataService
+  ) // private toastr: ToastrService,
+  // private ngxService: NgxUiLoaderService
+  {}
 
   ngOnInit() {
     this.getAllProjects();
     this.getAllProjectNames();
     console.log(this.tenantName);
-    
   }
 
   getAllProjects() {
@@ -57,7 +56,9 @@ export class ProjectReportComponent implements OnInit {
     if (tenantName) {
       this.projectData.getAllProjects().subscribe((data) => {
         // Filter projects based on the tenantName
-        this.Projects = data.filter((project) => project.tenantName === tenantName) as any[];
+        this.Projects = data.filter(
+          (project) => project.tenantName === tenantName
+        ) as any[];
         this.updateFilteredProjects();
       });
     } else {
@@ -67,7 +68,6 @@ export class ProjectReportComponent implements OnInit {
   }
 
   getProjectById(id: number) {
-    
     this.projectData.getProjectDetailById(id).subscribe((data) => {
       const project = data as any;
 
@@ -87,20 +87,24 @@ export class ProjectReportComponent implements OnInit {
     if (this.tenantName) {
       this.projectData.getProjectNames().subscribe((data) => {
         // Filter project names based on the tenantName
-        this.projectNames = (data as any[]).filter((projectName) => projectName.tenantName === this.tenantName);
+        this.projectNames = (data as any[]).filter(
+          (projectName) => projectName.tenantName === this.tenantName
+        );
       });
     }
   }
 
   getProjectByMonth() {
-      if (this.tenantName) {
-        this.projectData
-          .getProjectsByMonth(this.selectedMonth.value)
-          .subscribe((data) => {
-            // Filter projects based on the tenantName
-            this.filteredProjects = (data as any[]).filter((project) => project.tenantName === this.tenantName);
-          });
-      }
+    if (this.tenantName) {
+      this.projectData
+        .getProjectsByMonth(this.selectedMonth.value)
+        .subscribe((data) => {
+          // Filter projects based on the tenantName
+          this.filteredProjects = (data as any[]).filter(
+            (project) => project.tenantName === this.tenantName
+          );
+        });
+    }
   }
 
   selectProject(project: any) {
@@ -214,4 +218,3 @@ export class ProjectReportComponent implements OnInit {
     this.filteredProjects = this.Projects.filter((project) => project.checked);
   }
 }
-

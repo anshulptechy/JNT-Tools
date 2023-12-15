@@ -10,7 +10,17 @@ main {
   padding: 20px;
   flex-grow: 1;
 }
-
+.customSize{
+  height: 35px;
+  width: 35px;
+}
+.customMargins{
+  margin-left: -8px;
+  margin-bottom: 8px;
+}
+.customLeft{
+  margin-left: 10px;
+}
 /* ... rest of your styles remain unchanged ... */
 
 table {

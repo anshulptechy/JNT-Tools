@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AttendanceService } from '../service/attendance.service';
+import { AttendanceService } from '../Service/attendance.service';
 
+ 
 @Component({
   selector: 'app-attendance-report',
   templateUrl: './attendance-report.component.html',
@@ -57,33 +58,14 @@ export class AttendanceReportComponent implements OnInit {
       return `${dateString} ${timeString}`;
     }
     return '';
-}
-
-
-
-  generateMReport() {
-    if (this.selectedMonth) {
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        if (Array.isArray(result)) {
-          this.gridData = result.filter((record) => {
-            return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
-          });
-          this.showTable = true;
-    
-        }
-      });
-    } else {
-      this.showTable = true;
-      this.selectedEmployee = '';
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        this.gridData = result as any;
-        
-      });
-    }
   }
+ 
+ 
   getbyMonthName(selectedMonth: string) {
-    this.serve.getbyMonthName(selectedMonth).subscribe(
-      
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName);
+ 
+    this.serve.getbyMonthName(selectedMonth, tenantNameString).subscribe(
       (result) => {
         console.log(result);
         this.gridData = result as any;
@@ -102,8 +84,13 @@ export class AttendanceReportComponent implements OnInit {
       selectedMonthControl.setValue(value);
     }
   }
-  
-
+ 
+  private loadData() {
+      this.populateEmployeeNames();
+      this.loadEmployeeData();
+    }
+ 
+ 
   generateEReport() {
     if (this.selectedEmployee) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {
@@ -119,4 +106,3 @@ export class AttendanceReportComponent implements OnInit {
     }
   }
 }
- 

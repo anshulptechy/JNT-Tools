@@ -31,11 +31,11 @@
             <td>{{ project.status }}</td>
             <td>
               <!-- Action buttons for each row -->
-              <button mat-icon-button (click)="openUpdateProjectDialog(project)"  class="small-icon edit">
-                <mat-icon>edit</mat-icon>
+              <button mat-icon-button (click)="openUpdateProjectDialog(project)"  class=" customSize small-icon edit">
+                <mat-icon class="customMargins">edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="openConfirmationDialog(project)"  class="small-icon delete">
-                <mat-icon>delete</mat-icon>
+              <button mat-icon-button (click)="openConfirmationDialog(project)"  class="customSize customLeft small-icon delete">
+                <mat-icon class="customMargins">delete</mat-icon>
               </button>
             </td>
           </tr>
