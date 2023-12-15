@@ -23,6 +23,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   isAddEventFormOpen: boolean = false;
   isEditEventFormOpen: boolean = false;
   intervalSubscription!: Subscription;
+  userGmailId: string = '';
 
   newEvent: any = {
     title: '',
@@ -42,8 +43,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     },
     plugins: [dayGridPlugin, interactionPlugin],
     events: [],
-    eventClick: this.handleEventClick.bind(this), 
-    selectable: false,
+    eventClick: this.handleEventClick.bind(this),
+    selectable: true,
     select: (selectInfo: any) => this.handleDateSelect(selectInfo),
   };
 
@@ -59,12 +60,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
   gapiInited = false;
   gisInited = false;
 
-  constructor(private meetservice: MeetService,  private router: Router, ) {}
-
+  constructor(private meetservice: MeetService, private router: Router) {}
 
   // OnInit lifecycle hook
   ngOnInit() {
-    this.calendarOptions.eventClick = undefined;
     const authorizeButton = document.getElementById('authorize_button');
     const signoutButton = document.getElementById('signout_button');
 
@@ -76,16 +75,49 @@ export class CalendarComponent implements OnInit, OnDestroy {
       const userId = localStorage.getItem('userId');
       const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
       if (storedEvents) {
-        authorizeButton!.innerText = 'Refresh';
+        // If storedEvents is present, show the "Sign Out" button and hide the "Sync" button
         signoutButton.style.visibility = 'visible';
+
+        // Check if authorizeButton is not null before accessing its properties
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'hidden';
+        }
       } else {
+        // If storedEvents is not present, hide the "Sign Out" button and show the "Sync" button
         signoutButton.style.visibility = 'hidden';
+
+        // Check if authorizeButton is not null before accessing its properties
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'visible';
+        }
       }
     }
 
     // Move the script loading inside ngOnInit
     this.loadScripts();
     this.loadEvents();
+
+    // Check for a stored access token for the current user
+    const storedToken = localStorage.getItem(
+      `accessToken_${localStorage.getItem('userId')}`
+    );
+    if (storedToken) {
+      // Check if both Gapi and Gis have been initialized
+      if (this.gapiInited && this.gisInited) {
+        // Call handleAuthClick to sync the calendar
+        this.handleAuthClick();
+      } else {
+        // If not initialized, wait for initialization and then call handleAuthClick
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 1000);
+      }
+    }
+
+    // Retrieve the user's Gmail ID from localStorage
+    const storedUserId = localStorage.getItem('userId');
+    this.userGmailId =
+      localStorage.getItem(`userGmailId_${storedUserId}`) || '';
   }
 
   //OnDestroy lifecycle hook
@@ -94,6 +126,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
     }
+  }
+
+  isAuthorizeButtonVisible(): boolean {
+    const storedEvents = localStorage.getItem(
+      `calendarEvents_${localStorage.getItem('userId')}`
+    );
+    return !storedEvents;
+  }
+
+  isSignoutButtonVisible(): boolean {
+    const storedEvents = !localStorage.getItem(
+      `calendarEvents_${localStorage.getItem('userId')}`
+    );
+    return !storedEvents;
   }
 
   loadScripts() {
@@ -142,6 +188,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const authorizeButton = document.getElementById('authorize_button');
     if (this.gapiInited && this.gisInited && authorizeButton) {
       authorizeButton.style.visibility = 'visible';
+      this.calendarOptions.selectable = false;
     }
   }
 
@@ -157,39 +204,86 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Handle authentication click
   handleAuthClick() {
-    this.tokenClient.callback = async (resp: any) => {
-      if (resp.error !== undefined) {
-        throw resp;
-      }
-      const signoutButton = document.getElementById('signout_button');
-      if (signoutButton) {
-        signoutButton.style.visibility = 'visible';
-      }
-      const authorizeButton = document.getElementById('authorize_button');
-      if (authorizeButton) {
-        authorizeButton.innerText = 'Refresh';
-      }
+    const storedToken = localStorage.getItem(
+      `accessToken_${localStorage.getItem('userId')}`
+    );
+
+    if (storedToken) {
+      // Use the stored token directly
+      gapi.auth.setToken({ access_token: storedToken });
+
+      // Trigger events as needed (similar to your existing logic)
       this.calendarOptions.selectable = true;
       this.listUpcomingEvents();
-
-      //Start the interval
       this.intervalSubscription = interval(6000).subscribe(() => {
         this.listUpcomingEvents();
       });
-    };
-
-    if (gapi.client.getToken() === null) {
-      this.tokenClient.requestAccessToken({ prompt: 'consent' });
     } else {
-      this.tokenClient.requestAccessToken({ prompt: '' });
+      this.tokenClient.callback = async (resp: any) => {
+        if (resp.error !== undefined) {
+          throw resp;
+        }
+        const signoutButton = document.getElementById('signout_button');
+        if (signoutButton) {
+          signoutButton.style.visibility = 'visible';
+        }
+        const authorizeButton = document.getElementById('authorize_button');
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'hidden';
+        }
+        this.calendarOptions.selectable = true;
+        this.listUpcomingEvents();
+
+        // Start the interval
+        this.intervalSubscription = interval(6000).subscribe(() => {
+          this.listUpcomingEvents();
+        });
+
+        // Store the access token in local storage with the user ID
+        localStorage.setItem(
+          `accessToken_${localStorage.getItem('userId')}`,
+          resp.access_token
+        );
+
+        // Log the user's email address (Gmail ID)
+        this.logUserEmail();
+      };
+
+      if (gapi.auth.getToken() === null) {
+        this.tokenClient.requestAccessToken({ prompt: 'consent' });
+      } else {
+        this.tokenClient.requestAccessToken({ prompt: '' });
+      }
+      this.calendarOptions.eventClick = this.handleEventClick.bind(this);
     }
-    this.calendarOptions.eventClick = this.handleEventClick.bind(this);
+  }
+
+  // Log the user's email address (Gmail ID)
+  logUserEmail() {
+    gapi.client.calendar.calendarList
+      .get({ calendarId: 'primary' })
+      .then((response: any) => {
+        this.userGmailId = response.result.summary;
+        console.log('Synced Gmail ID:', this.userGmailId);
+
+        // Store the user's Gmail ID in localStorage
+        const userId = localStorage.getItem('userId');
+        localStorage.setItem(`userGmailId_${userId}`, this.userGmailId);
+      })
+      .catch((error: any) => {
+        console.error('Error fetching user email:', error);
+      });
   }
 
   // Handle signout click
   handleSignoutClick() {
+    debugger;
     const userId = localStorage.getItem('userId');
+    const tokenKey = `accessToken_${userId}`;
     const token = gapi.client.getToken();
+
+    // Clear the access token for the current user
+    localStorage.removeItem(tokenKey);
     if (token !== null) {
       google.accounts.oauth2.revoke(token.access_token);
       gapi.client.setToken('');
@@ -199,7 +293,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       localStorage.removeItem(`calendarEvents_${userId}`);
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
-        authorizeButton.innerText = 'Sync';
+        authorizeButton.style.visibility = 'visible';
       }
       const signoutButton = document.getElementById('signout_button');
       if (signoutButton) {
@@ -210,6 +304,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
       if (this.intervalSubscription) {
         this.intervalSubscription.unsubscribe();
       }
+
+      // Clear user Gmail ID
+      this.userGmailId = ''; // Add this line to clear the user email
+      localStorage.removeItem(`userGmailId_${userId}`);
     } else {
       this.calendarOptions.events = [];
 
@@ -223,6 +321,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
       if (signoutButton) {
         signoutButton.style.visibility = 'hidden';
       }
+
+      // Clear user Gmail ID
+      this.userGmailId = ''; // Add this line to clear the user email
+      localStorage.removeItem(`userGmailId_${userId}`);
     }
   }
 
@@ -272,6 +374,13 @@ export class CalendarComponent implements OnInit, OnDestroy {
   handleDateSelect(selectInfo: any) {
     // Extract the selected date
     const selectedDate = new Date(selectInfo.startStr);
+    // Check if the selected date is before today's date
+    const today = new Date();
+    today.setDate(today.getDate() - 1); // subtracting 1 day to include today
+    if (selectedDate < today) {
+        alert('Please select a date that is today or in the future.');
+        return;
+    }
     // Format the start date as a string with the time set to midnight
     const formattedStartDate =
       selectedDate.toISOString().split('T')[0] + 'T00:00';
@@ -400,8 +509,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         (response) => {
           console.log('Event deleted from backend successfully:', response);
         },
-        (error) => {
-        }
+        (error) => {}
       );
     });
   }
@@ -618,7 +726,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
-  
+
   updateEvent() {
     const updatedEvent = {
       ...this.selectedEvent,

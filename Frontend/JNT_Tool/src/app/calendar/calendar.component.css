@@ -1,13 +1,12 @@
 .container {
-  width: 70%;
-  margin: 20.3% auto;
+  width: 80%;
+  margin: 29.3% auto;
 }
 
 .gap-2 {
   margin-bottom: -30.5%;
-  margin-left: -14%;
+  margin-left: -11%;
 }
-
 
 .modal {
   display: none;
@@ -99,15 +98,28 @@
   color: white;
 }
 
-.btn:hover{
+.btn:hover {
   background: linear-gradient(to bottom right, #615c64, hsl(218, 66%, 29%));
 }
 
-.modal-content button{
+.modal-content button {
   background: linear-gradient(to bottom right, #3c035d, hsl(218, 90%, 60%));
   color: white;
 }
 
 .btns {
   margin-right: 20px;
+}
+
+.user-email {
+  position: absolute;
+  top: 11.5%;
+  font-size: 12px; /* Adjust the font size as needed */
+  font-weight: bold; /* Add bold if desired */
+  color: #3c035d; /* Set the text color to your preference */
+  background-color: #fefefe; /* Set the background color to your preference */
+  padding: 8px; /* Adjust the padding as needed */
+  border-radius: 4px; /* Add rounded corners if desired */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  right: 0;
 }
