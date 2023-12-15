@@ -3,10 +3,14 @@
   <mat-form-field class="task-form-field">
     <mat-label>Task Name</mat-label>
     <input matInput formControlName="taskName" id="taskName" />
+    <mat-error *ngIf="updateDetails.get('taskName').hasError('maxlength')">Limit Exceeds max length 100</mat-error>
+ 
   </mat-form-field>
   <mat-form-field class="task-form-field">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="taskDescription" id="taskDescription"></textarea>
+    <mat-error *ngIf="updateDetails.get('taskDescription').hasError('maxlength')">Limit Exceeds max length 100</mat-error>
+ 
   </mat-form-field>
   <mat-form-field class="task-form-field">
     <mat-label>Start Date</mat-label>
@@ -33,3 +37,4 @@
   <button mat-button (click)="onCancelClick()" class="customButton">Cancel</button>
   <button mat-button (click)="onSaveClick(updateDetails.value)"  class="customButton" [disabled]="updateDetails.invalid">Save</button>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

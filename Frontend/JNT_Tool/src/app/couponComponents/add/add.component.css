@@ -1,3 +1,6 @@
+.body{
+  height: 470px;
+}
 .container1 {
   display: flex;
   flex-direction: column;
@@ -30,7 +33,13 @@ form {
   margin-bottom: 15px; 
 }
 
-
+.mat-input-element {
+  word-wrap: break-word;
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
 .form-field {
   width: 48%;
   padding: 10px;
@@ -39,7 +48,7 @@ form {
   box-sizing: border-box; 
 }
 .form-field:hover {
-  border-color: #375a76; 
+  border-color: #17191b; 
 }
 .form-field:focus {
   outline: none; 
@@ -69,7 +78,7 @@ form {
 .button-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px; 
+  margin-top: -20px; 
  
 }
 .button-container button {
@@ -78,4 +87,17 @@ form {
 }
 h1{
   margin-bottom: -15px;
+}
+
+.error-message {
+  white-space: nowrap;
+  overflow: hidden;
+  
+}
+.mat-mdc-form-field-error {
+  display: block;
+  font-size: 12px;
+  margin-top: -5px;
+  line-height: normal;
+  font-style: italic;
 }
