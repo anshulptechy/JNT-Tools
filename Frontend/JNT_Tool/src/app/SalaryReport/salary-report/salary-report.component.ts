@@ -1,9 +1,9 @@
 // salary-report.component.ts
+
 import { Component } from '@angular/core';
 import { SalaryService } from '../SalaryService/salary.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-
 
 @Component({
   selector: 'app-salary-report',
@@ -13,18 +13,18 @@ import { MatDialog } from '@angular/material/dialog';
 export class SalaryReportComponent {
   employeeData: any[] = [];
   showRecordOptions: boolean = true;
-  selectedEmployee: any = {}; 
+  selectedEmployee: any = {};
   selectedMonth: string = '';
   showReportOptions: boolean = true;
   showReportGrid: boolean = true;
   months: string[] = [];
   reportData: any[] = [];
   newSalaryAmount: number = 0;
-  
 
   constructor(
     private router: Router,
-    private employeeService: SalaryService,public dialog: MatDialog
+    private employeeService: SalaryService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +34,8 @@ export class SalaryReportComponent {
 
   loadEmployeeData() {
     const tenantName = localStorage.getItem('tenantName') || '';
-    const tenantNameString = String(tenantName); 
-  
+    const tenantNameString = String(tenantName);
+
     this.employeeService.getAllEmployees(tenantNameString).subscribe(
       (data: any[]) => {
         this.employeeData = data;
@@ -46,7 +46,6 @@ export class SalaryReportComponent {
       }
     );
   }
-
 
   loadMonths() {
     this.employeeService.getMonths().subscribe(
@@ -60,9 +59,8 @@ export class SalaryReportComponent {
   }
 
   generateReport() {
-    debugger;
     if (this.selectedEmployee && this.selectedMonth) {
-      this.employeeService.getSalaryData(this.selectedEmployee,this.selectedMonth).subscribe(
+      this.employeeService.getSalaryData(this.selectedEmployee, this.selectedMonth).subscribe(
         (data: any[]) => {
           this.reportData = data;
           this.showReportGrid = true;
@@ -74,9 +72,6 @@ export class SalaryReportComponent {
     }
   }
 
-  
-  
-
   updateSelectedEmployee() {
     const selectedEmployee = this.employeeData.find(e => e.id === this.selectedEmployee.id);
     if (selectedEmployee) {
@@ -84,5 +79,3 @@ export class SalaryReportComponent {
     }
   }
 }
-
-

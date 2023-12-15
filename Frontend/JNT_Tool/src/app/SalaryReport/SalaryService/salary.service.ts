@@ -25,7 +25,9 @@ export class SalaryService {
     return this.http.get<any[]>(url);
   }
 
+
   addSalaryRecord(salaryRecord: any): Observable<any> {
+   
     const url = `${this.baseUrl}/add-salary-record`;
     return this.http.post<any>(url, salaryRecord);
   }

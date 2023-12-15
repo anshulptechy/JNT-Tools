@@ -94,7 +94,43 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
+        [HttpPost("add-salary-record")]
+        public async Task<IActionResult> AddSalaryRecord([FromBody] SalaryRecordRequest salaryRecordRequest)
+        {
+            try
+            {
+                // Validate the request data
+                if (salaryRecordRequest == null)
+                {
+                    return BadRequest("Invalid request data");
+                }
+
+                // Create a new SalaryRecord instance
+                var newSalaryRecord = new SalaryRecord
+                {
+                    EmployeeId = salaryRecordRequest.EmployeeId, // Assuming EmployeeId is provided in the request
+                    SalaryMonth = salaryRecordRequest.SalaryMonth,
+                    Salary = salaryRecordRequest.Salary,
+                    Leaves = salaryRecordRequest.Leaves,
+                    Deductions = salaryRecordRequest.Deductions,
+                    NetPay = salaryRecordRequest.NetPay
+                };
+
+                // Add the new salary record to the database
+                _applicationDbContext.SalaryRecords.Add(newSalaryRecord);
+                await _applicationDbContext.SaveChangesAsync();
+
+                return Ok("Salary record added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
 
     }
+
 }
+

@@ -1,62 +1,57 @@
 <app-header></app-header>
 
-<div class="Heading">
-  <strong>SALARY REPORT</strong>
-</div>
-
-<div class="container">
+<div class="container mt-4 customUpperMargin">
   <div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
     <!-- Report Content -->
-    <mat-form-field>
-      <mat-label>Select Month</mat-label>
-      <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-        <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+          <label for="selectedMonth" style="color: #007BFF;">Select Month</label>
+          <select class="form-control" [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
+            <option disabled selected value="" style="color: #f0f0f0;">Select Month</option>
+            <option *ngFor="let month of months" [value]="month">{{month}}</option>
+          </select>
+        </div>
+      </div>
 
-    <mat-form-field class="customMargin">
-      <mat-label>Select Employee</mat-label>
-      <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-        <mat-option *ngFor="let employee of employeeData" [value]="employee.firstName">{{ employee.firstName}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+          <label for="selectedEmployee" style="color: #007BFF;">Select User</label>
+          <select class="form-control" [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
+            <option disabled selected value="" style="color: #5b95cf;">Select User</option>
+            <option *ngFor="let employee of employeeData" [value]="employee.firstName">{{ employee.firstName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showReportGrid" class="mt-4">
+    <div class="table-responsive">
+      <table class="table project-table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>Role</th>
+            <th>Salary Month</th>
+            <th>Salary</th>
+            <th>Leaves</th>
+            <th>Deductions</th>
+            <th>Net Pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of reportData">
+            <td>{{ record.management.firstName}}</td>
+            <td>{{ record.management.department }}</td>
+            <td>{{ record.salaryMonth }}</td>
+            <td>{{ record.salary }}</td>
+            <td>{{ record.leaves }}</td>
+            <td>{{ record.deductions }}</td>
+            <td>{{ record.netPay }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-<div *ngIf="showReportGrid">
-  <!-- Check if reportData is available -->
-  <ng-container *ngIf="reportData && reportData.length > 0; else noData">
-    <!-- Grid to display the report -->
-    <table>
-      <thead>
-        <tr>
-          <th>EmployeeID</th>
-          <th>Employee Name</th>
-          <th>Role</th>
-          <th>Salary Month</th>
-          <th>Salary</th>
-          <th>Leaves</th>
-          <th>Deductions</th>
-          <th>Net Pay</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of reportData">
-          <td>{{ record.management.id }}</td>
-          <td>{{ record.management.firstName}}</td>
-          <td>{{ record.management.department }}</td>
-          <td>{{ record.salaryMonth }}</td>
-          <td>{{ record.salary }}</td>
-          <td>{{ record.leaves }}</td>
-          <td>{{ record.deductions }}</td>
-          <td>{{ record.netPay }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
-
-  <ng-template #noData >
-    <div class="no-data-message">
-      <p>Data not available</p>
-    </div>
-  </ng-template>

@@ -53,6 +53,8 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
 import { RouterModule } from '@angular/router';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +78,7 @@ import { RouterModule } from '@angular/router';
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+    
  
 
   ],
@@ -134,7 +137,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     CommonModule,
     MatInputModule,
-    NgxUiLoaderModule,
+    NgxUiLoaderModule,  
+    MatDialogModule
+  
   ],
   providers: [
     DatePipe,
