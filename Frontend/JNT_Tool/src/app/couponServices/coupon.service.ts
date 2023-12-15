@@ -1,17 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SupabaseService } from '../supabase.service';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class CouponService {
-  constructor(private _http: HttpClient, private supaService: SupabaseService) { }
+  constructor(private _http: HttpClient, private supaService: SupabaseService) {}
 
-  
   async addCoupon(data: any): Promise<Observable<any>> {
     try {
       const userDetails = await this.supaService.getUserDetails();
@@ -32,31 +29,32 @@ export class CouponService {
       throw error; 
     }
   }
-  
 
   updateCoupon(data: any): Observable<any> {
     return this._http.put(`https://localhost:7126/api/Coupon/Update`, data);
   }
 
-  async getCouponsListForUser(): Promise<Observable<any>> { 
-    try {
-   
-      const userDetails = await this.supaService.getUserDetails();
-      const supabaseUserId = userDetails?.id;
-
-      if (supabaseUserId) {
-     
-        const url = `https://localhost:7126/api/Coupon/${supabaseUserId}`;
-        return this._http.get(url);
-      } else {
-        throw new Error('Error getting coupons: User details not available');
-      }
-    } catch (error) {
-      console.error('Error getting coupons:', error);
-      throw error;
-    }
+  getCouponsListForUser(pageSize: number, pageIndex: number): Observable<any> { 
+    return new Observable(observer => {
+      this.supaService.getUserDetails().then(userDetails => {
+        const supabaseUserId = userDetails?.id;
+  
+        if (supabaseUserId) {
+          const url = `https://localhost:7126/api/Coupon/${supabaseUserId}?pageSize=${pageSize}&pageIndex=${pageIndex}`;
+          this._http.get(url).subscribe(response => {
+            observer.next(response);
+            observer.complete();
+          });
+        } else {
+          observer.error('Error getting coupons: User details not available');
+        }
+      }).catch(error => {
+        console.error('Error getting coupons:', error);
+        observer.error(error);
+      });
+    });
   }
-
+  
   GetCouponById(id: number): Observable<any> {
     return this._http.get(`https://localhost:7126/api/Coupon/GetBy/${id}`);
   }
