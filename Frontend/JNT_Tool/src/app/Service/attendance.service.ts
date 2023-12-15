@@ -13,15 +13,21 @@ export class AttendanceService {
   getAllAttendenceWithManagement() {
     return this.http.get('https://localhost:7126/api/Attendence/GetAllManagementAndAttendance');
   }
-  getAllEmployees(data:string) {
+ 
+    getAllEmployees(data:string) {
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllFirstNamesByTenant?tenantName=${data}`);
   }
   getMonths() {
     return this.http.get('https://localhost:7126/api/Attendence/months');
   }
-  getbyMonthName(month: string) {
-    return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonth?monthName=${month}`);
+ 
+  getbyMonthName(selectedMonth: string, tenantName: string) {
+  
+    return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
   }
+  // getAllEmployees(selectedEmployee: string, tenantName: string) {
+  //   return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByFirstName?firstName=${selectedEmployee}&tenantName=${tenantName}`);
+  // }
 
 }
 
