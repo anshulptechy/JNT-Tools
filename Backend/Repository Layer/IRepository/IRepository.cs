@@ -18,6 +18,7 @@ namespace Repository_Layer.IRepository
             void Update(T entity);
             void Delete(int Id);
             void SaveChanges();
+            Task<T> GetByEmailAndPasswordAsync(string email, string password);
         }
 
     }

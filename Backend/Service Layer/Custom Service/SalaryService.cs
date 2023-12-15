@@ -58,7 +58,5 @@ namespace Service_Layer.Custom_Service
             return await _salaryRecordRepository.GetAllMonthsAsync();
         }
 
-
-       
     }
 }

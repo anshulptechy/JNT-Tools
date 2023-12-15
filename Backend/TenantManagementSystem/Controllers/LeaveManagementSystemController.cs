@@ -114,7 +114,25 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet(nameof(GetAllNames))]
+        public IActionResult GetAllNames(string tenantName)
+        {
+            try
+            {
+                // Assuming you have a Tenant column in the Management table
+                var allNames = _applicationDbContext.Managements
+                    .Where(m => m.tenantName == tenantName)
+                    .Select(m => new { m.firstName, m.lastName })
+                    .Distinct()
+                    .ToList();
 
+                return Ok(allNames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving all names: {ex.Message}");
+            }
+        }
 
 
         [HttpDelete("DeleteApplyLeave/{id}")]
