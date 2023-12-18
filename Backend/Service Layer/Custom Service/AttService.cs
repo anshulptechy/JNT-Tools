@@ -106,7 +106,6 @@ namespace Service_Layer.Custom_Service
             {
                 if (record.LogoutTime != null && record.LoginTime != null)
                 {
-                    // Ensure that both LogoutTime and LoginTime are DateTime objects
                     if (record.LogoutTime is DateTime logoutTime && record.LoginTime is DateTime loginTime)
                     {
                         // If LogoutTime is before 12 PM, add 12 hours to make it PM
