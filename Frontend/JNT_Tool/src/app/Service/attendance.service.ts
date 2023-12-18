@@ -7,9 +7,10 @@ import { HttpClient } from '@angular/common/http';
 export class AttendanceService {
 
 
+  
   constructor(private http: HttpClient) { }
-
-
+ 
+ 
   getAllAttendenceWithManagement() {
     return this.http.get('https://localhost:7126/api/Attendence/GetAllManagementAndAttendance');
   }
@@ -22,12 +23,9 @@ export class AttendanceService {
   }
  
   getbyMonthName(selectedMonth: string, tenantName: string) {
-  
+ 
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
   }
-  // getAllEmployees(selectedEmployee: string, tenantName: string) {
-  //   return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByFirstName?firstName=${selectedEmployee}&tenantName=${tenantName}`);
-  // }
-
+ 
 }
 

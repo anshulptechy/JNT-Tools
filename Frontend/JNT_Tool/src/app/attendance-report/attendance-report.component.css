@@ -296,7 +296,7 @@ th {
   }
   
   .scrollable-container {
-    max-height: 300px;
+    max-height: 360px;
     overflow-y: auto;
     margin-bottom: -55px;
   }
@@ -315,7 +315,7 @@ th {
   .col-6 .dropdown-toggle,
   .col-6 .dropdown-menu,
   .col-6 .dropdown-menu a {
-    width: 98%;
+    width: 100%;
     padding: 8px;
   }
   

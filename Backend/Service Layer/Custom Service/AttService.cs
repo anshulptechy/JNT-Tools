@@ -133,6 +133,8 @@ namespace Service_Layer.Custom_Service
 
                         // Calculate hours for the entire day (from 12 AM to 11:59 PM)
                         record.Hours = logoutTime - loginTime;
+                        _AttendenceRepository.Update(record);
+                        _AttendenceRepository.SaveChanges();
                     }
                     else
                     {

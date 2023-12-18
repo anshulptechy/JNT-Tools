@@ -2,11 +2,9 @@
 </app-header>
 <br><br><br>
 <div class="selectdrop">
- 
     <section>
         <h1 style="color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));">Attendance Report</h1>
         <hr>
-      
         <form [formGroup]="attendanceForm">
           <div class="row mt-5">
             <div class="col-6">
@@ -27,28 +25,20 @@
               </div>
             </div>
       
-          
             <div class="col-6">
               <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                {{ selectedEmployee ? selectedEmployee : "Select Employee" }}
-              </button>
-              <ul class="dropdown-menu">
-              
-                <li *ngFor="let employee of employeeNames"  [value]="employee">
-                  <a class="dropdown-item" >{{ employee }}</a>
-                </li>
-                </ul>
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedEmployee ? selectedEmployee : "Select Employee" }}
+                </button>
+                  <ul class="dropdown-menu">
+                      <li *ngFor="let employee of employeeNames">
+                          <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee }}</a>
+                      </li>
+                  </ul>
               </div>
-            </div>
           </div>
-        </form>
-      
+      </div>
+  </form>
     </section>
     <div *ngIf="showTable" class="table-container" class="scrollable-container">
         <table class="table">

@@ -17,7 +17,11 @@ export class AttendanceReportComponent implements OnInit {
   gridData: any[] = [];
   attendanceForm: FormGroup;
   showDropdown: boolean = true;
- 
+  selectEmployee(employee: string) {
+    this.selectedEmployee = employee;
+    this.generateEReport();
+    this.setValueOfSelectedMonth('');
+  }
   constructor(private router: Router, private formBuilder: FormBuilder, private serve: AttendanceService) {
     this.attendanceForm = this.formBuilder.group({
       selectedMonth: [''],
@@ -90,19 +94,18 @@ export class AttendanceReportComponent implements OnInit {
     }
  
  
-  generateEReport() {
-    if (this.selectedEmployee) {
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        if (Array.isArray(result)) {
-          this.gridData = result.filter((record) => {
-            return record.management.firstName === this.selectedEmployee;
-          });
-          this.showTable = true;
-          this.selectedMonth = '';
-          console.log("Selected Month after clearing:", this.selectedMonth);
-        }
-      });
+    generateEReport() {
+      if (this.selectedEmployee) {
+        this.serve.getAllAttendenceWithManagement().subscribe((result) => {
+          if (Array.isArray(result)) {
+            this.gridData = result.filter((record) => {
+              return record.management.firstName === this.selectedEmployee;
+            });
+            this.showTable = true;
+            this.selectedMonth = '';
+            console.log("Selected Month after clearing:", this.selectedMonth);
+          }
+        });
+      }
     }
-  }
 }
- 
