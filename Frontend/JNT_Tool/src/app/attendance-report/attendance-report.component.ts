@@ -68,20 +68,21 @@ export class AttendanceReportComponent implements OnInit {
   getbyMonthName(selectedMonth: string) {
     const tenantName = localStorage.getItem('tenantName') || '';
     const tenantNameString = String(tenantName);
- 
+  
     this.serve.getbyMonthName(selectedMonth, tenantNameString).subscribe(
       (result) => {
         console.log(result);
         this.gridData = result as any;
         this.showTable = true;
         this.selectedEmployee = '';
+        this.selectedMonth = selectedMonth;
       },
       (error) => {
         console.error('Error:', error);
       }
     );
   }
- 
+  
   setValueOfSelectedMonth(value: string) {
     const selectedMonthControl = this.attendanceForm.get('selectedMonth');
     if (selectedMonthControl) {

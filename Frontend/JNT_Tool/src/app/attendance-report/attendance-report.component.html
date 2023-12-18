@@ -13,8 +13,7 @@
                   class="btn btn-secondary dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false">
                   {{ selectedMonth ? selectedMonth : "Select Month" }}
                 </button>
                 <ul class="dropdown-menu">
@@ -62,6 +61,8 @@
                 <td>{{ formatDate(record.attendance.logoutTime) }}</td>
                 <td>{{ record.attendance.hours }}</td>   
         </table>
- 
+        <div *ngIf="gridData.length === 0" class="no-record-message">
+          No records found.
+      </div>
     </div>
 </div>
