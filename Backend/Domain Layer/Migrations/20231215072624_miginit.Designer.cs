@@ -3,6 +3,7 @@ using System;
 using Domain_Layer.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231215072624_miginit")]
+    partial class miginit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,8 +62,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("ApplyLeaves");
                 });
 
-<<<<<<< Updated upstream
-=======
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
                     b.Property<int>("AttendenceId")
@@ -86,7 +87,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Attendence");
                 });
 
->>>>>>> Stashed changes
             modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
                 {
                     b.Property<long>("Id")
@@ -167,8 +167,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Events");
                 });
 
-<<<<<<< Updated upstream
-=======
             modelBuilder.Entity("Domain_Layer.Models.Login", b =>
                 {
                     b.Property<string>("email")
@@ -185,7 +183,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Login");
                 });
 
->>>>>>> Stashed changes
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>
                 {
                     b.Property<int>("id")
@@ -257,8 +254,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("SalaryRecords");
                 });
 
-<<<<<<< Updated upstream
-=======
             modelBuilder.Entity("Domain_Layer.Models.Screenshots", b =>
                 {
                     b.Property<int>("ScreenshotId")
@@ -282,7 +277,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Screenshot");
                 });
 
->>>>>>> Stashed changes
             modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -354,6 +348,17 @@ namespace Domain_Layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("taskTable3");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Management", "Managements")
+                        .WithMany()
+                        .HasForeignKey("id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Managements");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>
