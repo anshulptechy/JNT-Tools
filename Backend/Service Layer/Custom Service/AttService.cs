@@ -113,7 +113,7 @@ namespace Service_Layer.Custom_Service
                         {
                             if (logoutTime.Hour < 12)
                             {
-                                logoutTime = logoutTime.AddHours(12);
+                                logoutTime = logoutTime.Date.AddDays(1).AddSeconds(-1).AddHours(12);
                             }
                             record.Hours = logoutTime - loginTime;
 
