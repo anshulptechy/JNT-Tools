@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CouponsModel } from 'src/app/models/couponModels';
@@ -18,12 +18,17 @@ export class CouponsComponent implements OnInit {
   showDeleteConfirmation = false;
   couponIdToDelete!: number;
 
-  displayedColumns: string[] = ['couponCode', 'couponName', 'description', 'discount', 'startDate', 'endDate', 'discountType', 'actions'];
+  displayedColumns: string[] =['couponCode','couponName', 'description','discount','startDate',
+                               'endDate','discountType','actions'];
+
   dataSource!: MatTableDataSource<CouponsModel>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  pageSizeOptions = [5, 10, 25, 100];
+  pageSize = this.pageSizeOptions[0];
+  pageIndex = 0;
+  totalItems = 0;
   constructor(
     private _dialog: MatDialog,
     private _couponService: CouponService,
@@ -41,7 +46,7 @@ export class CouponsComponent implements OnInit {
 
   confirmDelete() {
     this._couponService.deleteCoupons(this.couponIdToDelete).subscribe({
-      next: (res) => {
+      next: () => {
         this.getCouponsList();
         this.showDeleteConfirmation = false;
         // Check if the data source is empty, then clear the table
@@ -55,12 +60,6 @@ export class CouponsComponent implements OnInit {
       error: console.log,
     });
   }
-
-
-
-
-
-
   cancelDelete() {
     this.showDeleteConfirmation = false;
   }
@@ -70,19 +69,17 @@ export class CouponsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async (val: CouponsModel) => {
       if (val) {
-        // Fetch the updated list of coupons after adding a new coupon
         await this.getCouponsList();
       }
     });
   }
 
-
-
   async getCouponsList() {
     try {
-      const response = await this._couponService.getCouponsListForUser();
+      const response = await this._couponService.getCouponsListForUser(this.pageSize, this.pageIndex + 1);
       response.subscribe({
         next: (res) => {
+          this.totalItems = res.totalItems;
           this.dataSource = new MatTableDataSource(res as CouponsModel[]);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -96,6 +93,14 @@ export class CouponsComponent implements OnInit {
     }
   }
 
+  onPageChange(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getCouponsList();
+  }
+
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -104,6 +109,7 @@ export class CouponsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
   openEditForm(project: any): void {
     const dialogRef = this._dialog.open(EditComponent, {
@@ -118,4 +124,26 @@ export class CouponsComponent implements OnInit {
     });
   }
 
+
+  breakWords(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      const words = text.split(' ');
+      let currentLength = 0;
+      let result = '';
+
+      for (const word of words) {
+        currentLength += word.length + 1;
+        if (currentLength > maxLength) {
+          result += '\n' + word + ' ';
+          currentLength = word.length + 1;
+        } else {
+          result += word + ' ';
+        }
+      }
+      return result.trim(); 
+    } else {
+      return text;
+    }
+  }
 }
+

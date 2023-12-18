@@ -47,11 +47,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
-
+import { ToastrModule } from 'ngx-toastr';
 import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 import { RouterModule } from '@angular/router';
-
+import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+import { HRComponent } from './HR/hr/hr.component';
 
 
 
@@ -66,7 +67,7 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     CouponsComponent,
     AddComponent,
-    EditComponent,
+    EditComponent,AttendanceReportComponent,
     CalendarComponent,
     TaskDashboardComponent,
     TaskDialogComponent,
@@ -78,11 +79,16 @@ import { RouterModule } from '@angular/router';
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+    HRComponent,
     
  
 
   ],
-  imports: [
+  imports: [  ToastrModule.forRoot({
+    timeOut: 3000, // Set the time duration for the toaster
+    positionClass: 'toast-top-right', // Set the position of the toaster
+    preventDuplicates: true, // Prevent duplicate toasters
+  }),
     MatRadioModule,
     BrowserModule,
     MatTableModule,

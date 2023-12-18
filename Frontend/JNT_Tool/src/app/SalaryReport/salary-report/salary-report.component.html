@@ -1,32 +1,43 @@
 <app-header></app-header>
+<br><br><br>
+<div class="selectdrop">
+  <section>
 
-<div class="container mt-4 customUpperMargin">
-  <div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
-    <!-- Report Content -->
-    <div class="row">
-      <div class="col-lg-6 col-md-12">
-        <div class="form-group">
-          <label for="selectedMonth" style="color: #007BFF;">Select Month</label>
-          <select class="form-control" [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-            <option disabled selected value="" style="color: #f0f0f0;">Select Month</option>
-            <option *ngFor="let month of months" [value]="month">{{month}}</option>
-          </select>
+    <form>
+      <div class="row mt-5">
+        <div class="col-6">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{ selectedMonth ? selectedMonth : "Select Month" }}
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let month of months">
+                <a class="dropdown-item" (click)="selectMonth(month)">{{ month }}</a>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" > 
+         {{ selectedEmployee ? selectedEmployee.firstName : "Select Employee" }}
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let employee of employeeData">
+                <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee.firstName }}</a>
+
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      <div class="col-lg-6 col-md-12">
-        <div class="form-group">
-          <label for="selectedEmployee" style="color: #007BFF;">Select User</label>
-          <select class="form-control" [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-            <option disabled selected value="" style="color: #5b95cf;">Select User</option>
-            <option *ngFor="let employee of employeeData" [value]="employee.firstName">{{ employee.firstName}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="showReportGrid" class="mt-4">
+    </form>
+  </section>
+  <div *ngIf="showReportGrid && reportData.length > 0" class="mt-4">
     <div class="table-responsive">
       <table class="table project-table">
         <thead>
@@ -53,5 +64,9 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+  <div *ngIf="showReportGrid && reportData.length === 0" class="mt-4">
+    <p>No data available.</p>
   </div>
 </div>

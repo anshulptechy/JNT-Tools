@@ -89,9 +89,15 @@ h1{
   margin-bottom: -15px;
 }
 
-/* Add this to your component's CSS file or style section */
 .error-message {
   white-space: nowrap;
   overflow: hidden;
   
+}
+.mat-mdc-form-field-error {
+  display: block;
+  font-size: 12px;
+  margin-top: -5px;
+  line-height: normal;
+  font-style: italic;
 }

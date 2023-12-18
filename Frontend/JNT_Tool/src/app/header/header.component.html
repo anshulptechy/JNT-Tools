@@ -45,6 +45,11 @@
               <li class="nav-item">
                 <a class="dropdown-item" [routerLink]="['/salary-report']">Salary Report</a>
               </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/attendeceReport']"
+                  >Attendance Report</a
+                >
+              </li>
             </ul>
           </li>
 
@@ -86,6 +91,10 @@
           <!-- Schedule -->
           <li class="nav-item">
             <a class="nav-link active text-white" routerLink="/calendar">Schedule</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active text-white" routerLink="/HR">HR</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#" (click)="logOut()">LogOut</a>

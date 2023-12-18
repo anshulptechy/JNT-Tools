@@ -21,7 +21,6 @@ export class SalaryService {
 
   getSalaryData(firstName: string,salaryMonth: string): Observable<any[]> {
     const url = `${this.baseUrl}/getSalaryData/${firstName}/${salaryMonth}`;
-
     return this.http.get<any[]>(url);
   }
 

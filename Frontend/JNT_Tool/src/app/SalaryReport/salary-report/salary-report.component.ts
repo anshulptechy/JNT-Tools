@@ -1,5 +1,3 @@
-// salary-report.component.ts
-
 import { Component } from '@angular/core';
 import { SalaryService } from '../SalaryService/salary.service';
 import { Router } from '@angular/router';
@@ -21,6 +19,18 @@ export class SalaryReportComponent {
   reportData: any[] = [];
   newSalaryAmount: number = 0;
 
+  selectMonth(month: string) {
+    this.selectedMonth = month;
+    this.generateReport(); 
+  }
+
+  selectEmployee(employee: any) {
+    this.selectedEmployee = employee;
+    this.generateReport(); 
+  }
+
+  
+
   constructor(
     private router: Router,
     private employeeService: SalaryService,
@@ -28,6 +38,7 @@ export class SalaryReportComponent {
   ) {}
 
   ngOnInit(): void {
+    this.selectedEmployee = null;
     this.loadEmployeeData();
     this.loadMonths();
   }
@@ -60,22 +71,23 @@ export class SalaryReportComponent {
 
   generateReport() {
     if (this.selectedEmployee && this.selectedMonth) {
-      this.employeeService.getSalaryData(this.selectedEmployee, this.selectedMonth).subscribe(
+      const employeeFirstName = this.selectedEmployee.firstName; 
+      const formattedMonth = encodeURIComponent(this.selectedMonth);
+  
+      this.employeeService.getSalaryData(employeeFirstName, formattedMonth).subscribe(
         (data: any[]) => {
+          console.log('Salary Data:', data);
           this.reportData = data;
           this.showReportGrid = true;
         },
         (error: any) => {
           console.error('Error fetching salary data:', error);
+          this.showReportGrid = false; 
         }
       );
     }
   }
+  
 
-  updateSelectedEmployee() {
-    const selectedEmployee = this.employeeData.find(e => e.id === this.selectedEmployee.id);
-    if (selectedEmployee) {
-      this.selectedEmployee.employeeName = selectedEmployee.employeeName;
-    }
-  }
+
 }
