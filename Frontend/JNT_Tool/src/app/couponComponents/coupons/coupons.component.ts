@@ -140,11 +140,8 @@ export class CouponsComponent implements OnInit {
           result += word + ' ';
         }
       }
-<<<<<<< HEAD
-      return result.trim(); // Remove trailing space
-=======
+// Remove trailing space
       return result.trim(); 
->>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
     } else {
       return text;
     }
