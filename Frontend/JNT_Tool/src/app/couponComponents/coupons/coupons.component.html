@@ -49,9 +49,12 @@
       </ng-container>
 
       <ng-container matColumnDef="discount">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header style=" background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">Discount</th>
-        <td mat-cell *matCellDef="let row"> {{row.discount}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">Discount</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.discountType === 'Percentage' ? row.discount + '%' : '$' + row.discount }}
+        </td>
       </ng-container>
+      
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style=" background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">Start Date</th>
         <td mat-cell *matCellDef="let row"> {{row.startDate | date}} </td>

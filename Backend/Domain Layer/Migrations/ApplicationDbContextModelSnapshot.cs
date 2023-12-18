@@ -59,12 +59,16 @@ namespace Domain_Layer.Migrations
                     b.ToTable("ApplyLeaves");
                 });
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
             modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
                 {
                     b.Property<int>("AttendenceId")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AttendenceId"));
@@ -80,13 +84,33 @@ namespace Domain_Layer.Migrations
 
                     b.Property<int>("id")
                         .HasColumnType("integer");
+=======
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendenceId"));
+
+                    b.Property<TimeSpan?>("Hours")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LogoutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
 
                     b.HasKey("AttendenceId");
 
                     b.ToTable("Attendence");
                 });
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
             modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
                 {
                     b.Property<long>("Id")
@@ -167,6 +191,7 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Events");
                 });
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
             modelBuilder.Entity("Domain_Layer.Models.Login", b =>
@@ -179,13 +204,28 @@ namespace Domain_Layer.Migrations
 
                     b.Property<string>("password")
                         .HasColumnType("text");
+=======
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
 
                     b.HasIndex("id");
 
                     b.ToTable("Login");
                 });
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>
                 {
                     b.Property<int>("id")
@@ -257,12 +297,16 @@ namespace Domain_Layer.Migrations
                     b.ToTable("SalaryRecords");
                 });
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
             modelBuilder.Entity("Domain_Layer.Models.Screenshots", b =>
                 {
                     b.Property<int>("ScreenshotId")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ScreenshotId"));
@@ -276,13 +320,31 @@ namespace Domain_Layer.Migrations
 
                     b.Property<int>("id")
                         .HasColumnType("integer");
+=======
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenshotId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ImageData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
 
                     b.HasKey("ScreenshotId");
 
                     b.ToTable("Screenshot");
                 });
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
             modelBuilder.Entity("Domain_Layer.Models.projectModel", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -354,6 +416,17 @@ namespace Domain_Layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("taskTable3");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.Login", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.Management", "Managements")
+                        .WithMany()
+                        .HasForeignKey("id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Managements");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.SalaryRecord", b =>

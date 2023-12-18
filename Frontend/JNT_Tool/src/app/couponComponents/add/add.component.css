@@ -12,6 +12,53 @@
   background-color: #f5f5f5;
   width: 100%; /* Adjust as needed */
 }
+<<<<<<< HEAD
+=======
+
+
+.button-container button:hover{
+  background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
+  color: white;
+}
+
+.mat-dialog-actions {
+  margin-top: 20px;
+  text-align: right; 
+}
+
+form {
+  padding: 10px;
+}
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; 
+}
+
+.mat-input-element {
+  word-wrap: break-word;
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
+.form-field {
+  width: 48%;
+  padding: 10px;
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  box-sizing: border-box; 
+}
+.form-field:hover {
+  border-color: #17191b; 
+}
+.form-field:focus {
+  outline: none; 
+  border-color: #4cae4c; 
+  box-shadow: 0 0 5px rgba(76, 174, 76, 0.5); 
+}
+
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
 
 .row {
   display: flex;
@@ -39,6 +86,12 @@
 .button-container button {
   background: linear-gradient(to bottom right, hsl(220, 36%, 27%), hsl(219, 34%, 48%));
   color: white;
+<<<<<<< HEAD
+=======
+}
+h1{
+  margin-bottom: -15px;
+>>>>>>> 255d4980f7b147a8c0cff3796008794329bb0487
 }
 
 .mat-dialog-actions {
