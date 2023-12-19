@@ -17,7 +17,12 @@ export class AttendanceReportComponent implements OnInit {
   gridData: any[] = [];
   attendanceForm: FormGroup;
   showDropdown: boolean = true;
- 
+  selectEmployee(employee: string) {
+    this.selectedEmployee = employee;
+    this.generateEReport();
+    this. loadEmployeeData() ;
+    this.setValueOfSelectedMonth('');
+  }
   constructor(private router: Router, private formBuilder: FormBuilder, private serve: AttendanceService) {
     this.attendanceForm = this.formBuilder.group({
       selectedMonth: [''],
@@ -35,9 +40,9 @@ export class AttendanceReportComponent implements OnInit {
     const tenantNameString = String(tenantName);
  
     this.serve.getAllEmployees(tenantNameString).subscribe(
-      (data: any | any[]) => {
-        this.employeeNames = data;
-        console.log(data);
+      (employee: any | any[]) => {
+        this.employeeNames = employee;
+        console.log(employee);
       },
       (error: any) => {
         console.error('Error fetching employees:', error);
@@ -59,37 +64,25 @@ export class AttendanceReportComponent implements OnInit {
     return '';
   }
  
-  generateMReport() {
-    if (this.selectedMonth) {
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        if (Array.isArray(result)) {
-          this.gridData = result.filter((record) => {
-            return record['month'].toLowerCase().trim() === this.selectedMonth.toLowerCase().trim();
-          });
-          this.showTable = true;
-        }
-      });
-    } else {
-      this.showTable = true;
-      this.selectedEmployee = '';
-      this.loadData();
-    }
-  }
  
   getbyMonthName(selectedMonth: string) {
-    this.serve.getbyMonthName(selectedMonth).subscribe(
+    const tenantName = localStorage.getItem('tenantName') || '';
+    const tenantNameString = String(tenantName);
+  
+    this.serve.getbyMonthName(selectedMonth, tenantNameString).subscribe(
       (result) => {
         console.log(result);
         this.gridData = result as any;
         this.showTable = true;
         this.selectedEmployee = '';
+        this.selectedMonth = selectedMonth;
       },
       (error) => {
         console.error('Error:', error);
       }
     );
   }
- 
+  
   setValueOfSelectedMonth(value: string) {
     const selectedMonthControl = this.attendanceForm.get('selectedMonth');
     if (selectedMonthControl) {
@@ -98,26 +91,23 @@ export class AttendanceReportComponent implements OnInit {
   }
  
   private loadData() {
-    this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-      this.gridData = result as any;
       this.populateEmployeeNames();
       this.loadEmployeeData();
-    });
-  }
- 
-  generateEReport() {
-    if (this.selectedEmployee) {
-      this.serve.getAllAttendenceWithManagement().subscribe((result) => {
-        if (Array.isArray(result)) {
-          this.gridData = result.filter((record) => {
-            return record.management.firstName === this.selectedEmployee;
-          });
-          this.showTable = true;
-          this.selectedMonth = '';
-          console.log("Selected Month after clearing:", this.selectedMonth);
-        }
-      });
     }
-  }
-}
  
+ 
+    generateEReport() {
+      if (this.selectedEmployee) {
+        this.serve.getAllAttendenceWithManagement().subscribe((result) => {
+          if (Array.isArray(result)) {
+            this.gridData = result.filter((record) => {
+              return record.management.firstName === this.selectedEmployee;
+            });
+            this.showTable = true;
+            this.selectedMonth = '';
+            console.log("Selected Month after clearing:", this.selectedMonth);
+          }
+        });
+      }
+    }
+}

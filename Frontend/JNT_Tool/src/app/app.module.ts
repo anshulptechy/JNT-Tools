@@ -22,7 +22,6 @@ import { TaskUpdateComponent } from './task-update/task-update.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { UserDetailsComponent } from './user-details/user-details.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -42,7 +41,7 @@ import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
@@ -62,6 +61,7 @@ import { HRComponent } from './HR/hr/hr.component';
     TenantListComponent,
     SignupComponent,
     LoginComponent,
+
     HeaderComponent,DashboardComponent,ConfirmationDialogComponent,CreateProjectDialogComponent,UpdateButtonComponent,
     ProjectReportComponent,LeaveManagementComponent,LeavestatusComponent,
     HeaderComponent,
@@ -72,7 +72,6 @@ import { HRComponent } from './HR/hr/hr.component';
     TaskDashboardComponent,
     TaskDialogComponent,
     TaskUpdateComponent,
-    UserDetailsComponent,
     DashboardComponent,
     ConfirmationDialogComponent,
     CreateProjectDialogComponent,
@@ -93,6 +92,8 @@ import { HRComponent } from './HR/hr/hr.component';
     BrowserModule,
     MatTableModule,
     AppRoutingModule,
+    MatAutocompleteModule,
+    MatInputModule,
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,

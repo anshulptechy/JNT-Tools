@@ -9,10 +9,7 @@
   border-radius: 8px;
   background-color: #f5f5f5;
 }
-.button-container button {
-  background: linear-gradient(to bottom right, hsl(220, 36%, 27%), hsl(219, 34%, 48%));
-  color: white;
-}
+
 
 .button-container button:hover{
   background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
@@ -82,8 +79,8 @@ form {
  
 }
 .button-container button {
-  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-
+  background: linear-gradient(to bottom right, hsl(220, 36%, 27%), hsl(219, 34%, 48%));
+  color: white;
 }
 h1{
   margin-bottom: -15px;

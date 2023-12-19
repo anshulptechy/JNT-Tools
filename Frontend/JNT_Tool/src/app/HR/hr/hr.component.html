@@ -4,18 +4,31 @@
 <button class="btn btn-primary" (click)="openSalaryPopup()">ADD Salary</button>
 <br><br><br>
 
-
-<table class="table salary-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Department</th>
-      <!-- Add more columns as needed -->
-    </tr>
-  </thead>
- 
-</table>
+<div class="row">
+  <div class="col">
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tenant of tenants" >
+            <td>{{ tenant.id }}</td>
+            <td>{{ tenant.firstName }} {{ tenant.lastName }}</td>
+            <td>{{ tenant.department }}</td>
+            <td>{{ tenant.email }}</td>
+         
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <!-- The Salary Popup -->
 <div class="modal" [class.show]="isSalaryPopupOpen">
   <div class="modal-dialog">

@@ -20,12 +20,32 @@ export class HRComponent {
     netPay: ''
   };
 
+  tenants: any[] = [];
 
   
   constructor(private salaryService: SalaryService, private tenantData: TenantService) {}
+  ngOnInit() {
+    this.fetchTenants();
+    const storedFirstName = localStorage.getItem('tenantName');
 
+
+  }
+
+  async fetchTenants() {
+    const storedFirstName = localStorage.getItem('tenantName');
+
+
+
+      // Fetch all tenants from the service
+      this.tenantData.getAllTenants().subscribe((data: any) => {
+        // Filter tenants based on the condition
+        this.tenants = data.filter(
+          (tenant: any) => tenant.tenantName === storedFirstName
+        );
+      });
+    } 
   
-
+  
   openSalaryPopup() {
     console.log('Opening salary popup');
     this.isSalaryPopupOpen = true;
