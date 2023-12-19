@@ -28,8 +28,7 @@
             </button>
             <ul class="dropdown-menu">
               <li *ngFor="let employee of employeeData">
-                <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee.firstName }}</a>
-
+                <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee.firstName }} {{employee.lastName}}</a>
               </li>
             </ul>
           </div>
@@ -37,7 +36,7 @@
       </div>
     </form>
   </section>
-  <div *ngIf="showReportGrid && reportData.length > 0" class="mt-4">
+  <div class="mt-4">
     <div class="table-responsive">
       <table class="table project-table">
         <thead>

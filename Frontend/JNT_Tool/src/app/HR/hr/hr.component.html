@@ -1,9 +1,21 @@
 <app-header></app-header>
  
 
-<!-- addsalary.component.html -->
 <button class="btn btn-primary" (click)="openSalaryPopup()">ADD Salary</button>
+<br><br><br>
 
+
+<table class="table salary-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Department</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+ 
+</table>
 <!-- The Salary Popup -->
 <div class="modal" [class.show]="isSalaryPopupOpen">
   <div class="modal-dialog">
@@ -48,41 +60,11 @@
         </div>
       </div>
 
-      <!-- Modal Footer -->
+
       <div class="modal-footer">
         <button type="button" class="btn btn-success" (click)="saveSalary()">Save</button>
         <button type="button" class="btn btn-secondary" (click)="closeSalaryPopup()">Cancel</button>
       </div>
-
     </div>
-  </div>
-</div>
-
-<div *ngIf="showReportGrid && reportData.length > 0" class="mt-4">
-  <div class="table-responsive">
-    <table class="table project-table">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>Role</th>
-          <th>Salary Month</th>
-          <th>Salary</th>
-          <th>Leaves</th>
-          <th>Deductions</th>
-          <th>Net Pay</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of reportData">
-          <td>{{ record.management.firstName}}</td>
-          <td>{{ record.management.department }}</td>
-          <td>{{ record.salaryMonth }}</td>
-          <td>{{ record.salary }}</td>
-          <td>{{ record.leaves }}</td>
-          <td>{{ record.deductions }}</td>
-          <td>{{ record.netPay }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>

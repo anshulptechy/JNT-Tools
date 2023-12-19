@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SalaryService } from 'src/app/SalaryReport/SalaryService/salary.service';
+import { TenantService } from 'src/app/tenant.service';
 
 import Swal from 'sweetalert2';
 
@@ -19,31 +20,11 @@ export class HRComponent {
     netPay: ''
   };
 
-  reportData: any[] = [];
-  employeeData: any[] = [];
-  showReportGrid: boolean = true;
 
-  constructor(private salaryService: SalaryService) {}
+  
+  constructor(private salaryService: SalaryService, private tenantData: TenantService) {}
 
-  ngOnInit(): void {
-    this.loadEmployeeData();
-
-  }
-
-  loadEmployeeData() {
-    const tenantName = localStorage.getItem('tenantName') || '';
-    const tenantNameString = String(tenantName);
-
-    this.salaryService.getAllEmployees(tenantNameString).subscribe(
-      (data: any[]) => {
-        this.employeeData = data;
-        console.log(data);
-      },
-      (error: any) => {
-        console.error('Error fetching employees:', error);
-      }
-    );
-  }
+  
 
   openSalaryPopup() {
     console.log('Opening salary popup');
@@ -56,23 +37,21 @@ export class HRComponent {
   }
 
   saveSalary() {
-    debugger;
-    // Check if all required fields are filled
+
     if (
       this.salaryRecord.employeeId &&
       this.salaryRecord.salaryMonth &&
       this.salaryRecord.salary &&
       this.salaryRecord.leaves
     ) {
-      // Calculate deduction and net pay based on leaves
+
       const leaveDeduction = this.salaryRecord.leaves ? 300 * parseInt(this.salaryRecord.leaves, 10) : 0;
       const netPay = parseInt(this.salaryRecord.salary, 10) - leaveDeduction;
-  
-      // Update salaryRecord with calculated values
+
       this.salaryRecord.deductions = leaveDeduction.toString();
       this.salaryRecord.netPay = netPay.toString();
   
-      // Call the addSalaryRecord function from the service
+
       this.salaryService.addSalaryRecord(this.salaryRecord).subscribe(
         response => {
           this.salaryRecord = {
@@ -87,7 +66,7 @@ export class HRComponent {
         error => {
           console.error('Error adding salary record', error);
   
-          // Check if the error has a response body with JSON content
+      
           if (error.error) {
             try {
               const errorData = JSON.parse(error.error);
@@ -107,8 +86,6 @@ export class HRComponent {
         }
       );
   
-      
-    
       Swal.fire({
         icon: 'success',
         title: 'Success!',
@@ -126,15 +103,11 @@ export class HRComponent {
   }
 
   updateDeduction() {
-    // Calculate deduction based on leaves when leaves input changes
+
     const leaveDeduction = this.salaryRecord.leaves ? 300 * parseInt(this.salaryRecord.leaves, 10) : 0;
     this.salaryRecord.deductions = leaveDeduction.toString();
-
-    // Update net pay based on the new deduction
     this.salaryRecord.netPay = (parseInt(this.salaryRecord.salary, 10) - leaveDeduction).toString();
   }
 
-
-  
 
 }

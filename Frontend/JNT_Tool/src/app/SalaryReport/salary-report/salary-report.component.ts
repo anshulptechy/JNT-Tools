@@ -19,6 +19,9 @@ export class SalaryReportComponent {
   reportData: any[] = [];
   newSalaryAmount: number = 0;
 
+
+  
+
   selectMonth(month: string) {
     this.selectedMonth = month;
     this.generateReport(); 
@@ -88,7 +91,4 @@ export class SalaryReportComponent {
     }
   }
   
-  
-
-
 }
