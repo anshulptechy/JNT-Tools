@@ -1,93 +1,77 @@
-/* Add any global styles or resets here */
-
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
+.container-fluid {
+  margin: 20px;
 }
 
-.app-header {
-  /* Add styles for your app header */
+
+.mat-elevation-z8 {
+  width: 90%;
+  margin-top: 100px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+.mat-sort-header-arrow {
+  color:white; /* Change the color to your desired color */
 }
 
-.body {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+mat-toolbar {
+ background-color: white;
+  color:  hsl(218, 41%, 15%);
 }
 
-.container1 {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f5f5f5;
+mat-form-field {
+  width: 300px;
 }
 
-.row {
-  margin-bottom: 15px;
-}
-
-.mat-form-field {
+table {
   width: 100%;
+  border-collapse: collapse;
 }
 
-.half-width {
-  flex: 1;
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-.button-container {
+.mat-row {
+  background-color: #f2f2f2; 
+}
+
+.delete-confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+ 
+}
+.confirmation-box {
+  background: #fff;
+  padding: 20px;
+  border: 1px red solid;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
-.button-container button {
-  background: linear-gradient(to bottom right, hsl(220, 36%, 27%), hsl(219, 34%, 48%));
-  color: white;
-}
 
-.button-container button:hover {
+.confirmation-box button:hover {
   background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
+}
+
+.btn{
+  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
   color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
+button:hover{
+  background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
 
-.mat-error {
-  color: #dc3545;
-  font-size: 12px;
-}
-
-/* Responsive Styles */
-@media (max-width: 600px) {
-  .body {
-    padding: 10px;
-  }
-
-  .container1 {
-    padding: 10px;
-  }
-
-  .row {
-    flex-direction: column;
-  }
-
-  .mat-form-field {
-    width: 100%;
-  }
-
-  .half-width {
-    flex: 1;
-    margin-right: 0;
-  }
-
-  .button-container {
-    justify-content: center;
-  }
-
-  .button-container button {
-    margin-right: 0;
-  }
 }
