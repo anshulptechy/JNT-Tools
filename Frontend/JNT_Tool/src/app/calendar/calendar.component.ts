@@ -28,10 +28,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   newEvent: any = {
     title: '',
-    startDate: '',
-    startTime: '',
-    endDate: '',
-    endTime: '',
+    start: '',
+    end: '',
   };
 
   // Step 4: Declare and define class methods
@@ -394,84 +392,38 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.snackBar.open(
         'Please select a date that is today or in the future.',
         'OK',
-        { duration: 3000 }
+        { duration: 2000 }
       );
       return;
     }
-    // Check if the selection is a single day or a range of days
-    if (selectedStart.toDateString() === selectedEnd.toDateString()) {
-      // Single day selection
-      this.handleSingleDateSelect(selectedStart);
-    } else {
-      // Range of days selection
-      this.handleDateRangeSelect(selectedStart, selectedEnd);
-    }
-  }
-
-  // Handle single date selection
-  handleSingleDateSelect(selectedDate: Date) {
-    // Your existing logic for single date selection goes here
-    // ...
-
-    // For example, set the selected date as the start and end dates
-    this.newEvent.startDate = selectedDate.toISOString().split('T')[0];
-    this.newEvent.startTime = '00:00';
-    // Set the end date as the same as the selected date
-    this.newEvent.endDate = selectedDate.toISOString().split('T')[0];
-    this.newEvent.endTime = '23:59';
-
-    // Update the input fields in the modal
-    this.updateModalInputFields();
-
-    // Open the Add Event form
-    this.openAddEventForm();
-  }
-
-  // Handle date range selection
-  handleDateRangeSelect(startDate: Date, endDate: Date) {
+    // Format the start date as a string with the time set to midnight
+    const formattedStartDate =
+      selectedDate.toISOString().split('T')[0] + 'T00:00';
+    // Calculate the next day as the end date
+    const endDate = new Date(selectedDate);
+    endDate.setDate(endDate.getDate());
+    // Set the time of the end date
+    const formattedEndDate = endDate.toISOString().split('T')[0] + 'T23:59';
     // Set the selected dates in the new event object
-    this.newEvent.startDate = startDate.toISOString().split('T')[0];
-    this.newEvent.startTime = '00:00';
-    // Adjust the end date to be inclusive (last second of the day)
-    const adjustedEndDate = new Date(endDate);
-    adjustedEndDate.setDate(endDate.getDate()); // Move to the next day
-    adjustedEndDate.setSeconds(adjustedEndDate.getSeconds() - 1); // Set to the last second of the current day
-    this.newEvent.endDate = adjustedEndDate.toISOString().split('T')[0];
-    this.newEvent.endTime = '23:59';
-
+    this.newEvent.start = formattedStartDate;
+    this.newEvent.end = formattedEndDate;
     // Update the input fields in the modal
-    this.updateModalInputFields();
-
-    // Open the Add Event form
-    this.openAddEventForm();
-  }
-
-  // Update the input fields in the modal
-  updateModalInputFields() {
-    const eventStartDateInput = document.getElementById(
-      'eventStartDate'
+    const eventStartInput = document.getElementById(
+      'eventStart'
     ) as HTMLInputElement;
-    const eventStartTimeInput = document.getElementById(
-      'eventStartTime'
-    ) as HTMLInputElement;
-    const eventEndDateInput = document.getElementById(
-      'eventEndDate'
-    ) as HTMLInputElement;
-    const eventEndTimeInput = document.getElementById(
-      'eventEndTime'
+    const eventEndInput = document.getElementById(
+      'eventEnd'
     ) as HTMLInputElement;
 
-    if (
-      eventStartDateInput &&
-      eventStartTimeInput &&
-      eventEndDateInput &&
-      eventEndTimeInput
-    ) {
-      eventStartDateInput.value = this.newEvent.startDate;
-      eventStartTimeInput.value = this.newEvent.startTime;
-      eventEndDateInput.value = this.newEvent.endDate;
-      eventEndTimeInput.value = this.newEvent.endTime;
+    if (eventStartInput && eventEndInput) {
+      this.newEvent.start = formattedStartDate;
+      this.newEvent.end = formattedEndDate;
+
+      eventStartInput.value = this.newEvent.start;
+      eventEndInput.value = this.newEvent.end;
     }
+
+    this.openAddEventForm();
   }
 
   // Method to open the Add Event form
@@ -580,53 +532,60 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // Add event
   addEvent() {
     // Check if the new event has valid data
-    if (
-      !this.newEvent.title ||
-      !this.newEvent.startDate ||
-      !this.newEvent.startTime ||
-      !this.newEvent.endDate ||
-      !this.newEvent.endTime
-    ) {
-      alert('Please enter all event details.');
+    if (!this.newEvent.title || !this.newEvent.start || !this.newEvent.end) {
+      this.snackBar.open('Please enter all event details.', 'OK', {
+        duration: 2000,
+      });
       return;
     }
 
-    const startDate = this.newEvent.startDate;
-    const endDate = this.newEvent.endDate;
-    const startTime = this.newEvent.startTime;
-    const endTime = this.newEvent.endTime;
-    // Combine date and time before adding the event
-    const formattedStart = `${this.newEvent.startDate}T${this.newEvent.startTime}`;
-    const formattedEnd = `${this.newEvent.endDate}T${this.newEvent.endTime}`;
-    // Check if start time is equal to end time for a single-day event
-    if (formattedStart === formattedEnd) {
+    const startDate = new Date(this.newEvent.start);
+    const currentDate = new Date();
+    // Add 1 day to the start date
+    startDate.setDate(startDate.getDate() + 1);
+    // Check if the selected start date is before the current date
+    if (startDate < currentDate) {
       this.snackBar.open(
-        'Start and end times cannot be the same for a single-day event.',
+        'Start date should not be before the current date.',
         'OK',
-        { duration: 3000 }
+        { duration: 2000 }
       );
       return;
     }
-    if(endDate < startDate){
+
+    const startedDate = new Date(this.newEvent.start).getDate();
+    const endDate = new Date(this.newEvent.end).getDate();
+    if (endDate < startedDate) {
       this.snackBar.open(
         'End date should not be less than the Start date.',
         'OK',
-        { duration: 3000 }
+        { duration: 2000 }
       );
       return;
     }
-    if(endTime < startTime && endDate == startDate){
-      this.snackBar.open(
-        'End time should not be less than the Start time for the same day.',
-        'OK',
-        { duration: 3000 }
-      );
+
+    // Check if endTime is less than startTime
+    const startTime = new Date(this.newEvent.start).getTime();
+    const endTime = new Date(this.newEvent.end).getTime();
+
+    if (endTime <= startTime) {
+      this.snackBar.open('End time should be greater than Start time.', 'OK', {
+        duration: 2000,
+      });
       return;
     }
+
+     // Check if the selected start time is earlier than the current system time
+     const currentTime = currentDate.getTime();
+     if (startTime < currentTime) {
+         this.snackBar.open('Cannot add event at this time slot.', 'OK', { duration: 2000 });
+         return;
+     }
+
     const calendarEvent = {
       title: this.newEvent.title,
-      start: formattedStart,
-      end: formattedEnd,
+      start: this.newEvent.start,
+      end: this.newEvent.end,
     };
     this.calendarOptions.events = [
       ...(this.calendarOptions.events as any),
@@ -694,10 +653,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
       // Reset the new event form
       this.newEvent = {
         title: '',
-        startDate: '',
-        startTime: '',
-        endDate: '',
-        endTime: '',
+        start: '',
+        end: '',
       };
 
       // Use setTimeout to delay closing the Add Event form
@@ -808,10 +765,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     // Populate the newEvent object with the selected event details for editing
     this.newEvent = {
       title: this.selectedEvent.title,
-      startDate: this.formatForInput(this.selectedEvent.start),
-      startTime: this.formatTimeForInput(this.selectedEvent.start),
-      endDate: this.formatForInput(this.selectedEvent.end),
-      endTime: this.formatTimeForInput(this.selectedEvent.end),
+      start: this.formatForInput(this.selectedEvent.start),
+      end: this.formatForInput(this.selectedEvent.end),
     };
     // Close the add event form
     this.isAddEventFormOpen = false;
@@ -827,8 +782,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
         eventDetailsModal.style.display = 'none';
       }
     }, 0);
-    // Return the formatted date and time
-    return `${this.newEvent.startDate}T${this.newEvent.startTime}`;
   }
 
   // Helper method to format date for input
@@ -837,40 +790,27 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
-
-  // Helper method to format time for input
-  formatTimeForInput(dateString: string): string {
-    const date = new Date(dateString);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `${hours}:${minutes}`;
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   updateEvent() {
     // Check if the newEvent has valid data
     if (
       !this.newEvent.title ||
-      !this.newEvent.startDate ||
-      !this.newEvent.startTime ||
-      !this.newEvent.endDate ||
-      !this.newEvent.endTime
+      !this.newEvent.start ||
+      !this.newEvent.end
     ) {
       alert('Please enter all event details.');
       return;
     }
-
-    // Combine date and time before updating the event
-    const formattedStart = `${this.newEvent.startDate}T${this.newEvent.startTime}`;
-    const formattedEnd = `${this.newEvent.endDate}T${this.newEvent.endTime}`;
     const updatedEvent = {
       ...this.selectedEvent,
       title: this.newEvent.title,
-      start: formattedStart,
-      end: formattedEnd,
+      start: this.newEvent.start,
+      end: this.newEvent.end,
       userId: this.selectedEvent.userId,
       googleCalendarEventId: this.selectedEvent.googleCalendarEventId,
     };

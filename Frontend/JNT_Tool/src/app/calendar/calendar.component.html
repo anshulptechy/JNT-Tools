@@ -66,57 +66,23 @@ Refresh or Sync your account now.
   <div class="modal-content2">
     <span class="close" (click)="closeModal()">&times;</span>
     <!-- Add Event Form -->
-    <h2>{{ selectedEvent ? "Edit Event" : "Add Event" }}</h2>
+    <h2>{{ selectedEvent ? 'Edit Event' : 'Add Event' }}</h2>
     <label for="eventTitle">Title:</label>
-    <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required maxlength="12"/>
+    <input type="text" id="eventTitle" [(ngModel)]="newEvent.title" required>
 
-    <div class="row g-2">
-      <!-- Start Date Input -->
-      <label for="eventStart">Start Date and Time:</label>
-      <div class="col-md-6">
-        <input
-          type="date"
-          id="eventStartDate"
-          [(ngModel)]="newEvent.startDate"
-          required
-          [readonly]="true"
-        />
-      </div>
+    <label for="eventStart">Start Date and Time:</label>
+    <input
+      type="datetime-local"
+      id="eventStart"
+      [(ngModel)]="newEvent.start"
+      required
+    >
 
-      <!-- Start Time Input -->
-      <div class="col-md-6">
-        <input
-          type="time"
-          id="eventStartTime"
-          [(ngModel)]="newEvent.startTime"
-          required
-        />
-      </div>
-    </div>
-
-    <!-- Separate input for the end date and time -->
-    <div class="row g-2">
-      <label for="eventEnd">End Date and Time:</label>
-      <div class="col-md-6">
-        <input
-          type="date"
-          id="eventEndDate"
-          [(ngModel)]="newEvent.endDate"
-          required
-        />
-      </div>
-      <div class="col-md-6">
-        <input
-          type="time"
-          id="eventEndTime"
-          [(ngModel)]="newEvent.endTime"
-          required
-        />
-      </div>
-    </div>
+    <label for="eventEnd">End Date and Time:</label>
+    <input type="datetime-local" id="eventEnd" [(ngModel)]="newEvent.end" required>
 
     <button (click)="selectedEvent ? updateEvent() : addEvent()">
-      {{ selectedEvent ? "Update Event" : "Add Event" }}
+      {{ selectedEvent ? 'Update Event' : 'Add Event' }}
     </button>
   </div>
 </div>

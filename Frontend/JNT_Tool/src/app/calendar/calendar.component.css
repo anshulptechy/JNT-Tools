@@ -131,11 +131,11 @@
 }
 
 /* :host ::ng-deep .fc-col-header-cell-cushion {
-  color: black;
+  color: rgb(230, 12, 12);
 }
 
 :host ::ng-deep .fc-daygrid-day-number {
- color: black;
+ color: rgb(237, 11, 11);
 } */
 
 
