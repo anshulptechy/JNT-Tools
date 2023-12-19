@@ -52,6 +52,7 @@ export class AddComponent {
   }
 
   async onSaveClick() {
+    debugger;
     this.submitted = true;
 
     // Mark all form controls as touched to trigger the display of error messages
@@ -89,6 +90,7 @@ export class AddComponent {
   }
 
   dateValidator(form: FormGroup) {
+    debugger;
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
 

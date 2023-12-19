@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { TaskService } from '../services/task.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TenantService } from '../tenant.service';
@@ -13,19 +13,52 @@ export class TaskDialogComponent {
   taskDetails: FormGroup | any;
   users: any[] = []
   isAdminLoggedIn = false;
+
+
+ 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     private fb: FormBuilder,
     private serve: TaskService, private baseServe:TenantService
   ) {
+
+    //Date validations
+  
+
+   
+    const startDateValidator: ValidatorFn = (control: AbstractControl) => {
+      const currentDate = new Date();
+      const taskStartDate = control.value;
+
+      if (taskStartDate && taskStartDate < currentDate) {
+        return { invalidStartDate: true };
+      }
+
+      return null;
+    };
+
+    const endTimeValidator: ValidatorFn = (control: AbstractControl) => {
+      const taskStartTime = control.parent?.get('taskStartTime')?.value;
+      const taskEndTime = control.value;
+    
+      if (taskStartTime && taskEndTime && taskStartTime > taskEndTime) {
+        return { invalidEndDate: true };
+      }
+    
+      return null;
+    };
+
     // Initialize form controls
     this.taskDetails = this.fb.group({
       taskName: ['', [Validators.required, Validators.maxLength(100)]],
       taskDescription: ['',[ Validators.required, Validators.maxLength(500)]],
       taskStartTime: ['', Validators.required],
       taskEndTime: ['', Validators.required],
-      userName: ['', Validators.required],
-    });
+      userName: ['', Validators.required]
+    }, { validator: this.dateValidator.bind(this) });
+
+
+    
     // Load usernames based on user role
     this.loadUsernames();
 
@@ -59,6 +92,47 @@ export class TaskDialogComponent {
     this.dialogRef.close();
   }
 
+  dateValidator(form: FormGroup) {
+    
+    const startDateControl = form.get('taskStartTime');
+    const endDateControl = form.get('taskEndTime');
 
+    if (startDateControl && endDateControl) {
+      const startDate = startDateControl.value;
+      const endDate = endDateControl.value;
+  
+      // Get the current date in the local timezone
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+  
+      // Parse the selected start date and end date strings to Date objects
+      const parsedStartDate = startDate ? new Date(startDate) : null;
+      const parsedEndDate = endDate ? new Date(endDate) : null;
+  
+      // Check if the start date is provided
+      if (!parsedStartDate) {
+        startDateControl.setErrors({ requiredError: 'Start date is required.' });
+      } else {
+        // Check if the selected start date is in the past or the same as the current date
+        if (parsedStartDate < currentDate) {
+          startDateControl.setErrors({ pastDateError: 'Please choose a date from today or later.' });
+        } else {
+          startDateControl.setErrors(null);
+        }
+      }
+  
+      // Check if the end date is provided
+      if (!parsedEndDate) {
+        endDateControl.setErrors({ requiredError: 'End date is required.' });
+      } else {
+        // Check if the end date is before the start date or the same as the start date
+        if (parsedStartDate && parsedEndDate < parsedStartDate) {
+          endDateControl.setErrors({ dateError: 'End date must be after the start date.' });
+        } else {
+          endDateControl.setErrors(null);
+        }
+      }
+    }
+  }
   
 }
