@@ -7,6 +7,7 @@ import { MeetService } from '../services/meet.service';
 import { OnDestroy } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Step 2: Declare necessary global variables and plugins
 declare const gapi: any;
@@ -27,8 +28,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   newEvent: any = {
     title: '',
-    start: '',
-    end: '',
+    startDate: '',
+    startTime: '',
+    endDate: '',
+    endTime: '',
   };
 
   // Step 4: Declare and define class methods
@@ -63,7 +66,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
   gapiInited = false;
   gisInited = false;
 
-  constructor(private meetservice: MeetService, private router: Router) {}
+  constructor(
+    private meetservice: MeetService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   // OnInit lifecycle hook
   ngOnInit() {
@@ -375,43 +382,96 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Callback for handling date selection
   handleDateSelect(selectInfo: any) {
+    // Extract the selected dates
+    const selectedStart = new Date(selectInfo.startStr);
+    const selectedEnd = new Date(selectInfo.endStr);
     // Extract the selected date
     const selectedDate = new Date(selectInfo.startStr);
     // Check if the selected date is before today's date
     const today = new Date();
     today.setDate(today.getDate() - 1); // subtracting 1 day to include today
     if (selectedDate < today) {
-        alert('Please select a date that is today or in the future.');
-        return;
+      this.snackBar.open(
+        'Please select a date that is today or in the future.',
+        'OK',
+        { duration: 3000 }
+      );
+      return;
     }
-    // Format the start date as a string with the time set to midnight
-    const formattedStartDate =
-      selectedDate.toISOString().split('T')[0] + 'T00:00';
-    // Calculate the next day as the end date
-    const endDate = new Date(selectedDate);
-    endDate.setDate(endDate.getDate());
-    // Set the time of the end date
-    const formattedEndDate = endDate.toISOString().split('T')[0] + 'T23:59';
-    // Set the selected dates in the new event object
-    this.newEvent.start = formattedStartDate;
-    this.newEvent.end = formattedEndDate;
+    // Check if the selection is a single day or a range of days
+    if (selectedStart.toDateString() === selectedEnd.toDateString()) {
+      // Single day selection
+      this.handleSingleDateSelect(selectedStart);
+    } else {
+      // Range of days selection
+      this.handleDateRangeSelect(selectedStart, selectedEnd);
+    }
+  }
+
+  // Handle single date selection
+  handleSingleDateSelect(selectedDate: Date) {
+    // Your existing logic for single date selection goes here
+    // ...
+
+    // For example, set the selected date as the start and end dates
+    this.newEvent.startDate = selectedDate.toISOString().split('T')[0];
+    this.newEvent.startTime = '00:00';
+    // Set the end date as the same as the selected date
+    this.newEvent.endDate = selectedDate.toISOString().split('T')[0];
+    this.newEvent.endTime = '23:59';
+
     // Update the input fields in the modal
-    const eventStartInput = document.getElementById(
-      'eventStart'
-    ) as HTMLInputElement;
-    const eventEndInput = document.getElementById(
-      'eventEnd'
-    ) as HTMLInputElement;
+    this.updateModalInputFields();
 
-    if (eventStartInput && eventEndInput) {
-      this.newEvent.start = formattedStartDate;
-      this.newEvent.end = formattedEndDate;
-
-      eventStartInput.value = this.newEvent.start;
-      eventEndInput.value = this.newEvent.end;
-    }
-
+    // Open the Add Event form
     this.openAddEventForm();
+  }
+
+  // Handle date range selection
+  handleDateRangeSelect(startDate: Date, endDate: Date) {
+    // Set the selected dates in the new event object
+    this.newEvent.startDate = startDate.toISOString().split('T')[0];
+    this.newEvent.startTime = '00:00';
+    // Adjust the end date to be inclusive (last second of the day)
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setDate(endDate.getDate()); // Move to the next day
+    adjustedEndDate.setSeconds(adjustedEndDate.getSeconds() - 1); // Set to the last second of the current day
+    this.newEvent.endDate = adjustedEndDate.toISOString().split('T')[0];
+    this.newEvent.endTime = '23:59';
+
+    // Update the input fields in the modal
+    this.updateModalInputFields();
+
+    // Open the Add Event form
+    this.openAddEventForm();
+  }
+
+  // Update the input fields in the modal
+  updateModalInputFields() {
+    const eventStartDateInput = document.getElementById(
+      'eventStartDate'
+    ) as HTMLInputElement;
+    const eventStartTimeInput = document.getElementById(
+      'eventStartTime'
+    ) as HTMLInputElement;
+    const eventEndDateInput = document.getElementById(
+      'eventEndDate'
+    ) as HTMLInputElement;
+    const eventEndTimeInput = document.getElementById(
+      'eventEndTime'
+    ) as HTMLInputElement;
+
+    if (
+      eventStartDateInput &&
+      eventStartTimeInput &&
+      eventEndDateInput &&
+      eventEndTimeInput
+    ) {
+      eventStartDateInput.value = this.newEvent.startDate;
+      eventStartTimeInput.value = this.newEvent.startTime;
+      eventEndDateInput.value = this.newEvent.endDate;
+      eventEndTimeInput.value = this.newEvent.endTime;
+    }
   }
 
   // Method to open the Add Event form
@@ -520,14 +580,53 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // Add event
   addEvent() {
     // Check if the new event has valid data
-    if (!this.newEvent.title || !this.newEvent.start || !this.newEvent.end) {
+    if (
+      !this.newEvent.title ||
+      !this.newEvent.startDate ||
+      !this.newEvent.startTime ||
+      !this.newEvent.endDate ||
+      !this.newEvent.endTime
+    ) {
       alert('Please enter all event details.');
+      return;
+    }
+
+    const startDate = this.newEvent.startDate;
+    const endDate = this.newEvent.endDate;
+    const startTime = this.newEvent.startTime;
+    const endTime = this.newEvent.endTime;
+    // Combine date and time before adding the event
+    const formattedStart = `${this.newEvent.startDate}T${this.newEvent.startTime}`;
+    const formattedEnd = `${this.newEvent.endDate}T${this.newEvent.endTime}`;
+    // Check if start time is equal to end time for a single-day event
+    if (formattedStart === formattedEnd) {
+      this.snackBar.open(
+        'Start and end times cannot be the same for a single-day event.',
+        'OK',
+        { duration: 3000 }
+      );
+      return;
+    }
+    if(endDate < startDate){
+      this.snackBar.open(
+        'End date should not be less than the Start date.',
+        'OK',
+        { duration: 3000 }
+      );
+      return;
+    }
+    if(endTime < startTime && endDate == startDate){
+      this.snackBar.open(
+        'End time should not be less than the Start time for the same day.',
+        'OK',
+        { duration: 3000 }
+      );
       return;
     }
     const calendarEvent = {
       title: this.newEvent.title,
-      start: this.newEvent.start,
-      end: this.newEvent.end,
+      start: formattedStart,
+      end: formattedEnd,
     };
     this.calendarOptions.events = [
       ...(this.calendarOptions.events as any),
@@ -536,20 +635,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     // Add the event to Google Calendar
     this.addEventToGoogleCalendar(calendarEvent);
-
-    // Reset the new event form
-    this.newEvent = {
-      title: '',
-      start: '',
-      end: '',
-    };
-
-    // Close the Add Event form
-    this.isAddEventFormOpen = false;
   }
 
   // Add event to Google Calendar
-  addEventToGoogleCalendar(event: any) {
+  async addEventToGoogleCalendar(event: any) {
     const userId = localStorage.getItem('userId');
 
     // Format dates to ISO 8601
@@ -568,41 +657,59 @@ export class CalendarComponent implements OnInit, OnDestroy {
       },
     };
 
-    gapi.client.calendar.events
-      .insert({
+    try {
+      const response = await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         resource: googleEvent,
-      })
-      .then((response: any) => {
-        console.log('Event added to Google Calendar:', response);
-        // After successful adding into Google Calendar, update FullCalendar
-        this.listUpcomingEvents();
-        // Optionally, you can update the event in your local storage with the Google Calendar event ID
-        const updatedEvents = (this.calendarOptions.events as any).map(
-          (calEvent: any) => {
-            if (
-              calEvent.title === event.title &&
-              calEvent.start === event.start &&
-              calEvent.end === event.end
-            ) {
-              return {
-                ...calEvent,
-                googleCalendarEventId: response.result.id,
-              };
-            }
-            return calEvent;
-          }
-        );
-
-        this.calendarOptions.events = updatedEvents;
-        localStorage.setItem(
-          `calendarEvents_${userId}`,
-          JSON.stringify(updatedEvents)
-        );
-      })
-      .catch((error: any) => {
-        console.error('Error adding event to Google Calendar:', error);
       });
+
+      console.log('Event added to Google Calendar:', response);
+
+      // After successful adding into Google Calendar, update FullCalendar
+      await this.listUpcomingEvents();
+
+      // Optionally, you can update the event in your local storage with the Google Calendar event ID
+      const updatedEvents = (this.calendarOptions.events as any).map(
+        (calEvent: any) => {
+          if (
+            calEvent.title === event.title &&
+            calEvent.start === event.start &&
+            calEvent.end === event.end
+          ) {
+            return {
+              ...calEvent,
+              googleCalendarEventId: response.result.id,
+            };
+          }
+          return calEvent;
+        }
+      );
+
+      this.calendarOptions.events = updatedEvents;
+      localStorage.setItem(
+        `calendarEvents_${userId}`,
+        JSON.stringify(updatedEvents)
+      );
+
+      // Reset the new event form
+      this.newEvent = {
+        title: '',
+        startDate: '',
+        startTime: '',
+        endDate: '',
+        endTime: '',
+      };
+
+      // Use setTimeout to delay closing the Add Event form
+      setTimeout(() => {
+        // Close the Add Event form
+        this.isAddEventFormOpen = false;
+      }, 0);
+    } catch (error) {
+      console.error('Error adding event to Google Calendar:', error);
+      // Keep the Add Event form open in case of an error
+      this.isAddEventFormOpen = true;
+    }
   }
 
   // Remove event
@@ -680,6 +787,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 'Event removed from Google Calendar:',
                 deleteResponse
               );
+              // Update FullCalendar immediately after successful deletion
+              this.listUpcomingEvents();
             })
             .catch((deleteError: any) => {
               console.error(
@@ -699,8 +808,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
     // Populate the newEvent object with the selected event details for editing
     this.newEvent = {
       title: this.selectedEvent.title,
-      start: this.formatForInput(this.selectedEvent.start),
-      end: this.formatForInput(this.selectedEvent.end),
+      startDate: this.formatForInput(this.selectedEvent.start),
+      startTime: this.formatTimeForInput(this.selectedEvent.start),
+      endDate: this.formatForInput(this.selectedEvent.end),
+      endTime: this.formatTimeForInput(this.selectedEvent.end),
     };
     // Close the add event form
     this.isAddEventFormOpen = false;
@@ -716,6 +827,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
         eventDetailsModal.style.display = 'none';
       }
     }, 0);
+    // Return the formatted date and time
+    return `${this.newEvent.startDate}T${this.newEvent.startTime}`;
   }
 
   // Helper method to format date for input
@@ -724,18 +837,40 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  // Helper method to format time for input
+  formatTimeForInput(dateString: string): string {
+    const date = new Date(dateString);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${hours}:${minutes}`;
   }
 
   updateEvent() {
+    // Check if the newEvent has valid data
+    if (
+      !this.newEvent.title ||
+      !this.newEvent.startDate ||
+      !this.newEvent.startTime ||
+      !this.newEvent.endDate ||
+      !this.newEvent.endTime
+    ) {
+      alert('Please enter all event details.');
+      return;
+    }
+
+    // Combine date and time before updating the event
+    const formattedStart = `${this.newEvent.startDate}T${this.newEvent.startTime}`;
+    const formattedEnd = `${this.newEvent.endDate}T${this.newEvent.endTime}`;
     const updatedEvent = {
       ...this.selectedEvent,
       title: this.newEvent.title,
-      start: this.newEvent.start,
-      end: this.newEvent.end,
+      start: formattedStart,
+      end: formattedEnd,
       userId: this.selectedEvent.userId,
       googleCalendarEventId: this.selectedEvent.googleCalendarEventId,
     };

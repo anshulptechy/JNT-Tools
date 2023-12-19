@@ -124,9 +124,69 @@
   right: 0;
 }
 
-
 :host ::ng-deep .fc-event {
   color: rgb(5, 5, 110);
   font-size: 15px;
   background-color: rgb(188, 188, 246);
+}
+
+/* :host ::ng-deep .fc-col-header-cell-cushion {
+  color: black;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+ color: black;
+} */
+
+
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: 90%;
+    margin: 290px auto; /* Adjust the margin as needed */
+  }
+
+  .user-email {
+    font-size: 11px;
+    padding: 2px;
+  }
+
+  .gap-2 button {
+    font-size: 11px;
+  }
+
+  full-calendar {
+    font-size: 13px;
+  }
+
+  :host ::ng-deep .fc-event {
+    font-size: 11px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    margin: 100px auto;
+  }
+
+  .gap-2 {
+    margin-bottom: 0;
+    margin-left: 0;
+    position: absolute;
+    bottom: 50px;
+  }
+
+  .modal-content,
+  .modal-content2 {
+    width: 80%; /* Adjust the width as needed */
+  }
+
+  full-calendar{
+    font-size: 11px;
+  }
+
+  :host ::ng-deep .fc-event {
+    font-size: 8px;
+  }
 }

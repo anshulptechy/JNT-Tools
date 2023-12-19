@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { createClient } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent {
     'https://lqviihvmwdkabqlpecxh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
   );
-  constructor(private router: Router) {}
+  constructor(private router: Router, private snackBar: MatSnackBar) {}
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
@@ -63,10 +64,7 @@ export class LoginComponent {
             localStorage.setItem('token', '6767676767');
             
             // Show SweetAlert2 success notification for valid login
-            Swal.fire({
-              icon: 'success',
-              title: 'Login successful!',
-            });
+            this.snackBar.open('Login Successful', 'OK', { duration: 3000 });
   
             // Redirect to a different route or perform other actions upon successful login
             this.router.navigate(['/mainpage'], { queryParams: { id: id } });
