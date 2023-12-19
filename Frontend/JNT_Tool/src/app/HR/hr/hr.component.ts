@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SalaryService } from 'src/app/SalaryReport/SalaryService/salary.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,9 @@ export class HRComponent {
     netPay: ''
   };
 
+  reportData: any[] = [];
   employeeData: any[] = [];
+  showReportGrid: boolean = true;
 
   constructor(private salaryService: SalaryService) {}
 
@@ -130,5 +133,8 @@ export class HRComponent {
     // Update net pay based on the new deduction
     this.salaryRecord.netPay = (parseInt(this.salaryRecord.salary, 10) - leaveDeduction).toString();
   }
+
+
+  
 
 }
