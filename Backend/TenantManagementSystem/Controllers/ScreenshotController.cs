@@ -20,13 +20,27 @@ namespace TenantManagementSystem.Controllers
             _context = context;
         }
 
-
-
         [HttpGet("GetByid/{id}")]
-        public ActionResult<IEnumerable<Screenshots>> GetByid(int id)
+        public ActionResult<IEnumerable<Screenshots>> GetByid(int id, [FromQuery] string filter = "All")
         {
-            // Retrieve logs based on id from the database
-            var logs = _context.Screenshot.Where(s => s.id == id).ToList();
+            // Retrieve logs based on id and filter from the database
+            var logsQuery = _context.Screenshot.Where(s => s.id == id);
+
+            if (filter == "Today")
+            {
+                // Filter for today
+                logsQuery = logsQuery.Where(s => s.CreatedAt.Date == DateTime.UtcNow.Date);
+            }
+            else if (filter == "ThisWeek")
+            {
+                // Filter for this week
+                var today = DateTime.UtcNow.Date;
+                var startDate = today.AddDays(-(int)today.DayOfWeek);
+                var endDate = startDate.AddDays(6);
+                logsQuery = logsQuery.Where(s => s.CreatedAt.Date >= startDate && s.CreatedAt.Date <= endDate);
+            }
+
+            var logs = logsQuery.ToList();
 
             if (logs == null || logs.Count == 0)
             {
@@ -38,7 +52,6 @@ namespace TenantManagementSystem.Controllers
 
         [HttpPost]
         public async Task<IActionResult> PostScreenshot([FromForm] IFormFile file, [FromForm] int id)
-
         {
             if (file == null || file.Length == 0)
             {
@@ -75,4 +88,3 @@ namespace TenantManagementSystem.Controllers
         }
     }
 }
-
