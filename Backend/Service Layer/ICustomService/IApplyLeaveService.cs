@@ -15,7 +15,7 @@ namespace Service_Layer.ICustomService
         void Insert(T entity);
         void Update(T entity);
         bool Delete(string id);
-        IEnumerable<string> GetManagerNames();
+        IEnumerable<string> GetmanagerName();
         List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName);
         
 

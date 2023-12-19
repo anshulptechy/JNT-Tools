@@ -59,9 +59,6 @@ button:not(:last-child) {
   color: #fff;
 }
 
-.modal-body {
-  /* Customize the modal body */
-}
 
 .modal-footer {
   /* Customize the modal footer */
@@ -90,10 +87,10 @@ textarea {
 
 /* Style for buttons */
 .btn-primary {
-  background-color: #007bff;
+  background-color: #0c3662;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+ 
   cursor: pointer;
 }
 
@@ -101,7 +98,7 @@ textarea {
   background-color: #6c757d;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  
   cursor: pointer;
 }
 
@@ -115,4 +112,41 @@ textarea {
 
 .upperMargin {
   margin-top: 5rem;
+}
+.button-approve {
+  background-color: #28a745; /* Green background color */
+  color: #ffffff; /* Text color */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: none; /* Remove border for a cleaner look */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for "Approve" button */
+.button-approve:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Style for the "Reject" button */
+.button-reject {
+  background-color: #dc3545; /* Red background color */
+  color: #ffffff; /* Text color */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: none; /* Remove border for a cleaner look */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for "Reject" button */
+.button-reject:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+
+
+button:hover {
+  background-color: #45a049;
+}
+
+.noDataMessage {
+  margin-top: 20px;
+  color: #777;
 }

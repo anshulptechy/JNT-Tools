@@ -43,7 +43,7 @@ export class LoginComponent {
         } else if (data) {
           const { data: userData, error: fetchError } = await this.supabase
             .from('usertable')
-            .select('id, tenantName,firstName, userId') // Add 'tenantName' to the select query
+            .select('id, tenantName,firstName, userId,email') // Add 'tenantName' to the select query
             .eq('email', email)
             .single();
   
@@ -51,13 +51,14 @@ export class LoginComponent {
             console.error('Fetch user data error:', fetchError);
             return;
           } else if (userData) {
-            const { id, tenantName,firstName, userId } = userData;
+            const { id, tenantName,firstName, userId ,email} = userData;
   
             // Store the user details in local storage
             localStorage.setItem('id', id);
             localStorage.setItem('tenantName', tenantName);
             localStorage.setItem('firstName',firstName);
             localStorage.setItem('userId', userId);
+            localStorage.setItem('email', email);
             this.loggedInUserName = tenantName;
             console.log(this.loggedInUserName);
             localStorage.setItem('token', '6767676767');

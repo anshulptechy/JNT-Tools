@@ -20,28 +20,54 @@
           <th>Leave Type</th>
           <th>Reason</th>
           <th>Status</th>
+
+          <th>Manager comment</th>
           <th>Actions</th>
+
         </tr>
       </thead>
       <tbody>
         <ng-container *ngIf="leaveStatusData && leaveStatusData.length > 0; else noData">
           <tr *ngFor="let leave of leaveStatusData">
             <td>{{ leave.userId }}</td>
-            <td>{{ leave.managerName }}</td>
-            <td>{{ leave.employeeName }}</td>
+            <td>{{leave.managerName}}</td>
+            <td>{{leave.employeeName}}</td>
             <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.endDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.leaveType }}</td>
             <td>{{ leave.reason }}</td>
             <td>{{ leave.status }}</td>
+            <td>{{ leave.managercomment }}</td>
             <td>
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal"
+              <button class="btn btn-primary icon-btn" data-bs-toggle="modal" data-bs-target="#editUserModal"
                 (click)="editLeave(leave)">
                 <i class="fa fa-pencil"></i>
               </button>
-              <button class="btn btn-danger" (click)="deleteLeave(leave)">
+              <button class="btn btn-danger icon-btn" (click)="deleteLeave(leave)">
                 <i class="fa fa-trash"></i>
               </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
+          <tr *ngFor="let leave of leaveManagementData">
+            <td>{{ leave.userId }}</td>
+            <td>{{leave.managerName}}</td>
+            <td>{{leave.employeeName}}</td>
+            <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ leave.endDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ leave.leaveType }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.status }}</td>
+            <td>{{ leave.managercomment }}</td>
+            <td>
+              <ng-container *ngIf="leave.status === 'Pending'; else statusText">
+                <button class="button-approve" (click)="approveLeave(leave)">Approve</button>
+                <button class="button-reject" (click)="rejectLeave(leave)">Reject</button>
+              </ng-container>
+              <ng-template #statusText>
+                {{ leave.status }}
+              </ng-template>
             </td>
           </tr>
         </ng-container>
@@ -55,142 +81,118 @@
   </div>
 
   <!-- ... Other content ... -->
-<!-- Apply Leave Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createUserModalLabel">Apply Leave</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="submitLeaveApplication()" #leaveApplicationForm="ngForm">
-          <label for="employeeInputType">Select Input Type: <span class="text-danger">*</span></label>
-          <select id="employeeInputType" name="employeeInputType" [(ngModel)]="employeeInputType" required>
-            <option value="dropdown">Dropdown</option>
-            <option value="text">Text</option>
-          </select>
+  <!-- Apply Leave Modal -->
+  <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createUserModalLabel">Apply Leave</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="submitLeaveApplication()" #leaveApplicationForm="ngForm">
 
-          <div *ngIf="employeeInputType === 'dropdown'">
             <label for="managerNameDropdown">Manager Name: <span class="text-danger">*</span></label>
             <select id="managerNameDropdown" name="managerNameDropdown" [(ngModel)]="leaveApplication.managerName"
               required>
-              <option *ngFor="let name of managerNames" [value]="name">{{ name }}</option>
-            </select>
-          </div>
+              <option *ngFor="let name of managerNames" [value]="name.firstName">{{ name.firstName }}</option>
+             </select>
 
-          <div *ngIf="employeeInputType === 'text'">
-            <label for="managerNameText">Manager Name: <span class="text-danger">*</span></label>
-            <input type="text" id="managerNameText" name="managerNameText" [(ngModel)]="leaveApplication.managerName"
-              required>
-          </div>
+            
 
-          <label for="EmployeeNameSelect">Employee Name: <span class="text-danger">*</span></label>
-          <select id="EmployeeNameSelect" name="EmployeeNameSelect" [(ngModel)]="leaveApplication.employeeName"
-            required>
-            <option *ngFor="let name of allNames" [value]="name.firstName">{{ name.firstName }}</option>
-          </select>
-          <br>
+            <br>
 
-          <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
-          <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
-          <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
-          <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
 
-          <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
-          <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
-            <option value="vacation">Vacation</option>
-            <option value="sick">Sick Leave</option>
-          </select><br>
 
-          <label for="reason">Reason: <span class="text-danger">*</span></label>
-          <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required maxlength="100"></textarea>
+            <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
+            <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
-          <!-- Display validation messages -->
-          <div *ngIf="leaveApplicationForm.submitted && leaveApplicationForm.invalid" class="validation-message">
-            Please fill out all required fields.
-          </div>
-        </form>
-      </div>
+            <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
+            <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="!leaveApplicationForm.valid"
-          (click)="submitLeaveApplication()" data-bs-toggle="modal">Submit</button>
-        <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationPopup()" data-bs-dismiss="modal">
-          Cancel
-        </button>
+            <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
+            <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
+              <option value="vacation">Vacation</option>
+              <option value="sick">Sick Leave</option>
+            </select><br>
+
+            <label for="reason">Reason: <span class="text-danger">*</span></label>
+            <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required
+              maxlength="100"></textarea>
+
+            <!-- Display validation messages -->
+            <div *ngIf="leaveApplicationForm.submitted && leaveApplicationForm.invalid" class="validation-message">
+              Please fill out all required fields.
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!leaveApplicationForm.valid"
+            (click)="submitLeaveApplication()" data-bs-toggle="modal">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationPopup()"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Edit Leave Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editUserModalLabel">Edit Leave</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="submitUpdatedLeaveApplication()" #editLeaveForm="ngForm">
-          <label for="employeeInputType">Select Input Type: <span class="text-danger">*</span></label>
-          <select id="employeeInputType" name="employeeInputType" [(ngModel)]="employeeInputType" required>
-            <option value="dropdown">Dropdown</option>
-            <option value="text">Text</option>
-          </select>
-
-          <div *ngIf="employeeInputType === 'dropdown'">
+  <!-- Edit Leave Modal -->
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editUserModalLabel">Edit Leave</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="submitUpdatedLeaveApplication()" #editLeaveForm="ngForm">
             <label for="managerNameDropdown">Manager Name: <span class="text-danger">*</span></label>
             <select id="managerNameDropdown" name="managerNameDropdown" [(ngModel)]="leaveApplication.managerName"
               required>
-              <option *ngFor="let name of managerNames" [value]="name">{{ name }}</option>
-            </select>
-          </div>
+              <option *ngFor="let name of managerNames" [value]="name.firstName">{{ name.firstName }}</option>
+             </select>
 
-          <div *ngIf="employeeInputType === 'text'">
-            <label for="managerNameText">Manager Name: <span class="text-danger">*</span></label>
-            <input type="text" id="managerNameText" name="managerNameText" [(ngModel)]="leaveApplication.managerName"
-              required>
-          </div>
+            
+          
 
-          <label for="EmployeeNameText">Employee Name: <span class="text-danger">*</span></label>
-          <input type="text" id="EmployeeNameText" name="EmployeeNameText" [(ngModel)]="leaveApplication.employeeName"
-            required>
-          <br>
-          <div *ngIf="editLeaveForm.hasError('notSameName') && editLeaveForm.dirty" class="validation-message">
-            Manager name and employee name should not be the same.
-          </div>
-          <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
-          <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
-          <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
-          <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
+            <br>
 
-          <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
-          <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
-            <option value="vacation">Vacation</option>
-            <option value="sick">Sick Leave</option>
-          </select><br>
+            <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
+            <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
-          <label for="reason">Reason: <span class="text-danger">*</span></label>
-          <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required maxlength="150"></textarea>
+            <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
+            <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
 
-          <!-- Display validation messages -->
-          <div *ngIf="editLeaveForm.submitted && editLeaveForm.invalid" class="validation-message">
-            Please fill out all required fields.
-          </div>
-        </form>
-      </div>
+            <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
+            <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
+              <option value="vacation">Vacation</option>
+              <option value="sick">Sick Leave</option>
+            </select><br>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="!editLeaveForm.valid"
-          (click)="submitUpdatedLeaveApplication()" data-bs-toggle="modal">Submit</button>
-        <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationPopup()" data-bs-dismiss="modal">
-          Cancel
-        </button>
+            <label for="reason">Reason: <span class="text-danger">*</span></label>
+            <textarea id="reason" name="reason" [(ngModel)]="leaveApplication.reason" required
+              maxlength="150"></textarea>
+
+            <!-- Display validation messages -->
+            <div *ngIf="editLeaveForm.submitted && editLeaveForm.invalid" class="validation-message">
+              Please fill out all required fields.
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!editLeaveForm.valid"
+            (click)="submitUpdatedLeaveApplication()" data-bs-toggle="modal">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationPopup()"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
