@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener  } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { TaskService } from '../services/task.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -21,32 +21,6 @@ export class TaskDialogComponent {
     private fb: FormBuilder,
     private serve: TaskService, private baseServe:TenantService
   ) {
-
-    //Date validations
-  
-
-   
-    const startDateValidator: ValidatorFn = (control: AbstractControl) => {
-      const currentDate = new Date();
-      const taskStartDate = control.value;
-
-      if (taskStartDate && taskStartDate < currentDate) {
-        return { invalidStartDate: true };
-      }
-
-      return null;
-    };
-
-    const endTimeValidator: ValidatorFn = (control: AbstractControl) => {
-      const taskStartTime = control.parent?.get('taskStartTime')?.value;
-      const taskEndTime = control.value;
-    
-      if (taskStartTime && taskEndTime && taskStartTime > taskEndTime) {
-        return { invalidEndDate: true };
-      }
-    
-      return null;
-    };
 
     // Initialize form controls
     this.taskDetails = this.fb.group({
@@ -75,6 +49,8 @@ export class TaskDialogComponent {
     });
   }
 
+
+  
 
   onSaveClick(data: any) {
     

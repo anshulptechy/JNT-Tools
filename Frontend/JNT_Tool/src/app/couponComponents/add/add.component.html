@@ -49,14 +49,29 @@
         </mat-form-field>
 
       </div>
+   
       <div class="row">
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Discount</mat-label>
-          <input matInput type="number" placeholder="" formControlName="discount">
-          <mat-error *ngIf="couponForm.get('discount')?.hasError('max')">Discount should not exceed 100000</mat-error>
-          <mat-error *ngIf="couponForm.get('discount')?.hasError('required')">Discount is required</mat-error>
+          <div class="input-group">
+            <input matInput type="number" placeholder="" formControlName="discount">
+             <!-- Display formatted discount amount -->
+             
+        <div *ngIf="couponForm.get('discountType')?.value === 'Fixed Amount'">
+          <span style="font-size: 10px; color:blue; line-height: normal;margin-top: -5px;">$ {{ couponForm.get('discount')?.value }}</span>
+        </div>
+        <div *ngIf="couponForm.get('discountType')?.value === 'Percentage'">
+          <span style="font-size: 10px; color:blue; line-height: normal;margin-top: -5px;">{{ couponForm.get('discount')?.value }}%</span>
+        </div>
+          </div>
+          <mat-error *ngIf="couponForm.get('discount')?.hasError('max')">
+            {{ couponForm.get('discount')?.getError('max') }}
+          </mat-error>
+          <mat-error *ngIf="couponForm.get('discount')?.hasError('required')">
+            Discount is required
+          </mat-error>
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Quantity</mat-label>
           <input matInput type="number" placeholder="" formControlName="quantity">
@@ -65,6 +80,7 @@
         </mat-form-field>
       </div>
 
+   
 
       <div class="row">
         <div>
@@ -77,7 +93,6 @@
             required</mat-error>
         </div>
       </div>
-
     </div>
   </form>
 

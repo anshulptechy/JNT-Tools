@@ -5,6 +5,7 @@ import { TaskUpdateComponent } from '../task-update/task-update.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { TenantService } from '../tenant.service';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -33,7 +34,7 @@ export class TaskDashboardComponent {
 
 
   // Constructor
-  constructor(private serve: TaskService,private fb:FormBuilder, private dialog: MatDialog,private baseserve:TenantService) {
+  constructor(private router:Router,private serve: TaskService,private fb:FormBuilder, private dialog: MatDialog,private baseserve:TenantService) {
     this.reloadSite();
     this.showSpecificData=false;
 
@@ -48,6 +49,14 @@ export class TaskDashboardComponent {
         console.log(this.suggestions);
       } else {
         console.error('Unexpected response format from the service:', result);
+      }
+    });
+
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        // Close the dialog when navigating to another route
+        this.dialog.closeAll();
       }
     });
   }
