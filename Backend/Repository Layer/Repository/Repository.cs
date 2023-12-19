@@ -32,6 +32,10 @@ namespace Repository_Layer.Repository
                 _applicationDbContext.SaveChanges();
             }
         }
+        public IEnumerable<string> GetUsersByTenantName(string tenantName)
+        {
+            return entities.Where(e => e.tenantName == tenantName).Select(e => e.email).Distinct().ToList();
+        }
         public T Get(int Id)
         {
             return entities.SingleOrDefault(c => c.id == Id);
@@ -69,6 +73,11 @@ namespace Repository_Layer.Repository
             }
             entities.Update(entity);
             _applicationDbContext.SaveChanges();
+        }
+
+        public async Task<T> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await entities.FirstOrDefaultAsync(c => c.email == email && c.password == password);
         }
     }
 }

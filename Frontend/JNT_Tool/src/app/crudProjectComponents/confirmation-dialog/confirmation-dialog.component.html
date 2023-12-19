@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Confirmation</h2>
+<div mat-dialog-content>
+  {{ data.message }}
+</div>
+<div mat-dialog-actions class="button-container">
+  <button mat-button (click)="onNoClick()" style=" background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Cancel</button>
+  <button mat-button color="warn" (click)="onYesClick()">Yes</button>
+</div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>

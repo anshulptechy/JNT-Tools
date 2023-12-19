@@ -1,4 +1,6 @@
-﻿using Domain_Layer.Models;
+﻿
+using Domain_Layer.Models;
+using Repository_Layer.Repository;
 using Service_Layer.ICustomService;
 using System;
 using System.Collections.Generic;
@@ -29,7 +31,31 @@ namespace Service_Layer.Custom_Service
                 return false;
             }
         }
+        public IEnumerable<string> GetUsersByTenantName(string tenantName)
+        {
+            try
+            {
+                var obj = _studentRepository.GetUsersByTenantName(tenantName);
+                if (obj != null)
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
+        public async Task<Management> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            Management signupUser = await _studentRepository.GetByEmailAndPasswordAsync(email, password);
+            return signupUser;
+        }
         public Management Get(int Id)
         {
             try

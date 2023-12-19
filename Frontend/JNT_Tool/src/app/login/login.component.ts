@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { createClient } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent {
     'https://lqviihvmwdkabqlpecxh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
   );
-  constructor(private router: Router) {}
+  constructor(private router: Router, private snackBar: MatSnackBar) {}
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
@@ -43,7 +44,7 @@ export class LoginComponent {
         } else if (data) {
           const { data: userData, error: fetchError } = await this.supabase
             .from('usertable')
-            .select('id, tenantName') // Add 'tenantName' to the select query
+            .select('id, tenantName,firstName, userId') // Add 'tenantName' to the select query
             .eq('email', email)
             .single();
   
@@ -51,20 +52,19 @@ export class LoginComponent {
             console.error('Fetch user data error:', fetchError);
             return;
           } else if (userData) {
-            const { id, tenantName } = userData;
+            const { id, tenantName,firstName, userId } = userData;
   
             // Store the user details in local storage
             localStorage.setItem('id', id);
             localStorage.setItem('tenantName', tenantName);
+            localStorage.setItem('firstName',firstName);
+            localStorage.setItem('userId', userId);
             this.loggedInUserName = tenantName;
             console.log(this.loggedInUserName);
             localStorage.setItem('token', '6767676767');
             
             // Show SweetAlert2 success notification for valid login
-            Swal.fire({
-              icon: 'success',
-              title: 'Login successful!',
-            });
+            this.snackBar.open('Login Successful', 'OK', { duration: 3000 });
   
             // Redirect to a different route or perform other actions upon successful login
             this.router.navigate(['/mainpage'], { queryParams: { id: id } });
