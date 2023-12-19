@@ -66,6 +66,7 @@ namespace TenantManagementSystem.Controllers
             return Ok(months);
         }
 
+
         [HttpGet("getSalaryData/{firstName}/{salaryMonth}")]
         public async Task<IActionResult> GetSalaryData(string firstName, string salaryMonth)
         {
