@@ -13,7 +13,6 @@ namespace Service_Layer.ICustomService
         Task<IEnumerable<SalaryRecord>> GetSalaryRecordsByMonthAsync(string month);
         Task<bool> AddSalaryRecordAsync(SalaryRecord salaryRecord);
         Task<IEnumerable<string>> GetAllMonthsAsync();
-        Task<IEnumerable<SalaryRecord>> GetSalaryRecordsByMonthAndEmployeeAsync(string month, int employeeId);
         Task<IEnumerable<SalaryRecord>> GetAllEmployeesAsync();
     }
 }

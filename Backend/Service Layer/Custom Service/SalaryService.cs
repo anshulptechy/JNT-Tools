@@ -58,10 +58,5 @@ namespace Service_Layer.Custom_Service
             return await _salaryRecordRepository.GetAllMonthsAsync();
         }
 
-
-        public async Task<IEnumerable<SalaryRecord>> GetSalaryRecordsByMonthAndEmployeeAsync(string month, int employeeId)
-        {
-            return await _salaryRecordRepository.GetByMonthAndEmployeeAsync(month, employeeId);
-        }
     }
 }

@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   userName: string | null = null;
   userId: string | null = null;
   showCouponDetailsFlag = false;
+  
   supabase: SupabaseClient;
 
   constructor(private auth: SupabaseService, private router: Router) {
