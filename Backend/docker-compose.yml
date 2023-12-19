@@ -6,3 +6,5 @@ services:
     build:
       context: .
       dockerfile: TenantManagementSystem\Dockerfile
+    volumes:
+      - /root/JNT-Tools/Backend:/ASP.NET/Https:ro
