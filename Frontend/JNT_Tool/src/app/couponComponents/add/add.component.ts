@@ -49,6 +49,7 @@ export class AddComponent {
   }
 
   async onSaveClick() {
+    debugger;
     this.submitted = true;
 
     Object.values(this.couponForm.controls).forEach(control => {
@@ -131,6 +132,7 @@ export class AddComponent {
   }
 
   dateValidator(form: FormGroup) {
+    debugger;
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
 
