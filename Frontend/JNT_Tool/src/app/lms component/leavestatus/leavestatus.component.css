@@ -116,7 +116,7 @@ textarea {
 .button-approve {
   background-color: #28a745; /* Green background color */
   color: #ffffff; /* Text color */
-  padding: 8px 12px; /* Adjust padding as needed */
+   /* Adjust padding as needed */
   border: none; /* Remove border for a cleaner look */
   cursor: pointer; /* Show pointer cursor on hover */
 }
@@ -130,7 +130,7 @@ textarea {
 .button-reject {
   background-color: #dc3545; /* Red background color */
   color: #ffffff; /* Text color */
-  padding: 8px 12px; /* Adjust padding as needed */
+ /* Adjust padding as needed */
   border: none; /* Remove border for a cleaner look */
   cursor: pointer; /* Show pointer cursor on hover */
 }

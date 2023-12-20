@@ -73,7 +73,7 @@
   <table class="table table-striped mt-3 project-table">
     <thead>
       <tr class="table-dark">
-        <th scope="col">Project Id</th>
+        <!-- <th scope="col">Project Id</th> -->
         <th scope="col">Project Name</th>
         <th scope="col">Client</th>
         <th scope="col">Start Date</th>
@@ -86,7 +86,7 @@
     <tbody>
       <ng-container *ngIf="filteredProjects.length > 0; else noDataMessage">
         <tr *ngFor="let project of filteredProjects">
-          <td scope="row">{{ project.projectId }}</td>
+          <!-- <td scope="row">{{ project.projectId }}</td> -->
           <td class="project-name">{{ project.projectName }}</td>
           <td class="project-name">{{ project.client }}</td>
           <td>{{ project.startDate | date : "yyyy-MM-dd" }}</td>
@@ -105,4 +105,4 @@
     </div>
   </ng-template>
 </div>
-<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
+<!-- <ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader> -->
