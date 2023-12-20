@@ -26,7 +26,7 @@ import { HRComponent } from './HR/hr/hr.component';
 
 
 const routes: Routes = [
-  { path: "mainpage", component: TenantListComponent },
+  { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] },
     { path: "signup", component: SignupComponent },
     { path: "add", component: AddComponent },
     { path: "coupons", component: CouponsComponent },

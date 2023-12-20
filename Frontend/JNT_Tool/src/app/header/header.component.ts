@@ -60,4 +60,6 @@ export class HeaderComponent implements OnInit {
       text: 'User Logout successful',
     });
   }
+
+  department = localStorage.getItem('department')
 }

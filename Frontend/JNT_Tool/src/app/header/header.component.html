@@ -84,7 +84,7 @@
             <a class="nav-link active text-white" routerLink="/calendar">Schedule</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="department === 'hr'">
             <a class="nav-link active text-white" routerLink="/HR">HR</a>
           </li>
           <li class="nav-item">
