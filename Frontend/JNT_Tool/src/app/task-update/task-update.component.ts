@@ -18,9 +18,7 @@ users: any[] = []
 
 // Constructor to inject dependencies
 constructor(public dialogRef: MatDialogRef<TaskUpdateComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-  private fb: FormBuilder, private serve: TaskService, private baseServe: TenantService) {
-  // Check if the user is an admin
-}
+  private fb: FormBuilder, private serve: TaskService, private baseServe: TenantService) { }
 
 // Lifecycle hook called after the component is initialized
 ngOnInit() {
@@ -41,7 +39,6 @@ async loadUsernames() {
   });
 }
 
-
 // Method to initialize the form
 initializeForm() {
   this.updateDetails = this.fb.group({
@@ -50,7 +47,7 @@ initializeForm() {
     taskStartTime: ['', Validators.required],
     taskEndTime: ['', Validators.required],
     userName: ['', Validators.required],
-  });
+  }, { validator: this.dateValidator.bind(this) });
 }
 
 // Method to populate the form with task data
@@ -83,5 +80,49 @@ onSaveClick(data1: any) {
 // Method to handle cancel button click
 onCancelClick() {
   this.dialogRef.close();
+}
+
+
+dateValidator(form: FormGroup) {
+  debugger;
+  const startDateControl = form.get('taskStartTime');
+  const endDateControl = form.get('taskEndTime');
+
+  if (startDateControl && endDateControl) {
+    const startDate = startDateControl.value;
+    const endDate = endDateControl.value;
+
+    // Get the current date in the local timezone
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Parse the selected start date and end date strings to Date objects
+    const parsedStartDate = startDate ? new Date(startDate) : null;
+    const parsedEndDate = endDate ? new Date(endDate) : null;
+
+    // Check if the start date is provided
+    if (!parsedStartDate) {
+      startDateControl.setErrors({ requiredError: 'Start date is required.' });
+    } else {
+      // Check if the selected start date is in the past or the same as the current date
+      if (parsedStartDate < currentDate) {
+        startDateControl.setErrors({ pastDateError: 'Please choose a date from today or later.' });
+      } else {
+        startDateControl.setErrors(null);
+      }
+    }
+
+    // Check if the end date is provided
+    if (!parsedEndDate) {
+      endDateControl.setErrors({ requiredError: 'End date is required.' });
+    } else {
+      // Check if the end date is before the start date or the same as the start date
+      if (parsedStartDate && parsedEndDate < parsedStartDate) {
+        endDateControl.setErrors({ dateError: 'End date must be after the start date.' });
+      } else {
+        endDateControl.setErrors(null);
+      }
+    }
+  }
 }
 }

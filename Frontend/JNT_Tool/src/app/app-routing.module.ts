@@ -18,7 +18,6 @@ import { LeaveManagementComponent } from './lms component/leave-management/leave
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 
@@ -37,7 +36,6 @@ const routes: Routes = [
   { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] },
   { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
    { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] }, 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },

@@ -42,18 +42,19 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public Attendences GetAttendanceByManagementIdAndMonth(int id, string monthName)
+        public List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName)
         {
             // Parse the month name to get the corresponding integer
             int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            var res= _applicationDbContext.Attendence
-                .FirstOrDefault(a => a.id == id && a.LoginTime.Month == targetMonth);
+            var result = _applicationDbContext.Attendence
+                .Where(a => a.id == id && a.LoginTime.Month == targetMonth)
+                .ToList();
 
-            return res;
+            return result;
         }
 
-      
+
 
         public Attendences? Get(int id)
         {
@@ -105,7 +106,6 @@ namespace Service_Layer.Custom_Service
             {
                 if (record.LogoutTime != null && record.LoginTime != null)
                 {
-                    // Ensure that both LogoutTime and LoginTime are DateTime objects
                     if (record.LogoutTime is DateTime logoutTime && record.LoginTime is DateTime loginTime)
                     {
                         // If LogoutTime is before 12 PM, add 12 hours to make it PM
@@ -113,7 +113,7 @@ namespace Service_Layer.Custom_Service
                         {
                             if (logoutTime.Hour < 12)
                             {
-                                logoutTime = logoutTime.AddHours(12);
+                                logoutTime = logoutTime.Date.AddDays(1).AddSeconds(-1).AddHours(12);
                             }
                             record.Hours = logoutTime - loginTime;
 
@@ -132,6 +132,8 @@ namespace Service_Layer.Custom_Service
 
                         // Calculate hours for the entire day (from 12 AM to 11:59 PM)
                         record.Hours = logoutTime - loginTime;
+                        _AttendenceRepository.Update(record);
+                        _AttendenceRepository.SaveChanges();
                     }
                     else
                     {

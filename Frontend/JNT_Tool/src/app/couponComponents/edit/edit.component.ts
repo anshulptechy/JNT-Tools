@@ -134,7 +134,6 @@ export class EditComponent {
   handleMaxLengthError(control: AbstractControl, maxLength: number): void {
     if (control?.hasError('maxlength')) {
       control.markAsTouched();
-  
     }
   }
 }

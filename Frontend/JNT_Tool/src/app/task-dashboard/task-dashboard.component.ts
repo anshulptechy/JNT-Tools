@@ -3,6 +3,9 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 import { TaskService } from '../services/task.service';
 import { TaskUpdateComponent } from '../task-update/task-update.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { TenantService } from '../tenant.service';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -10,17 +13,56 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./task-dashboard.component.css']
 })
 export class TaskDashboardComponent {
+  
+  //Variables
+  
   taskId: number = 0;
   tasks: any[] = [];
   store3: Date = new Date();
   myuserName: string = '';
   userTaskBoolean = false;
-
+  userTasks: FormGroup | any;
+  dataCame: boolean = false;
+  isAdminLoggedIn: boolean = false;
+  userTasksDetails: any[] = []
+  tenant: string = localStorage.getItem('tenantName') || ''
+  userSuggestions: string[] = [];
+  suggestions: string[] = [];
+  filteredSuggestions: string[] = [];
   materialDialog = false;
+  showSpecificData:boolean=false;
+
 
   // Constructor
-  constructor(private serve: TaskService, private dialog: MatDialog) {
+  constructor(private router:Router,private serve: TaskService,private fb:FormBuilder, private dialog: MatDialog,private baseserve:TenantService) {
     this.reloadSite();
+    this.showSpecificData=false;
+
+    this.userTasks = this.fb.group({
+      userName: ['', Validators.required],
+    });
+  
+    this.baseserve.getUserByTenant(this.tenant).subscribe((result) => {
+      if (Array.isArray(result)) {
+        // Filter out non-string values
+        this.suggestions = result.filter(item => typeof item === 'string') as string[];
+        console.log(this.suggestions);
+      } else {
+        console.error('Unexpected response format from the service:', result);
+      }
+    });
+
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        // Close the dialog when navigating to another route
+        this.dialog.closeAll();
+      }
+    });
+  }
+  
+  showallData(){
+    this.showSpecificData=false;
   }
 
   // Toggle to show user-specific tasks
@@ -28,15 +70,28 @@ export class TaskDashboardComponent {
     this.userTaskBoolean = true;
   }
 
+  // Method to get user tasks based on the provided username
+getUserTasks(user: string) {
+  this.showSpecificData=true;
+  const userName = encodeURIComponent(user);
+  this.serve.getUserTasksDetails(userName,this.tenant).subscribe((result) => {
+    this.dataCame = true;
+    this.userTasksDetails = result as any;
+
+  })
+}
+
   // Function to delete a task
   deleteTask(data: number) {
-    if(this.tasks.length==1){
-      this.tasks=[];
+    if (this.tasks.length == 1) {
+      this.tasks = [];
     }
     this.serve.delete(data).subscribe((result) => {
       this.reloadSite();
     });
   }
+
+
 
   // Function to edit a task
   editTask(task: any) {
@@ -58,6 +113,9 @@ export class TaskDashboardComponent {
     });
   }
 
+  
+  
+  
   // Function to open a dialog for adding a new task
   openDialog() {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -75,17 +133,44 @@ export class TaskDashboardComponent {
     this.reloadSite();
   }
 
-  user: string = '';
-  tenantName:string=''
+ 
   // Reload site data after every functionality
   reloadSite() {
-    if(this.tasks.length==1){
-      this.tasks=[]
+    if (this.tasks.length == 1) {
+      this.tasks = []
     }
-     this.tenantName= localStorage.getItem('tenantName')||''
-      this.serve.getTenantTask(this.tenantName).subscribe((result) => {
-        this.tasks = result as any;
-      });
-      
-  }   
+  
+    this.serve.getTenantTask(this.tenant).subscribe((result) => {
+      this.tasks = result as any;
+    });
+
+
+  }
+
+  reloadSite2(){
+    this.serve.getUserTasksDetails(this.userTasks.value.userName,this.tenant).subscribe((result) => {
+      this.userTasksDetails = result as any;
+    });
+
+
+}
+
+deleteTask2(data:any){
+  this.serve.delete(data).subscribe(() => {
+    this.reloadSite();
+  });
+}
+
+   // Function to filter suggestions based on user input
+ filterSuggestions(value: string): string[] {
+  const filterValue = value.toLowerCase();
+  const filtered = this.suggestions.filter((suggestion) => suggestion.toLowerCase().includes(filterValue));
+  this.filteredSuggestions=filtered
+  return filtered;
+}
+
+// Display function for mat-autocomplete
+displayFn(value: string): string {
+  return value || '';
+}
 }

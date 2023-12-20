@@ -7,6 +7,7 @@ import { MeetService } from '../services/meet.service';
 import { OnDestroy } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Step 2: Declare necessary global variables and plugins
 declare const gapi: any;
@@ -23,6 +24,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   isAddEventFormOpen: boolean = false;
   isEditEventFormOpen: boolean = false;
   intervalSubscription!: Subscription;
+  userGmailId: string = '';
 
   newEvent: any = {
     title: '',
@@ -42,9 +44,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
     },
     plugins: [dayGridPlugin, interactionPlugin],
     events: [],
-    eventClick: this.handleEventClick.bind(this), 
-    selectable: false,
+    eventClick: this.handleEventClick.bind(this),
+    selectable: true,
     select: (selectInfo: any) => this.handleDateSelect(selectInfo),
+    eventColor: 'rgb(69, 18, 87)',
+    eventBackgroundColor: 'rgb(188, 188, 246)',
+    eventTextColor: 'rgb(69, 18, 87)',
   };
 
   // Google Calendar API configuration
@@ -59,12 +64,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
   gapiInited = false;
   gisInited = false;
 
-  constructor(private meetservice: MeetService,  private router: Router, ) {}
-
+  constructor(
+    private meetservice: MeetService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   // OnInit lifecycle hook
   ngOnInit() {
-    this.calendarOptions.eventClick = undefined;
     const authorizeButton = document.getElementById('authorize_button');
     const signoutButton = document.getElementById('signout_button');
 
@@ -76,16 +83,49 @@ export class CalendarComponent implements OnInit, OnDestroy {
       const userId = localStorage.getItem('userId');
       const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
       if (storedEvents) {
-        authorizeButton!.innerText = 'Refresh';
+        // If storedEvents is present, show the "Sign Out" button and hide the "Sync" button
         signoutButton.style.visibility = 'visible';
+
+        // Check if authorizeButton is not null before accessing its properties
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'hidden';
+        }
       } else {
+        // If storedEvents is not present, hide the "Sign Out" button and show the "Sync" button
         signoutButton.style.visibility = 'hidden';
+
+        // Check if authorizeButton is not null before accessing its properties
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'visible';
+        }
       }
     }
 
     // Move the script loading inside ngOnInit
     this.loadScripts();
     this.loadEvents();
+
+    // Check for a stored access token for the current user
+    const storedToken = localStorage.getItem(
+      `accessToken_${localStorage.getItem('userId')}`
+    );
+    if (storedToken) {
+      // Check if both Gapi and Gis have been initialized
+      if (this.gapiInited && this.gisInited) {
+        // Call handleAuthClick to sync the calendar
+        this.handleAuthClick();
+      } else {
+        // If not initialized, wait for initialization and then call handleAuthClick
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 1000);
+      }
+    }
+
+    // Retrieve the user's Gmail ID from localStorage
+    const storedUserId = localStorage.getItem('userId');
+    this.userGmailId =
+      localStorage.getItem(`userGmailId_${storedUserId}`) || '';
   }
 
   //OnDestroy lifecycle hook
@@ -94,6 +134,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
     }
+  }
+
+  isAuthorizeButtonVisible(): boolean {
+    const storedEvents = localStorage.getItem(
+      `calendarEvents_${localStorage.getItem('userId')}`
+    );
+    return !storedEvents;
+  }
+
+  isSignoutButtonVisible(): boolean {
+    const storedEvents = !localStorage.getItem(
+      `calendarEvents_${localStorage.getItem('userId')}`
+    );
+    return !storedEvents;
   }
 
   loadScripts() {
@@ -142,6 +196,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const authorizeButton = document.getElementById('authorize_button');
     if (this.gapiInited && this.gisInited && authorizeButton) {
       authorizeButton.style.visibility = 'visible';
+      this.calendarOptions.selectable = false;
     }
   }
 
@@ -157,39 +212,86 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Handle authentication click
   handleAuthClick() {
-    this.tokenClient.callback = async (resp: any) => {
-      if (resp.error !== undefined) {
-        throw resp;
-      }
-      const signoutButton = document.getElementById('signout_button');
-      if (signoutButton) {
-        signoutButton.style.visibility = 'visible';
-      }
-      const authorizeButton = document.getElementById('authorize_button');
-      if (authorizeButton) {
-        authorizeButton.innerText = 'Refresh';
-      }
+    const storedToken = localStorage.getItem(
+      `accessToken_${localStorage.getItem('userId')}`
+    );
+
+    if (storedToken) {
+      // Use the stored token directly
+      gapi.auth.setToken({ access_token: storedToken });
+
+      // Trigger events as needed (similar to your existing logic)
       this.calendarOptions.selectable = true;
       this.listUpcomingEvents();
-
-      //Start the interval
       this.intervalSubscription = interval(6000).subscribe(() => {
         this.listUpcomingEvents();
       });
-    };
-
-    if (gapi.client.getToken() === null) {
-      this.tokenClient.requestAccessToken({ prompt: 'consent' });
     } else {
-      this.tokenClient.requestAccessToken({ prompt: '' });
+      this.tokenClient.callback = async (resp: any) => {
+        if (resp.error !== undefined) {
+          throw resp;
+        }
+        const signoutButton = document.getElementById('signout_button');
+        if (signoutButton) {
+          signoutButton.style.visibility = 'visible';
+        }
+        const authorizeButton = document.getElementById('authorize_button');
+        if (authorizeButton) {
+          authorizeButton.style.visibility = 'hidden';
+        }
+        this.calendarOptions.selectable = true;
+        this.listUpcomingEvents();
+
+        // Start the interval
+        this.intervalSubscription = interval(6000).subscribe(() => {
+          this.listUpcomingEvents();
+        });
+
+        // Store the access token in local storage with the user ID
+        localStorage.setItem(
+          `accessToken_${localStorage.getItem('userId')}`,
+          resp.access_token
+        );
+
+        // Log the user's email address (Gmail ID)
+        this.logUserEmail();
+      };
+
+      if (gapi.auth.getToken() === null) {
+        this.tokenClient.requestAccessToken({ prompt: 'consent' });
+      } else {
+        this.tokenClient.requestAccessToken({ prompt: '' });
+      }
+      this.calendarOptions.eventClick = this.handleEventClick.bind(this);
     }
-    this.calendarOptions.eventClick = this.handleEventClick.bind(this);
+  }
+
+  // Log the user's email address (Gmail ID)
+  logUserEmail() {
+    gapi.client.calendar.calendarList
+      .get({ calendarId: 'primary' })
+      .then((response: any) => {
+        this.userGmailId = response.result.summary;
+        console.log('Synced Gmail ID:', this.userGmailId);
+
+        // Store the user's Gmail ID in localStorage
+        const userId = localStorage.getItem('userId');
+        localStorage.setItem(`userGmailId_${userId}`, this.userGmailId);
+      })
+      .catch((error: any) => {
+        console.error('Error fetching user email:', error);
+      });
   }
 
   // Handle signout click
   handleSignoutClick() {
+    debugger;
     const userId = localStorage.getItem('userId');
+    const tokenKey = `accessToken_${userId}`;
     const token = gapi.client.getToken();
+
+    // Clear the access token for the current user
+    localStorage.removeItem(tokenKey);
     if (token !== null) {
       google.accounts.oauth2.revoke(token.access_token);
       gapi.client.setToken('');
@@ -199,7 +301,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       localStorage.removeItem(`calendarEvents_${userId}`);
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
-        authorizeButton.innerText = 'Sync';
+        authorizeButton.style.visibility = 'visible';
       }
       const signoutButton = document.getElementById('signout_button');
       if (signoutButton) {
@@ -210,6 +312,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
       if (this.intervalSubscription) {
         this.intervalSubscription.unsubscribe();
       }
+
+      // Clear user Gmail ID
+      this.userGmailId = ''; // Add this line to clear the user email
+      localStorage.removeItem(`userGmailId_${userId}`);
     } else {
       this.calendarOptions.events = [];
 
@@ -223,6 +329,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
       if (signoutButton) {
         signoutButton.style.visibility = 'hidden';
       }
+
+      // Clear user Gmail ID
+      this.userGmailId = ''; // Add this line to clear the user email
+      localStorage.removeItem(`userGmailId_${userId}`);
     }
   }
 
@@ -270,8 +380,22 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Callback for handling date selection
   handleDateSelect(selectInfo: any) {
+    // Extract the selected dates
+    const selectedStart = new Date(selectInfo.startStr);
+    const selectedEnd = new Date(selectInfo.endStr);
     // Extract the selected date
     const selectedDate = new Date(selectInfo.startStr);
+    // Check if the selected date is before today's date
+    const today = new Date();
+    today.setDate(today.getDate() - 1); // subtracting 1 day to include today
+    if (selectedDate < today) {
+      this.snackBar.open(
+        'Please select a date that is today or in the future.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
     // Format the start date as a string with the time set to midnight
     const formattedStartDate =
       selectedDate.toISOString().split('T')[0] + 'T00:00';
@@ -400,8 +524,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         (response) => {
           console.log('Event deleted from backend successfully:', response);
         },
-        (error) => {
-        }
+        (error) => {}
       );
     });
   }
@@ -410,9 +533,55 @@ export class CalendarComponent implements OnInit, OnDestroy {
   addEvent() {
     // Check if the new event has valid data
     if (!this.newEvent.title || !this.newEvent.start || !this.newEvent.end) {
-      alert('Please enter all event details.');
+      this.snackBar.open('Please enter all event details.', 'OK', {
+        duration: 2000,
+      });
       return;
     }
+
+    const startDate = new Date(this.newEvent.start);
+    const currentDate = new Date();
+    // Add 1 day to the start date
+    startDate.setDate(startDate.getDate() + 1);
+    // Check if the selected start date is before the current date
+    if (startDate < currentDate) {
+      this.snackBar.open(
+        'Start date should not be before the current date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    const startedDate = new Date(this.newEvent.start).getDate();
+    const endDate = new Date(this.newEvent.end).getDate();
+    if (endDate < startedDate) {
+      this.snackBar.open(
+        'End date should not be less than the Start date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    // Check if endTime is less than startTime
+    const startTime = new Date(this.newEvent.start).getTime();
+    const endTime = new Date(this.newEvent.end).getTime();
+
+    if (endTime <= startTime) {
+      this.snackBar.open('End time should be greater than Start time.', 'OK', {
+        duration: 2000,
+      });
+      return;
+    }
+
+     // Check if the selected start time is earlier than the current system time
+     const currentTime = currentDate.getTime();
+     if (startTime < currentTime) {
+         this.snackBar.open('Cannot add event at this time slot.', 'OK', { duration: 2000 });
+         return;
+     }
+
     const calendarEvent = {
       title: this.newEvent.title,
       start: this.newEvent.start,
@@ -425,20 +594,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     // Add the event to Google Calendar
     this.addEventToGoogleCalendar(calendarEvent);
-
-    // Reset the new event form
-    this.newEvent = {
-      title: '',
-      start: '',
-      end: '',
-    };
-
-    // Close the Add Event form
-    this.isAddEventFormOpen = false;
   }
 
   // Add event to Google Calendar
-  addEventToGoogleCalendar(event: any) {
+  async addEventToGoogleCalendar(event: any) {
     const userId = localStorage.getItem('userId');
 
     // Format dates to ISO 8601
@@ -457,41 +616,57 @@ export class CalendarComponent implements OnInit, OnDestroy {
       },
     };
 
-    gapi.client.calendar.events
-      .insert({
+    try {
+      const response = await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         resource: googleEvent,
-      })
-      .then((response: any) => {
-        console.log('Event added to Google Calendar:', response);
-        // After successful adding into Google Calendar, update FullCalendar
-        this.listUpcomingEvents();
-        // Optionally, you can update the event in your local storage with the Google Calendar event ID
-        const updatedEvents = (this.calendarOptions.events as any).map(
-          (calEvent: any) => {
-            if (
-              calEvent.title === event.title &&
-              calEvent.start === event.start &&
-              calEvent.end === event.end
-            ) {
-              return {
-                ...calEvent,
-                googleCalendarEventId: response.result.id,
-              };
-            }
-            return calEvent;
-          }
-        );
-
-        this.calendarOptions.events = updatedEvents;
-        localStorage.setItem(
-          `calendarEvents_${userId}`,
-          JSON.stringify(updatedEvents)
-        );
-      })
-      .catch((error: any) => {
-        console.error('Error adding event to Google Calendar:', error);
       });
+
+      console.log('Event added to Google Calendar:', response);
+
+      // After successful adding into Google Calendar, update FullCalendar
+      await this.listUpcomingEvents();
+
+      // Optionally, you can update the event in your local storage with the Google Calendar event ID
+      const updatedEvents = (this.calendarOptions.events as any).map(
+        (calEvent: any) => {
+          if (
+            calEvent.title === event.title &&
+            calEvent.start === event.start &&
+            calEvent.end === event.end
+          ) {
+            return {
+              ...calEvent,
+              googleCalendarEventId: response.result.id,
+            };
+          }
+          return calEvent;
+        }
+      );
+
+      this.calendarOptions.events = updatedEvents;
+      localStorage.setItem(
+        `calendarEvents_${userId}`,
+        JSON.stringify(updatedEvents)
+      );
+
+      // Reset the new event form
+      this.newEvent = {
+        title: '',
+        start: '',
+        end: '',
+      };
+
+      // Use setTimeout to delay closing the Add Event form
+      setTimeout(() => {
+        // Close the Add Event form
+        this.isAddEventFormOpen = false;
+      }, 0);
+    } catch (error) {
+      console.error('Error adding event to Google Calendar:', error);
+      // Keep the Add Event form open in case of an error
+      this.isAddEventFormOpen = true;
+    }
   }
 
   // Remove event
@@ -569,6 +744,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 'Event removed from Google Calendar:',
                 deleteResponse
               );
+              // Update FullCalendar immediately after successful deletion
+              this.listUpcomingEvents();
             })
             .catch((deleteError: any) => {
               console.error(
@@ -618,8 +795,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
-  
+
   updateEvent() {
+    // Check if the newEvent has valid data
+    if (
+      !this.newEvent.title ||
+      !this.newEvent.start ||
+      !this.newEvent.end
+    ) {
+      alert('Please enter all event details.');
+      return;
+    }
     const updatedEvent = {
       ...this.selectedEvent,
       title: this.newEvent.title,
