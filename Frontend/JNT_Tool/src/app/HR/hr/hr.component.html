@@ -12,6 +12,7 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>LastName</th>
             <th>Department</th>
             <th>Email</th>
           </tr>
@@ -19,7 +20,8 @@
         <tbody>
           <tr *ngFor="let tenant of tenants" >
             <td>{{ tenant.id }}</td>
-            <td>{{ tenant.firstName }} {{ tenant.lastName }}</td>
+            <td>{{ tenant.firstName }} </td>
+            <td> {{ tenant.lastName }}</td>
             <td>{{ tenant.department }}</td>
             <td>{{ tenant.email }}</td>
          

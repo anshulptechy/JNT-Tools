@@ -91,12 +91,12 @@ export class HRComponent {
             try {
               const errorData = JSON.parse(error.error);
   
-              // Display the error message to the user
+             
               console.error('Server error:', errorData.title);
-              // Perform additional actions if needed
+              
             } catch (parseError) {
               console.error('Error parsing JSON error response', parseError);
-              // Handle parsing error of error response appropriately
+           
             }
           } else {
             
@@ -123,11 +123,8 @@ export class HRComponent {
   }
 
   updateDeduction() {
-
     const leaveDeduction = this.salaryRecord.leaves ? 300 * parseInt(this.salaryRecord.leaves, 10) : 0;
     this.salaryRecord.deductions = leaveDeduction.toString();
     this.salaryRecord.netPay = (parseInt(this.salaryRecord.salary, 10) - leaveDeduction).toString();
   }
-
-
 }

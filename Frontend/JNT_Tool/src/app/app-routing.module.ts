@@ -27,6 +27,7 @@ import { HRComponent } from './HR/hr/hr.component';
 
 const routes: Routes = [
   { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] },
+    { path: "signup", component: SignupComponent },
     { path: "add", component: AddComponent, canActivate: [AuthGuard] },
     { path: "coupons", component: CouponsComponent, canActivate: [AuthGuard] },
     { path: "edit", component:EditComponent,canActivate: [AuthGuard] },
@@ -39,7 +40,11 @@ const routes: Routes = [
     { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
     { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
      { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent, canActivate: [AuthGuard] }, { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-    
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
+    , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
+    { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, 
+    { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   
       { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
     {path:'salary-report',component:SalaryReportComponent , canActivate: [AuthGuard]},
