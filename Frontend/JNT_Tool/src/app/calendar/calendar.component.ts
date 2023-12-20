@@ -498,6 +498,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.deleteRemovedEvents(calendarEvents);
     } catch (err: any) {
       console.error('Error fetching events:', err);
+      this.handleSignoutClick();
     }
   }
 
