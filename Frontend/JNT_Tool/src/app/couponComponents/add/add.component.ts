@@ -49,7 +49,6 @@ export class AddComponent {
   }
 
   async onSaveClick() {
-    debugger;
     this.submitted = true;
 
     Object.values(this.couponForm.controls).forEach(control => {
@@ -81,7 +80,7 @@ export class AddComponent {
     const discountControl = form.get('discount');
   
     if (discountControl) {
-      let maxAmount!: number; // Initialize with a default value
+      let maxAmount!: number; 
   
       if (discountType === 'Percentage') {
         maxAmount = 100;
@@ -132,22 +131,21 @@ export class AddComponent {
   }
 
   dateValidator(form: FormGroup) {
-    debugger;
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
-
+  
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
-
+  
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
-
+  
       const parsedStartDate = startDate ? new Date(startDate) : null;
       const parsedEndDate = endDate ? new Date(endDate) : null;
-
+  
       if (!parsedStartDate) {
-        startDateControl.setErrors({ requiredError: 'Start date is required.' });
+        startDateControl.setErrors({ required: 'Start date is required.' });
       } else {
         if (parsedStartDate < currentDate) {
           startDateControl.setErrors({ pastDateError: 'Please choose a date from today or later.' });
@@ -155,9 +153,9 @@ export class AddComponent {
           startDateControl.setErrors(null);
         }
       }
-
+  
       if (!parsedEndDate) {
-        endDateControl.setErrors({ requiredError: 'End date is required.' });
+        endDateControl.setErrors({ required: 'End date is required.' });
       } else {
         if (parsedStartDate && parsedEndDate < parsedStartDate) {
           endDateControl.setErrors({ dateError: 'End date must be after the start date.' });
@@ -167,7 +165,6 @@ export class AddComponent {
       }
     }
   }
-
   handleMaxLengthError(control: AbstractControl, maxLength: number): void {
     if (control?.hasError('maxlength')) {
       control.markAsTouched();

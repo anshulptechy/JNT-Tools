@@ -1,22 +1,16 @@
 <app-header></app-header>
 
 <div class="container-fluid">
-
   <div class="mat-elevation-z8">
     <mat-toolbar color="primary">
-      <span>
-        <h1><b>Available Coupons</b></h1>
+      <span class="d-inline-block">
+        <h1 class="mb-0"><b>Available Coupons</b></h1>
       </span>
       <span class="example-spacer"></span>
-      <mat-form-field style="margin-left: 30px; height: 70px; margin-top: 20px; padding: -10px;">
-        <mat-label>
-          <h1 style="margin-bottom: -8px;">Filter</h1>
-        </mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. String" #input>
-      </mat-form-field>
-      <button style="margin-left: 490px; color: white;" class="btn" mat-raised-button (click)="openAddForm()">
-        Add Coupon
-      </button>
+      <div class="form-group">
+        <input matInput class="form-control" (keyup)="applyFilter($event)" placeholder="Search by Filter" #input>
+      </div>
+      <button class="Addbtn" (click)="openAddForm()">Add Coupon</button>
     </mat-toolbar>
 
     <table mat-table [dataSource]="dataSource" matSort>
@@ -70,10 +64,10 @@
       <ng-container matColumnDef="actions">
         <th style="padding: 25px;" mat-header-cell *matHeaderCellDef mat-sort-header style=" background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">Actions</th>
         <td mat-cell *matCellDef="let row">
-          <button class="btn" mat-icon-button (click)="openEditForm(row)">
+          <button class="btn btn-primary custom-button"  (click)="openEditForm(row)">
             <mat-icon>edit</mat-icon>
           </button>&nbsp;
-          <button class="btn" mat-icon-button (click)="deleteCoupons(row.id)">
+          <button class="btn btn-danger custom-button"  (click)="deleteCoupons(row.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -98,3 +92,4 @@
     <button style="background-color:hsl(219, 51%, 50%); color: white; margin-right: -40px;" mat-button (click)="cancelDelete()">No</button>
   </div>
 </div>
+<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size="large" blur=12,></ngx-ui-loader>
