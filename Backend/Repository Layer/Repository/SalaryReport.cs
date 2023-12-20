@@ -79,6 +79,10 @@ namespace Repository_Layer.Repository
             return orderedMonths;
         }
 
-       
+        public async Task<IEnumerable<T>> GetByMonthAndEmployeeAsync(string month, int employeeId)
+        {
+            return await _context.Set<T>().Where(x => EF.Property<string>(x, "SalaryMonth") == month && EF.Property<int>(x, "EmployeeId") == employeeId).ToListAsync();
+
+        }
     }
 }

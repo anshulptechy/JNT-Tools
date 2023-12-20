@@ -39,9 +39,6 @@ namespace Domain_Layer.Migrations
                     b.Property<string>("LeaveType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ManagerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
@@ -50,6 +47,12 @@ namespace Domain_Layer.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("managerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("managercomment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
