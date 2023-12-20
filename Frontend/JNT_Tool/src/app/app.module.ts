@@ -51,6 +51,9 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 import { RouterModule } from '@angular/router';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+import { HRComponent } from './HR/hr/hr.component';
+
+
 
 @NgModule({
   declarations: [
@@ -75,6 +78,8 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+    HRComponent,
+    
  
 
   ],
@@ -135,7 +140,9 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     FormsModule,
     CommonModule,
     MatInputModule,
-    NgxUiLoaderModule,
+    NgxUiLoaderModule,  
+    MatDialogModule
+  
   ],
   providers: [
     DatePipe,
