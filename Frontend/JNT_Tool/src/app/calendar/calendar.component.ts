@@ -804,9 +804,55 @@ export class CalendarComponent implements OnInit, OnDestroy {
       !this.newEvent.start ||
       !this.newEvent.end
     ) {
-      alert('Please enter all event details.');
+      this.snackBar.open('Please enter all event details.', 'OK', {
+        duration: 2000,
+      });
       return;
     }
+
+    const startDate = new Date(this.newEvent.start);
+    const currentDate = new Date();
+    // Add 1 day to the start date
+    startDate.setDate(startDate.getDate() + 1);
+    // Check if the selected start date is before the current date
+    if (startDate < currentDate) {
+      this.snackBar.open(
+        'Start date should not be before the current date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    const startedDate = new Date(this.newEvent.start).getDate();
+    const endDate = new Date(this.newEvent.end).getDate();
+    if (endDate < startedDate) {
+      this.snackBar.open(
+        'End date should not be less than the Start date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    // Check if endTime is less than startTime
+    const startTime = new Date(this.newEvent.start).getTime();
+    const endTime = new Date(this.newEvent.end).getTime();
+
+    if (endTime <= startTime) {
+      this.snackBar.open('End time should be greater than Start time.', 'OK', {
+        duration: 2000,
+      });
+      return;
+    }
+
+     // Check if the selected start time is earlier than the current system time
+     const currentTime = currentDate.getTime();
+     if (startTime < currentTime) {
+         this.snackBar.open('Cannot add event at this time slot.', 'OK', { duration: 2000 });
+         return;
+     }
+
     const updatedEvent = {
       ...this.selectedEvent,
       title: this.newEvent.title,
