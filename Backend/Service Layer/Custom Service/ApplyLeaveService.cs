@@ -94,19 +94,19 @@ namespace Service_Layer.Custom_Service
             }
         }
 
-        public IEnumerable<string> GetManagerNames()
+        public IEnumerable<string> GetmanagerName()
         {
-            var managerNames = _applyLeaveRepo.GetManagerNames();
-            return managerNames;
+            var managerEmail = _applyLeaveRepo.GetmanagerName();
+            return managerEmail;
         }
 
 
 
-        public List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName)
+        public List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerEmail)
         {
             try
             {
-                var leaveStatusList = _applyLeaveRepo.GetLeaveStatusForManagedUsers(managerName);
+                var leaveStatusList = _applyLeaveRepo.GetLeaveStatusForManagedUsers(managerEmail);
                 return leaveStatusList.ToList();
             }
             catch (Exception ex)

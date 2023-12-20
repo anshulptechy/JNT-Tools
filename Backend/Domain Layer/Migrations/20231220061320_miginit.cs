@@ -18,13 +18,14 @@ namespace Domain_Layer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    managerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeaveType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    managercomment = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

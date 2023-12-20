@@ -14,7 +14,7 @@ import { CreateProjectDialogComponent } from './crudProjectComponents/create-pro
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
 import { ProjectReportComponent } from './project-report/project-report.component';
-import { LeaveManagementComponent } from './lms component/leave-management/leave-management.component';
+
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
+  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
   {path:'salary-report',component:SalaryReportComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'attendeceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231219081833_miginit")]
+    [Migration("20231220061320_miginit")]
     partial class miginit
     {
         /// <inheritdoc />
@@ -42,9 +42,6 @@ namespace Domain_Layer.Migrations
                     b.Property<string>("LeaveType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ManagerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
@@ -53,6 +50,12 @@ namespace Domain_Layer.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("managerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("managercomment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
