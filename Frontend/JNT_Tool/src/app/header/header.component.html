@@ -81,6 +81,10 @@
           <li class="nav-item">
             <a class="nav-link active text-white" routerLink="/calendar">Schedule</a>
           </li>
+
+          <li class="nav-item" *ngIf="department === 'hr' || department === 'HR'">
+            <a class="nav-link active text-white" routerLink="/HR">HR</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#" (click)="logOut()">LogOut</a>
           </li>
