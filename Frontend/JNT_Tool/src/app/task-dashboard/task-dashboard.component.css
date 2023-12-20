@@ -57,9 +57,9 @@ margin: 0 50% 2% 1%;
 }
 
 /* Adjustments for small screens (optional) */
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 726px) {
   .container1 {
-    margin: 2%; /* Adjust margin for smaller screens */
+    margin-top: 30%; /* Adjust margin for smaller screens */
   }
 
   .addUserButton {
