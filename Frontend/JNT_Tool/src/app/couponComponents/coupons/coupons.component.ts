@@ -7,6 +7,7 @@ import { CouponsModel } from 'src/app/models/couponModels';
 import { AddComponent } from '../add/add.component';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { EditComponent } from '../edit/edit.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class CouponsComponent implements OnInit {
   showDeleteConfirmation = false;
   couponIdToDelete!: number;
 
-  displayedColumns: string[] =['couponCode','couponName', 'description','discount','startDate',
-                               'endDate','discountType','actions'];
+  displayedColumns: string[] = ['couponCode', 'couponName', 'description', 'discount', 'startDate',
+    'endDate', 'discountType', 'actions'];
 
   dataSource!: MatTableDataSource<CouponsModel>;
 
@@ -40,24 +41,48 @@ export class CouponsComponent implements OnInit {
   }
 
   deleteCoupons(id: number) {
-    this.couponIdToDelete = id;
-    this.showDeleteConfirmation = true;
+    // Use SweetAlert for confirmation
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirms, proceed with deletion
+        this.confirmDelete(id);
+      }
+    });
   }
 
-  confirmDelete() {
-    this._couponService.deleteCoupons(this.couponIdToDelete).subscribe({
+  confirmDelete(id: number) {
+    this._couponService.deleteCoupons(id).subscribe({
       next: () => {
         this.getCouponsList();
-        this.showDeleteConfirmation = false;
         // Check if the data source is empty, then clear the table
         if (this.dataSource.data.length === 1) {
           this.dataSource.data = [];
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-          window.location.reload();
         }
+        // Show success message using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Delete Successful!',
+          text: 'Coupon deleted successfully.',
+        });
       },
-      error: console.log,
+      error: (error) => {
+        console.log('Error deleting coupon:', error);
+        // Show error message using SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while deleting the coupon.',
+        });
+      },
     });
   }
   cancelDelete() {
@@ -140,8 +165,8 @@ export class CouponsComponent implements OnInit {
           result += word + ' ';
         }
       }
-// Remove trailing space
-      return result.trim(); 
+      // Remove trailing space
+      return result.trim();
     } else {
       return text;
     }

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable, debounceTime, of } from 'rxjs';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { SupabaseService } from 'src/app/supabase.service';
 import Swal from 'sweetalert2';
@@ -21,12 +22,12 @@ export class AddComponent {
     private serve: CouponService,
     private _supaService: SupabaseService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  )  {
+  ) {
     this.couponForm = this.fb.group({
       id: [0],
       couponCode: ['string'],
       couponName: ['', [Validators.required, Validators.maxLength(100)]],
-      description: [''],
+      description: ['', [Validators.maxLength(500)]],
       discount: ['', [Validators.required, Validators.min(0)]],
       quantity: ['', [Validators.required, Validators.min(1), Validators.max(100000)]],
       startDate: ['', [Validators.required]],
@@ -34,6 +35,7 @@ export class AddComponent {
       discountType: ['', [Validators.required]],
       supabaseUserId: ['', [Validators.required]],
     }, {
+      
       validators: [this.dateValidator.bind(this), this.maxDiscountValidator.bind(this)]
     });
   }
@@ -54,8 +56,7 @@ export class AddComponent {
     Object.values(this.couponForm.controls).forEach(control => {
       control.markAsTouched();
     });
-
-    if (this.couponForm.invalid) {
+    if (this.couponForm.invalid || (this.couponForm.get('discount')?.value ?? 0) < 0) {
       return;
     }
 
@@ -78,9 +79,11 @@ export class AddComponent {
   maxDiscountValidator(form: FormGroup) {
     const discountType = form.get('discountType')?.value;
     const discountControl = form.get('discount');
+    const quantityControl = form.get('quantity');
   
+    // Validate discount
     if (discountControl) {
-      let maxAmount!: number; 
+      let maxAmount!: number;
   
       if (discountType === 'Percentage') {
         maxAmount = 100;
@@ -89,14 +92,32 @@ export class AddComponent {
       }
   
       if (discountControl.value > maxAmount) {
-        discountControl.setErrors({ max: `Maximum  ${discountType} discount is ${maxAmount}` });
+        discountControl.setErrors({ max: `Maximum ${discountType} discount is ${maxAmount}` });
       } else if (discountControl.hasError('required')) {
         discountControl.setErrors({ required: 'Discount is required' });
+      } else if (discountControl.value < 0) {
+        discountControl.setErrors({ min: 'Discount cannot be less than 0' });
       } else {
         discountControl.setErrors(null);
       }
     }
+  
+    // Validate quantity
+    if (quantityControl) {
+      const maxQuantity = 100000;
+  
+      if (quantityControl.value > maxQuantity) {
+        quantityControl.setErrors({ max: `Quantity should not exceed ${maxQuantity} units` });
+      } else if (quantityControl.hasError('required')) {
+        quantityControl.setErrors({ required: 'Quantity is required' });
+      } else if (quantityControl.value < 0) {
+        quantityControl.setErrors({ min: 'Quantity cannot be less than 0' });
+      } else {
+        quantityControl.setErrors(null);
+      }
+    }
   }
+  
   
 
   onDiscountTypeChange() {
@@ -133,17 +154,17 @@ export class AddComponent {
   dateValidator(form: FormGroup) {
     const startDateControl = form.get('startDate');
     const endDateControl = form.get('endDate');
-  
+
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
-  
+
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
-  
+
       const parsedStartDate = startDate ? new Date(startDate) : null;
       const parsedEndDate = endDate ? new Date(endDate) : null;
-  
+
       if (!parsedStartDate) {
         startDateControl.setErrors({ required: 'Start date is required.' });
       } else {
@@ -153,7 +174,7 @@ export class AddComponent {
           startDateControl.setErrors(null);
         }
       }
-  
+
       if (!parsedEndDate) {
         endDateControl.setErrors({ required: 'End date is required.' });
       } else {

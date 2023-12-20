@@ -1,16 +1,13 @@
-/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* Page Layout */
 .container-fluid {
   margin: 20px;
 }
 
-/* Buttons */
 button {
   color: #fff;
   padding: 10px 15px;
@@ -19,11 +16,12 @@ button {
   cursor: pointer;
   font-size: 16px;
 }
-/* Add Coupon Button */
+
 .Addbtn {
   background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 82%, 21%));
-  margin-left: auto; 
-  height: auto;
+  margin-left: auto;
+  padding-top: 6px;
+  height: 40px;
   width: auto;
 }
 
@@ -32,9 +30,6 @@ button {
   color: white;
 }
 
-
-
-/* Table and Toolbar Styles */
 .mat-elevation-z8 {
   width: 90%;
   margin: 100px auto 0;
@@ -52,15 +47,16 @@ mat-form-field {
   margin-top: 20px;
 }
 
-/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
 }
-.form-control{
+
+.form-control {
   margin-left: 20px;
   margin-bottom: -5px;
 }
+
 th,
 td {
   border: 1px solid #ddd;
@@ -72,7 +68,6 @@ td {
   background-color: #f2f2f2;
 }
 
-/* Delete Confirmation Dialog */
 .delete-confirmation {
   position: fixed;
   top: 0;
@@ -94,7 +89,6 @@ td {
   text-align: center;
 }
 
-/* Button Styles */
 button:disabled {
   background-color: #a0a0a0;
   cursor: not-allowed;
@@ -116,7 +110,6 @@ button.btn-primary:hover {
   background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
 }
 
-/* Responsive Styles */
 @media (max-width: 600px) {
   mat-form-field {
     width: 100%;
@@ -128,5 +121,15 @@ button.btn-primary:hover {
   .mat-elevation-z8 {
     width: 100%;
     margin: 50px auto 0;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+  }
+
+  .Addbtn {
+    width: 100%;
+    margin-left: 0;
   }
 }
