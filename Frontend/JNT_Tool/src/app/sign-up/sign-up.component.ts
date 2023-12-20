@@ -142,7 +142,7 @@ export class SignupComponent {
         );
 
         // Successful signup
-        this.snackBar.open('Signup Successful', 'OK', { duration: 3000, horizontalPosition: 'right' });
+        this.snackBar.open('Signup Successful', '', { duration: 3000, horizontalPosition: 'right', panelClass: ["success-snackbar"] });
 
         // Redirect to the login page or another appropriate route
         this.router.navigate(['/login']);
