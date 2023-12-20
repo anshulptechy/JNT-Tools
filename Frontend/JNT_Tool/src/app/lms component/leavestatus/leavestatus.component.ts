@@ -84,7 +84,7 @@ export class LeavestatusComponent implements OnInit {
   }
 
   editLeave(leave: any) {
-    debugger
+    
     const formattedStartDate = this.formatDate(leave.startDate);
     const formattedEndDate = this.formatDate(leave.endDate);
     const managerName = leave.managerName ? leave.managerName.firstName : '';
@@ -166,7 +166,6 @@ export class LeavestatusComponent implements OnInit {
       );
     this.getLeaveStatusByUserId();
   }
-
   closeLeaveApplicationPopup() {
     window.location.reload();
   }

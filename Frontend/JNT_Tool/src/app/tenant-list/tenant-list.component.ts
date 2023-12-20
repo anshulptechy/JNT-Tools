@@ -103,7 +103,9 @@ export class TenantListComponent {
       console.error('TenantName not found in local storage.');
     }
   }
-
+  resetForm(){
+    this.createUserForm.reset();
+  }
   async createUser() {
     const existingUser = await this.supabase
       .from('usertable')
@@ -195,6 +197,7 @@ export class TenantListComponent {
         console.error('Supabase error:', error);
       }
     }
+    window.location.reload();
   }
 
   editTenant(tenant: any) {
