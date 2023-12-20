@@ -11,7 +11,7 @@ namespace Domain_Layer.Models
         public int Id { get; set; }
         public int UserId { get; set; }
 
-        public string? ManagerName { get; set; }
+        public string? managerName { get; set; }
 
         public string? EmployeeName { get; set; }
 
@@ -24,5 +24,9 @@ namespace Domain_Layer.Models
         public string? Reason { get; set; }
 
         public string? status { get; set; }
+
+        public string? managercomment { get; set; }
+
+
     }
 }
