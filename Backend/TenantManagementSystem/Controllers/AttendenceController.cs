@@ -25,9 +25,9 @@ namespace TenantManagementSystem.Controllers
             _applicationDbContext = appDbContext;
         }
         [HttpGet(nameof(GetAttendenceById))]
-        public IActionResult GetAttendenceById(int EmpId)
+        public IActionResult GetAttendenceById(int id)
         {
-            var obj = _AttendenceServices.Get(EmpId);
+            var obj = _AttendenceServices.Get(id);
             if (obj == null)
             {
                 return NotFound();
@@ -37,10 +37,7 @@ namespace TenantManagementSystem.Controllers
                 return Ok(obj);
             }
         }
-        private object GetAttendenceById()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         [HttpGet(nameof(GetAllAttendence))]
         public IActionResult GetAllAttendence()
@@ -204,16 +201,20 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (var management in allManagements)
                 {
-                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
 
-                    if (attendance != null)
+                    if (attendance != null && attendance.Any())
                     {
-                        // Replace "attendence" with "attendances" in the anonymous object
-                        result.Add(new
+                        foreach (var attendanceRecord in attendance)
                         {
-                            Management = management,
-                            Attendance = attendance // Change the key here
-                        });
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
+
+                            result.Add(entry);
+                        }
                     }
                 }
 
@@ -228,6 +229,7 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving management and attendance entries by month: {ex.Message}");
             }
         }
+
         [HttpGet(nameof(GetAllFirstNamesByTenant))]
         public IActionResult GetAllFirstNamesByTenant(string tenantName)
         {
