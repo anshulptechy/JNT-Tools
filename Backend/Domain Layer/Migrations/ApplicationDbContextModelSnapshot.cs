@@ -51,6 +51,9 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("managercomment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
@@ -151,11 +154,11 @@ namespace Domain_Layer.Migrations
                     b.Property<DateTime>("start")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("title")
+                    b.Property<string>("tenantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -282,8 +285,8 @@ namespace Domain_Layer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
-                    b.Property<int>("Budget")
-                        .HasColumnType("int");
+                    b.Property<double>("Budget")
+                        .HasColumnType("float");
 
                     b.Property<string>("Client")
                         .IsRequired()
@@ -304,6 +307,10 @@ namespace Domain_Layer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("projectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tenantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

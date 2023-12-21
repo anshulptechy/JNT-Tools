@@ -40,7 +40,7 @@ namespace Domain_Layer.Models
             get;
             set;
         }
-        public int Budget
+        public double Budget
         {
             get;
             set;
@@ -50,5 +50,6 @@ namespace Domain_Layer.Models
             get;
             set;
         }
+        public string tenantName { get; set; }
     }
 }

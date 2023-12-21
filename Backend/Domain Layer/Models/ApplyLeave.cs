@@ -24,5 +24,7 @@ namespace Domain_Layer.Models
         public string? Reason { get; set; }
 
         public string? status { get; set; }
+
+        public string? managercomment { get; set; }
     }
 }

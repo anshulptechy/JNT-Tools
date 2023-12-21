@@ -80,7 +80,6 @@ namespace TenantManagementSystem.Controllers
         }
 
 
-
         [HttpPut(nameof(UpdateAttendence))]
         public IActionResult UpdateAttendence(Attendences Attendence)
         {

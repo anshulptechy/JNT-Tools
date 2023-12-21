@@ -80,8 +80,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
 
     if (signoutButton) {
-      const userId = localStorage.getItem('userId');
-      const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
+      const tenantName = localStorage.getItem('tenantName');
+      const storedEvents = localStorage.getItem(`calendarEvents_${tenantName}`);
       if (storedEvents) {
         // If storedEvents is present, show the "Sign Out" button and hide the "Sync" button
         signoutButton.style.visibility = 'visible';
@@ -107,7 +107,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     // Check for a stored access token for the current user
     const storedToken = localStorage.getItem(
-      `accessToken_${localStorage.getItem('userId')}`
+      `accessToken_${localStorage.getItem('tenantName')}`
     );
     if (storedToken) {
       // Check if both Gapi and Gis have been initialized
@@ -123,7 +123,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
 
     // Retrieve the user's Gmail ID from localStorage
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserId = localStorage.getItem('tenantName');
     this.userGmailId =
       localStorage.getItem(`userGmailId_${storedUserId}`) || '';
   }
@@ -138,14 +138,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   isAuthorizeButtonVisible(): boolean {
     const storedEvents = localStorage.getItem(
-      `calendarEvents_${localStorage.getItem('userId')}`
+      `calendarEvents_${localStorage.getItem('tenantName')}`
     );
     return !storedEvents;
   }
 
   isSignoutButtonVisible(): boolean {
     const storedEvents = !localStorage.getItem(
-      `calendarEvents_${localStorage.getItem('userId')}`
+      `calendarEvents_${localStorage.getItem('tenantName')}`
     );
     return !storedEvents;
   }
@@ -202,9 +202,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Load events from local storage
   loadEvents() {
-    const userId = localStorage.getItem('userId');
+    const tenantName = localStorage.getItem('tenantName');
     // Retrieve events from local storage
-    const storedEvents = localStorage.getItem(`calendarEvents_${userId}`);
+    const storedEvents = localStorage.getItem(`calendarEvents_${tenantName}`);
     if (storedEvents) {
       this.calendarOptions.events = JSON.parse(storedEvents);
     }
@@ -213,7 +213,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // Handle authentication click
   handleAuthClick() {
     const storedToken = localStorage.getItem(
-      `accessToken_${localStorage.getItem('userId')}`
+      `accessToken_${localStorage.getItem('tenantName')}`
     );
 
     if (storedToken) {
@@ -249,7 +249,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
         // Store the access token in local storage with the user ID
         localStorage.setItem(
-          `accessToken_${localStorage.getItem('userId')}`,
+          `accessToken_${localStorage.getItem('tenantName')}`,
           resp.access_token
         );
 
@@ -275,8 +275,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
         console.log('Synced Gmail ID:', this.userGmailId);
 
         // Store the user's Gmail ID in localStorage
-        const userId = localStorage.getItem('userId');
-        localStorage.setItem(`userGmailId_${userId}`, this.userGmailId);
+        const tenantName = localStorage.getItem('tenantName');
+        localStorage.setItem(`userGmailId_${tenantName}`, this.userGmailId);
       })
       .catch((error: any) => {
         console.error('Error fetching user email:', error);
@@ -286,8 +286,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // Handle signout click
   handleSignoutClick() {
     debugger;
-    const userId = localStorage.getItem('userId');
-    const tokenKey = `accessToken_${userId}`;
+    const tenantName = localStorage.getItem('tenantName');
+    const tokenKey = `accessToken_${tenantName}`;
     const token = gapi.client.getToken();
 
     // Clear the access token for the current user
@@ -298,7 +298,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       // Clear the events array to remove the user's events
       this.calendarOptions.events = [];
       // Clear local storage
-      localStorage.removeItem(`calendarEvents_${userId}`);
+      localStorage.removeItem(`calendarEvents_${tenantName}`);
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
         authorizeButton.style.visibility = 'visible';
@@ -315,12 +315,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
       // Clear user Gmail ID
       this.userGmailId = ''; // Add this line to clear the user email
-      localStorage.removeItem(`userGmailId_${userId}`);
+      localStorage.removeItem(`userGmailId_${tenantName}`);
     } else {
       this.calendarOptions.events = [];
 
       // Clear local storage
-      localStorage.removeItem(`calendarEvents_${userId}`);
+      localStorage.removeItem(`calendarEvents_${tenantName}`);
       const authorizeButton = document.getElementById('authorize_button');
       if (authorizeButton) {
         authorizeButton.innerText = 'Sync';
@@ -332,7 +332,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
       // Clear user Gmail ID
       this.userGmailId = ''; // Add this line to clear the user email
-      localStorage.removeItem(`userGmailId_${userId}`);
+      localStorage.removeItem(`userGmailId_${tenantName}`);
     }
   }
 
@@ -343,7 +343,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       title: event.title,
       start: event.start,
       end: event.end,
-      userId: event.extendedProps.userId,
+      tenantName: event.extendedProps.tenantName,
       googleCalendarEventId: event.extendedProps.googleCalendarEventId,
     };
     this.showModal();
@@ -448,7 +448,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // List upcoming events
   async listUpcomingEvents() {
     try {
-      const userId = localStorage.getItem('userId');
+      const tenantName = localStorage.getItem('tenantName');
       const request = {
         calendarId: 'primary',
         timeMin: new Date().toISOString(),
@@ -456,7 +456,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         singleEvents: true,
         maxResults: 90,
         orderBy: 'startTime',
-        userId: userId,
+        tenantName: tenantName,
       };
       const response = await gapi.client.calendar.events.list(request);
 
@@ -473,7 +473,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
           title: event.summary,
           start: event.start.dateTime || event.start.date,
           end: event.end.dateTime || event.end.date,
-          userId: userId,
+          tenantName: tenantName,
           googleCalendarEventId: event.id,
         };
       });
@@ -485,7 +485,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         next: (response) => {
           console.log('Events stored successfully:', response);
           localStorage.setItem(
-            `calendarEvents_${userId}`,
+            `calendarEvents_${tenantName}`,
             JSON.stringify(calendarEvents)
           );
         },
@@ -498,15 +498,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.deleteRemovedEvents(calendarEvents);
     } catch (err: any) {
       console.error('Error fetching events:', err);
+      this.handleSignoutClick();
     }
   }
 
   // Delete removed events
   deleteRemovedEvents(currentEvents: any[]) {
-    const userId = localStorage.getItem('userId');
+    const tenantName = localStorage.getItem('tenantName');
     // Retrieve previously stored events
     const storedEvents = JSON.parse(
-      localStorage.getItem(`calendarEvents_${userId}`) || '[]'
+      localStorage.getItem(`calendarEvents_${tenantName}`) || '[]'
     );
 
     // Identify events that are no longer present
@@ -598,7 +599,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Add event to Google Calendar
   async addEventToGoogleCalendar(event: any) {
-    const userId = localStorage.getItem('userId');
+    const tenantName = localStorage.getItem('tenantName');
 
     // Format dates to ISO 8601
     const formattedStart = new Date(event.start).toISOString();
@@ -646,7 +647,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
       this.calendarOptions.events = updatedEvents;
       localStorage.setItem(
-        `calendarEvents_${userId}`,
+        `calendarEvents_${tenantName}`,
         JSON.stringify(updatedEvents)
       );
 
@@ -692,16 +693,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
       }
     );
 
-    const userId = localStorage.getItem('userId');
+    const tenantName = localStorage.getItem('tenantName');
 
     if (updatedEvents.length === 0) {
       // If there are no events left, set calendarOptions.events to an empty array
       this.calendarOptions.events = [];
-      localStorage.removeItem(`calendarEvents_${userId}`);
+      localStorage.removeItem(`calendarEvents_${tenantName}`);
     } else {
       this.calendarOptions.events = updatedEvents;
       localStorage.setItem(
-        `calendarEvents_${userId}`,
+        `calendarEvents_${tenantName}`,
         JSON.stringify(updatedEvents)
       );
     }
@@ -712,7 +713,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Remove event from Google Calendar
   removeEventFromGoogleCalendar(event: any) {
-    const userId = localStorage.getItem('userId');
+    const tenantName = localStorage.getItem('tenantName');
 
     // Format dates to ISO 8601
     const formattedStart = new Date(event.start).toISOString();
@@ -803,15 +804,61 @@ export class CalendarComponent implements OnInit, OnDestroy {
       !this.newEvent.start ||
       !this.newEvent.end
     ) {
-      alert('Please enter all event details.');
+      this.snackBar.open('Please enter all event details.', 'OK', {
+        duration: 2000,
+      });
       return;
     }
+
+    const startDate = new Date(this.newEvent.start);
+    const currentDate = new Date();
+    // Add 1 day to the start date
+    startDate.setDate(startDate.getDate() + 1);
+    // Check if the selected start date is before the current date
+    if (startDate < currentDate) {
+      this.snackBar.open(
+        'Start date should not be before the current date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    const startedDate = new Date(this.newEvent.start).getDate();
+    const endDate = new Date(this.newEvent.end).getDate();
+    if (endDate < startedDate) {
+      this.snackBar.open(
+        'End date should not be less than the Start date.',
+        'OK',
+        { duration: 2000 }
+      );
+      return;
+    }
+
+    // Check if endTime is less than startTime
+    const startTime = new Date(this.newEvent.start).getTime();
+    const endTime = new Date(this.newEvent.end).getTime();
+
+    if (endTime <= startTime) {
+      this.snackBar.open('End time should be greater than Start time.', 'OK', {
+        duration: 2000,
+      });
+      return;
+    }
+
+     // Check if the selected start time is earlier than the current system time
+     const currentTime = currentDate.getTime();
+     if (startTime < currentTime) {
+         this.snackBar.open('Cannot add event at this time slot.', 'OK', { duration: 2000 });
+         return;
+     }
+
     const updatedEvent = {
       ...this.selectedEvent,
       title: this.newEvent.title,
       start: this.newEvent.start,
       end: this.newEvent.end,
-      userId: this.selectedEvent.userId,
+      tenantName: this.selectedEvent.tenantName,
       googleCalendarEventId: this.selectedEvent.googleCalendarEventId,
     };
 
@@ -833,9 +880,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.calendarOptions.events = updatedEvents;
 
         // Update the event in local storage
-        const userId = localStorage.getItem('userId');
+        const tenantName = localStorage.getItem('tenantName');
         localStorage.setItem(
-          `calendarEvents_${userId}`,
+          `calendarEvents_${tenantName}`,
           JSON.stringify(updatedEvents)
         );
 

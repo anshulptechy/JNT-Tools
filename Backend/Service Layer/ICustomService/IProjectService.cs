@@ -13,7 +13,7 @@ namespace Service_Layer.ICustomService
         void Insert(T entity);
         void Update(T entity);
 
-        IEnumerable<(int ProjectId, string ProjectName)> GetAllProjectNames();
+        IEnumerable<(int ProjectId, string ProjectName, string tenantName)> GetAllProjectNames();
 
         IEnumerable<T> GetProjectsByMonth(int month);
     }

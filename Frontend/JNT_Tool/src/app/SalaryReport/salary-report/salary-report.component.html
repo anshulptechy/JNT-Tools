@@ -1,63 +1,70 @@
 <app-header></app-header>
+<br><br><br>
+<div class="selectdrop">
+  <section>
 
-<div class="Heading">
-  <strong>SALARY REPORT</strong>
-</div>
+    <form>
+      <div class="row mt-5">
+        <div class="col-6">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{ selectedMonth ? selectedMonth : "Select Month" }}
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let month of months">
+                <a class="dropdown-item" (click)="selectMonth(month)">{{ month }}</a>
 
-<div class="container">
-  <div *ngIf="showReportOptions" class="button-dropdowns justify-content-center">
-    <!-- Report Content -->
-    <mat-form-field>
-      <mat-label>Select Month</mat-label>
-      <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="generateReport()" name="selectedMonth">
-        <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-    <mat-form-field class="customMargin">
-      <mat-label>Select Employee</mat-label>
-      <mat-select [(ngModel)]="selectedEmployee" (ngModelChange)="generateReport()" name="selectedEmployee">
-        <mat-option *ngFor="let employee of employeeData" [value]="employee.firstName">{{ employee.firstName}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <div class="col-6">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" > 
+         {{ selectedEmployee ? selectedEmployee.firstName : "Select User" }}
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let employee of employeeData">
+                <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee.firstName }} {{employee.lastName}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div class="mt-4">
+    <div class="table-responsive">
+      <table class="table project-table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>Role</th>
+            <th>Salary Month</th>
+            <th>Salary</th>
+            <th>Leaves</th>
+            <th>Deductions</th>
+            <th>Net Pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of reportData">
+            <td>{{ record.management.firstName}}</td>
+            <td>{{ record.management.department }}</td>
+            <td>{{ record.salaryMonth }}</td>
+            <td>{{ record.salary }}</td>
+            <td>{{ record.leaves }}</td>
+            <td>{{ record.deductions }}</td>
+            <td>{{ record.netPay }}</td>
+          </tr>
+        </tbody>
+      </table>
+       <div *ngIf="showReportGrid && reportData.length === 0" class="no-record-message">
+    <p>No data available.</p>
+  </div>
+    </div>
   </div>
 </div>
-
-<div *ngIf="showReportGrid">
-  <!-- Check if reportData is available -->
-  <ng-container *ngIf="reportData && reportData.length > 0; else noData">
-    <!-- Grid to display the report -->
-    <table>
-      <thead>
-        <tr>
-          <th>EmployeeID</th>
-          <th>Employee Name</th>
-          <th>Role</th>
-          <th>Salary Month</th>
-          <th>Salary</th>
-          <th>Leaves</th>
-          <th>Deductions</th>
-          <th>Net Pay</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of reportData">
-          <td>{{ record.management.id }}</td>
-          <td>{{ record.management.firstName}}</td>
-          <td>{{ record.management.department }}</td>
-          <td>{{ record.salaryMonth }}</td>
-          <td>{{ record.salary }}</td>
-          <td>{{ record.leaves }}</td>
-          <td>{{ record.deductions }}</td>
-          <td>{{ record.netPay }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
-
-  <ng-template #noData >
-    <div class="no-data-message">
-      <p>Data not available</p>
-    </div>
-  </ng-template>
-  <ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
