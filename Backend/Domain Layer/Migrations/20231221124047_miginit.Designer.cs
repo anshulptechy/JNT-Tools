@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231220071106_miginit")]
+    [Migration("20231221124047_miginit")]
     partial class miginit
     {
         /// <inheritdoc />
@@ -154,11 +154,11 @@ namespace Domain_Layer.Migrations
                     b.Property<DateTime>("start")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("title")
+                    b.Property<string>("tenantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
