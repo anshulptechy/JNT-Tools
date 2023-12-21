@@ -6,7 +6,6 @@ using Repository_Layer.IRepository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repository_Layer.EventRepo;
 using Repository_Layer.IEventRepo;
-using Repository_Layer.IRepository;
 using Repository_Layer.ProjectRepo;
 using Repository_Layer.Repository;
 using Service_Layer.Custom_Service;
@@ -57,7 +56,10 @@ builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
 
 builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 
-
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5018); // Add your desired port
+});
 
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service Layer", "Service La
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedUtilities", "SharedUtilities\SharedUtilities.csproj", "{807E8CD1-A3D0-4971-842F-299708D4C217}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{62A859A8-53F7-4607-A260-347E2DF7B5C8}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CF9B3748-B303-4D17-BE91-EE9F4F58D104}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{807E8CD1-A3D0-4971-842F-299708D4C217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{807E8CD1-A3D0-4971-842F-299708D4C217}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{807E8CD1-A3D0-4971-842F-299708D4C217}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62A859A8-53F7-4607-A260-347E2DF7B5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62A859A8-53F7-4607-A260-347E2DF7B5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62A859A8-53F7-4607-A260-347E2DF7B5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62A859A8-53F7-4607-A260-347E2DF7B5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9B3748-B303-4D17-BE91-EE9F4F58D104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9B3748-B303-4D17-BE91-EE9F4F58D104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9B3748-B303-4D17-BE91-EE9F4F58D104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9B3748-B303-4D17-BE91-EE9F4F58D104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

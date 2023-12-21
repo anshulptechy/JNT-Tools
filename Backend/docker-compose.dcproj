@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>62a859a8-53f7-4607-a260-347e2df7b5c8</ProjectGuid>
+    <ProjectGuid>cf9b3748-b303-4d17-be91-ee9f4f58d104</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>tenantmanagementsystem</DockerServiceName>
