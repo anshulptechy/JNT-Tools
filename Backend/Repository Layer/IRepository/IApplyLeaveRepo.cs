@@ -18,7 +18,7 @@ namespace Repository_Layer.IRepository
         void Delete(int id);
 
         void SaveChanges();
-        IEnumerable<string> GetmanagerName();
+        IEnumerable<string> GetManagerNames();
         List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName);
     }
 }

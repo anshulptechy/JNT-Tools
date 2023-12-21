@@ -62,7 +62,12 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-
+        [HttpGet(nameof(GetManagerNames))]
+        public IActionResult GetManagerNames()
+        {
+            var managerNames = _Service.GetManagerNames();
+            return Ok(managerNames);
+        }
 
         [HttpGet("GetLeaveStatusForManagedUsers/{managerName}")]
         public IActionResult GetLeaveStatusForManagedUsers(string managerName)
@@ -79,13 +84,8 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}/{managercomment}")]
-        public async Task<IActionResult> UpdateLeaveStatus(
-            int userId,
-            DateTime startDate,
-            DateTime endDate,
-            string status,
-            string managercomment) // Note: You don't need [FromBody] in this case
+        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}")]
+        public async Task<IActionResult> UpdateLeaveStatus(int userId, DateTime startDate, DateTime endDate, string status)
         {
             try
             {
@@ -101,9 +101,8 @@ namespace TenantManagementSystem.Controllers
                     return NotFound();
                 }
 
-                // Update the leave status and managercomment
+                // Update the leave status
                 leave.status = status;
-                leave.managercomment = managercomment;
 
                 // Save changes to the database
                 await _applicationDbContext.SaveChangesAsync();
@@ -134,7 +133,6 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all names: {ex.Message}");
             }
         }
-
 
 
         [HttpDelete("DeleteApplyLeave/{id}")]

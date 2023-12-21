@@ -13,7 +13,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./update-button.component.css']
 })
 export class UpdateButtonComponent implements OnInit {
-  
+  tanantName=localStorage.getItem('tenantName');
   updateForm: FormGroup | any;
   matcher = new MyErrorStateMatcher();
   countries: string[] = ['USA', 'Canada', 'UK', 'Germany', 'France', 'Australia', 'Japan', 'South Korea', 'Singapore', 'India', 'Brazil', 'Mexico', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland'];
@@ -60,8 +60,9 @@ export class UpdateButtonComponent implements OnInit {
   onSaveClick(data1:any) {
    
     data1.status = this.updateForm.get('status').value ? 'Active' : 'Not Active';
-
+    
     data1.projectId=this.data.data.projectId;
+    data1.tenantName=this.tanantName;
     
     this.serve.updateProjectDetail(data1).subscribe((result)=>{
       this.dialogRef.close(result);

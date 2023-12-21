@@ -11,7 +11,7 @@ namespace Domain_Layer.Models
     {
         [Key]
         public int Id { get; set; }
-        public string tenantName { get; set; }
+        public string userId { get; set; }
         public string GoogleCalendarEventId { get; set; }
         public string title { get; set; }
         public DateTime start { get; set; }
