@@ -26,6 +26,7 @@ namespace Service_Layer.ICustomService
         List<Attendences> GetAttendanceByManagementId(int id);
         List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName);
     }
-   
+
+
 }
 

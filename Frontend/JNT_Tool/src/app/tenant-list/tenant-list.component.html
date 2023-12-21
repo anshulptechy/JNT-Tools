@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+ 
 <div
   class="modal fade"
   id="createUserModal"
@@ -21,7 +21,7 @@
       <div class="modal-body">
         <form [formGroup]="createUserForm">
           <input type="hidden" id="id" formControlName="id" />
-
+ 
           <div class="form-group">
             <label for="firstName"
               >First Name<span class="required">*</span></label
@@ -46,7 +46,7 @@
               First Name is required
             </div>
           </div>
-
+ 
           <div class="form-group">
             <label for="lastName"
               >Last Name<span class="required">*</span></label
@@ -71,7 +71,7 @@
               Last Name is required
             </div>
           </div>
-
+ 
           <div class="form-group">
             <label for="email">Email<span class="required">*</span></label>
             <input
@@ -104,7 +104,7 @@
               Invalid email format
             </div>
           </div>
-
+ 
           <div class="form-group">
             <label for="department"
               >Department<span class="required">*</span></label
@@ -129,7 +129,7 @@
               Department is required
             </div>
           </div>
-
+ 
           <div
             class="form-group"
             [ngClass]="{
@@ -177,7 +177,7 @@
             }"
             required
           />
-
+ 
           <div
             *ngIf="
               createUserForm.get('confirmPassword')?.hasError('required') &&
@@ -187,7 +187,7 @@
           >
             Confirm Password is required
           </div>
-
+ 
           <div
             *ngIf="
               createUserForm.hasError('passwordMismatch') &&
@@ -197,14 +197,14 @@
           >
             Passwords do not match
           </div>
-
+ 
           <div class="form-group" hidden>
             <label for="tenantName">Tenant Name</label>
             <input type="text" id="tenantName" formControlName="tenantName" />
           </div>
         </form>
       </div>
-
+ 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
           Cancel
@@ -222,7 +222,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div
   class="modal fade"
   id="editUserModal"
@@ -244,7 +244,7 @@
       <div class="modal-body">
         <form [formGroup]="editUserForm">
           <input type="hidden" id="id" formControlName="id" />
-
+ 
           <div class="modal-body">
             <form [formGroup]="editUserForm">
               <div class="form-group">
@@ -271,7 +271,7 @@
                   First Name is required
                 </div>
               </div>
-
+ 
               <div class="form-group">
                 <label for="lastName"
                   >Last Name<span class="required">*</span></label
@@ -296,7 +296,7 @@
                   Last Name is required
                 </div>
               </div>
-
+ 
               <div class="form-group">
                 <label for="department"
                   >Department<span class="required">*</span></label
@@ -326,10 +326,10 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-
+ 
         <button
           type="button"
           class="btn btn-primary"
@@ -343,7 +343,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div class="container ml-5 mr-5 upperMargin">
   <!-- Create User Button Section -->
   <div class="row">
@@ -359,16 +359,16 @@
       </button>
     </div>
   </div>
-
+ 
   <!-- Table Section -->
   <div class="row">
     <div class="col">
-      <div class="table-container">
+      <div class="table-container" style="margin-top:1px">
         <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
+              <!-- <th>ID</th> -->
+              <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
               <th>Department</th>
@@ -377,7 +377,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let tenant of tenants" (click)="setFormValues(tenant)">
-              <td>{{ tenant.id }}</td>
+              <!-- <td>{{ tenant.id }}</td> -->
               <td>{{ tenant.firstName }}</td>
               <td>{{ tenant.lastName }}</td>
               <td>{{ tenant.email }}</td>
@@ -391,8 +391,8 @@
                 >
                   <i class="fa fa-pencil"></i>
                 </button>
-
-                
+ 
+               
                 <button
                   class="marginLeft btn btn-danger"
                   (click)="deleteTenant(tenant.id)"
@@ -407,4 +407,4 @@
     </div>
   </div>
 </div>
-<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
+<ngx-ui-loader text="Please Wait..." fgsColor="#0d6efd" [hasProgressBar]="false"></ngx-ui-loader>

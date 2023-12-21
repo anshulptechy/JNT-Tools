@@ -23,17 +23,16 @@ namespace TenantManagementSystem.Controllers
         [HttpGet("GetByid/{id}")]
         public ActionResult<IEnumerable<Screenshots>> GetByid(int id, [FromQuery] string filter = "All")
         {
-            // Retrieve logs based on id and filter from the database
+           
             var logsQuery = _context.Screenshot.Where(s => s.id == id);
 
             if (filter == "Today")
             {
-                // Filter for today
+               
                 logsQuery = logsQuery.Where(s => s.CreatedAt.Date == DateTime.UtcNow.Date);
             }
             else if (filter == "ThisWeek")
             {
-                // Filter for this week
                 var today = DateTime.UtcNow.Date;
                 var startDate = today.AddDays(-(int)today.DayOfWeek);
                 var endDate = startDate.AddDays(6);
@@ -44,10 +43,10 @@ namespace TenantManagementSystem.Controllers
 
             if (logs == null || logs.Count == 0)
             {
-                return NotFound(); // Return 404 if no logs are found
+                return NotFound(); 
             }
 
-            return Ok(logs); // Return the logs if found
+            return Ok(logs); 
         }
 
         [HttpPost]
@@ -64,7 +63,7 @@ namespace TenantManagementSystem.Controllers
                 {
                     await file.CopyToAsync(memoryStream);
 
-                    // Convert UTC time to Indian Standard Time (IST)
+                   
                     TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, indianTimeZone);
 
@@ -72,7 +71,7 @@ namespace TenantManagementSystem.Controllers
                     {
                         ImageData = memoryStream.ToArray(),
                         CreatedAt = indianTime,
-                        id = id // Associate the screenshot with the Signup based on id
+                        id = id 
                     };
 
                     _context.Screenshot.Add(screenshot);
@@ -87,4 +86,6 @@ namespace TenantManagementSystem.Controllers
             }
         }
     }
+
 }
+

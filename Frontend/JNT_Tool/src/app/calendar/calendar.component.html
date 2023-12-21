@@ -1,19 +1,4 @@
 <app-header></app-header>
-<!-- Show Bootstrap Alert when selectable is false -->
-<div
-*ngIf="!calendarOptions.selectable"
-class="alert alert-primary"
-style="
-  height: 10px;
-  padding-top: 4px;
-  padding-bottom: 20px;
-  top: 11.5%;
-  position: absolute;
-  width: 100%;
-"
->
-Refresh or Sync your account now.
-</div>
 <!-- Display user email -->
 <div *ngIf="userGmailId" class="user-email">
   {{ userGmailId }}

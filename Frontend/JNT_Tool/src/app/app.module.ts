@@ -21,7 +21,7 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { TaskUpdateComponent } from './task-update/task-update.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -47,10 +47,12 @@ import { CommonModule } from '@angular/common'; // Add this line
 import { ProjectReportComponent } from './project-report/project-report.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 
-
 import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.component';
 import { RouterModule } from '@angular/router';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+import { HRComponent } from './HR/hr/hr.component';
+
+
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     UpdateButtonComponent,
     ProjectReportComponent,
     SalaryReportComponent,
+    HRComponent,
+    
  
 
   ],
@@ -95,7 +99,6 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     DatePipe,
@@ -112,7 +115,6 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
@@ -135,7 +137,9 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
     FormsModule,
     CommonModule,
     MatInputModule,
-    NgxUiLoaderModule,
+    NgxUiLoaderModule,  
+    MatDialogModule,MatFormFieldModule
+  
   ],
   providers: [
     DatePipe,
