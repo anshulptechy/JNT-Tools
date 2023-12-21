@@ -80,7 +80,6 @@ namespace TenantManagementSystem.Controllers
         }
 
 
-
         [HttpPut(nameof(UpdateAttendence))]
         public IActionResult UpdateAttendence(Attendences Attendence)
         {
@@ -123,64 +122,28 @@ namespace TenantManagementSystem.Controllers
 
                     if (attendance != null && attendance.Any())
                     {
-                        var entry = new
+                        foreach (var attendanceRecord in attendance)
                         {
-                            Management = management,
-                            Attendance = attendance.First() // Assuming each management has only one attendance record
-                        };
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
 
-                        result.Add(entry);
+                            result.Add(entry);
+                        }
                     }
                 }
 
                 // Extract the Attendences objects from the result and pass them to CalculateHours
-                var attendencesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
-                _AttendenceServices.CalculateHours(attendencesList);
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
-            }
-        }
-
-
-        [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
-        public IActionResult GetAllManagementAndAttendanceByFirstName(string firstName)
-        {
-            try
-            {
-                // Filter management entries by first name
-                List<Management> filteredManagements = _applicationDbContext.Managements
-                    .Where(m => m.firstName == firstName)
-                    .ToList();
-
-                List<object> result = new List<object>();
-
-                foreach (Management management in filteredManagements)
-                {
-                    // Assuming GetAttendanceByManagementId returns a list of attendances
-                    List<Attendences> attendances = _AttendenceServices.GetAttendanceByManagementId(management.id);
-
-                    if (attendances != null && attendances.Any())
-                    {
-                        // Customize the response format based on your needs
-                        var entry = new
-                        {
-                            Management = management,
-                            Attendance = attendances
-                        };
-
-                        result.Add(entry);
-                    }
-                }
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error retrieving management and attendance entries by first name: {ex.Message}");
             }
         }
         [HttpGet(nameof(GetAllManagementAndAttendanceByMonthbytenantName))]
@@ -198,16 +161,20 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (var management in allManagements)
                 {
-                    var attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
 
-                    if (attendance != null)
+                    if (attendance != null && attendance.Any())
                     {
-                        // Replace "attendence" with "attendances" in the anonymous object
-                        result.Add(new
+                        foreach (var attendanceRecord in attendance)
                         {
-                            Management = management,
-                            Attendance = attendance // Change the key here
-                        });
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
+
+                            result.Add(entry);
+                        }
                     }
                 }
 
@@ -222,6 +189,8 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving management and attendance entries by month: {ex.Message}");
             }
         }
+
+
         [HttpGet(nameof(GetAllManagementAndAttendanceByMonth))]
         public IActionResult GetAllManagementAndAttendanceByMonth(string monthName)
         {
@@ -319,6 +288,49 @@ namespace TenantManagementSystem.Controllers
             {
                 // Handle exceptions appropriately
                 return StatusCode(500, "Internal Server Error");
+            }
+        }
+        [HttpGet(nameof(GetAllManagementAndAttendanceByFirstName))]
+        public IActionResult GetAllManagementAndAttendanceByFirstName(string firstName, string tenantName)
+        {
+            try
+            {
+                // Fetch all data from the database for the specified firstName and tenantName
+                List<Management> allManagements = _applicationDbContext.Managements
+                    .Where(m => m.firstName == firstName && m.tenantName == tenantName)
+                    .ToList();
+
+                List<object> result = new List<object>();
+
+                foreach (var management in allManagements)
+                {
+                    // Assuming you have a method to get attendance by management ID
+                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+
+                    if (attendance != null && attendance.Any())
+                    {
+                        foreach (var attendanceRecord in attendance)
+                        {
+                            var entry = new
+                            {
+                                Management = management,
+                                Attendance = attendanceRecord
+                            };
+
+                            result.Add(entry);
+                        }
+                    }
+                }
+
+                // Extract the Attendences objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
+                _AttendenceServices.CalculateHours(attendancesList);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error retrieving management and attendance entries by firstName: {ex.Message}");
             }
         }
 
