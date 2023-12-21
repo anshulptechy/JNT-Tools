@@ -1,9 +1,0 @@
-version: '3.4'
-
-services:
-  tenantmanagementsystem:
-    image: ${DOCKER_REGISTRY-}tenantmanagementsystem
-    build:
-      context: .
-      dockerfile: TenantManagementSystem\Dockerfile
-    

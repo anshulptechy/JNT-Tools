@@ -75,7 +75,7 @@ app.UseCors(builder => builder
     .AllowAnyMethod()
     .AllowAnyHeader());
 
-app.UseForwardedHeaders();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

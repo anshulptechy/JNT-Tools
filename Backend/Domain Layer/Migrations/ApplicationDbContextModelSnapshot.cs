@@ -282,8 +282,8 @@ namespace Domain_Layer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
-                    b.Property<int>("Budget")
-                        .HasColumnType("int");
+                    b.Property<double>("Budget")
+                        .HasColumnType("float");
 
                     b.Property<string>("Client")
                         .IsRequired()

@@ -9,7 +9,6 @@ import { CouponsComponent } from './couponComponents/coupons/coupons.component';
 import { AddComponent } from './couponComponents/add/add.component';
 import { EditComponent } from './couponComponents/edit/edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
@@ -21,6 +20,8 @@ import { TaskDashboardComponent } from './task-dashboard/task-dashboard.componen
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
+// import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -43,7 +44,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'update', component: UpdateButtonComponent, canActivate: [AuthGuard] }
   , { path: 'create-project-dialog', component: CreateProjectDialogComponent, canActivate: [AuthGuard] },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent, canActivate: [AuthGuard] }, { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
+ { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] }, { path: 'leaveManagement', component: LeaveManagementComponent, canActivate: [AuthGuard] }, { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
   {path:'salary-report',component:SalaryReportComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'attendeceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },

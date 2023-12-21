@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231215111150_miginit")]
+    [Migration("20231220133717_miginit")]
     partial class miginit
     {
         /// <inheritdoc />
@@ -285,8 +285,8 @@ namespace Domain_Layer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
-                    b.Property<int>("Budget")
-                        .HasColumnType("int");
+                    b.Property<double>("Budget")
+                        .HasColumnType("float");
 
                     b.Property<string>("Client")
                         .IsRequired()

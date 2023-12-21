@@ -42,7 +42,8 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Budget</mat-label>
+      <mat-label>Budget ($)</mat-label>
+      
       <input matInput formControlName="budget" id="budget" type="number"/>
       <mat-error *ngIf="updateForm.get('budget').hasError('max')">Limit exceeds max length 9</mat-error>
     </mat-form-field>
@@ -59,4 +60,4 @@
     Save
   </button>
 </div>
-<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
+<!-- <ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader> -->

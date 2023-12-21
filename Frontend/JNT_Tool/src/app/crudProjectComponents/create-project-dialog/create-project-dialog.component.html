@@ -41,8 +41,8 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Budget</mat-label>
-      <span matPrefix>$</span>
+      <mat-label>Budget ($)</mat-label>
+     
       <input matInput formControlName="budget" id="budget" type="number" step="0.01"/>
       <mat-error *ngIf="projectForm.get('budget').hasError('max')">
         Limit exceeds max length 9</mat-error>
