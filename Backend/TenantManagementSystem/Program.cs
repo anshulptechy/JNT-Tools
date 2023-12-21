@@ -56,10 +56,6 @@ builder.Services.AddScoped<IApplyLeaveService<ApplyLeave>, ApplyLeaveService>();
 
 builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(5018); // Add your desired port
-});
 
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
