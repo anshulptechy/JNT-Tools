@@ -5,7 +5,7 @@ import { ProjectDataService } from '../Service/project-data.service';
 @Component({
   selector: 'app-project-report',
   templateUrl: './project-report.component.html',
-  styleUrls: ['./project-report.component.css']
+  styleUrls: ['./project-report.component.css'],
 })
 export class ProjectReportComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])
@@ -36,27 +36,38 @@ export class ProjectReportComponent implements OnInit {
   filteredProjects: any[] = [];
   checkedProjectIds: number[] = [];
   selectAll: boolean = false;
-
+  tenantName = localStorage.getItem('tenantName');
   constructor(
-    private projectData: ProjectDataService,
-    // private toastr: ToastrService,
-    // private ngxService: NgxUiLoaderService
-  ) {}
+    private projectData: ProjectDataService
+  ) // private toastr: ToastrService,
+  // private ngxService: NgxUiLoaderService
+  {}
 
   ngOnInit() {
     this.getAllProjects();
     this.getAllProjectNames();
+    console.log(this.tenantName);
   }
 
   getAllProjects() {
-    this.projectData.getAllProjects().subscribe((data) => {
-      this.Projects = data as any[];
-      this.updateFilteredProjects();
-    });
+    const tenantName = localStorage.getItem('tenantName');
+
+    // Check if tenantName exists in local storage
+    if (tenantName) {
+      this.projectData.getAllProjects().subscribe((data) => {
+        // Filter projects based on the tenantName
+        this.Projects = data.filter(
+          (project) => project.tenantName === tenantName
+        ) as any[];
+        this.updateFilteredProjects();
+      });
+    } else {
+      console.error('Tenant name not found in local storage');
+      // Optionally, you might want to handle this case by showing an error message or redirecting the user.
+    }
   }
 
   getProjectById(id: number) {
-    
     this.projectData.getProjectDetailById(id).subscribe((data) => {
       const project = data as any;
 
@@ -73,17 +84,27 @@ export class ProjectReportComponent implements OnInit {
   }
 
   getAllProjectNames() {
-    this.projectData.getProjectNames().subscribe((data) => {
-      this.projectNames = data as any[];
-    });
+    if (this.tenantName) {
+      this.projectData.getProjectNames().subscribe((data) => {
+        // Filter project names based on the tenantName
+        this.projectNames = (data as any[]).filter(
+          (projectName) => projectName.tenantName === this.tenantName
+        );
+      });
+    }
   }
 
   getProjectByMonth() {
-    this.projectData
-      .getProjectsByMonth(this.selectedMonth.value)
-      .subscribe((data) => {
-        this.filteredProjects = data as any[];
-      });
+    if (this.tenantName) {
+      this.projectData
+        .getProjectsByMonth(this.selectedMonth.value)
+        .subscribe((data) => {
+          // Filter projects based on the tenantName
+          this.filteredProjects = (data as any[]).filter(
+            (project) => project.tenantName === this.tenantName
+          );
+        });
+    }
   }
 
   selectProject(project: any) {

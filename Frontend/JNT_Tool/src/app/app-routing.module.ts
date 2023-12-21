@@ -9,7 +9,6 @@ import { CouponsComponent } from './couponComponents/coupons/coupons.component';
 import { AddComponent } from './couponComponents/add/add.component';
 import { EditComponent } from './couponComponents/edit/edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { CreateProjectDialogComponent } from './crudProjectComponents/create-project-dialog/create-project-dialog.component';
 import { UpdateButtonComponent } from './crudProjectComponents/update-button/update-button.component';
 import { DashboardComponent } from './crudProjectComponents/dashboard/dashboard.component';
@@ -20,6 +19,8 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import { SalaryReportComponent } from './SalaryReport/salary-report/salary-report.component';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
+// import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { HRComponent } from './HR/hr/hr.component';
 
 

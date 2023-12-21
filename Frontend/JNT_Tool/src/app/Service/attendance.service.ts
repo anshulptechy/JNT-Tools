@@ -26,6 +26,5 @@ export class AttendanceService {
  
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
   }
- 
 }
 
