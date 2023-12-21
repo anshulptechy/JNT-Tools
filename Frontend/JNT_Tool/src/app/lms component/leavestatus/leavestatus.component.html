@@ -12,7 +12,7 @@
     <table>
       <thead>
         <tr>
-          <th>User ID</th>
+
           <th>Manager Name</th>
           <th>Employee Name</th>
           <th>Start Date</th>
@@ -29,7 +29,7 @@
       <tbody>
         <ng-container *ngIf="leaveStatusData && leaveStatusData.length > 0; else noData">
           <tr *ngFor="let leave of leaveStatusData">
-            <td>{{ leave.userId }}</td>
+
             <td>{{leave.managerName}}</td>
             <td>{{leave.employeeName}}</td>
             <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
@@ -49,9 +49,9 @@
             </td>
           </tr>
         </ng-container>
-        <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; else noData">
+        <ng-container *ngIf="leaveManagementData && leaveManagementData.length > 0; ">
           <tr *ngFor="let leave of leaveManagementData">
-            <td>{{ leave.userId }}</td>
+
             <td>{{leave.managerName}}</td>
             <td>{{leave.employeeName}}</td>
             <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
@@ -79,9 +79,7 @@
       </tbody>
     </table>
   </div>
-
-  <!-- ... Other content ... -->
-  <!-- Apply Leave Modal -->
+   <!-- Apply Leave Modal -->
   <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
@@ -95,17 +93,10 @@
             <label for="managerNameDropdown">Manager Name: <span class="text-danger">*</span></label>
             <select id="managerNameDropdown" name="managerNameDropdown" [(ngModel)]="leaveApplication.managerName"
               required>
+              
               <option *ngFor="let name of managerNames" [value]="name.firstName">{{ name.firstName }}</option>
-             </select>
-
-            
-
-            <br>
-
-
-
-
-            <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
+            </select>
+            <br> <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
             <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
             <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
@@ -154,10 +145,10 @@
             <select id="managerNameDropdown" name="managerNameDropdown" [(ngModel)]="leaveApplication.managerName"
               required>
               <option *ngFor="let name of managerNames" [value]="name.firstName">{{ name.firstName }}</option>
-             </select>
+            </select>
 
-            
-          
+
+
 
 
             <br>
