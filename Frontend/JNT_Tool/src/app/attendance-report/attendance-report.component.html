@@ -2,40 +2,43 @@
 </app-header>
 <br><br><br>
 <div class="selectdrop">
- 
     <section>
         <h1 style="color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));">Attendance Report</h1>
         <hr>
- 
-        <span *ngIf="showDropdown" class="button-dropdowns">
-         
- 
         <form [formGroup]="attendanceForm">
-            <span>
-            <span>
-              <mat-form-field>
-                <mat-label>Select Month</mat-label>
-                <mat-select formControlName="selectedMonth" (selectionChange)="getbyMonthName($event.value)">
-                  <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </span>
-        </span>
-        &nbsp;&nbsp;
-        <span>
-            <mat-form-field>
-              <mat-label>Select Employee</mat-label>
-              <mat-select formControlName="selectedEmployee"  (selectionChange)="generateEReport() ; setValueOfSelectedMonth('')" [(value)]="selectedEmployee"  >
-             <mat-option *ngFor="let employee of employeeNames" [value]="employee">{{ employee }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-         
-        </span>
-        </form>
-        </span>
+          <div class="row mt-5">
+            <div class="col-6">
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  {{ selectedMonth ? selectedMonth : "Select Month" }}
+                </button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let month of months">
+                    <a class="dropdown-item" (click)="getbyMonthName(month)">{{ month }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+      
+            <div class="col-6">
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedEmployee ? selectedEmployee : "Select Employee" }}
+                </button>
+                  <ul class="dropdown-menu">
+                      <li *ngFor="let employee of employeeNames">
+                          <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee }}</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </form>
     </section>
- 
-    <!-- Your attendance report content goes here -->
     <div *ngIf="showTable" class="table-container" class="scrollable-container">
         <table class="table">
             <thead style="padding: 50px;">
@@ -61,6 +64,8 @@
             </tbody>
                
         </table>
- 
+        <div *ngIf="gridData.length === 0" class="no-record-message">
+          No records found.
+      </div>
     </div>
 </div>

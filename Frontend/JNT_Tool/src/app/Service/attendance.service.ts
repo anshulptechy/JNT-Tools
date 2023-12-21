@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class AttendanceService {
 
 
+  
   constructor(private http: HttpClient) { }
  
  
@@ -14,7 +15,7 @@ export class AttendanceService {
     return this.http.get('https://localhost:7126/api/Attendence/GetAllManagementAndAttendance');
   }
  
-    getAllEmployees(data:string) {
+  getAllEmployees(data:string) {
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllFirstNamesByTenant?tenantName=${data}`);
   }
   getMonths() {

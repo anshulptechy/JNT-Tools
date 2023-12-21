@@ -1,25 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .container-fluid {
   margin: 20px;
 }
 
+button {
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.Addbtn {
+  background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 82%, 21%));
+  margin-left: auto;
+  padding-top: 6px;
+  height: 40px;
+  width: auto;
+}
+
+.Addbtn:hover {
+  background: linear-gradient(to bottom right, hsl(218, 34%, 27%), hsl(219, 34%, 55%));
+  color: white;
+}
 
 .mat-elevation-z8 {
   width: 90%;
-  margin-top: 100px;
-  margin-right: 50px;
-  margin-left: 50px;
-}
-.mat-sort-header-arrow {
-  color:white; /* Change the color to your desired color */
+  margin: 100px auto 0;
 }
 
 mat-toolbar {
- background-color: white;
-  color:  hsl(218, 41%, 15%);
+  background-color: white;
+  color: black;
 }
 
 mat-form-field {
   width: 300px;
+  margin-left: 30px;
+  height: 70px;
+  margin-top: 20px;
 }
 
 table {
@@ -27,15 +52,20 @@ table {
   border-collapse: collapse;
 }
 
+.form-control {
+  margin-left: 20px;
+  margin-bottom: -5px;
+}
+
 th,
 td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
 }
 
 .mat-row {
-  background-color: #f2f2f2; 
+  background-color: #f2f2f2;
 }
 
 .delete-confirmation {
@@ -48,8 +78,8 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
- 
 }
+
 .confirmation-box {
   background: #fff;
   padding: 20px;
@@ -59,20 +89,47 @@ td {
   text-align: center;
 }
 
+button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+button.btn-primary,
+button.btn-danger {
+  color: #fff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
 
 .confirmation-box button:hover {
   background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
 }
 
-.btn{
-  background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-  color: white;
-  border: none;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
-}
-button:hover{
-  background: linear-gradient(to bottom right, hsl(218, 50%, 6%), hsl(219, 90%, 16%));
-
+@media (max-width: 600px) {
+  mat-form-field {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
+@media (max-width: 768px) {
+  .mat-elevation-z8 {
+    width: 100%;
+    margin: 50px auto 0;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+  }
+
+  .Addbtn {
+    width: 100%;
+    margin-left: 0;
+  }
+}

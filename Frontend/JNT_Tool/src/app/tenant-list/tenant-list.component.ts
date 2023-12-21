@@ -238,7 +238,6 @@ export class TenantListComponent {
   }
 
   async deleteTenant(id: number) {
-    // Show a confirmation dialog
     const isConfirmed = await Swal.fire({
       icon: 'warning',
       title: 'Are you sure?',

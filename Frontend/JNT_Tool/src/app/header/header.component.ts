@@ -8,33 +8,30 @@ import { environment } from '../environment/environment.development';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   isSidebarOpen = false;
   userName: string | null = null;
   userId: string | null = null;
   showCouponDetailsFlag = false;
-  
-  supabase: SupabaseClient;
-  
+  supabase: SupabaseClient;  
 
+ 
   constructor(private auth: SupabaseService, private router: Router) {
-    const env = environment ;
+    const env = environment;
     this.supabase = createClient(env.supabase.url, env.supabase.key);
   }
 
   ngOnInit() {
     this.loadUserDetails();
     const storedFirstName = localStorage.getItem('tenantName');
-
     // Set the value to loggedInUserName if it exists
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;
     }
   }
 
-  
   async loadUserDetails() {
     const userDetails = await this.auth.getUserDetails();
     if (userDetails) {
@@ -44,12 +41,12 @@ export class HeaderComponent implements OnInit {
 
   showCouponDetails() {
     this.showCouponDetailsFlag = true;
-
   }
 
   loggedInUserName: string = '';
 
   logOut() {
+    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     this.auth.signOut().then(() => {
       this.router.navigate(['/login']);
@@ -60,4 +57,6 @@ export class HeaderComponent implements OnInit {
       text: 'User Logout successful',
     });
   }
+
+  department = localStorage.getItem('department')
 }

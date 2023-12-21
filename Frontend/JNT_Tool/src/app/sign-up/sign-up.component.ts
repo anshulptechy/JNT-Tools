@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TenantService } from '../tenant.service';
 import Swal from 'sweetalert2';
 import { UserService } from '../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
@@ -33,7 +34,7 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, { validators: this.passwordMatchValidator });
 
-  constructor(private router: Router, private tenantService: TenantService, private userservice: UserService) {}
+  constructor(private router: Router, private tenantService: TenantService, private userservice: UserService, private snackBar: MatSnackBar) {}
 
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
@@ -141,11 +142,7 @@ export class SignupComponent {
         );
 
         // Successful signup
-        Swal.fire({
-          icon: 'success',
-          title: 'Signup Successful!',
-          text: 'Your account has been created successfully.',
-        });
+        this.snackBar.open('Signup Successful', '', { duration: 3000, horizontalPosition: 'right', panelClass: ["success-snackbar"] });
 
         // Redirect to the login page or another appropriate route
         this.router.navigate(['/login']);
