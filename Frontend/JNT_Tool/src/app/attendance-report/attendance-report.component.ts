@@ -27,7 +27,6 @@ export class AttendanceReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployeeData();
-    this.loadData();
   }
 
   loadEmployeeData() {
@@ -44,11 +43,6 @@ export class AttendanceReportComponent implements OnInit {
       }
     );
   }
-
-  populateEmployeeNames() {
-    this.employeeNames = Array.from(new Set(this.gridData.map(record => record.management.firstName)));
-  }
-
   formatDate(dateTimeString: string): string {
     if (dateTimeString) {
       const date = new Date(dateTimeString);
@@ -94,18 +88,11 @@ export class AttendanceReportComponent implements OnInit {
     );
   }
 
-
-
   setValueOfSelectedMonth(value: string) {
     const selectedMonthControl = this.attendanceForm.get('selectedMonth');
     if (selectedMonthControl) {
       selectedMonthControl.setValue(value);
     }
-  }
-
-  private loadData() {
-    this.populateEmployeeNames();
-    this.loadEmployeeData();
   }
 
   generateEReport() {
