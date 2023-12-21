@@ -65,7 +65,7 @@ export class LoginComponent {
             localStorage.setItem('token', '6767676767');
             
             // Show SweetAlert2 success notification for valid login
-            this.snackBar.open('Login Successful', 'OK', { duration: 3000 });
+            this.snackBar.open('Login Successful', '', { duration: 3000, horizontalPosition: 'right', panelClass: ["success-snackbar"] });
   
             // Redirect to a different route or perform other actions upon successful login
             this.router.navigate(['/mainpage'], { queryParams: { id: id } });

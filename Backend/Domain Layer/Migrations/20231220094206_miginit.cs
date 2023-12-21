@@ -75,7 +75,7 @@ namespace Domain_Layer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tenantName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GoogleCalendarEventId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     start = table.Column<DateTime>(type: "datetime2", nullable: false),

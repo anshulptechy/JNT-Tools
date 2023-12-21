@@ -15,9 +15,9 @@ export class HeaderComponent implements OnInit {
   userName: string | null = null;
   userId: string | null = null;
   showCouponDetailsFlag = false;
-  
-  supabase: SupabaseClient;
+  supabase: SupabaseClient;  
 
+ 
   constructor(private auth: SupabaseService, private router: Router) {
     const env = environment;
     this.supabase = createClient(env.supabase.url, env.supabase.key);
@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.loadUserDetails();
     const storedFirstName = localStorage.getItem('tenantName');
-
     // Set the value to loggedInUserName if it exists
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;

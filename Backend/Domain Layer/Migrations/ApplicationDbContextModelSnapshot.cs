@@ -154,11 +154,11 @@ namespace Domain_Layer.Migrations
                     b.Property<DateTime>("start")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("title")
+                    b.Property<string>("tenantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
