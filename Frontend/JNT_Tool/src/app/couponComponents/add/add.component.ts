@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, debounceTime, of } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 import { CouponService } from 'src/app/couponServices/coupon.service';
 import { SupabaseService } from 'src/app/supabase.service';
 import Swal from 'sweetalert2';
@@ -21,7 +21,8 @@ export class AddComponent {
     private fb: FormBuilder,
     private serve: CouponService,
     private _supaService: SupabaseService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _router: Router
   ) {
     this.couponForm = this.fb.group({
       id: [0],
@@ -35,7 +36,6 @@ export class AddComponent {
       discountType: ['', [Validators.required]],
       supabaseUserId: ['', [Validators.required]],
     }, {
-      
       validators: [this.dateValidator.bind(this), this.maxDiscountValidator.bind(this)]
     });
   }
@@ -48,6 +48,16 @@ export class AddComponent {
         supabaseUserId: userId,
       });
     }
+    this.dialogRef.backdropClick().subscribe(() => {
+      this.onCancelClick();
+    });
+    // Subscribe to router events
+    this._router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // The navigation has ended, so reset the flag
+        this.dialogRef.close(true);
+      }
+    });
   }
 
   async onSaveClick() {
@@ -73,6 +83,7 @@ export class AddComponent {
     } finally {
       this.dialogRef.close(this.couponForm);
       this.loading = false;
+
     }
   }
 
@@ -80,17 +91,16 @@ export class AddComponent {
     const discountType = form.get('discountType')?.value;
     const discountControl = form.get('discount');
     const quantityControl = form.get('quantity');
-  
-    // Validate discount
+
     if (discountControl) {
       let maxAmount!: number;
-  
+
       if (discountType === 'Percentage') {
         maxAmount = 100;
       } else if (discountType === 'Fixed Amount') {
         maxAmount = 100000;
       }
-  
+      // Validate discount
       if (discountControl.value > maxAmount) {
         discountControl.setErrors({ max: `Maximum ${discountType} discount is ${maxAmount}` });
       } else if (discountControl.hasError('required')) {
@@ -101,11 +111,11 @@ export class AddComponent {
         discountControl.setErrors(null);
       }
     }
-  
+
     // Validate quantity
     if (quantityControl) {
       const maxQuantity = 100000;
-  
+
       if (quantityControl.value > maxQuantity) {
         quantityControl.setErrors({ max: `Quantity should not exceed ${maxQuantity} units` });
       } else if (quantityControl.hasError('required')) {
@@ -117,15 +127,12 @@ export class AddComponent {
       }
     }
   }
-  
-  
 
   onDiscountTypeChange() {
     const discountControl = this.couponForm.get('discount');
 
     if (discountControl) {
       const currentDiscountValue = discountControl.value;
-
       discountControl.setErrors(null);
 
       if (this.couponForm.get('discountType')?.value === 'Percentage') {
@@ -133,12 +140,8 @@ export class AddComponent {
       } else {
         discountControl.setValidators([Validators.required, Validators.min(0), Validators.max(100000)]);
       }
-
       discountControl.setValue(currentDiscountValue);
-
       discountControl.updateValueAndValidity();
-
-      // Trigger max discount validation
       this.maxDiscountValidator(this.couponForm);
     }
   }

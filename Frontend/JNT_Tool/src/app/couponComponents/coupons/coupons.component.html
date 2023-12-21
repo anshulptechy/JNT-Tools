@@ -32,7 +32,7 @@
           style="background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">
           Coupon Name</th>
         <td mat-cell *matCellDef="let row">
-          <div style="max-width: 200px;"> <!-- Adjust max-width as needed -->
+          <div style="max-width: 200px;"> 
             {{ breakWords(row.couponName, 30) }}
           </div>
         </td>
@@ -43,7 +43,7 @@
           style="background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white; padding-left: 25px;">
           Coupon Description</th>
         <td mat-cell *matCellDef="let row">
-          <div style="max-width: 300px;"> <!-- Adjust max-width as needed -->
+          <div style="max-width: 300px;"> 
             {{ breakWords(row.description, 30) }}
           </div>
         </td>

@@ -15,9 +15,7 @@ export class HeaderComponent implements OnInit {
   userName: string | null = null;
   userId: string | null = null;
   showCouponDetailsFlag = false;
-  
-  supabase: SupabaseClient;
-  
+  supabase: SupabaseClient;  
 
   constructor(private auth: SupabaseService, private router: Router) {
     const env = environment ;
@@ -27,14 +25,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.loadUserDetails();
     const storedFirstName = localStorage.getItem('tenantName');
-
     // Set the value to loggedInUserName if it exists
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;
     }
   }
 
-  
   async loadUserDetails() {
     const userDetails = await this.auth.getUserDetails();
     if (userDetails) {
@@ -44,7 +40,6 @@ export class HeaderComponent implements OnInit {
 
   showCouponDetails() {
     this.showCouponDetailsFlag = true;
-
   }
 
   loggedInUserName: string = '';
