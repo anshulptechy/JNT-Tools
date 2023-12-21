@@ -113,18 +113,10 @@ img {
 }
 /* Style the h1 heading */
 
-h1 {
+ h2 {
     font-size: 24px;
-    font-weight: bold;
     text-transform: uppercase;
-    margin: 20px 0;
-}
-
-h1:after {
-    content: "";
-    display: block;
-    border-bottom: 2px solid #000;
-    margin-top: 5px;
+    /* margin: 20px 0; */
 }
 
 .matbutton {
@@ -200,7 +192,16 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    
 }
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+  }
+  .column {
+    padding: 1em; /* Adjust padding for small screens */
+  }
+  
 
 th,
 td {
@@ -322,11 +323,7 @@ th {
   .dropdown-menu a {
     padding: 8px;
   }
-  
-  .table {
-    width: 100%;
-  }
-  
+ 
   .form-check {
     margin-left: 10px;
   }
@@ -360,60 +357,35 @@ th {
     background-color:  hsl(220, 24%, 81%); 
     color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
     border-radius: 5px;
+    width: auto;
+    font-size: 1em;
     
 }
-.selectdrop{
-    margin-top: 20px;
+
+  @media only screen and (max-width: 768px) {
+    h2 {
+        font-size: 20px;
+    }
+   
 }
-@media (min-width: 768px) and (max-width: 990px) {
-    
-  
-    .container {
-      flex-direction: column;
-    }
-  
-    nav {
-      width: 100%;
-      height: auto;
-    }
-  
-    .logo {
-      margin: 10px auto;
-    }
-  
-    a {
-      width: auto;
-    }
-  
-    .logout {
-      position: static;
-    }
-  
-    .main-top {
-      flex-direction: column;
-    }
-  
-    .main-top i {
-      position: static;
-      margin: 10px auto;
-    }
-  
-    .selectdrop {
-      margin-top: 10px;
-      
-    }
-  
-    .button-dropdowns {
-      flex-direction: column;
-    
-    }
-    
-    .show-report-button-container {
-      margin-left: 0; 
-    }
-  
-    .sidenav-container {
-      height: auto;
-    }
-  }
-  
+    @media only screen and (max-width: 250px) {
+        h2 {
+            font-size: 15px;
+        }}
+        @media only screen and (max-width: 440px) {
+            .column {
+                width: 80%;
+            }}
+            @media (min-width: 576px) {
+                body {
+                  font-size: 18px;
+                }
+              }
+              
+              @media (min-width: 768px) {
+                body {
+                  font-size: 20px;
+                }
+              }
+              
+                          

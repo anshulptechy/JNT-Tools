@@ -2,11 +2,10 @@
 </app-header>
 <br><br><br>
 <div class="selectdrop">
-    <section>
-        <h1 style="color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));">Attendance Report</h1>
-        <hr>
+    <section class="mt-5">
+        <h2 style="color: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));">Attendance Report</h2>
         <form [formGroup]="attendanceForm">
-          <div class="row mt-5">
+          <div class="row">
             <div class="col-6">
               <div class="dropdown">
                 <button
@@ -42,8 +41,7 @@
     <div *ngIf="showTable" class="table-container" class="scrollable-container">
         <table class="table">
             <thead style="padding: 50px;">
-                <tr>
-                  <!-- <th style="color:blue;">AttendenceId</th> -->
+                <tr class="column">
                     <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">First Name</th>
                     <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Last Name</th>
                     <th style="background:linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%)); color: white;">Department</th>
@@ -62,7 +60,7 @@
                 <td>{{ record.attendance.hours }}</td>   
         </table>
         <div *ngIf="gridData.length === 0" class="no-record-message">
-          No records found.
+          No records available.
       </div>
     </div>
 </div>
