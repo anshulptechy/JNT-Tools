@@ -21,11 +21,12 @@ export class SalaryService {
 
   getSalaryData(firstName: string,salaryMonth: string): Observable<any[]> {
     const url = `${this.baseUrl}/getSalaryData/${firstName}/${salaryMonth}`;
-
     return this.http.get<any[]>(url);
   }
 
+
   addSalaryRecord(salaryRecord: any): Observable<any> {
+   
     const url = `${this.baseUrl}/add-salary-record`;
     return this.http.post<any>(url, salaryRecord);
   }

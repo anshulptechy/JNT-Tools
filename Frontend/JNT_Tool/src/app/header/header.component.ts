@@ -8,7 +8,7 @@ import { environment } from '../environment/environment.development';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   isSidebarOpen = false;
@@ -17,8 +17,9 @@ export class HeaderComponent implements OnInit {
   showCouponDetailsFlag = false;
   supabase: SupabaseClient;  
 
+ 
   constructor(private auth: SupabaseService, private router: Router) {
-    const env = environment ;
+    const env = environment;
     this.supabase = createClient(env.supabase.url, env.supabase.key);
   }
 
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
   loggedInUserName: string = '';
 
   logOut() {
+    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     this.auth.signOut().then(() => {
       this.router.navigate(['/login']);
@@ -55,4 +57,6 @@ export class HeaderComponent implements OnInit {
       text: 'User Logout successful',
     });
   }
+
+  department = localStorage.getItem('department')
 }
