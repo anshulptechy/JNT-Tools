@@ -26,8 +26,10 @@ export class CreateProjectDialogComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+    console.log(this.tanantName);
+    
   }
-
+  tanantName=localStorage.getItem('tenantName');
   initializeForm() {
 
     this.projectForm = this.fb.group({
@@ -37,6 +39,7 @@ export class CreateProjectDialogComponent implements OnInit {
       endDate: ['', Validators.required],
       country: ['', Validators.required],
       budget: ['', [Validators.max(999999999)]],
+     
       status: [true],
     });
   }
@@ -45,9 +48,9 @@ export class CreateProjectDialogComponent implements OnInit {
   onSaveClick(data: any) {
     data.status = 'Active';
     data.projectId = this.Id;
+    data.tenantName=this.tanantName;
     this.serve.addProject(data).subscribe((result) => {
       this.dialogRef.close(result);
-
     });
   }
   onCancelClick() {

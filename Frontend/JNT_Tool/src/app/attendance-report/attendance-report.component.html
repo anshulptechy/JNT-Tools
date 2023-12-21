@@ -60,6 +60,9 @@
                 <td>{{ formatDate(record.attendance.loginTime) }}</td>
                 <td>{{ formatDate(record.attendance.logoutTime) }}</td>
                 <td>{{ record.attendance.hours }}</td>   
+              </tr>
+            </tbody>
+               
         </table>
         <div *ngIf="gridData.length === 0" class="no-record-message">
           No records found.

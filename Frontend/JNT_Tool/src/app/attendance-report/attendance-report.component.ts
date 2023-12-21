@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../Service/attendance.service';
 
+ 
 @Component({
   selector: 'app-attendance-report',
   templateUrl: './attendance-report.component.html',
@@ -94,7 +95,6 @@ export class AttendanceReportComponent implements OnInit {
       selectedMonthControl.setValue(value);
     }
   }
-
   generateEReport() {
     if (this.selectedEmployee) {
       this.serve.getAllAttendenceWithManagement().subscribe((result) => {

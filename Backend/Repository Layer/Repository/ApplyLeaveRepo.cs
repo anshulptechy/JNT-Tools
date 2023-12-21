@@ -40,14 +40,14 @@ namespace Repository_Layer.Repository
             return entities.AsEnumerable();
         }
 
-        public IEnumerable<string> GetmanagerName()
+        public IEnumerable<string> GetManagerNames()
         {
-            return entities.Select(e => e.managerName).Distinct().ToList();
+            return entities.Select(e => e.ManagerName).Distinct().ToList();
         }
 
         public List<ApplyLeave> GetLeaveStatusForManagedUsers(string managerName)
         {
-            return entities.Where(leave => leave.managerName == managerName).ToList();
+            return entities.Where(leave => leave.ManagerName == managerName).ToList();
         }
 
         public void Insert(ApplyLeave entity)
