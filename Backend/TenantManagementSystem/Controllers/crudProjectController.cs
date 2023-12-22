@@ -6,7 +6,7 @@ using Service_Layer.ICustomService;
 
 namespace TenantManagementSystem.Controllers
 {
-    [Route("")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CrudProjectController : ControllerBase
     {
