@@ -121,11 +121,6 @@ getUserTasks(user: string) {
   //   });
   // }
   
-  
-  
-
-
-
   // Function to edit a task
   editTask(task: any) {
     const dialogRef = this.dialog.open(TaskUpdateComponent, {
@@ -184,7 +179,6 @@ getUserTasks(user: string) {
     this.serve.getUserTasksDetails(this.userTasks.value.userName,this.tenant).subscribe((result) => {
       this.userTasksDetails = result as any;
     });
-
 
 }
 

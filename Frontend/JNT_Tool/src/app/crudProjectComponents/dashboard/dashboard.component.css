@@ -6,6 +6,12 @@
   
 }
 
+@media only screen and (max-width: 1000px) {
+  .container{
+    margin-top: 30%; /* Adjust margin for smaller screens */
+  }
+}
+
 main {
   padding: 20px;
   flex-grow: 1;
