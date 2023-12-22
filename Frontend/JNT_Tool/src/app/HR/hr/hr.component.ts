@@ -45,7 +45,7 @@ export class HRComponent {
 
   openSalaryPopup(user : any) {
     console.log('Opening salary popup');
-    this.salaryRecord.employeeId = `${user.firstName} ${user.lastName}`;
+    this.salaryRecord.employeeId = user.employeeId;
     this.isSalaryPopupOpen = true;
   }
 
