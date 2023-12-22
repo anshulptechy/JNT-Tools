@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 
 @Component({
   selector: 'app-leavestatus',
@@ -14,7 +17,7 @@ export class LeavestatusComponent implements OnInit {
   leaveStatusData: any[] | undefined;
   leaveManagementData: any[] | undefined;
   leaveApplicationForm: FormGroup;
-  
+
   isPopupOpen = false;
   leaveApplication: LeaveApplication = {} as LeaveApplication;
   loggedInUserName: string = '';
@@ -23,19 +26,23 @@ export class LeavestatusComponent implements OnInit {
   constructor(
     private lmsService: LmsService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
-    this.leaveApplicationForm = this.formBuilder.group({
-      userId: [''],
-      id: [''], 
-      managerName: ['', Validators.required],
-      employeeName: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      leaveType: ['', Validators.required],
-      reason: ['', Validators.required],
-    });
+   this.leaveApplicationForm = this.formBuilder.group({
+  userId: [''],
+  id: [''],
+  managerName: ['', Validators.required],
+  employeeName: ['', Validators.required],
+  startDate: ['', [Validators.required]],
+  endDate: ['', [Validators.required]],
+  leaveType: ['', Validators.required],
+  reason: ['', Validators.required],
+});
+
     
+
+
   }
 
   ngOnInit() {
@@ -70,6 +77,9 @@ export class LeavestatusComponent implements OnInit {
     }
   }
 
+  
+  
+
   getLeaveStatusForManaged() {
     const managerName = localStorage.getItem('firstName');
 
@@ -84,13 +94,13 @@ export class LeavestatusComponent implements OnInit {
   }
 
   editLeave(leave: any) {
-    
+
     const formattedStartDate = this.formatDate(leave.startDate);
     const formattedEndDate = this.formatDate(leave.endDate);
     const managerName = leave.managerName ? leave.managerName.firstName : '';
 
     this.leaveApplicationForm.patchValue({
-     
+
       managerName: leave.managerName,
       id: leave.id,
       userId: leave.userId,
@@ -104,36 +114,37 @@ export class LeavestatusComponent implements OnInit {
     this.leaveApplication = { ...this.leaveApplicationForm.value };
   }
 
-  
+
 
   submitLeaveApplication() {
     debugger;
+     
     const userId = localStorage.getItem('id');
-  
+
     if (userId !== null) {
       this.leaveApplication.status = 'Pending';
       this.leaveApplication.userId = parseInt(userId, 10);
-      
+
       // Set managercomment in the leaveApplication object
       this.leaveApplication.managercomment = 'Pending';
-  
+
       this.lmsService.submitLeaveApplication(this.leaveApplication).subscribe(
         (response) => {
           console.log(this.leaveApplication);
           console.error(this.leaveApplication.managerName);
         });
-  
+
       Swal.fire({
         icon: 'success',
         title: 'Applied Successful!',
         text: 'Your leave has been applied successfully.',
       });
-      
+
       window.location.reload();
       this.closeLeaveApplicationPopup();
     }
   }
-  
+
 
   submitUpdatedLeaveApplication() {
     debugger
@@ -226,7 +237,7 @@ export class LeavestatusComponent implements OnInit {
         if (!value) {
           return 'Reason is required!';
         }
-  
+
         this.updateLeaveStatus(leave, 'Approved', value);
         leave.status = 'Approved';
         Swal.fire({
@@ -238,7 +249,7 @@ export class LeavestatusComponent implements OnInit {
       },
     });
   }
-  
+
   rejectLeave(leave: any) {
     debugger
     Swal.fire({
@@ -256,7 +267,7 @@ export class LeavestatusComponent implements OnInit {
         if (!value) {
           return 'Reason is required!';
         }
-  
+
         this.updateLeaveStatus(leave, 'Rejected', value);
         leave.status = 'Rejected';
         Swal.fire({
@@ -268,19 +279,19 @@ export class LeavestatusComponent implements OnInit {
       },
     });
   }
-  
+
   private updateLeaveStatus(leave: any, status: string, reason?: string) {
     debugger;
     const userId = leave.userId;
     const startDate = leave.startDate;
     const endDate = leave.endDate;
-  
+
     // Ensure reason is defined or set a default value
     const updatedReason = reason !== undefined ? reason : '';
-  
+
     // Set managercomment in the leaveApplication object if reason is provided
     this.leaveApplication.managercomment = updatedReason;
-  
+
     // Update status and managercomment in the backend
     this.lmsService.updateLeaveStatus(userId, startDate, endDate, status, this.leaveApplication.managercomment || '').subscribe(
       () => {
@@ -294,7 +305,7 @@ export class LeavestatusComponent implements OnInit {
       }
     );
   }
-  
+
 
   private formatDate(date: string): string {
     const dateObject = new Date(date);
