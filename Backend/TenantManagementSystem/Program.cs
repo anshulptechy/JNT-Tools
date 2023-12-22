@@ -63,7 +63,7 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
