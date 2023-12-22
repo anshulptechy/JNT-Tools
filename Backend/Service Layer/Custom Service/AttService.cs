@@ -55,7 +55,6 @@ namespace Service_Layer.Custom_Service
         }
 
 
-
         public Attendences? Get(int id)
         {
             try
@@ -97,7 +96,6 @@ namespace Service_Layer.Custom_Service
         }
         public List<Attendences> GetAllAttendances()
         {
-           
             return _applicationDbContext.Attendence.ToList();
         }
         public void CalculateHours(IEnumerable<Attendences> records)
@@ -203,5 +201,6 @@ namespace Service_Layer.Custom_Service
             _applicationDbContext.SaveChanges();
         }
     }
+
 }
 

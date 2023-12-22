@@ -14,14 +14,11 @@ using Service_Layer.EventService;
 using Service_Layer.ICustomService;
 using Service_Layer.IEventService;
 using static Repository_Layer.IRepository.IRepository;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sqlconnection")));
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
