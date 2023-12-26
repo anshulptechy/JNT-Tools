@@ -10,7 +10,7 @@ import { AttendanceService } from '../Service/attendance.service';
   styleUrls: ['./attendance-report.component.css']
 })
 export class AttendanceReportComponent implements OnInit {
-  months: string[] = ['Select Month','January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   employeeNames: string[] = [];
   showTable: boolean = true;
   selectedMonth: string = '';
@@ -85,6 +85,11 @@ export class AttendanceReportComponent implements OnInit {
           );
           this.showTable = true;
           this.selectedMonth = selectedMonth;
+          if (this.selectedEmployee === 'Select All')
+          {
+          this.selectedEmployee = '';
+            this.selectedMonth = selectedMonth;
+          }
         } else {
           this.gridData = result as any;
           this.showTable = true;
