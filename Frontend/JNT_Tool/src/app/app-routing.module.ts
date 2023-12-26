@@ -45,7 +45,7 @@ const routes: Routes = [
       { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
     {path:'salary-report',component:SalaryReportComponent , canActivate: [AuthGuard]},
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'attendeceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
+    { path: 'attendanceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
     { path: 'HR', component:HRComponent,canActivate:[AuthGuard] },
   ];
 

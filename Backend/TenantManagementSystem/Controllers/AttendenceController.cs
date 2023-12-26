@@ -235,13 +235,13 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                List<string> allFirstNames = _applicationDbContext.Managements
-                    .Where(m => m.tenantName == tenantName)
-                    .Select(m => m.firstName)
-                    .Distinct()
-                    .ToList();
+                List<string> allFullNames = _applicationDbContext.Managements
+                .Where(m => m.tenantName == tenantName)
+                .Select(m => $"{m.firstName} {m.lastName}") // Combine first name and last name into a single string
+                .Distinct()
+               .ToList();
 
-                return Ok(allFirstNames);
+                return Ok(allFullNames);
             }
             catch (Exception ex)
             {
