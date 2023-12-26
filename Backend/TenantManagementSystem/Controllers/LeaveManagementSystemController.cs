@@ -84,8 +84,13 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}")]
-        public async Task<IActionResult> UpdateLeaveStatus(int userId, DateTime startDate, DateTime endDate, string status)
+        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}/{managercomment}")]
+        public async Task<IActionResult> UpdateLeaveStatus(
+            int userId,
+            DateTime startDate,
+            DateTime endDate,
+            string status,
+            string managercomment) // Note: You don't need [FromBody] in this case
         {
             try
             {
@@ -101,8 +106,9 @@ namespace TenantManagementSystem.Controllers
                     return NotFound();
                 }
 
-                // Update the leave status
+                // Update the leave status and managercomment
                 leave.status = status;
+                leave.managercomment = managercomment;
 
                 // Save changes to the database
                 await _applicationDbContext.SaveChangesAsync();

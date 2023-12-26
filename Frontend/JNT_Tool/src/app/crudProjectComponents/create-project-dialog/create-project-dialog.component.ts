@@ -1,7 +1,7 @@
 // create-project-dialog.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../crudProjectService/services/project.service';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -17,7 +17,6 @@ export class CreateProjectDialogComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
   countries: string[] = ['USA', 'Canada', 'UK', 'Germany', 'France', 'Australia', 'Japan', 'South Korea', 'Singapore', 'India', 'Brazil', 'Mexico', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland'];
-  
   
   constructor(
     public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
@@ -36,14 +35,33 @@ export class CreateProjectDialogComponent implements OnInit {
       projectName: ['', [Validators.required, Validators.maxLength(100)]],
       client: ['', [Validators.required, Validators.maxLength(100)]],
       startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      endDate: [Validators.required, this.endDateValidator.bind(this)],
       country: ['', Validators.required],
       budget: ['', [Validators.max(999999999)]],
-     
       status: [true],
-    });
+    },{ validators: this.dateRangeValidator.bind(this) });
+  }
+  endDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const startDate = this.projectForm?.get('startDate')?.value;
+    const endDate = control.value;
+
+    if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+      return { 'endDateBeforeStartDate': true };
+    }
+
+    return null;
   }
 
+  dateRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const startDate = control.get('startDate')?.value;
+    const endDate = control.get('endDate')?.value;
+
+    if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+      return { 'dateRangeInvalid': true };
+    }
+
+    return null;
+  }
   Id: number = 0;
   onSaveClick(data: any) {
     data.status = 'Active';
@@ -57,7 +75,6 @@ export class CreateProjectDialogComponent implements OnInit {
     // Close the dialog without saving
     this.dialogRef.close();
   }
-
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
