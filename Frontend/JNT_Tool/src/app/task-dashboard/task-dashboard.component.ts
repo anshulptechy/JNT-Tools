@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { TenantService } from '../tenant.service';
 import { Router, NavigationStart } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-task-dashboard',
@@ -81,15 +83,46 @@ getUserTasks(user: string) {
   })
 }
 
-  // Function to delete a task
-  deleteTask(data: number) {
-    if (this.tasks.length == 1) {
-      this.tasks = [];
-    }
-    this.serve.delete(data).subscribe((result) => {
-      this.reloadSite();
+
+  
+  openConfirmationDialog(taskID: number): void {
+    debugger;
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serve.delete(taskID).subscribe(() => {
+          this.reloadSite();
+          this.reloadSite2();
+          Swal.fire({
+            icon: 'success',
+            title: 'Delete Successful!',
+            text: 'Task deleted successfully.',
+          });
+        });
+      }
     });
   }
+
+
+  // deleteTask(taskId: number): void {
+  //   this.serve.delete(taskId).subscribe(() => {
+  //     this.reloadSite();
+  //     Swal.fire({
+  //       icon: 'success',
+  //       title: 'Delete Successful!',
+  //       text: 'Task deleted successfully.',
+  //     });
+  //   });
+  // }
+  
+  
+  
 
 
 
@@ -155,11 +188,11 @@ getUserTasks(user: string) {
 
 }
 
-deleteTask2(data:any){
-  this.serve.delete(data).subscribe(() => {
-    this.reloadSite();
-  });
-}
+// deleteTask2(data:any){
+//   this.serve.delete(data).subscribe(() => {
+//     this.reloadSite();
+//   });
+// }
 
    // Function to filter suggestions based on user input
  filterSuggestions(value: string): string[] {

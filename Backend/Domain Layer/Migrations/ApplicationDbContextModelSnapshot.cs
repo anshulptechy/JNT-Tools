@@ -51,6 +51,9 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("managercomment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 

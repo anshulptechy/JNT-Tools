@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231221134721_Tenant")]
-    partial class Tenant
+    [Migration("20231222054718_miginit")]
+    partial class miginit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,9 @@ namespace Domain_Layer.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("managercomment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
