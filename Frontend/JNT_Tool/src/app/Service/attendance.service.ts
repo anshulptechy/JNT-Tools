@@ -18,13 +18,14 @@ export class AttendanceService {
   getAllEmployees(data:string) {
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllFirstNamesByTenant?tenantName=${data}`);
   }
-  getMonths() {
-    return this.http.get('https://localhost:7126/api/Attendence/months');
-  }
  
   getbyMonthName(selectedMonth: string, tenantName: string) {
  
     return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
+  }
+  getAlldatabytenantName(tenantName: string){
+    return this.http.get(`https://localhost:7126/api/Attendence/GetAllManagementAndAttendanceBytenant?tenantName=${tenantName}`);
+
   }
 }
 

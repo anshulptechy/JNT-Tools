@@ -10,7 +10,7 @@ import { AttendanceService } from '../Service/attendance.service';
   styleUrls: ['./attendance-report.component.css']
 })
 export class AttendanceReportComponent implements OnInit {
-  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  months: string[] = ['Select Month','January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   employeeNames: string[] = [];
   showTable: boolean = true;
   selectedMonth: string = '';
@@ -18,6 +18,7 @@ export class AttendanceReportComponent implements OnInit {
   gridData: any[] = [];
   attendanceForm: FormGroup;
   showDropdown: boolean = true;
+  selectAll: boolean = false;
  
   constructor(private router: Router, private formBuilder: FormBuilder, private serve: AttendanceService) {
     this.attendanceForm = this.formBuilder.group({
@@ -85,7 +86,6 @@ export class AttendanceReportComponent implements OnInit {
           this.showTable = true;
           this.selectedMonth = selectedMonth;
         } else {
-          // If no employee is selected, show data for all employees in the selected month
           this.gridData = result as any;
           this.showTable = true;
           this.selectedEmployee = '';
@@ -97,7 +97,7 @@ export class AttendanceReportComponent implements OnInit {
       }
     );
   }
- 
+  
   setValueOfSelectedMonth(value: string) {
     const selectedMonthControl = this.attendanceForm.get('selectedMonth');
     if (selectedMonthControl) {
@@ -109,9 +109,24 @@ export class AttendanceReportComponent implements OnInit {
     this.populateEmployeeNames();
     this.loadEmployeeData();
   }
- 
+  selectAllEmployees() {
+    this.selectedEmployee = 'Select All'; 
+    this.selectedMonth = ''; 
+    const tenantName = localStorage.getItem('tenantName') || '';
+    
+    // Call the API to get all data for all employees
+    this.serve.getAlldatabytenantName(tenantName).subscribe((result) => {
+      if (Array.isArray(result)) {
+        this.gridData = result;
+        this.showTable = true;
+        this.selectedMonth = '';
+        console.log("Selected Month after clearing:", this.selectedMonth);
+      }
+    });
+  }
+  
+  
   generateEReport() {
-    debugger
     if (this.selectedEmployee) {
       const [selectedFirstName, selectedLastName] = this.selectedEmployee.split(' ');
  
