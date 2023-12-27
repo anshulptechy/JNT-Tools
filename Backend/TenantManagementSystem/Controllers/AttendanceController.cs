@@ -15,19 +15,19 @@ namespace TenantManagementSystem.Controllers
     public class AttendanceController : ControllerBase
     {
 
-        private readonly IAttService<Attendences> _AttendenceServices;
+        private readonly IAttService<Attendances> _AttendanceServices;
 
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly Attendences Attendence;
-        public AttendanceController(IAttService<Attendences> AttendenceServices, ApplicationDbContext appDbContext)
+        private readonly Attendances Attendance;
+        public AttendanceController(IAttService<Attendances> AttendanceServices, ApplicationDbContext appDbContext)
         {
-            _AttendenceServices = AttendenceServices;
+            _AttendanceServices = AttendanceServices;
             _applicationDbContext = appDbContext;
         }
         [HttpGet(nameof(GetAttendanceById))]
         public IActionResult GetAttendanceById(int id)
         {
-            var obj = _AttendenceServices.Get(id);
+            var obj = _AttendanceServices.Get(id);
             if (obj == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (Management management in allManagements)
                 {
-                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+                    List<Attendances> attendance = _AttendanceServices.GetAttendanceByManagementId(management.id);
 
                     if (attendance != null && attendance.Any())
                     {
@@ -68,9 +68,9 @@ namespace TenantManagementSystem.Controllers
                     }
                 }
 
-                // Extract the Attendences objects from the result and pass them to CalculateHours
-                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
-                _AttendenceServices.CalculateHours(attendancesList);
+                // Extract the Attendances objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendances>().ToList();
+                _AttendanceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }
@@ -94,7 +94,7 @@ namespace TenantManagementSystem.Controllers
 
                 foreach (var management in allManagements)
                 {
-                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
+                    List<Attendances> attendance = _AttendanceServices.GetAttendanceByManagementIdAndMonth(management.id, monthName);
 
                     if (attendance != null && attendance.Any())
                     {
@@ -111,9 +111,9 @@ namespace TenantManagementSystem.Controllers
                     }
                 }
 
-                // Extract the Attendences objects from the result and pass them to CalculateHours
-                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
-                _AttendenceServices.CalculateHours(attendancesList);
+                // Extract the Attendances objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendances>().ToList();
+                _AttendanceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }
@@ -148,7 +148,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Fetch attendance data from the database
-                var attendances = _applicationDbContext.Attendence.ToList();
+                var attendances = _applicationDbContext.Attendance.ToList();
 
                 // Extract month names
                 List<string> monthNames = new List<string>();
@@ -182,7 +182,7 @@ namespace TenantManagementSystem.Controllers
                 foreach (var management in allManagements)
                 {
                     // Assuming you have a method to get attendance by management ID
-                    List<Attendences> attendance = _AttendenceServices.GetAttendanceByManagementId(management.id);
+                    List<Attendances> attendance = _AttendanceServices.GetAttendanceByManagementId(management.id);
 
                     if (attendance != null && attendance.Any())
                     {
@@ -199,9 +199,9 @@ namespace TenantManagementSystem.Controllers
                     }
                 }
 
-                // Extract the Attendences objects from the result and pass them to CalculateHours
-                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendences>().ToList();
-                _AttendenceServices.CalculateHours(attendancesList);
+                // Extract the Attendances objects from the result and pass them to CalculateHours
+                var attendancesList = result.Select(entry => ((dynamic)entry).Attendance).Cast<Attendances>().ToList();
+                _AttendanceServices.CalculateHours(attendancesList);
 
                 return Ok(result);
             }
