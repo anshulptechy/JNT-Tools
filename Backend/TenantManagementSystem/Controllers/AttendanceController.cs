@@ -30,7 +30,6 @@ namespace TenantManagementSystem.Controllers
         {
 
             var obj = _AttendanceServices.Get(id);
-=
           
 
             if (obj == null)
@@ -42,9 +41,10 @@ namespace TenantManagementSystem.Controllers
                 return Ok(obj);
             }
         }
-        
+    
 
-       
+
+
         [HttpGet(nameof(GetAllManagementAndAttendance))]
         public IActionResult GetAllManagementAndAttendance()
         {
