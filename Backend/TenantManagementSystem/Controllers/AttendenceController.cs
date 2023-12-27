@@ -112,7 +112,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                List<Management> allManagements = _applicationDbContext.Managements.ToList();
+                List<Management> allManagements = _applicationDbContext.Managements1.ToList();
 
                 var result = new List<object>();
 
@@ -152,7 +152,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Fetch all data from the database for the specified tenant
-                List<Management> allManagements = _applicationDbContext.Managements
+                List<Management> allManagements = _applicationDbContext.Managements1
                     .Where(m => m.tenantName == tenantName)
                     .ToList();
 
@@ -197,7 +197,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Fetch all data from the database
-                List<Management> allManagements = _applicationDbContext.Managements.ToList();
+                List<Management> allManagements = _applicationDbContext.Managements1.ToList();
 
                 // Filter data based on the specified month
                 List<object> result = new List<object>();
@@ -233,7 +233,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                List<string> allFirstNames = _applicationDbContext.Managements
+                List<string> allFirstNames = _applicationDbContext.Managements1
                     .Where(m => m.tenantName == tenantName)
                     .Select(m => m.firstName)
                     .Distinct()
@@ -253,7 +253,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                List<string> allFirstNames = _applicationDbContext.Managements
+                List<string> allFirstNames = _applicationDbContext.Managements1
                     .Select(m => m.firstName)
                     .Distinct()
                     .ToList();
@@ -272,7 +272,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Fetch attendance data from the database
-                var attendances = _applicationDbContext.Attendence.ToList();
+                var attendances = _applicationDbContext.Attendence1.ToList();
 
                 // Extract month names
                 List<string> monthNames = new List<string>();
@@ -296,7 +296,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Fetch all data from the database for the specified firstName and tenantName
-                List<Management> allManagements = _applicationDbContext.Managements
+                List<Management> allManagements = _applicationDbContext.Managements1
                     .Where(m => m.firstName == firstName && m.tenantName == tenantName)
                     .ToList();
 

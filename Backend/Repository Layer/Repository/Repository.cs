@@ -25,10 +25,10 @@ namespace Repository_Layer.Repository
         #endregion
         public void Delete(int Id)
         {
-            var result = _applicationDbContext.Managements.FirstOrDefault(l => l.id == Id);
+            var result = _applicationDbContext.Managements1.FirstOrDefault(l => l.id == Id);
             if (result != null)
             {
-                _applicationDbContext.Managements.Remove(result);
+                _applicationDbContext.Managements1.Remove(result);
                 _applicationDbContext.SaveChanges();
             }
         }

@@ -22,7 +22,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
 
-                _dbContext.Attendence.Add(loginHistory);
+                _dbContext.Attendence1.Add(loginHistory);
                 await _dbContext.SaveChangesAsync();
 
                 //return Ok();
@@ -38,7 +38,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                var loginHistory = await _dbContext.Attendence.FindAsync(attendenceId);
+                var loginHistory = await _dbContext.Attendence1.FindAsync(attendenceId);
 
                 if (loginHistory == null)
                 {
@@ -72,7 +72,7 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
-                var loginHistories = await _dbContext.Attendence.ToListAsync();
+                var loginHistories = await _dbContext.Attendence1.ToListAsync();
 
                 // Convert the date and time in each login history record to Indian Standard Time (IST)
                 foreach (var history in loginHistories)

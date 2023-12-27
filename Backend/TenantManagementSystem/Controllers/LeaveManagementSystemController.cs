@@ -95,7 +95,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Retrieve the leave request from the database based on userId, startDate, and endDate
-                var leave = await _applicationDbContext.ApplyLeaves
+                var leave = await _applicationDbContext.ApplyLeaves1
                     .FirstOrDefaultAsync(x =>
                         x.UserId == userId &&
                         x.StartDate == startDate &&
@@ -126,7 +126,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Assuming you have a Tenant column in the Management table
-                var allNames = _applicationDbContext.Managements
+                var allNames = _applicationDbContext.Managements1
                     .Where(m => m.tenantName == tenantName)
                     .Select(m => new { m.firstName, m.lastName })
                     .Distinct()

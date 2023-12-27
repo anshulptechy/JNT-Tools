@@ -27,33 +27,33 @@ namespace Domain_Layer.Application
         .HasIndex(c => c.CouponCode)
         .IsUnique();
         }
-        public DbSet<Attendences> Attendence { get; set; }
+        public DbSet<Attendences> Attendence1 { get; set; }
 
 
-        public DbSet<Screenshots> Screenshot { get; set; }
+        public DbSet<Screenshots> Screenshot1 { get; set; }
 
 
-        public DbSet<Login> Login
+        public DbSet<Login> Login1
         { get; set; }
-        public DbSet<Management> Managements
+        public DbSet<Management> Managements1
         {
             get;
             set;
         }
-        public DbSet<Coupon> Coupons { get; set; }
-        public DbSet<projectModel> projectDataTable
+        public DbSet<Coupon> Coupons1 { get; set; }
+        public DbSet<projectModel> projectDataTable1
         {
             get;
             set;
         }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<taskStructure> taskTable3 { get; set; }
+        public DbSet<Event> Events1 { get; set; }
+        public DbSet<taskStructure> taskTable1 { get; set; }
 
-        public DbSet<SalaryRecord> SalaryRecords { get; set;}
+        public DbSet<SalaryRecord> SalaryRecords1 { get; set;}
 
  
 
-        public DbSet<ApplyLeave> ApplyLeaves
+        public DbSet<ApplyLeave> ApplyLeaves1
         {
             get;
             set;

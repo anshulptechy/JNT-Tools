@@ -23,10 +23,10 @@ namespace Repository_Layer.Repository
 
         public void Delete(int Id)
         {
-            var result = _applicationDbContext.ApplyLeaves.FirstOrDefault(l => l.Id == Id);
+            var result = _applicationDbContext.ApplyLeaves1.FirstOrDefault(l => l.Id == Id);
             if (result != null)
             {
-                _applicationDbContext.ApplyLeaves.Remove(result);
+                _applicationDbContext.ApplyLeaves1.Remove(result);
                 _applicationDbContext.SaveChanges();
             }
         }

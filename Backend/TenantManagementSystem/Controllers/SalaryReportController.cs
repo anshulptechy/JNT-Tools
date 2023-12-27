@@ -30,7 +30,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Assuming you have a Tenant column in the Management table
-                var allNames = _applicationDbContext.Managements
+                var allNames = _applicationDbContext.Managements1
                     .Where(m => m.tenantName == tenantName)
                     .Select(m => new { m.firstName, m.lastName })
                     .Distinct()
@@ -58,7 +58,7 @@ namespace TenantManagementSystem.Controllers
             return Ok(salaryRecords);
         }
 
-      
+
         [HttpGet("all-months")]
         public async Task<ActionResult<IEnumerable<string>>> GetAllMonths()
         {
@@ -72,7 +72,7 @@ namespace TenantManagementSystem.Controllers
             try
             {
                 // Retrieve EmployeeId from Management table based on FirstName
-                var employee = await _applicationDbContext.Managements
+                var employee = await _applicationDbContext.Managements1
                     .Where(m => m.firstName == firstName)
                     .FirstOrDefaultAsync();
 
@@ -82,7 +82,7 @@ namespace TenantManagementSystem.Controllers
                 }
 
                 // Retrieve Salary Records for the specified EmployeeId and SalaryMonth
-                var salaryRecords = await _applicationDbContext.SalaryRecords
+                var salaryRecords = await _applicationDbContext.SalaryRecords1
                     .Where(s => s.EmployeeId == employee.id && s.SalaryMonth == salaryMonth)
                     .ToListAsync();
 
@@ -94,7 +94,42 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
+        [HttpPost("add-salary-record")]
+        public async Task<IActionResult> AddSalaryRecord([FromBody] SalaryRecordRequest salaryRecordRequest)
+        {
+            try
+            {
+                // Validate the request data
+                if (salaryRecordRequest == null)
+                {
+                    return BadRequest("Invalid request data");
+                }
+
+                // Create a new SalaryRecord instance
+                var newSalaryRecord = new SalaryRecord
+                {
+                    EmployeeId = salaryRecordRequest.EmployeeId, // Assuming EmployeeId is provided in the request
+                    SalaryMonth = salaryRecordRequest.SalaryMonth,
+                    Salary = salaryRecordRequest.Salary,
+                    Leaves = salaryRecordRequest.Leaves,
+                    Deductions = salaryRecordRequest.Deductions,
+                    NetPay = salaryRecordRequest.NetPay
+                };
+
+                // Add the new salary record to the database
+                _applicationDbContext.SalaryRecords1.Add(newSalaryRecord);
+                await _applicationDbContext.SaveChangesAsync();
+
+                return Ok("Salary record added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
 
     }
+
+
 }

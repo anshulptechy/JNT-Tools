@@ -121,7 +121,7 @@ namespace Service_Layer.Custom_Service
 
         public void InsertRange(IEnumerable<Coupon> entities)
         {
-            _dbContext.Coupons.AddRange(entities);
+            _dbContext.Coupons1.AddRange(entities);
             _dbContext.SaveChanges();
         }
     }

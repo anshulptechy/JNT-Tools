@@ -23,7 +23,7 @@ namespace Repository_Layer.Repository
 
         public async Task<Login> Get(string email, string password)
         {
-            return await _applicationDbContext.Login
+            return await _applicationDbContext.Login1
                 .FirstOrDefaultAsync(l => l.email == email && l.password == password);
         }
     }

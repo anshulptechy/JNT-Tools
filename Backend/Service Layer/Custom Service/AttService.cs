@@ -47,7 +47,7 @@ namespace Service_Layer.Custom_Service
             // Parse the month name to get the corresponding integer
             int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            var result = _applicationDbContext.Attendence
+            var result = _applicationDbContext.Attendence1
                 .Where(a => a.id == id && a.LoginTime.Month == targetMonth)
                 .ToList();
 
@@ -96,7 +96,7 @@ namespace Service_Layer.Custom_Service
         }
         public List<Attendences> GetAllAttendances()
         {
-            return _applicationDbContext.Attendence.ToList();
+            return _applicationDbContext.Attendence1.ToList();
         }
         public void CalculateHours(IEnumerable<Attendences> records)
         {
@@ -177,7 +177,7 @@ namespace Service_Layer.Custom_Service
         }
         public List<Attendences> GetAttendanceByManagementId(int id)
         {
-            return _applicationDbContext.Attendence
+            return _applicationDbContext.Attendence1
                 .Where(a => a.id == id)
                 .ToList();
         }
@@ -185,7 +185,7 @@ namespace Service_Layer.Custom_Service
         public void CreateManagementUserAndAttendance(Management management)
         {
             // Add the new user to the Management table
-            _applicationDbContext.Managements.Add(management);
+            _applicationDbContext.Managements1.Add(management);
             _applicationDbContext.SaveChanges();
 
             // Create a corresponding entry in the Attendences table
@@ -197,7 +197,7 @@ namespace Service_Layer.Custom_Service
                 Hours = TimeSpan.Zero // Set as needed
             };
 
-            _applicationDbContext.Attendence.Add(attendance);
+            _applicationDbContext.Attendence1.Add(attendance);
             _applicationDbContext.SaveChanges();
         }
     }
