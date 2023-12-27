@@ -85,7 +85,9 @@ export class AttendanceReportComponent implements OnInit {
           );
           this.showTable = true;
           this.selectedMonth = selectedMonth;
-          if (this.selectedEmployee === 'Select All')
+
+          if (this.selectedEmployee === 'Select All Users')
+
           {
           this.selectedEmployee = '';
             this.selectedMonth = selectedMonth;
@@ -115,11 +117,11 @@ export class AttendanceReportComponent implements OnInit {
     this.loadEmployeeData();
   }
   selectAllEmployees() {
-    this.selectedEmployee = 'Select All'; 
+
+    this.selectedEmployee = 'Select All Users'; 
     this.selectedMonth = ''; 
     const tenantName = localStorage.getItem('tenantName') || '';
-    
-    // Call the API to get all data for all employees
+
     this.serve.getAlldatabytenantName(tenantName).subscribe((result) => {
       if (Array.isArray(result)) {
         this.gridData = result;
