@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class migint : Migration
+    public partial class miginit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -184,7 +184,7 @@ namespace Domain_Layer.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     SalaryMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    Leaves = table.Column<int>(type: "int", nullable: false),
+                    Leaves = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Deductions = table.Column<int>(type: "int", nullable: false),
                     NetPay = table.Column<int>(type: "int", nullable: false)
                 },

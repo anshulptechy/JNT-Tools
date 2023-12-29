@@ -13,6 +13,7 @@ export class HRComponent {
   isSalaryPopupOpen = false;
   salaryRecord = {
     employeeId: '',
+    employeeName: '',
     salaryMonth: '',
     salary: '',
     leaves: '',
@@ -31,6 +32,24 @@ export class HRComponent {
     const storedFirstName = localStorage.getItem('tenantName');
   }
 
+  validateKey(event: any) {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
+
+    if (!/\d/.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  validatePaste(event: any) {
+    const clipboardData = (event.clipboardData ||
+      (window as any).clipboardData) as DataTransfer;
+    const pastedText = clipboardData.getData('text');
+
+    if (!/^\d+$/.test(pastedText)) {
+      event.preventDefault();
+    }
+  }
+
   async fetchTenants() {
     const storedFirstName = localStorage.getItem('tenantName');
 
@@ -43,9 +62,10 @@ export class HRComponent {
     });
   }
 
-  openSalaryPopup(user : any) {
+  openSalaryPopup(user: any) {
     console.log('Opening salary popup');
-    this.salaryRecord.employeeId = user.employeeId;
+    this.salaryRecord.employeeId = user.id;
+    this.salaryRecord.employeeName = `${user.firstName} ${user.lastName}`;
     this.isSalaryPopupOpen = true;
   }
 
@@ -53,6 +73,7 @@ export class HRComponent {
     console.log('Closing salary popup');
     this.salaryRecord = {
       employeeId: '',
+      employeeName: '',
       salaryMonth: '',
       salary: '',
       leaves: '',
@@ -64,31 +85,44 @@ export class HRComponent {
 
   saveSalary() {
     if (
-      this.salaryRecord.employeeId &&
-      this.salaryRecord.salaryMonth &&
-      this.salaryRecord.salary &&
-      this.salaryRecord.leaves
+      this.salaryRecord.salary !== undefined &&
+      this.salaryRecord.leaves !== undefined
     ) {
       const maxLeaves = 30;
-      const enteredLeaves = parseInt(this.salaryRecord.leaves, 10);
-
-      // If entered leaves exceed the maximum, set it to the maximum
-      this.salaryRecord.leaves =
-        enteredLeaves > maxLeaves
-          ? maxLeaves.toString()
-          : this.salaryRecord.leaves;
-
-      const dailySalary = parseInt(this.salaryRecord.salary, 10) / 30;
-      const leaveDeduction =
-        dailySalary * parseInt(this.salaryRecord.leaves, 10);
-
+  
+      // Check if the input is non-empty
+      if (this.salaryRecord.leaves.trim() !== '') {
+        // Extract the numeric part (up to 2 digits) and optional decimal and digit
+        const regexResult = this.salaryRecord.leaves.match(/^\d{0,2}(\.\d{0,1})?$/);
+        const sanitizedLeaves = regexResult ? regexResult[0] : '';
+  
+        // If the entered leaves exceed the maximum, set it to the maximum
+        this.salaryRecord.leaves =
+          parseFloat(sanitizedLeaves) > maxLeaves
+            ? maxLeaves.toString()
+            : sanitizedLeaves;
+  
+        // Remove any non-numeric and non-decimal characters
+        this.salaryRecord.leaves = this.salaryRecord.leaves.replace(/[^\d.]/g, '');
+      } else {
+        // Clear the leaves field if it's empty
+        this.salaryRecord.leaves = '';
+      }
+  
+      const enteredLeaves = parseFloat(this.salaryRecord.leaves);
+      const dailySalary = parseFloat(this.salaryRecord.salary) / 30;
+      const leaveDeduction = dailySalary * enteredLeaves;
+  
       // Use Math.floor() to round down the values
       this.salaryRecord.deductions = Math.floor(leaveDeduction).toString();
-      if (enteredLeaves === maxLeaves) {
+  
+      // Calculate net pay for fractional leaves
+      if (enteredLeaves >= maxLeaves) {
         this.salaryRecord.netPay = '0';
       } else {
+        // Adjusted calculation for fractional leaves
         this.salaryRecord.netPay = Math.floor(
-          parseInt(this.salaryRecord.salary, 10) - leaveDeduction
+          parseFloat(this.salaryRecord.salary) - leaveDeduction
         ).toString();
       }
 
@@ -96,6 +130,7 @@ export class HRComponent {
         (response) => {
           this.salaryRecord = {
             employeeId: '',
+            employeeName: '',
             salaryMonth: '',
             salary: '',
             leaves: '',
@@ -132,6 +167,7 @@ export class HRComponent {
       this.closeSalaryPopup();
       this.salaryRecord = {
         employeeId: '',
+        employeeName: '',
         salaryMonth: '',
         salary: '',
         leaves: '',
@@ -148,35 +184,47 @@ export class HRComponent {
   }
 
   updateDeduction() {
-    if (this.salaryRecord.salary && this.salaryRecord.leaves) {
-      // Ensure leaves do not exceed the maximum (30)
+    if (
+      this.salaryRecord.salary !== undefined &&
+      this.salaryRecord.leaves !== undefined
+    ) {
       const maxLeaves = 30;
-      const enteredLeaves = parseFloat(this.salaryRecord.leaves); // Use parseFloat to handle decimal leaves
-
-      // If entered leaves exceed the maximum, set it to the maximum
-      this.salaryRecord.leaves =
-        enteredLeaves > maxLeaves
-          ? maxLeaves.toString()
-          : this.salaryRecord.leaves;
-
+  
+      // Check if the input is non-empty
+      if (this.salaryRecord.leaves.trim() !== '') {
+        // Extract the numeric part (up to 2 digits) and optional decimal and digit
+        const regexResult = this.salaryRecord.leaves.match(/^\d{0,2}(\.\d{0,1})?$/);
+        const sanitizedLeaves = regexResult ? regexResult[0] : '';
+  
+        // If the entered leaves exceed the maximum, set it to the maximum
+        this.salaryRecord.leaves =
+          parseFloat(sanitizedLeaves) > maxLeaves
+            ? maxLeaves.toString()
+            : sanitizedLeaves;
+  
+        // Remove any non-numeric and non-decimal characters
+        this.salaryRecord.leaves = this.salaryRecord.leaves.replace(/[^\d.]/g, '');
+      } else {
+        // Clear the leaves field if it's empty
+        this.salaryRecord.leaves = '';
+      }
+  
+      const enteredLeaves = parseFloat(this.salaryRecord.leaves);
       const dailySalary = parseFloat(this.salaryRecord.salary) / 30;
-      const leaveDeduction = dailySalary * parseFloat(this.salaryRecord.leaves);
-
+      const leaveDeduction = dailySalary * enteredLeaves;
+  
       // Use Math.floor() to round down the values
       this.salaryRecord.deductions = Math.floor(leaveDeduction).toString();
-
+  
       // Calculate net pay for fractional leaves
       if (enteredLeaves >= maxLeaves) {
         this.salaryRecord.netPay = '0';
-      } else if (enteredLeaves % 1 === 0.5) {
-        this.salaryRecord.netPay = Math.floor(
-          parseFloat(this.salaryRecord.salary) - dailySalary / 2
-        ).toString();
       } else {
+        // Adjusted calculation for fractional leaves
         this.salaryRecord.netPay = Math.floor(
           parseFloat(this.salaryRecord.salary) - leaveDeduction
         ).toString();
       }
     }
-  }
+}
 }
