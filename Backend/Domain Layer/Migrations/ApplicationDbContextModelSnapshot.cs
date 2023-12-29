@@ -234,8 +234,8 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Leaves")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Leaves")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("NetPay")
                         .HasColumnType("int");
