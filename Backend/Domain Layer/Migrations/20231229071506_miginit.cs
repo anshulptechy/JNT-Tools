@@ -33,10 +33,10 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attendence",
+                name: "Attendance",
                 columns: table => new
                 {
-                    AttendenceId = table.Column<int>(type: "int", nullable: false)
+                    AttendanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     id = table.Column<int>(type: "int", nullable: false),
                     LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -45,7 +45,7 @@ namespace Domain_Layer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendence", x => x.AttendenceId);
+                    table.PrimaryKey("PK_Attendance", x => x.AttendanceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,7 +223,7 @@ namespace Domain_Layer.Migrations
                 name: "ApplyLeaves");
 
             migrationBuilder.DropTable(
-                name: "Attendence");
+                name: "Attendance");
 
             migrationBuilder.DropTable(
                 name: "Coupons");

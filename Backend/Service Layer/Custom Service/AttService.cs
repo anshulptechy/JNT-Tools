@@ -11,30 +11,30 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Custom_Service
 {
-    public class AttService : IAttService<Attendences>
+    public class AttService : IAttService<Attendances>
     {
-        private readonly IAttRepository<Attendences> _AttendenceRepository;
+        private readonly IAttRepository<Attendances> _AttendanceRepository;
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public AttService(IAttRepository<Attendences> AttendenceRepository, ApplicationDbContext applicationDbContext)
+        public AttService(IAttRepository<Attendances> AttendanceRepository, ApplicationDbContext applicationDbContext)
         {
-            _AttendenceRepository = AttendenceRepository;
+            _AttendanceRepository = AttendanceRepository;
             _applicationDbContext = applicationDbContext;
         }
-        public IAttRepository<Attendences>? AttendenceRepository
+        public IAttRepository<Attendances>? AttendanceRepository
         {
             get; private set;
         }
 
 
-        public void Delete(Attendences entity)
+        public void Delete(Attendances entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _AttendenceRepository.Delete(entity);
-                    _AttendenceRepository.SaveChanges();
+                    _AttendanceRepository.Delete(entity);
+                    _AttendanceRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -42,12 +42,12 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName)
+        public List<Attendances> GetAttendanceByManagementIdAndMonth(int id, string monthName)
         {
             // Parse the month name to get the corresponding integer
             int targetMonth = DateTime.ParseExact(monthName, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            var result = _applicationDbContext.Attendence
+            var result = _applicationDbContext.Attendance
                 .Where(a => a.id == id && a.LoginTime.Month == targetMonth)
                 .ToList();
 
@@ -55,14 +55,14 @@ namespace Service_Layer.Custom_Service
         }
 
 
-        public Attendences? Get(int id)
+        public Attendances? Get(int id)
         {
             try
             {
-                var obj = _AttendenceRepository.Get(id);
+                var obj = _AttendanceRepository.Get(id);
                 if (obj != null)
                 {
-                    return (Attendences)obj;
+                    return (Attendances)obj;
                 }
                 else
                 {
@@ -74,12 +74,12 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public IEnumerable<Attendences>? GetAll()
+        public IEnumerable<Attendances>? GetAll()
         {
 
             try
             {
-                var obj = _AttendenceRepository.GetAll();
+                var obj = _AttendanceRepository.GetAll();
                 if (obj != null)
                 {
                     return obj;
@@ -94,11 +94,11 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public List<Attendences> GetAllAttendances()
+        public List<Attendances> GetAllAttendances()
         {
-            return _applicationDbContext.Attendence.ToList();
+            return _applicationDbContext.Attendance.ToList();
         }
-        public void CalculateHours(IEnumerable<Attendences> records)
+        public void CalculateHours(IEnumerable<Attendances> records)
         {
             foreach (var record in records)
             {
@@ -130,8 +130,8 @@ namespace Service_Layer.Custom_Service
 
                         // Calculate hours for the entire day (from 12 AM to 11:59 PM)
                         record.Hours = logoutTime - loginTime;
-                        _AttendenceRepository.Update(record);
-                        _AttendenceRepository.SaveChanges();
+                        _AttendanceRepository.Update(record);
+                        _AttendanceRepository.SaveChanges();
                     }
                     else
                     {
@@ -144,14 +144,14 @@ namespace Service_Layer.Custom_Service
                 }
             }
         }
-        public void Insert(Attendences entity)
+        public void Insert(Attendances entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _AttendenceRepository.Insert(entity);
-                    _AttendenceRepository.SaveChanges();
+                    _AttendanceRepository.Insert(entity);
+                    _AttendanceRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -160,14 +160,14 @@ namespace Service_Layer.Custom_Service
             }
         }
 
-        public void Update(Attendences entity)
+        public void Update(Attendances entity)
         {
             try
             {
                 if (entity != null)
                 {
-                    _AttendenceRepository.Update(entity);
-                    _AttendenceRepository.SaveChanges();
+                    _AttendanceRepository.Update(entity);
+                    _AttendanceRepository.SaveChanges();
                 }
             }
             catch (Exception)
@@ -175,9 +175,9 @@ namespace Service_Layer.Custom_Service
                 throw;
             }
         }
-        public List<Attendences> GetAttendanceByManagementId(int id)
+        public List<Attendances> GetAttendanceByManagementId(int id)
         {
-            return _applicationDbContext.Attendence
+            return _applicationDbContext.Attendance
                 .Where(a => a.id == id)
                 .ToList();
         }
@@ -188,8 +188,8 @@ namespace Service_Layer.Custom_Service
             _applicationDbContext.Managements.Add(management);
             _applicationDbContext.SaveChanges();
 
-            // Create a corresponding entry in the Attendences table
-            Attendences attendance = new Attendences
+            // Create a corresponding entry in the Attendances table
+            Attendances attendance = new Attendances
             {
                 id = management.id,
                 LoginTime = DateTime.Now,
@@ -197,7 +197,7 @@ namespace Service_Layer.Custom_Service
                 Hours = TimeSpan.Zero // Set as needed
             };
 
-            _applicationDbContext.Attendence.Add(attendance);
+            _applicationDbContext.Attendance.Add(attendance);
             _applicationDbContext.SaveChanges();
         }
     }

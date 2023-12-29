@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Models
 {
-    public class Attendences
+    public class Attendances
     {
         [Key]
-        public int AttendenceId { get; set; }
+        public int AttendanceId { get; set; }
         public int id { get; set; }
         public DateTime LoginTime { get; set; }
         public DateTime LogoutTime { get; set; }
