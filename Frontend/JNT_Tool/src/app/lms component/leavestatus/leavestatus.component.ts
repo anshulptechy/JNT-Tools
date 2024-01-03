@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { LmsService } from '../lms service/lms.service';
 import { LeaveApplication } from '../model';
 import { Router } from '@angular/router';
@@ -16,12 +16,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LeavestatusComponent implements OnInit {
   leaveStatusData: any[] | undefined;
   leaveManagementData: any[] | undefined;
-  leaveApplicationForm: FormGroup;
-
+  leaveApplicationForm: NgForm;
+  isFormClosed: boolean = false;
   isPopupOpen = false;
   leaveApplication: LeaveApplication = {} as LeaveApplication;
   loggedInUserName: string = '';
   managerNames: { firstName: string }[] = [];
+
+  userId: string;
+  id: string;
+  managerName: string;
+  employeeName: string;
+  startDate: string;
+  endDate: string;
+  leaveType: string;
+  reason: string;
 
   constructor(
     private lmsService: LmsService,
@@ -29,16 +38,15 @@ export class LeavestatusComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar
   ) {
-   this.leaveApplicationForm = this.formBuilder.group({
-  userId: [''],
-  id: [''],
-  managerName: ['', Validators.required],
-  employeeName: ['', Validators.required],
-  startDate: ['', [Validators.required]],
-  endDate: ['', [Validators.required]],
-  leaveType: ['', Validators.required],
-  reason: ['', Validators.required],
-});
+    this.leaveApplicationForm = {} as NgForm; // Initialize NgForm
+    this.userId = '';
+    this.id = '';
+    this.managerName = '';
+    this.employeeName = '';
+    this.startDate = '';
+    this.endDate = '';
+    this.leaveType = '';
+    this.reason = '';
 
     
 
@@ -94,58 +102,126 @@ export class LeavestatusComponent implements OnInit {
   }
 
   editLeave(leave: any) {
-
-    const formattedStartDate = this.formatDate(leave.startDate);
-    const formattedEndDate = this.formatDate(leave.endDate);
-    const managerName = leave.managerName ? leave.managerName.firstName : '';
-
-    this.leaveApplicationForm.patchValue({
-
-      managerName: leave.managerName,
-      id: leave.id,
-      userId: leave.userId,
-      employeeName: leave.employeeName,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-      leaveType: leave.leaveType,
-      reason: leave.reason,
-    });
-
-    this.leaveApplication = { ...this.leaveApplicationForm.value };
+   
+  
+    // Assuming these properties are part of your component class
+    this.leaveApplication.managerName = leave.managerName;
+    this.leaveApplication.id = leave.id;
+    this.leaveApplication.userId = leave.userId;
+    this.leaveApplication.employeeName = leave.employeeName;
+    
+    // Parse formatted date strings to Date objects
+    this.leaveApplication.startDate = leave.startDate;
+    this.leaveApplication.endDate = leave.endDate;
+    
+    this.leaveApplication.leaveType = leave.leaveType;
+    this.leaveApplication.reason = leave.reason;
+  
   }
-
-
-
   submitLeaveApplication() {
-    debugger;
-     
     const userId = localStorage.getItem('id');
-
+  
     if (userId !== null) {
+      // Initialize the error flag
+      let isError = false;
+  
+      // Perform validation
+      const currentDate = new Date();
+      const startDate = this.leaveApplication.startDate ? new Date(this.leaveApplication.startDate) : null;
+      const endDate = this.leaveApplication.endDate ? new Date(this.leaveApplication.endDate) : null;
+  
+      if (startDate && startDate < currentDate) {
+        // Show error message for invalid start date
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Start Date',
+          text: 'Start date should be equal to or greater than the current date.',
+        });
+  
+        // Set the error flag
+        isError = true;
+      }
+  
+      if (endDate && startDate && endDate <= startDate) {
+        // Show error message for invalid end date
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid End Date',
+          text: 'End date should be greater than the start date.',
+        })
+  
+        // Set the error flag
+        isError = true;
+      }
+  
+      // Check if an error occurred
+      if (isError) {
+        // Stop further processing
+        return;
+      }
+  
+      // Continue with leave application submission
       this.leaveApplication.status = 'Pending';
       this.leaveApplication.userId = parseInt(userId, 10);
-
+  
       // Set managercomment in the leaveApplication object
       this.leaveApplication.managercomment = 'Pending';
-
+  
       this.lmsService.submitLeaveApplication(this.leaveApplication).subscribe(
-        (response) => {
-          console.log(this.leaveApplication);
-          console.error(this.leaveApplication.managerName);
-        });
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Applied Successful!',
-        text: 'Your leave has been applied successfully.',
-      });
-
-      window.location.reload();
-      this.closeLeaveApplicationPopup();
+        (response: any) => {
+          // Check if the response indicates success
+          if (response && response.success) {
+            console.log(this.leaveApplication);
+  
+            // Show success message using Swal.fire
+            Swal.fire({
+              icon: 'success',
+              title: 'Applied Successfully!',
+              text: 'Your leave has been applied successfully.',
+            });
+  
+            // Reset the form or update the component's state to clear the form
+            this.leaveApplicationForm.reset();
+          } else {
+            // Show an error message using a snackbar
+            const errorMessage = response.message || 'An error occurred while submitting the leave application. Please try again.';
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: errorMessage,
+            }).then(() => {
+              // Open the form again if the user clicks 'OK'
+              this.isFormClosed = false;
+            });
+          }
+        },
+        (error) => {
+          console.error('Error submitting leave application:', error);
+  
+          // Check if the error has a message
+          const errorMessage = error.message || 'An error occurred while submitting the leave application. Please try again.';
+  
+          // Handle error and show the error message using a snackbar
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+          }).then(() => {
+            // Open the form again if the user clicks 'OK'
+            this.isFormClosed = false;
+          });
+        }
+      );
     }
   }
+  
+  
+  
+  
 
-
+  
+  
+  
   submitUpdatedLeaveApplication() {
     debugger
     const updatedLeaveApplication = this.leaveApplication;
@@ -163,7 +239,7 @@ export class LeavestatusComponent implements OnInit {
             text: 'Your leave application has been updated successfully.',
           });
 
-          window.location.reload();
+          this.isFormClosed = true;
         },
         error => {
           console.error('Error updating leave application', error);
@@ -178,7 +254,7 @@ export class LeavestatusComponent implements OnInit {
     this.getLeaveStatusByUserId();
   }
   closeLeaveApplicationPopup() {
-    window.location.reload();
+  window.location.reload();
   }
 
   deleteLeave(leave: any) {
@@ -244,6 +320,7 @@ export class LeavestatusComponent implements OnInit {
           icon: 'success',
           title: 'Approved Successful!',
           text: 'Leave approved successfully.',
+          confirmButtonText: 'OK',
         });
         return null;
       },
@@ -274,6 +351,7 @@ export class LeavestatusComponent implements OnInit {
           icon: 'success',
           title: 'Rejected Successful!',
           text: 'Leave rejected successfully.',
+          confirmButtonText: 'OK',
         });
         return null;
       },
