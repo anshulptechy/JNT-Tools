@@ -1,26 +1,30 @@
+/* Default styles */
+
 .container {
   background-color: rgba(255, 255, 255, 0);
   margin-top: 70px;
   margin-left: 100px;
-  
-  
 }
 
 main {
   padding: 20px;
   flex-grow: 1;
 }
-.customSize{
+
+.customSize {
   height: 35px;
   width: 35px;
 }
-.customMargins{
+
+.customMargins {
   margin-left: -8px;
   margin-bottom: 8px;
 }
-.customLeft{
+
+.customLeft {
   margin-left: 10px;
 }
+
 /* ... rest of your styles remain unchanged ... */
 
 table {
@@ -32,7 +36,6 @@ table {
 
 th {
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-
   color: white;
   padding: 15px;
   border: 1px solid #bdc3c7;
@@ -48,17 +51,12 @@ td {
   margin-left: 1100px;
   cursor: pointer;
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
-margin-top: 10px;
+  margin-top: 10px;
   color: white;
   border: none;
   border-radius: 3px;
   transition: background-color 0.3s ease;
 }
-
-/* button:hover {
-  background: linear-gradient(to bottom right, hsl(219, 41%, 31%), hsl(219, 47%, 54%));
-
-} */
 
 .create-button {
   margin-bottom: 20px;
@@ -80,37 +78,78 @@ margin-top: 10px;
   border-color: azure;
   background-color: aliceblue;
 }
+
 .project-name {
-  max-width: 30ch; 
+  max-width: 30ch;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-wrap: break-word; 
+  word-wrap: break-word;
 }
+
 .project-table {
-  width: 100%; 
+  width: 100%;
   border-collapse: collapse;
 }
-.edit{
+
+.edit {
   padding: 10px 15px;
   margin-right: 5px;
   cursor: pointer;
- height: 40px;
+  height: 40px;
   background-color: #0d6efd;
-
   color: white;
   border: none;
   border-radius: 3px;
   transition: background-color 0.3s ease;
 }
-.delete{
+
+.delete {
   padding: 10px 15px;
   margin-right: 5px;
   cursor: pointer;
   height: 40px;
   background-color: #dc3545;
-
   color: white;
   border: none;
   border-radius: 3px;
   transition: background-color 0.3s ease;
+}
+
+/* Media query for smaller screens (adjust the max-width value as needed) */
+
+@media only screen and (max-width: 768px) {
+  .container {
+    margin-left: 20px; /* Adjust the left margin for smaller screens */
+  }
+
+  .create-button {
+    margin-left: 0; /* Reset the left margin for the create button */
+    margin-right: 20px; /* Keep the create button on the right */
+  }
+
+  table {
+    margin-left: -20px; /* Adjust the left margin for the table */
+  }
+
+  .edit,
+  .delete {
+    margin-right: 0; /* Reset the right margin for edit and delete buttons */
+  }
+}
+
+/* Media query for even smaller screens (adjust the max-width value as needed) */
+
+@media only screen and (max-width: 480px) {
+  .container {
+    margin-left: 10px; /* Further adjust the left margin for smaller screens */
+  }
+
+  .create-button {
+    margin-left: 0; /* Reset the left margin for the create button */
+    margin-right: 10px; /* Keep the create button on the right */
+  }
+
+  table {
+    margin-left: -10px; 
+  }
 }
