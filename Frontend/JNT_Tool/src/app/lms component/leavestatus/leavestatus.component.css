@@ -166,3 +166,11 @@ button:hover {
 .validation-message {
   margin-top: 0.5rem; /* Add more spacing if needed */
 }
+
+.reason-cell {
+  max-width: 100px; /* Adjust the max-width as needed */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
