@@ -12,19 +12,19 @@ export class AttendanceService {
  
  
   getAllAttendenceWithManagement() {
-    return this.http.get('https://localhost:7126/api/Attendance/GetAllManagementAndAttendance');
+    return this.http.get('http://165.22.223.179:8080/api/Attendance/GetAllManagementAndAttendance');
   }
  
   getAllEmployees(data:string) {
-    return this.http.get(`https://localhost:7126/api/Attendance/GetAllFirstNamesByTenant?tenantName=${data}`);
+    return this.http.get(`http://165.22.223.179:8080/api/Attendance/GetAllFirstNamesByTenant?tenantName=${data}`);
   }
  
   getbyMonthName(selectedMonth: string, tenantName: string) {
  
-    return this.http.get(`https://localhost:7126/api/Attendance/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
+    return this.http.get(`http://165.22.223.179:8080/api/Attendance/GetAllManagementAndAttendanceByMonthbytenantName?tenantName=${tenantName}&monthName=${selectedMonth}`);
   }
   getAlldatabytenantName(tenantName: string){
-    return this.http.get(`https://localhost:7126/api/Attendance/GetAllManagementAndAttendanceBytenant?tenantName=${tenantName}`);
+    return this.http.get(`http://165.22.223.179:8080/api/Attendance/GetAllManagementAndAttendanceBytenant?tenantName=${tenantName}`);
 
   }
 }

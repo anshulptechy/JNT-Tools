@@ -69,11 +69,10 @@ var app = builder.Build();
     app.UseSwaggerUI();
 
 
-app.UseCors(builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
-
+app.UseCors(builder => builder.
+WithOrigins("http://localhost:4200")
+.AllowAnyMethod()
+.AllowAnyHeader());
 
 app.UseAuthorization();
 
