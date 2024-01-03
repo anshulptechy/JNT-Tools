@@ -285,7 +285,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Handle signout click
   handleSignoutClick() {
-    debugger;
     const tenantName = localStorage.getItem('tenantName');
     const tokenKey = `accessToken_${tenantName}`;
     const token = gapi.client.getToken();

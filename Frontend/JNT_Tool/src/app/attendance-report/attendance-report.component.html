@@ -26,9 +26,12 @@
             <div class="col-6">
               <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ selectedEmployee ? selectedEmployee : "Select Employee" }}
+                    {{ selectedEmployee ? selectedEmployee : "Select Users" }}
                 </button>
                   <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" (click)="selectAllEmployees()">Select All Users</a>
+                    </li>
                       <li *ngFor="let employee of employeeNames">
                           <a class="dropdown-item" (click)="selectEmployee(employee)">{{ employee }}</a>
                       </li>
