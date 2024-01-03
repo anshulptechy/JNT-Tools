@@ -32,10 +32,11 @@
 .task-dialog-actions {
   margin-top: 20px;
   text-align: right;
+  justify-content: flex-end;
 }
 
 .customButton{
-
+ 
   background: linear-gradient(to bottom right, hsl(218, 41%, 15%), hsl(218, 41%, 35%));
   color: white !important;
 }

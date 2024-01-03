@@ -20,7 +20,8 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
-
+ 
+ 
   async onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -29,43 +30,60 @@ export class LoginComponent {
           email: this.loginForm.value.email as string,
           password: this.loginForm.value.password as string,
         });
-  
+ 
         if (error) {
           console.error('Login error:', error);
-          
-          // Show SweetAlert2 error notification for invalid login
-          Swal.fire({
-            icon: 'error',
-            title: 'Invalid Login',
-            text: 'Please check your email and password and try again.',
-          });
-  
+ 
+          // Check for specific error scenarios
+          if (error.message === 'Invalid login credentials') {
+            // Show SweetAlert2 error notification for invalid login credentials
+            Swal.fire({
+              icon: 'error',
+              title: 'Invalid Login',
+              text: 'Please check your email and password and try again.',
+            });
+          } else if (error.message === 'Email not confirmed') {
+            // Show SweetAlert2 error notification for unconfirmed email
+            Swal.fire({
+              icon: 'error',
+              title: 'Email not confirmed',
+              text: 'Please confirm your email before logging in.',
+            });
+          } else {
+            // Show SweetAlert2 error notification for other login errors
+            Swal.fire({
+              icon: 'error',
+              title: 'Login error',
+              text: 'An unexpected error occurred. Please try again later.',
+            });
+          }
+ 
           return;
         } else if (data) {
           const { data: userData, error: fetchError } = await this.supabase
             .from('usertable')
-            .select('id, tenantName,firstName, userId') // Add 'tenantName' to the select query
+            .select('id, tenantName, firstName, userId, department')
             .eq('email', email)
             .single();
-  
+ 
           if (fetchError) {
             console.error('Fetch user data error:', fetchError);
             return;
           } else if (userData) {
-            const { id, tenantName,firstName, userId } = userData;
-  
+            const { id, tenantName, firstName, userId, department } = userData;
+ 
             // Store the user details in local storage
             localStorage.setItem('id', id);
             localStorage.setItem('tenantName', tenantName);
-            localStorage.setItem('firstName',firstName);
+            localStorage.setItem('firstName', firstName);
             localStorage.setItem('userId', userId);
+            localStorage.setItem('department', department);
             this.loggedInUserName = tenantName;
             console.log(this.loggedInUserName);
             localStorage.setItem('token', '6767676767');
-            
+ 
             // Show SweetAlert2 success notification for valid login
-            this.snackBar.open('Login Successful', 'OK', { duration: 3000 });
-  
+            this.snackBar.open('Login Successful', '', { duration: 3000, horizontalPosition: 'right', panelClass: ["success-snackbar"] });
             // Redirect to a different route or perform other actions upon successful login
             this.router.navigate(['/mainpage'], { queryParams: { id: id } });
           }
@@ -77,9 +95,11 @@ export class LoginComponent {
           title: 'Unexpected error',
           text: 'Please try again later.',
         });
-  
+ 
         console.error('Unexpected error:', error);
       }
     }
   }
+ 
 }
+ 

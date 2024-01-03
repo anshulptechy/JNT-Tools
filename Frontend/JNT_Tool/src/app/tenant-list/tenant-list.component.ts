@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
 import { SupabaseService } from '../supabase.service';
 import { UserService } from '../services/user.service';
-
+ 
 @Component({
   selector: 'app-tenant-list',
   templateUrl: './tenant-list.component.html',
@@ -33,7 +33,7 @@ export class TenantListComponent {
   createUserForm: FormGroup;
   editUserForm: FormGroup;
   loggedInUserName: string = '';
-
+ 
   constructor(
     private tenantData: TenantService,
     private formBuilder: FormBuilder,
@@ -54,7 +54,7 @@ export class TenantListComponent {
       ]),
       confirmPassword: new FormControl('', [Validators.required]),
     }, { validators: this.passwordMatchValidator });
-
+ 
     // Initialize Edit User Form
     this.editUserForm = this.formBuilder.group({
       id: [0],
@@ -68,30 +68,30 @@ export class TenantListComponent {
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
-  
+ 
     if (!password || !confirmPassword) {
       return null;
     }
-  
+ 
     return password.value === confirmPassword.value ? null : { 'passwordMismatch': true };
   }
-
+ 
   ngOnInit() {
     this.fetchTenants();
     const storedFirstName = localStorage.getItem('tenantName');
-
+ 
     // Set the value to loggedInUserName if it exists
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;
     }
   }
-
+ 
   async fetchTenants() {
     const storedFirstName = localStorage.getItem('tenantName');
-
+ 
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;
-
+ 
       // Fetch all tenants from the service
       this.tenantData.getAllTenants().subscribe((data: any) => {
         // Filter tenants based on the condition
@@ -199,7 +199,7 @@ export class TenantListComponent {
     }
     window.location.reload();
   }
-
+ 
   editTenant(tenant: any) {
     // Implement the logic to populate the editUserForm with tenant data for editing.
     this.editUserForm.patchValue({
@@ -210,7 +210,7 @@ export class TenantListComponent {
       department: tenant.department,
     });
   }
-
+ 
   setFormValues(tenant: any) {
     this.editUserForm.setValue({
       id: tenant.id,
@@ -224,9 +224,9 @@ export class TenantListComponent {
     const formData = this.editUserForm.value;
     this.tenantData.updateTenant(formData).subscribe(() => {
      
-      
+     
       // Move the reload inside the subscribe block
-      
+     
     });
     Swal.fire({
       icon: 'success',
@@ -236,9 +236,8 @@ export class TenantListComponent {
     window.location.reload();
     // Remove the window.location.reload() statement from here
   }
-
+ 
   async deleteTenant(id: number) {
-    // Show a confirmation dialog
     const isConfirmed = await Swal.fire({
       icon: 'warning',
       title: 'Are you sure?',
@@ -247,7 +246,7 @@ export class TenantListComponent {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
     });
-
+ 
     if (isConfirmed.isConfirmed) {
       // If the user confirms, proceed with deletion
       this.tenantData.deleteTenant(id).subscribe(() => {
@@ -258,8 +257,8 @@ export class TenantListComponent {
           title: 'Delete Successful!',
           text: 'Tenant deleted successfully.',
         });
-
-        
+ 
+       
         window.location.reload();
       });
       window.location.reload();
