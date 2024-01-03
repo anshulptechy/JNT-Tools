@@ -120,16 +120,16 @@ export class LeavestatusComponent implements OnInit {
   }
   submitLeaveApplication() {
     const userId = localStorage.getItem('id');
-  
+ 
     if (userId !== null) {
       // Initialize the error flag
       let isError = false;
-  
+ 
       // Perform validation
       const currentDate = new Date();
       const startDate = this.leaveApplication.startDate ? new Date(this.leaveApplication.startDate) : null;
       const endDate = this.leaveApplication.endDate ? new Date(this.leaveApplication.endDate) : null;
-  
+ 
       if (startDate && startDate < currentDate) {
         // Show error message for invalid start date
         Swal.fire({
@@ -137,11 +137,11 @@ export class LeavestatusComponent implements OnInit {
           title: 'Invalid Start Date',
           text: 'Start date should be equal to or greater than the current date.',
         });
-  
+ 
         // Set the error flag
         isError = true;
       }
-  
+ 
       if (endDate && startDate && endDate <= startDate) {
         // Show error message for invalid end date
         Swal.fire({
@@ -149,37 +149,37 @@ export class LeavestatusComponent implements OnInit {
           title: 'Invalid End Date',
           text: 'End date should be greater than the start date.',
         })
-  
+ 
         // Set the error flag
         isError = true;
       }
-  
+ 
       // Check if an error occurred
       if (isError) {
         // Stop further processing
         return;
       }
-  
+ 
       // Continue with leave application submission
       this.leaveApplication.status = 'Pending';
       this.leaveApplication.userId = parseInt(userId, 10);
-  
+ 
       // Set managercomment in the leaveApplication object
       this.leaveApplication.managercomment = 'Pending';
-  
+ 
       this.lmsService.submitLeaveApplication(this.leaveApplication).subscribe(
         (response: any) => {
           // Check if the response indicates success
           if (response && response.success) {
             console.log(this.leaveApplication);
-  
+ 
             // Show success message using Swal.fire
             Swal.fire({
               icon: 'success',
               title: 'Applied Successfully!',
               text: 'Your leave has been applied successfully.',
             });
-  
+            window.location.reload()
             // Reset the form or update the component's state to clear the form
             this.leaveApplicationForm.reset();
           } else {
@@ -189,31 +189,25 @@ export class LeavestatusComponent implements OnInit {
               icon: 'error',
               title: 'Error',
               text: errorMessage,
-            }).then(() => {
-              // Open the form again if the user clicks 'OK'
-              this.isFormClosed = false;
             });
           }
         },
         (error) => {
           console.error('Error submitting leave application:', error);
-  
+ 
           // Check if the error has a message
           const errorMessage = error.message || 'An error occurred while submitting the leave application. Please try again.';
-  
+ 
           // Handle error and show the error message using a snackbar
           Swal.fire({
             icon: 'error',
             title: 'Error',
             text: errorMessage,
-          }).then(() => {
-            // Open the form again if the user clicks 'OK'
-            this.isFormClosed = false;
           });
         }
       );
     }
-  }
+ }
   
   
   
@@ -238,7 +232,7 @@ export class LeavestatusComponent implements OnInit {
             title: 'Leave Updated!',
             text: 'Your leave application has been updated successfully.',
           });
-
+          window.location.reload()
           this.isFormClosed = true;
         },
         error => {
