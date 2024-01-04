@@ -72,6 +72,7 @@ namespace TenantManagementSystem.Controllers
                     {
                         ImageData = memoryStream.ToArray(),
                         CreatedAt = indianTime,
+                        //CreatedAt = DateTime.UtcNow,
                         id = id 
                     };
 

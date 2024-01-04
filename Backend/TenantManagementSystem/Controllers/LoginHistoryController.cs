@@ -18,16 +18,18 @@ namespace TenantManagementSystem.Controllers
         }
         [HttpPost]
 
-        public async Task<ActionResult<Attendences>> PostLoginHistory(Attendences loginHistory)
+        public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
+
         {
             try
             {
 
-                _dbContext.Attendence.Add(loginHistory);
+                _dbContext.Attendance.Add(loginHistory);
                 await _dbContext.SaveChangesAsync();
 
                 //return Ok();
-                return Ok(loginHistory.AttendenceId);// You can customize the response if needed
+
+                return Ok(loginHistory.AttendanceId);// You can customize the response if needed
 
             }
             catch (Exception ex)
@@ -36,16 +38,17 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-        [HttpPut("{attendenceId}")]
-        public async Task<IActionResult> UpdateLogoutTime(int attendenceId)
+        [HttpPut("{AttendanceId}")]
+        public async Task<IActionResult> UpdateLogoutTime(int AttendanceId)
+
         {
             try
             {
-                var loginHistory = await _dbContext.Attendence.FindAsync(attendenceId);
+                var loginHistory = await _dbContext.Attendance.FindAsync(AttendanceId);
 
                 if (loginHistory == null)
                 {
-                    return NotFound($"Login history with ID {attendenceId} not found.");
+                    return NotFound($"Login history with ID {AttendanceId} not found.");
                 }
 
                 // Check if the elapsed time is more than twelve hours
@@ -57,12 +60,12 @@ namespace TenantManagementSystem.Controllers
                     await _dbContext.SaveChangesAsync();
 
 
-                    return Ok($"Logout time updated for login history with ID {attendenceId
-                        }.");
+                    return Ok($"Logout time updated for login history with ID {AttendanceId}.");
+
                 }
                 else
                 {
-                    return Ok($"Logout time not updated for login history with ID {attendenceId}.");
+                    return Ok($"Logout time not updated for login history with ID {AttendanceId}.");
                 }
             }
             catch (Exception ex)
@@ -78,7 +81,8 @@ namespace TenantManagementSystem.Controllers
             try
             {
 
-                var loginHistories = await _dbContext.Attendence.ToListAsync();
+                var loginHistories = await _dbContext.Attendance.ToListAsync();
+
 
                 // Convert the date and time in each login history record to Indian Standard Time (IST)
                 foreach (var history in loginHistories)

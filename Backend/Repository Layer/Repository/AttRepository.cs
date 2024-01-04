@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository_Layer.Repository
 {
-    public class AttRepository<T> : IAttRepository<T> where T : Attendences
+    public class AttRepository<T> : IAttRepository<T> where T : Attendances
     {
         #region property
         private readonly ApplicationDbContext _applicationDbContext;

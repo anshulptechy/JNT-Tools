@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class miginit : Migration
+    public partial class Emp1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,10 +33,10 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attendence",
+                name: "Attendance",
                 columns: table => new
                 {
-                    AttendenceId = table.Column<int>(type: "int", nullable: false)
+                    AttendanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     id = table.Column<int>(type: "int", nullable: false),
                     LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -45,7 +45,7 @@ namespace Domain_Layer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendence", x => x.AttendenceId);
+                    table.PrimaryKey("PK_Attendance", x => x.AttendanceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,7 +199,7 @@ namespace Domain_Layer.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     SalaryMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    Leaves = table.Column<int>(type: "int", nullable: false),
+                    Leaves = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Deductions = table.Column<int>(type: "int", nullable: false),
                     NetPay = table.Column<int>(type: "int", nullable: false)
                 },
@@ -238,7 +238,7 @@ namespace Domain_Layer.Migrations
                 name: "ApplyLeaves");
 
             migrationBuilder.DropTable(
-                name: "Attendence");
+                name: "Attendance");
 
             migrationBuilder.DropTable(
                 name: "Coupons");

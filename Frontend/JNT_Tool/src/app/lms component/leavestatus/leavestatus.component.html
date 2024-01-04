@@ -20,7 +20,6 @@
           <th>Leave Type</th>
           <th>Reason</th>
           <th>Status</th>
-
           <th>Manager comment</th>
           <th>Actions</th>
 
@@ -35,7 +34,7 @@
             <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.endDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.leaveType }}</td>
-            <td>{{ leave.reason }}</td>
+            <td class="reason-cell">{{ leave.reason }}</td>
             <td>{{ leave.status }}</td>
             <td>{{ leave.managercomment }}</td>
             <td>
@@ -57,7 +56,7 @@
             <td>{{ leave.startDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.endDate | date:'yyyy-MM-dd' }}</td>
             <td>{{ leave.leaveType }}</td>
-            <td>{{ leave.reason }}</td>
+            <td class="reason-cell">{{ leave.reason }}</td>
             <td>{{ leave.status }}</td>
             <td>{{ leave.managercomment }}</td>
             <td>
@@ -80,7 +79,8 @@
     </table>
   </div>
    <!-- Apply Leave Modal -->
-  <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div *ngIf="!isFormClosed" class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -97,10 +97,10 @@
               <option *ngFor="let name of managerNames" [value]="name.firstName">{{ name.firstName }}</option>
             </select>
             <br> <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
-            <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
+            <input type="datetime-local" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
             <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
-            <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
+            <input type="datetime-local" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
 
             <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
             <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>
@@ -154,10 +154,10 @@
             <br>
 
             <label for="StartDate">Leave Start Date: <span class="text-danger">*</span></label>
-            <input type="date" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
+            <input type="datetime-local" id="StartDate" name="StartDate" [(ngModel)]="leaveApplication.startDate" required><br>
 
             <label for="EndDate">Leave End Date: <span class="text-danger">*</span></label>
-            <input type="date" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
+            <input type="datetime-local" id="EndDate" name="EndDate" [(ngModel)]="leaveApplication.endDate" required><br>
 
             <label for="leaveType">Leave Type: <span class="text-danger">*</span></label>
             <select id="leaveType" name="leaveType" [(ngModel)]="leaveApplication.leaveType" required>

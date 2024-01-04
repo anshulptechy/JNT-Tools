@@ -62,13 +62,13 @@ namespace Domain_Layer.Migrations
                     b.ToTable("ApplyLeaves");
                 });
 
-            modelBuilder.Entity("Domain_Layer.Models.Attendences", b =>
+            modelBuilder.Entity("Domain_Layer.Models.Attendances", b =>
                 {
-                    b.Property<int>("AttendenceId")
+                    b.Property<int>("AttendanceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendenceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"));
 
                     b.Property<TimeSpan?>("Hours")
                         .HasColumnType("time");
@@ -82,9 +82,9 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int");
 
-                    b.HasKey("AttendenceId");
+                    b.HasKey("AttendanceId");
 
-                    b.ToTable("Attendence");
+                    b.ToTable("Attendance");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.Coupon", b =>
@@ -256,8 +256,8 @@ namespace Domain_Layer.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Leaves")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Leaves")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("NetPay")
                         .HasColumnType("int");
