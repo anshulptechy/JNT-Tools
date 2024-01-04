@@ -39,7 +39,6 @@ export class AttendanceReportComponent implements OnInit {
     this.serve.getAllEmployees(tenantNameString).subscribe(
       (employee: any | any[]) => {
         this.employeeNames = employee;
-        console.log(employee);
       },
       (error: any) => {
         console.error('Error fetching employees:', error);
@@ -74,8 +73,6 @@ export class AttendanceReportComponent implements OnInit {
  
     this.serve.getbyMonthName(selectedMonth, tenantNameString).subscribe(
       (result: any) => {
-        console.log(result);
- 
         if (this.selectedEmployee) {
           const [selectedFirstName, selectedLastName] = this.selectedEmployee.split(' ');
  
@@ -127,8 +124,7 @@ export class AttendanceReportComponent implements OnInit {
         this.gridData = result;
         this.showTable = true;
         this.selectedMonth = '';
-        console.log("Selected Month after clearing:", this.selectedMonth);
-      }
+         }
     });
   }
   
@@ -145,8 +141,7 @@ export class AttendanceReportComponent implements OnInit {
           });
           this.showTable = true;
           this.selectedMonth = '';
-          console.log("Selected Month after clearing:", this.selectedMonth);
-        }
+           }
       });
     }
   }
