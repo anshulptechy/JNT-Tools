@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class LmsService {
 
-  private apiBaseUrl = 'https://localhost:7126/api/LeaveManagementSystem';
+  private apiBaseUrl = 'http://165.22.223.179:8080/api/LeaveManagementSystem';
 
   constructor(private http: HttpClient) { }
 
@@ -20,22 +20,22 @@ export class LmsService {
   
   
   submitLeaveApplication(leaveApplicationData: LeaveApplication) {
-    return this.http.post(`https://localhost:7126/api/LeaveManagementSystem/CreateApplyLeave`, leaveApplicationData);
+    return this.http.post(`http://165.22.223.179:8080/api/LeaveManagementSystem/CreateApplyLeave`, leaveApplicationData);
   }
   
   getLeaveStatusByUserId(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/employee/${userId}`);
+    return this.http.get<any[]>(`http://165.22.223.179:8080/api/LeaveManagementSystem/employee/${userId}`);
   }
   
   updateLeaveApplication(leaveApplication: LeaveApplication): Observable<any> {
    
-    return this.http.put(`https://localhost:7126/api/LeaveManagementSystem/UpdateApplyLeave`
+    return this.http.put(`http://165.22.223.179:8080/api/LeaveManagementSystem/UpdateApplyLeave`
     , leaveApplication, { responseType: 'text' });
   }
   deleteLeave(id: number) {
     // Assuming your API expects a DELETE request to delete a leave entry
   
-    return this.http.delete(`https://localhost:7126/api/LeaveManagementSystem/DeleteApplyLeave/${id}`);
+    return this.http.delete(`http://165.22.223.179:8080/api/LeaveManagementSystem/DeleteApplyLeave/${id}`);
   }
  
   
@@ -60,6 +60,6 @@ export class LmsService {
   
  
   GetLeaveStatusForManagedUsers(managerName: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
+    return this.http.get<any[]>(`http://165.22.223.179:8080/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
   }
 }

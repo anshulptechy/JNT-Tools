@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class MeetService {
-  private apiUrl = 'https://localhost:7126/api';
+  private apiUrl = 'http://165.22.223.179:8080/api';
   private eventsSubject = new BehaviorSubject<any[]>([]);
   public events$ = this.eventsSubject.asObservable();
 

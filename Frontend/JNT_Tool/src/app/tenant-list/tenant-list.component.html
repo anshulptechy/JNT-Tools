@@ -22,10 +22,8 @@
         <form [formGroup]="createUserForm">
           <input type="hidden" id="id" formControlName="id" />
  
-          <div class="form-group">
-            <label for="firstName"
-              >First Name<span class="required">*</span></label
-            >
+          <!-- <div class="form-group">
+            <label for="firstName">First Name<span class="required">*</span></label>
             <input
               type="text"
               id="firstName"
@@ -45,12 +43,52 @@
             >
               First Name is required
             </div>
+            <div
+              *ngIf="
+                createUserForm.get('firstName')?.hasError('maxLength') &&
+                !createUserForm.get('firstName')?.hasError('required')
+              "
+              class="invalid-feedback"
+            >
+              First Name should not be more than 30 characters
+            </div>
+          </div> -->
+          
+          <div class="form-group">
+            <label for="firstName">First Name<span class="required">*</span></label>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              [ngClass]="{
+                'is-invalid':
+                  createUserForm.get('firstName')?.touched &&
+                  (createUserForm.get('firstName')?.hasError('required') ||
+                   createUserForm.get('firstName')?.hasError('maxlength'))
+              }"
+            />
+            <div
+              *ngIf="
+                createUserForm.get('firstName')?.touched &&
+                createUserForm.get('firstName')?.hasError('required')
+              "
+              class="invalid-feedback"
+            >
+              First Name is required
+            </div>
+            <div
+              *ngIf="
+                createUserForm.get('firstName')?.hasError('maxlength') &&
+                !createUserForm.get('firstName')?.hasError('required')
+              "
+              class="invalid-feedback"
+            >
+              First Name should not be more than 30 characters
+            </div>
           </div>
  
           <div class="form-group">
-            <label for="lastName"
-              >Last Name<span class="required">*</span></label
-            >
+            <label for="lastName">Last Name<span class="required">*</span></label>
             <input
               type="text"
               id="lastName"
@@ -58,7 +96,8 @@
               [ngClass]="{
                 'is-invalid':
                   createUserForm.get('lastName')?.touched &&
-                  createUserForm.get('lastName')?.hasError('required')
+                  (createUserForm.get('lastName')?.hasError('required') ||
+                   createUserForm.get('lastName')?.hasError('maxlength'))
               }"
             />
             <div
@@ -70,7 +109,17 @@
             >
               Last Name is required
             </div>
+            <div
+              *ngIf="
+                createUserForm.get('lastName')?.hasError('maxlength') &&
+                !createUserForm.get('lastName')?.hasError('required')
+              "
+              class="invalid-feedback"
+            >
+              Last Name should not be more than 30 characters
+            </div>
           </div>
+          
  
           <div class="form-group">
             <label for="email">Email<span class="required">*</span></label>
@@ -82,7 +131,8 @@
                 'is-invalid':
                   createUserForm.get('email')?.touched &&
                   (createUserForm.get('email')?.hasError('required') ||
-                    createUserForm.get('email')?.hasError('email'))
+                    createUserForm.get('email')?.hasError('email') ||
+                    createUserForm.get('email')?.hasError('maxlength'))
               }"
             />
             <div
@@ -103,12 +153,20 @@
             >
               Invalid email format
             </div>
-          </div>
- 
-          <div class="form-group">
-            <label for="department"
-              >Department<span class="required">*</span></label
+            <div
+              *ngIf="
+                createUserForm.get('email')?.hasError('maxlength') &&
+                !createUserForm.get('email')?.hasError('required') &&
+                !createUserForm.get('email')?.hasError('email')
+              "
+              class="invalid-feedback"
             >
+              Email should not be more than 30 characters
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="department">Department<span class="required">*</span></label>
             <input
               type="text"
               id="department"
@@ -116,7 +174,8 @@
               [ngClass]="{
                 'is-invalid':
                   createUserForm.get('department')?.touched &&
-                  createUserForm.get('department')?.hasError('required')
+                  (createUserForm.get('department')?.hasError('required') ||
+                    createUserForm.get('department')?.hasError('maxlength'))
               }"
             />
             <div
@@ -128,7 +187,17 @@
             >
               Department is required
             </div>
+            <div
+              *ngIf="
+                createUserForm.get('department')?.hasError('maxlength') &&
+                !createUserForm.get('department')?.hasError('required')
+              "
+              class="invalid-feedback"
+            >
+              Department should not be more than 30 characters
+            </div>
           </div>
+          
  
           <div
             class="form-group"
@@ -248,9 +317,7 @@
           <div class="modal-body">
             <form [formGroup]="editUserForm">
               <div class="form-group">
-                <label for="firstName"
-                  >First Name<span class="required">*</span></label
-                >
+                <label for="firstName">First Name<span class="required">*</span></label>
                 <input
                   type="text"
                   id="firstName"
@@ -258,7 +325,8 @@
                   [ngClass]="{
                     'is-invalid':
                       editUserForm.get('firstName')?.touched &&
-                      editUserForm.get('firstName')?.hasError('required')
+                      (editUserForm.get('firstName')?.hasError('required') ||
+                       editUserForm.get('firstName')?.hasError('maxlength'))
                   }"
                 />
                 <div
@@ -270,12 +338,20 @@
                 >
                   First Name is required
                 </div>
+                <div
+                  *ngIf="
+                    editUserForm.get('firstName')?.hasError('maxlength') &&
+                    !editUserForm.get('firstName')?.hasError('required')
+                  "
+                  class="invalid-feedback"
+                >
+                  First Name should not be more than 30 characters
+                </div>
               </div>
+              
  
               <div class="form-group">
-                <label for="lastName"
-                  >Last Name<span class="required">*</span></label
-                >
+                <label for="lastName">Last Name<span class="required">*</span></label>
                 <input
                   type="text"
                   id="lastName"
@@ -283,7 +359,8 @@
                   [ngClass]="{
                     'is-invalid':
                       editUserForm.get('lastName')?.touched &&
-                      editUserForm.get('lastName')?.hasError('required')
+                      (editUserForm.get('lastName')?.hasError('required') ||
+                       editUserForm.get('lastName')?.hasError('maxlength'))
                   }"
                 />
                 <div
@@ -295,12 +372,20 @@
                 >
                   Last Name is required
                 </div>
+                <div
+                  *ngIf="
+                    editUserForm.get('lastName')?.hasError('maxlength') &&
+                    !editUserForm.get('lastName')?.hasError('required')
+                  "
+                  class="invalid-feedback"
+                >
+                  Last Name should not be more than 30 characters
+                </div>
               </div>
+              
  
               <div class="form-group">
-                <label for="department"
-                  >Department<span class="required">*</span></label
-                >
+                <label for="department">Department<span class="required">*</span></label>
                 <input
                   type="text"
                   id="department"
@@ -308,7 +393,8 @@
                   [ngClass]="{
                     'is-invalid':
                       editUserForm.get('department')?.touched &&
-                      editUserForm.get('department')?.hasError('required')
+                      (editUserForm.get('department')?.hasError('required') ||
+                       editUserForm.get('department')?.hasError('maxlength'))
                   }"
                 />
                 <div
@@ -319,6 +405,15 @@
                   class="invalid-feedback"
                 >
                   Department is required
+                </div>
+                <div
+                  *ngIf="
+                    editUserForm.get('department')?.hasError('maxlength') &&
+                    !editUserForm.get('department')?.hasError('required')
+                  "
+                  class="invalid-feedback"
+                >
+                  Department should not be more than 30 characters
                 </div>
               </div>
             </form>
@@ -367,7 +462,6 @@
         <table class="table">
           <thead>
             <tr>
-              <!-- <th>ID</th> -->
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
@@ -377,7 +471,6 @@
           </thead>
           <tbody>
             <tr *ngFor="let tenant of tenants" (click)="setFormValues(tenant)">
-              <!-- <td>{{ tenant.id }}</td> -->
               <td>{{ tenant.firstName }}</td>
               <td>{{ tenant.lastName }}</td>
               <td>{{ tenant.email }}</td>

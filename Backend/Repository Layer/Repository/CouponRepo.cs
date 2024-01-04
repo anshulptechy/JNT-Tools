@@ -37,6 +37,11 @@ namespace Repository_Layer.Repository
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
+            // Ensure that DateTime properties are in UTC before saving
+            entity.StartDate = entity.StartDate.ToUniversalTime();
+            entity.EndDate = entity.EndDate.ToUniversalTime();
+
             entities.Add(entity);
             _appDbContext.SaveChanges();
         }
@@ -67,15 +72,22 @@ namespace Repository_Layer.Repository
             _appDbContext.SaveChanges();
         }
 
+
         public void update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
+            // Ensure that DateTime properties are in UTC before saving
+            entity.StartDate = entity.StartDate.ToUniversalTime();
+            entity.EndDate = entity.EndDate.ToUniversalTime();
+
             entities.Update(entity);
             _appDbContext.SaveChanges();
         }
+
 
         public void InsertRange(IEnumerable<T> entities)
         {
