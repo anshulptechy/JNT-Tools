@@ -61,20 +61,11 @@ builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 
-builder.Services.AddHttpsRedirection(options =>
-{
-    options.HttpsPort = 32788; // Make sure this is set to the correct HTTPS port
-});
-
 
 
 
 var app = builder.Build();
 
-app.Run(async context =>
-{
-    context.Response.Redirect("https://" + context.Request.Host);
-});
 
 app.UseSwagger();
 app.UseSwaggerUI();
