@@ -56,14 +56,9 @@ builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 
 
 
-
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
-builder.Services.AddHttpsRedirection(options =>
-{
-    options.HttpsPort = 443; // Make sure this is set to the correct HTTPS port
-});
 
 
 var app = builder.Build();
@@ -71,8 +66,6 @@ var app = builder.Build();
 
     app.UseSwagger();
     app.UseSwaggerUI();
-
-
 
 
 app.UseHttpsRedirection();
