@@ -63,7 +63,7 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 builder.Services.AddHttpsRedirection(options =>
 {
-    options.HttpsPort = 443; // Make sure this is set to the correct HTTPS port
+    options.HttpsPort = 32788; // Make sure this is set to the correct HTTPS port
 });
 
 
@@ -71,7 +71,10 @@ builder.Services.AddHttpsRedirection(options =>
 
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+app.Run(async context =>
+{
+    context.Response.Redirect("https://" + context.Request.Host);
+});
 
 app.UseSwagger();
 app.UseSwaggerUI();
