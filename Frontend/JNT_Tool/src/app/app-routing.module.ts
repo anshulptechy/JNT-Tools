@@ -22,6 +22,7 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 // import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 import { HRComponent } from './HR/hr/hr.component';
+import { IndexComponent } from './index/index.component';
 
 
 
@@ -47,6 +48,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'attendanceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
     { path: 'HR', component:HRComponent,canActivate:[AuthGuard] },
+    { path: 'index', component:IndexComponent,canActivate:[AuthGuard] },
   ];
 
 

@@ -28,21 +28,29 @@ namespace TenantManagementSystem.Controllers
             var leaves = _Service.GetEmployeeByUserId(userId); // Change _applyLeaveService to _Service
             return Ok(leaves);
         }
-       
+
 
 
 
         [HttpPost(nameof(CreateApplyLeave))]
-        public IActionResult CreateApplyLeave(ApplyLeave ApplyLeave)
+        public IActionResult CreateApplyLeave(ApplyLeave applyLeave)
         {
-            if (ApplyLeave != null)
+            try
             {
-                _Service.Insert(ApplyLeave);
-                return Ok("Created Successfully");
+                if (applyLeave != null)
+                {
+                    _Service.Insert(applyLeave);
+                    return Ok(new { success = true, message = "Created Successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Something went wrong" });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Something went wrong");
+                // Log the exception or handle it accordingly
+                return BadRequest(new { success = false, message = "An error occurred while processing the leave application." });
             }
         }
 

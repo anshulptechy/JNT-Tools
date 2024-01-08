@@ -4,6 +4,7 @@ using Domain_Layer.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< Updated upstream:Backend/Domain Layer/Migrations/20240103053205_miginit.Designer.cs
+    [Migration("20240103053205_miginit")]
+========
+    [Migration("20240102054759_miginit")]
+>>>>>>>> Stashed changes:Backend/Domain Layer/Migrations/20240102054759_miginit.Designer.cs
+    partial class miginit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
