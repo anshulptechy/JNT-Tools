@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ProjectService {
 
   constructor(private http: HttpClient) { }
-  baseServerUrl=" http://165.22.223.179:8080/api/"
+  baseServerUrl=" http://165.22.223.179:8080/"
 
   registerUser(){
     // this.http.post

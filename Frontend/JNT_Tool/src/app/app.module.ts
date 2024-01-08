@@ -51,6 +51,7 @@ import { LeavestatusComponent } from './lms component/leavestatus/leavestatus.co
 import { RouterModule } from '@angular/router';
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 import { HRComponent } from './HR/hr/hr.component';
+import { IndexComponent } from './index/index.component';
 
 
 
@@ -78,6 +79,7 @@ import { HRComponent } from './HR/hr/hr.component';
     ProjectReportComponent,
     SalaryReportComponent,
     HRComponent,
+    IndexComponent,
     
  
 
