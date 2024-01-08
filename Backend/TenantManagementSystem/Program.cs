@@ -63,12 +63,13 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 var app = builder.Build();
 
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-
 app.UseHttpsRedirection();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+
+
 
 app.UseCors(builder => builder
     .AllowAnyOrigin()
