@@ -20,15 +20,14 @@ namespace TenantManagementSystem.Controllers
             _context = context;
         }
 
+
         [HttpGet("GetByid/{id}")]
         public ActionResult<IEnumerable<Screenshots>> GetByid(int id, [FromQuery] string filter = "All")
         {
-           
             var logsQuery = _context.Screenshot.Where(s => s.id == id);
 
             if (filter == "Today")
             {
-               
                 logsQuery = logsQuery.Where(s => s.CreatedAt.Date == DateTime.UtcNow.Date);
             }
             else if (filter == "ThisWeek")
@@ -43,10 +42,21 @@ namespace TenantManagementSystem.Controllers
 
             if (logs == null || logs.Count == 0)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            return Ok(logs); 
+            // Convert UTC time to Indian Standard Time (IST)
+            logs.ForEach(s => s.CreatedAt = ConvertUtcToIst(s.CreatedAt));
+
+            return Ok(logs);
+        }
+
+        // Helper method to convert UTC time to Indian Standard Time (IST)
+        private DateTime ConvertUtcToIst(DateTime utcTime)
+        {
+            TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, indianTimeZone);
+            return indianTime;
         }
 
         [HttpPost]
@@ -63,15 +73,16 @@ namespace TenantManagementSystem.Controllers
                 {
                     await file.CopyToAsync(memoryStream);
 
-                   
+
                     TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, indianTimeZone);
 
                     var screenshot = new Screenshots
                     {
                         ImageData = memoryStream.ToArray(),
-                        CreatedAt = indianTime,
-                        id = id 
+                        //CreatedAt = indianTime,
+                        CreatedAt = DateTime.UtcNow,
+                        id = id
                     };
 
                     _context.Screenshot.Add(screenshot);
@@ -88,4 +99,3 @@ namespace TenantManagementSystem.Controllers
     }
 
 }
-
