@@ -61,6 +61,13 @@ builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443; // Make sure this is set to the correct HTTPS port
+});
+
+
+
 
 var app = builder.Build();
 
