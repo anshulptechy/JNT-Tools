@@ -9,6 +9,7 @@ COPY . .
 
 # Expose the port your app will run on
 EXPOSE 80
+EXPOSE 443
 
 # Define the entry point for your app
 ENTRYPOINT ["dotnet", "TenantManagementSystem.dll"]

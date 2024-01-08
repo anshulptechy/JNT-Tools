@@ -68,6 +68,8 @@ var app = builder.Build();
     app.UseSwaggerUI();
 
 
+app.UseHttpsRedirection();
+
 app.UseCors(builder => builder
     .AllowAnyOrigin()
     .AllowAnyMethod()
