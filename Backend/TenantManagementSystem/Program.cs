@@ -60,16 +60,25 @@ builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 5001; // Choose the port you want to use for HTTPS
+}); ;
 
-
+builder.Services.AddHsts(options =>
+{
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(365);
+});
 
 
 var app = builder.Build();
 
 
 // Enable HTTPS
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
+app.UseHsts();
 
 app.UseSwagger();
 app.UseSwaggerUI();
