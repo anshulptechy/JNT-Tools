@@ -87,21 +87,6 @@ namespace Domain_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoginHistories",
-                columns: table => new
-                {
-                    LoginHistoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    id = table.Column<int>(type: "int", nullable: false),
-                    LoginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LogoutTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LoginHistories", x => x.LoginHistoryId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Managements",
                 columns: table => new
                 {
@@ -248,9 +233,6 @@ namespace Domain_Layer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Login");
-
-            migrationBuilder.DropTable(
-                name: "LoginHistories");
 
             migrationBuilder.DropTable(
                 name: "projectDataTable");

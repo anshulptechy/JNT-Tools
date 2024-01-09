@@ -183,28 +183,6 @@ namespace Domain_Layer.Migrations
                     b.ToTable("Login");
                 });
 
-            modelBuilder.Entity("Domain_Layer.Models.LoginHistory", b =>
-                {
-                    b.Property<int>("LoginHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginHistoryId"));
-
-                    b.Property<DateTime>("LoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LogoutTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginHistoryId");
-
-                    b.ToTable("LoginHistories");
-                });
-
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>
                 {
                     b.Property<int>("id")

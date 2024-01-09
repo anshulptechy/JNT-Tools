@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain_Layer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240103064014_Emp1")]
+    [Migration("20240108115835_Emp1")]
     partial class Emp1
     {
         /// <inheritdoc />
@@ -184,28 +184,6 @@ namespace Domain_Layer.Migrations
                     b.HasIndex("id");
 
                     b.ToTable("Login");
-                });
-
-            modelBuilder.Entity("Domain_Layer.Models.LoginHistory", b =>
-                {
-                    b.Property<int>("LoginHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginHistoryId"));
-
-                    b.Property<DateTime>("LoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LogoutTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginHistoryId");
-
-                    b.ToTable("LoginHistories");
                 });
 
             modelBuilder.Entity("Domain_Layer.Models.Management", b =>

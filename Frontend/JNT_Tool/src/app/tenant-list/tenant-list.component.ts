@@ -43,10 +43,10 @@ export class TenantListComponent {
   ) {
     this.createUserForm = this.formBuilder.group({
       id: new FormControl(0),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      department: new FormControl('', Validators.required),
+      firstName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      lastName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(30)]),
+      department: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -58,11 +58,11 @@ export class TenantListComponent {
     // Initialize Edit User Form
     this.editUserForm = this.formBuilder.group({
       id: [0],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
       email: [''],
       // department: [''],
-      department: ['', Validators.required],
+      department: ['', [Validators.required, Validators.maxLength(30)]],
     });
   }
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -107,6 +107,16 @@ export class TenantListComponent {
     this.createUserForm.reset();
   }
   async createUser() {
+    
+    const existingUsersCount = this.tenants.length;
+
+    if (existingUsersCount >= 5) {
+      Swal.fire({
+        icon: 'error',
+        title: 'User Limit Exceeded',
+        text: 'You cannot add more than 5 users.',
+      });
+      return;}
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')
