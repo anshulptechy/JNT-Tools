@@ -14,6 +14,7 @@ using Service_Layer.EventService;
 using Service_Layer.ICustomService;
 using Service_Layer.IEventService;
 using static Repository_Layer.IRepository.IRepository;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,26 +57,19 @@ builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 
 
 
-
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
-builder.Services.AddHttpsRedirection(options =>
-{
-    options.HttpsPort = 443; // Make sure this is set to the correct HTTPS port
-});
 
 
 var app = builder.Build();
 
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseHsts();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
-
-
-app.UseHttpsRedirection();
 
 app.UseCors(builder => builder
     .AllowAnyOrigin()
