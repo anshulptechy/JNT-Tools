@@ -62,15 +62,16 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 builder.Services.AddHttpsRedirection(options =>
 {
-    options.HttpsPort = 5001; // Choose the port you want to use for HTTPS
-}); ;
+    options.HttpsPort = builder.Configuration.GetValue<int>("Profiles:Docker:applicationUrl:https:applicationUrl", 443);
+});
+
+
 
 builder.Services.AddHsts(options =>
 {
     options.IncludeSubDomains = true;
     options.MaxAge = TimeSpan.FromDays(365);
 });
-
 
 var app = builder.Build();
 

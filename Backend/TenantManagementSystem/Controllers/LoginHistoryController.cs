@@ -46,11 +46,11 @@ namespace TenantManagementSystem.Controllers
                 }
 
                 // Check if the elapsed time is more than twelve hours
-                TimeSpan elapsed = DateTime.Now - loginHistory.LoginTime;
+                TimeSpan elapsed = DateTime.UtcNow - loginHistory.LoginTime;
 
                 if (elapsed.TotalHours <= 12)
                 {
-                    loginHistory.LogoutTime = DateTime.Now;
+                    loginHistory.LogoutTime = DateTime.UtcNow;
                     await _dbContext.SaveChangesAsync();
 
                     return Ok($"Logout time updated for login history with ID {AttendanceId}.");
