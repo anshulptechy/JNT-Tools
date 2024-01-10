@@ -1,10 +1,10 @@
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /app
-COPY . .
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS runtime
 
 WORKDIR /app
-COPY --from=build /app .
+
+COPY . .
+
 EXPOSE 80
 EXPOSE 443
 
