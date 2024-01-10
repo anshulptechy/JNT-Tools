@@ -16,3 +16,4 @@ ENV ASPNETCORE_HTTPS_PORT=443
 
 # Define the entry point for your app
 ENTRYPOINT ["dotnet", "TenantManagementSystem.dll"]
+
