@@ -60,24 +60,10 @@ builder.Services.AddScoped(typeof(IApplyLeaveRepo<>), typeof(ApplyLeaveRepo<>));
 builder.Services.AddScoped(typeof(ISalaryReport<>), typeof(SalaryReport<>));
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 
-builder.Services.AddHttpsRedirection(options =>
-{
-    options.HttpsPort = builder.Configuration.GetValue<int>("Profiles:Docker:applicationUrl:https:applicationUrl", 443);
-});
 
-
-
-builder.Services.AddHsts(options =>
-{
-    options.IncludeSubDomains = true;
-    options.MaxAge = TimeSpan.FromDays(365);
-});
 
 var app = builder.Build();
 
-
-// Enable HTTPS
-app.UseHttpsRedirection();
 
 app.UseHsts();
 
