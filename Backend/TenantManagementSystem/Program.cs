@@ -65,8 +65,6 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 var app = builder.Build();
 
 
-app.UseHsts();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 

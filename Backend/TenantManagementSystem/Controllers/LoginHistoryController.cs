@@ -16,25 +16,34 @@ namespace TenantManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
+
         [HttpPost]
         public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
+
         {
             try
             {
+                // Convert local times to UTC
+                loginHistory.LoginTime = loginHistory.LoginTime.ToUniversalTime();
+                loginHistory.LogoutTime = loginHistory.LogoutTime.ToUniversalTime();
 
                 _dbContext.Attendance.Add(loginHistory);
                 await _dbContext.SaveChangesAsync();
 
                 //return Ok();
+
                 return Ok(loginHistory.AttendanceId);// You can customize the response if needed
+
             }
             catch (Exception ex)
             {
                 return BadRequest($"Failed to save login and logout times. Error: {ex.Message}");
             }
         }
+
         [HttpPut("{AttendanceId}")]
         public async Task<IActionResult> UpdateLogoutTime(int AttendanceId)
+
         {
             try
             {
@@ -53,7 +62,9 @@ namespace TenantManagementSystem.Controllers
                     loginHistory.LogoutTime = DateTime.UtcNow;
                     await _dbContext.SaveChangesAsync();
 
+
                     return Ok($"Logout time updated for login history with ID {AttendanceId}.");
+
                 }
                 else
                 {
@@ -72,7 +83,9 @@ namespace TenantManagementSystem.Controllers
         {
             try
             {
+
                 var loginHistories = await _dbContext.Attendance.ToListAsync();
+
 
                 // Convert the date and time in each login history record to Indian Standard Time (IST)
                 foreach (var history in loginHistories)
@@ -97,4 +110,3 @@ namespace TenantManagementSystem.Controllers
         }
     }
 }
-
