@@ -16,13 +16,18 @@ namespace TenantManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
+   
+        
+        
         [HttpPost]
-
         public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
 
         {
             try
             {
+                // Convert local times to UTC
+                loginHistory.LoginTime = loginHistory.LoginTime.ToUniversalTime();
+                loginHistory.LogoutTime = loginHistory.LogoutTime.ToUniversalTime();
 
                 _dbContext.Attendance.Add(loginHistory);
                 await _dbContext.SaveChangesAsync();
@@ -52,11 +57,11 @@ namespace TenantManagementSystem.Controllers
                 }
 
                 // Check if the elapsed time is more than twelve hours
-                TimeSpan elapsed = DateTime.Now - loginHistory.LoginTime;
+                TimeSpan elapsed = DateTime.UtcNow - loginHistory.LoginTime;
 
                 if (elapsed.TotalHours <= 12)
                 {
-                    loginHistory.LogoutTime = DateTime.Now;
+                    loginHistory.LogoutTime = DateTime.UtcNow;
                     await _dbContext.SaveChangesAsync();
 
 

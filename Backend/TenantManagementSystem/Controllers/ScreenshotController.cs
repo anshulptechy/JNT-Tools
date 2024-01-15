@@ -73,7 +73,7 @@ namespace TenantManagementSystem.Controllers
                 {
                     await file.CopyToAsync(memoryStream);
 
-                   
+
                     TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, indianTimeZone);
 
@@ -83,6 +83,7 @@ namespace TenantManagementSystem.Controllers
                         //CreatedAt = indianTime,
                         CreatedAt = DateTime.UtcNow,
                         id = id 
+
                     };
 
                     _context.Screenshot.Add(screenshot);
@@ -99,4 +100,3 @@ namespace TenantManagementSystem.Controllers
     }
 
 }
-

@@ -40,10 +40,9 @@ const routes: Routes = [
     { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
     { path: 'taskDashboard', component: TaskDashboardComponent, canActivate: [AuthGuard] },
     { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-     { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, { path: "signup", component: SignupComponent},
-    
-  
-      { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
+     { path: "mainpage", component: TenantListComponent, canActivate: [AuthGuard] }, 
+     { path: "signup", component: SignupComponent},
+     { path: 'leaveStatus', component: LeavestatusComponent, canActivate: [AuthGuard] },
     {path:'salary-report',component:SalaryReportComponent , canActivate: [AuthGuard]},
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'attendanceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
