@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository_Layer.IRepository
 {
-    public interface IAttRepository<T> where T : Attendences
+    public interface IAttRepository<T> where T : Attendances
     {
 
         IEnumerable<T> GetAll();

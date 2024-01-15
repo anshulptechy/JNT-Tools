@@ -21,8 +21,8 @@ import { SalaryReportComponent } from './SalaryReport/salary-report/salary-repor
 import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
 // import { ConfirmationDialogComponent } from './crudProjectComponents/confirmation-dialog/confirmation-dialog.component';
-// import { HRComponent } from './HR/hr/hr.component';
-// import { IndexComponent } from './index/index.component';
+import { HRComponent } from './HR/hr/hr.component';
+import { IndexComponent } from './index/index.component';
 
 
 
@@ -47,8 +47,8 @@ const routes: Routes = [
     {path:'salary-report',component:SalaryReportComponent , canActivate: [AuthGuard]},
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'attendanceReport', component:AttendanceReportComponent,canActivate:[AuthGuard] },
-    // { path: 'HR', component:HRComponent,canActivate:[AuthGuard] },
-    // { path: 'index', component:IndexComponent,canActivate:[AuthGuard] },
+    { path: 'HR', component:HRComponent,canActivate:[AuthGuard] },
+    { path: 'index', component:IndexComponent,canActivate:[AuthGuard] },
   ];
 
 

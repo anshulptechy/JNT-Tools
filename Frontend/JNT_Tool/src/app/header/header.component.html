@@ -39,24 +39,25 @@
           </li>
           
           <!-- Reports Dropdown -->
-           <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle text-white" href="#" id="reportsDropdown" role="button"
-    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Reports
-  </a>
-  <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="reportsDropdown">
-    <li>
-      <a class="dropdown-item" [routerLink]="['/projectReport']">Project Report</a>
-    </li>
-    <li>
-      <a class="dropdown-item" [routerLink]="['/salary-report']">Salary Report</a>
-    </li>
-    <li>
-      <a class="dropdown-item" [routerLink]="['/attendanceReport']">Attendance Report</a>
-    </li>
-  </ul>
-</li> 
-
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="reportsDropdown" role="button"
+              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reports
+            </a>
+            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="reportsDropdown">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/projectReport']">Project Report</a>
+              </li>
+              <li class="nav-item">
+                <a class="dropdown-item" [routerLink]="['/salary-report']">Salary Report</a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/attendanceReport']"
+                  >Attendance Report</a
+                >
+              </li>
+            </ul>
+          </li>
          
           <!--coupons -->
           <li class="nav-item">

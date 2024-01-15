@@ -52,7 +52,7 @@ namespace TenantManagementSystem.Controllers
             else
             {
                 // Modify the response to include both ProjectId and ProjectName
-                var response = obj.Select(p => new { ProjectId = p.ProjectId, ProjectName = p.ProjectName });
+                var response = obj.Select(p => new { ProjectId = p.ProjectId, ProjectName = p.ProjectName,TenantName=p.tenantName });
                 return Ok(response);
             }
         }

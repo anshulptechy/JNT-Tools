@@ -7,3 +7,10 @@ body{
     overflow-y: auto !important; /* Enable vertical scrolling */
     padding: 0 !important;
   }
+
+
+.success-snackbar {
+  --mdc-snackbar-container-color: rgb(73, 184, 73);
+  --mat-mdc-snack-bar-button-color: yellow;
+  --mdc-snackbar-supporting-text-color: white;
+}

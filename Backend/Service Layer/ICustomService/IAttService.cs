@@ -16,16 +16,17 @@ namespace Service_Layer.ICustomService
     {
         IEnumerable<T> GetAll();
 
-        void CalculateHours(IEnumerable<Attendences> records);
+        void CalculateHours(IEnumerable<Attendances> records);
         T Get(int id);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
-        List<Attendences> GetAllAttendances();
+        List<Attendances> GetAllAttendances();
         void CreateManagementUserAndAttendance(Management management);
-        List<Attendences> GetAttendanceByManagementId(int id);
-        List<Attendences> GetAttendanceByManagementIdAndMonth(int id, string monthName);
+        List<Attendances> GetAttendanceByManagementId(int id);
+        List<Attendances> GetAttendanceByManagementIdAndMonth(int id, string monthName);
     }
-   
+
+
 }
 

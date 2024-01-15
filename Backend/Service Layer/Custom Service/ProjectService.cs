@@ -57,7 +57,7 @@ namespace Service_Layer.Custom_Service
             }
         }
 
-        public IEnumerable<(int ProjectId, string ProjectName)> GetAllProjectNames()
+        public IEnumerable<(int ProjectId, string ProjectName, string tenantName)> GetAllProjectNames()
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Service_Layer.Custom_Service
                 if (projects != null)
                 {
 
-                    return projects.Select(p => (p.ProjectId, p.projectName)).ToList();
+                    return projects.Select(p => (p.ProjectId, p.projectName, p.tenantName)).ToList();
                 }
                 else
                 {

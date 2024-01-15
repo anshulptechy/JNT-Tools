@@ -28,21 +28,29 @@ namespace TenantManagementSystem.Controllers
             var leaves = _Service.GetEmployeeByUserId(userId); // Change _applyLeaveService to _Service
             return Ok(leaves);
         }
-       
+
 
 
 
         [HttpPost(nameof(CreateApplyLeave))]
-        public IActionResult CreateApplyLeave(ApplyLeave ApplyLeave)
+        public IActionResult CreateApplyLeave(ApplyLeave applyLeave)
         {
-            if (ApplyLeave != null)
+            try
             {
-                _Service.Insert(ApplyLeave);
-                return Ok("Created Successfully");
+                if (applyLeave != null)
+                {
+                    _Service.Insert(applyLeave);
+                    return Ok(new { success = true, message = "Created Successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Something went wrong" });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Something went wrong");
+                // Log the exception or handle it accordingly
+                return BadRequest(new { success = false, message = "An error occurred while processing the leave application." });
             }
         }
 
@@ -84,8 +92,13 @@ namespace TenantManagementSystem.Controllers
             }
         }
 
-        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}")]
-        public async Task<IActionResult> UpdateLeaveStatus(int userId, DateTime startDate, DateTime endDate, string status)
+        [HttpPut("UpdateLeaveStatus/{userId}/{startDate}/{endDate}/{status}/{managercomment}")]
+        public async Task<IActionResult> UpdateLeaveStatus(
+            int userId,
+            DateTime startDate,
+            DateTime endDate,
+            string status,
+            string managercomment) // Note: You don't need [FromBody] in this case
         {
             try
             {
@@ -101,8 +114,9 @@ namespace TenantManagementSystem.Controllers
                     return NotFound();
                 }
 
-                // Update the leave status
+                // Update the leave status and managercomment
                 leave.status = status;
+                leave.managercomment = managercomment;
 
                 // Save changes to the database
                 await _applicationDbContext.SaveChangesAsync();

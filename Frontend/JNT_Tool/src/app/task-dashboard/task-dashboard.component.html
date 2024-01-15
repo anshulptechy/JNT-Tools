@@ -48,7 +48,7 @@
           <button (click)="editTask(task)" class=" btn btn-primary custom-button">
             <mat-icon style="color: white;">edit</mat-icon>
           </button>
-          <button (click)="deleteTask(task.id)" class="btn btn-danger custom-button">
+          <button (click)="openConfirmationDialog(task.id)" class="btn btn-danger custom-button">
             <mat-icon style="color: white;">delete</mat-icon>
           </button>
         </td>
@@ -80,10 +80,10 @@
           <td>{{ task1.taskEndTime | date:'yyyy-MM-dd' }}</td>
           <td>{{ task1.userName }}</td>
           <td>
-            <button (click)="editTask(task1)" class="btn btn-primary custom-button">
+            <button matbutton (click)="editTask(task1)" class="btn btn-primary custom-button">
               <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="deleteTask2(task1.id)" class="btn btn-danger custom-button">
+            <button matbutton (click)="openConfirmationDialog(task1.id)" class="btn btn-danger custom-button">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

@@ -67,5 +67,5 @@ export class HeaderComponent implements OnInit {
     });
   }
  
-   department = localStorage.getItem('department');
+  department = localStorage.getItem('department')
 }
