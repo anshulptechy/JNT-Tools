@@ -20,8 +20,10 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+  
 
   async onSubmit() {
+    debugger;
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       try {

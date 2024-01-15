@@ -118,6 +118,7 @@ getUserTasks(user: string) {
   
   // Function to open a dialog for adding a new task
   openDialog() {
+    debugger;
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '600px',
       data: {},

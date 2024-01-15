@@ -18,7 +18,10 @@
   <button (click)="openDialog()" class="addUserButton">Add Task</button>
   <button (click)="showallData()" class="addUserButton">Show all data</button>
 </div>
-<div class="allData" *ngIf="!showSpecificData">
+
+
+<!-- Table -->
+ <div class="allData" *ngIf="!showSpecificData">
   <table class="tableGrid">
     <thead class="tableHead">
       <tr>
@@ -52,8 +55,10 @@
       </tr>
     </tbody>
   </table>
-</div>
-  <div class="specificData" *ngIf="showSpecificData" >
+ </div>
+
+ <!--  -->
+   <div class="specificData" *ngIf="showSpecificData" >
     <table class="tableGrid" >
       <thead class="tableHead">
         <tr>
@@ -85,6 +90,6 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> 
   
 </div>

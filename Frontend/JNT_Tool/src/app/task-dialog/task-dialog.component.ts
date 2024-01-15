@@ -20,7 +20,8 @@ export class TaskDialogComponent {
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     private fb: FormBuilder,
     private serve: TaskService, private baseServe:TenantService
-  ) {
+  )
+   {
 
     // Initialize form controls
     this.taskDetails = this.fb.group({

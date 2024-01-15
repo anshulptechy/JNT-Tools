@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<!-- Invite user form -->
 <div
   class="modal fade"
   id="createUserModal"
@@ -10,12 +10,13 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createUserModalLabel">Invite User</h1>
+       <h1 class="modal-title fs-5" id="createUserModalLabel">Invite User</h1> 
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Close" (click)="resetForm()"
+          aria-label="Close"
+          (click)="resetForm()"
         ></button>
       </div>
       <div class="modal-body">
@@ -24,8 +25,8 @@
 
           <div class="form-group">
             <label for="firstName"
-              >First Name<span class="required">*</span></label
-            >
+              >First Name<span class="required">*</span></label>
+            
             <input
               type="text"
               id="firstName"
@@ -36,7 +37,7 @@
                   createUserForm.get('firstName')?.hasError('required')
               }"
             />
-            <div
+            <div 
               *ngIf="
                 createUserForm.get('firstName')?.touched &&
                 createUserForm.get('firstName')?.hasError('required')
@@ -45,7 +46,7 @@
             >
               First Name is required
             </div>
-          </div>
+           </div>
 
           <div class="form-group">
             <label for="lastName"
@@ -206,11 +207,16 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="resetForm()"
+        >
           Cancel
         </button>
         <button
-        class="btn btn-primary"
+          class="btn btn-primary"
           type="button"
           (click)="createUser()"
           data-bs-toggle="modal"
@@ -223,6 +229,9 @@
   </div>
 </div>
 
+
+
+<!-- edit data form -->
 <div
   class="modal fade"
   id="editUserModal"
@@ -326,7 +335,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
 
@@ -383,7 +392,7 @@
               <td>{{ tenant.email }}</td>
               <td>{{ tenant.department }}</td>
               <td>
-                <button
+               <button
                   type="button"
                   class="btn btn-primary"
                   data-bs-toggle="modal"
@@ -392,12 +401,11 @@
                   <i class="fa fa-pencil"></i>
                 </button>
 
-                
                 <button
                   class="marginLeft btn btn-danger"
                   (click)="deleteTenant(tenant.id)"
                 >
-                <i class="fa fa-trash"></i>
+                  <i class="fa fa-trash"></i>
                 </button>
               </td>
             </tr>
@@ -407,4 +415,9 @@
     </div>
   </div>
 </div>
-<ngx-ui-loader text="Please Wait..." fgsType="square-loader" size = "large" blur= 12,></ngx-ui-loader>
+<ngx-ui-loader
+  text="Please Wait..."
+  fgsType="square-loader"
+  size="large"
+  blur="12"
+></ngx-ui-loader>

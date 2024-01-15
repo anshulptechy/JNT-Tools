@@ -112,6 +112,7 @@ export class CouponsComponent implements OnInit {
 
 
   openEditForm(project: any): void {
+    debugger;
     const dialogRef = this._dialog.open(EditComponent, {
       width: '600px',
       data: {

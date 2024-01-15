@@ -43,6 +43,7 @@ export class LeavestatusComponent implements OnInit {
   }
 
   submitLeaveApplication() {
+   debugger;
     
     const userId = localStorage.getItem('id');
 
@@ -98,9 +99,6 @@ export class LeavestatusComponent implements OnInit {
     }
   }
 
-
-
-
   editLeave(leave: any) {
     
     const formattedStartDate = this.formatDate(leave.startDate);
@@ -121,9 +119,7 @@ export class LeavestatusComponent implements OnInit {
     this.leaveApplication = { ...this.leaveApplicationForm.value };
   }
 
-
-
-  formatDate(date: string): string {
+ formatDate(date: string): string {
     const dateObject = new Date(date);
     const year = dateObject.getFullYear();
     const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
@@ -144,9 +140,8 @@ export class LeavestatusComponent implements OnInit {
     );
   }
 
-
-  submitUpdatedLeaveApplication() {
-    
+submitUpdatedLeaveApplication() {
+    debugger;
     const updatedLeaveApplication = this.leaveApplication;
     updatedLeaveApplication.status = 'Pending';
 
@@ -181,10 +176,12 @@ export class LeavestatusComponent implements OnInit {
       ); this.getLeaveStatusByuserId();
   }
   closeLeaveApplicationPopup() {
+ 
     window.location.reload();
   }
 
   deleteLeave(leave: any) {
+   
     Swal.fire({
       title: 'Delete Leave',
       text: 'Are you sure you want to delete this leave entry?',

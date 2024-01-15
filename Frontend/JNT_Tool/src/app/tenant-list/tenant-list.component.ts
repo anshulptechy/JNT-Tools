@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DebugElement, HostListener, OnInit } from '@angular/core';
 import { TenantService } from '../tenant.service';
 import {
   AbstractControl,
@@ -37,7 +37,7 @@ export class TenantListComponent {
   constructor(
     private tenantData: TenantService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private router:Router,
     private auth: SupabaseService,
     private userservice: UserService
   ) {
@@ -107,6 +107,7 @@ export class TenantListComponent {
     this.createUserForm.reset();
   }
   async createUser() {
+    debugger;
     const existingUser = await this.supabase
       .from('usertable')
       .select('*')

@@ -70,6 +70,7 @@ populateForm() {
 
 // Method to handle save button click
 onSaveClick(data1: any) {
+  debugger;
   data1.id = this.data.data.id;
   data1.tenantName=localStorage.getItem('tenantName')
   this.serve.putData(data1).subscribe((result) => {
@@ -84,7 +85,7 @@ onCancelClick() {
 
 
 dateValidator(form: FormGroup) {
-  debugger;
+
   const startDateControl = form.get('taskStartTime');
   const endDateControl = form.get('taskEndTime');
 

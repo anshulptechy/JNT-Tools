@@ -212,6 +212,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Handle authentication click
   handleAuthClick() {
+    debugger
     const storedToken = localStorage.getItem(
       `accessToken_${localStorage.getItem('userId')}`
     );
@@ -226,7 +227,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.intervalSubscription = interval(6000).subscribe(() => {
         this.listUpcomingEvents();
       });
-    } else {
+    } if (this.tokenClient) {
       this.tokenClient.callback = async (resp: any) => {
         if (resp.error !== undefined) {
           throw resp;
@@ -264,6 +265,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
       }
       this.calendarOptions.eventClick = this.handleEventClick.bind(this);
     }
+    else {
+      console.error("this.tokenClient is undefined");
+    }
   }
 
   // Log the user's email address (Gmail ID)
@@ -284,8 +288,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   // Handle signout click
-  handleSignoutClick() {
-    debugger;
+  handleSignoutClick()
+   {
+     debugger;
     const userId = localStorage.getItem('userId');
     const tokenKey = `accessToken_${userId}`;
     const token = gapi.client.getToken();
@@ -503,6 +508,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Delete removed events
   deleteRemovedEvents(currentEvents: any[]) {
+    debugger;
     const userId = localStorage.getItem('userId');
     // Retrieve previously stored events
     const storedEvents = JSON.parse(
@@ -531,6 +537,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Add event
   addEvent() {
+    debugger;
     // Check if the new event has valid data
     if (!this.newEvent.title || !this.newEvent.start || !this.newEvent.end) {
       this.snackBar.open('Please enter all event details.', 'OK', {
@@ -671,6 +678,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   // Remove event
   removeEvent() {
+    
     // Check if the selectedEvent has the necessary properties
     if (
       this.selectedEvent &&
@@ -761,6 +769,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   openEditForm() {
+    debugger;
     this.isEditEventFormOpen = true;
     // Populate the newEvent object with the selected event details for editing
     this.newEvent = {
@@ -797,6 +806,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   updateEvent() {
+    debugger;
     // Check if the newEvent has valid data
     if (
       !this.newEvent.title ||
@@ -862,6 +872,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   updateEventInGoogleCalendar(updatedEvent: any) {
+
     // Format dates to ISO 8601
     const formattedStart = new Date(updatedEvent.start).toISOString();
     const formattedEnd = new Date(updatedEvent.end).toISOString();

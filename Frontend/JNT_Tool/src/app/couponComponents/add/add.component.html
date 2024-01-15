@@ -1,4 +1,4 @@
-<app-header></app-header>
+ <app-header></app-header>
 <div class="body">
   <h1 mat-dialog-title>Create New Coupons</h1>
   <form [formGroup]="couponForm">
@@ -55,7 +55,7 @@
           <mat-label>Discount</mat-label>
           <div class="input-group">
             <input matInput type="number" placeholder="" formControlName="discount">
-             <!-- Display formatted discount amount -->
+              Display formatted discount amount
              
         <div *ngIf="couponForm.get('discountType')?.value === 'Fixed Amount'">
           <span style="font-size: 10px; color:blue; line-height: normal;margin-top: -5px;">$ {{ couponForm.get('discount')?.value }}</span>
@@ -100,4 +100,4 @@
 <div mat-dialog-actions class="button-container">
   <button style="margin-right: 5px;" (click)="onSaveClick()">Save</button>
   <button (click)="onCancelClick()">Cancel</button>
-</div>
+ </div> 
