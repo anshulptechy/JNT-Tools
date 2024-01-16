@@ -14,6 +14,7 @@ using Service_Layer.EventService;
 using Service_Layer.ICustomService;
 using Service_Layer.IEventService;
 using static Repository_Layer.IRepository.IRepository;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,8 +65,8 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 var app = builder.Build();
 
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseCors(builder => builder
