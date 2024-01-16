@@ -43,9 +43,9 @@ export class AddComponent {
   async ngOnInit() {
     const userDetails = await this._supaService.getUserDetails();
     if (userDetails) {
-      const userId = this._supaService.extractUserId(userDetails);
+      const user_id = this._supaService.extractUserId(userDetails);
       this.couponForm.patchValue({
-        supabaseUserId: userId,
+        supabaseUserId: user_id,
       });
     }
     this.dialogRef.backdropClick().subscribe(() => {

@@ -16,10 +16,10 @@ namespace TenantManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
+ 
+     [HttpPost]
 
-        [HttpPost]
-
-        public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
+    public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
 
         {
 
@@ -27,8 +27,10 @@ namespace TenantManagementSystem.Controllers
 
             {
                 // Convert local times to UTC
-                loginHistory.LoginTime = DateTime.UtcNow;
-                loginHistory.LogoutTime = DateTime.UtcNow;
+
+                loginHistory.LoginTime = loginHistory.LoginTime.ToUniversalTime();
+
+                loginHistory.LogoutTime = loginHistory.LogoutTime.ToUniversalTime();
 
                 _dbContext.Attendance.Add(loginHistory);
 
@@ -157,5 +159,6 @@ namespace TenantManagementSystem.Controllers
             return TimeZoneInfo.ConvertTimeToUtc(dateTime, istTimeZone);
 
         }
-    }
-    }
+
+    } }
+
