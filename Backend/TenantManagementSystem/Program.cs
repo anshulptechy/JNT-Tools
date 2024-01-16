@@ -63,13 +63,7 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 
 
-
-
 var app = builder.Build();
-
-
-// Enable HTTPS
-//app.UseHttpsRedirection();
 
 
 app.UseSwagger();

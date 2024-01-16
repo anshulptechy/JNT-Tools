@@ -88,7 +88,7 @@ namespace TenantManagementSystem.Controllers
                 return BadRequest($"Error retrieving all management and attendance entries: {ex.Message}");
             }
         }
-        [HttpGet(nameof(GetAllManagementAndAttendanceByMonthbytenantName))]
+        [HttpGet(nameof(GetAllManagementAndAttendanceByMonthbytenantName))]  
         public IActionResult GetAllManagementAndAttendanceByMonthbytenantName(string tenantName, string monthName)
         {
             try
