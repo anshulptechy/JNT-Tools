@@ -20,6 +20,9 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./tenant-list.component.css'],
 })
 export class TenantListComponent {
+  // loggedInEmail: string | undefined;
+  loggedEmail: string | undefined;
+  // loggedInUserEmail: string | undefined;
   @HostListener('window:popstate', ['$event'])
   onPopState(event: Event): void {
     // Handle the popstate event (user clicked back or forward)
@@ -79,10 +82,13 @@ export class TenantListComponent {
   ngOnInit() {
     this.fetchTenants();
     const storedFirstName = localStorage.getItem('tenantName');
- 
+    const loggedEmail = localStorage.getItem('email');
     // Set the value to loggedInUserName if it exists
     if (storedFirstName) {
       this.loggedInUserName = storedFirstName;
+    }
+    if(loggedEmail) {
+      this.loggedEmail = loggedEmail;
     }
   }
  
@@ -107,9 +113,9 @@ export class TenantListComponent {
     this.createUserForm.reset();
   }
   async createUser() {
-    
+   
     const existingUsersCount = this.tenants.length;
-
+ 
     if (existingUsersCount >= 5) {
       Swal.fire({
         icon: 'error',
@@ -247,7 +253,21 @@ export class TenantListComponent {
     // Remove the window.location.reload() statement from here
   }
  
-  async deleteTenant(id: number) {
+  async deleteTenant(email: any,id:number) {
+    // Get the ID of the logged-in user
+    const loggedEmail = localStorage.getItem('email');
+  
+    // If the logged-in user ID matches the ID being deleted, show an error message and return
+    // if (loggedEmail && parseInt(loggedEmail, 10) === email) {
+     if (loggedEmail == email) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Delete Error',
+        text: 'You cannot delete yourself.',
+      });
+      return;
+    }
+  
     const isConfirmed = await Swal.fire({
       icon: 'warning',
       title: 'Are you sure?',
@@ -256,24 +276,22 @@ export class TenantListComponent {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
     });
- 
+  
     if (isConfirmed.isConfirmed) {
-      // If the user confirms, proceed with deletion
       this.tenantData.deleteTenant(id).subscribe(() => {
         // Remove the deleted tenant from the tenants array.
-        this.tenants = this.tenants.filter((tenant) => tenant.id !== id);
+        this.tenants = this.tenants.filter((tenant) => tenant.email !== email);
         Swal.fire({
           icon: 'success',
           title: 'Delete Successful!',
           text: 'Tenant deleted successfully.',
         });
- 
-       
-        window.location.reload();
+        
       });
       window.location.reload();
     }
   }
+  
   logOut() {
     this.auth.signOut().then(() => {
       localStorage.removeItem('token')

@@ -15,6 +15,9 @@ export class LoginComponent {
     'https://lqviihvmwdkabqlpecxh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdmlpaHZtd2RrYWJxbHBlY3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkzMzgxNDAsImV4cCI6MjAxNDkxNDE0MH0.970stIqUsgdhPxejzbb-6R39pDOAx3J4rIGWz_c6ZAM'
   );
+  loggedInUserId: any;
+  loggedInId: any;
+  loggedInEmail: any;
   constructor(private router: Router, private snackBar: MatSnackBar) {}
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -62,7 +65,7 @@ export class LoginComponent {
         } else if (data) {
           const { data: userData, error: fetchError } = await this.supabase
             .from('usertable')
-            .select('id, tenantName, firstName, userId, department')
+            .select('id, tenantName, firstName, userId, department, email')
             .eq('email', email)
             .single();
  
@@ -70,7 +73,7 @@ export class LoginComponent {
             console.error('Fetch user data error:', fetchError);
             return;
           } else if (userData) {
-            const { id, tenantName, firstName, userId, department } = userData;
+            const { id, tenantName, firstName, userId, department, email} = userData;
  
             // Store the user details in local storage
             localStorage.setItem('id', id);
@@ -78,9 +81,13 @@ export class LoginComponent {
             localStorage.setItem('firstName', firstName);
             localStorage.setItem('userId', userId);
             localStorage.setItem('department', department);
+            localStorage.setItem('email', email);
             this.loggedInUserName = tenantName;
             console.log(this.loggedInUserName);
+            this.loggedInId = userId;
+            console.log(this.loggedInId);
             localStorage.setItem('token', '6767676767');
+            this.loggedInEmail = email;
  
             // Show SweetAlert2 success notification for valid login
             this.snackBar.open('Login Successful', '', { duration: 3000, horizontalPosition: 'right', panelClass: ["success-snackbar"] });
