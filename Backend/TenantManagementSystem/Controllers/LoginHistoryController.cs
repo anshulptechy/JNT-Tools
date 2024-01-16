@@ -28,9 +28,9 @@ namespace TenantManagementSystem.Controllers
             {
                 // Convert local times to UTC
 
-                loginHistory.LoginTime = loginHistory.LoginTime.ToUniversalTime();
+                loginHistory.LoginTime = DateTime.UtcNow;
 
-                loginHistory.LogoutTime = loginHistory.LogoutTime.ToUniversalTime();
+                loginHistory.LogoutTime = DateTime.UtcNow;
 
                 _dbContext.Attendance.Add(loginHistory);
 
