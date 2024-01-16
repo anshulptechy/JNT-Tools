@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LeaveApplication } from '../model';
 import { Observable } from 'rxjs';
 
@@ -9,43 +9,57 @@ import { Observable } from 'rxjs';
 })
 export class LmsService {
 
-  private apiBaseUrl = 'https://localhost:7126/api/LeaveManagementSystem';
+  private apiBaseUrl = 'http://165.22.223.179:8080/api/LeaveManagementSystem';
 
   constructor(private http: HttpClient) { }
 
-  getAllNames(tenantName: string): Observable<any[]> {
+  getAllManagerNames(tenantName: string): Observable<any[]> {
     const url = `${this.apiBaseUrl}/GetAllNames?tenantName=${tenantName}`;
     return this.http.get<any[]>(url);
   }
   
-  getManagerNames(): Observable<string[]> {
-    return this.http.get<string[]>('https://localhost:7126/api/LeaveManagementSystem/GetManagerNames');
-  }
+  
   submitLeaveApplication(leaveApplicationData: LeaveApplication) {
-    return this.http.post(`https://localhost:7126/api/LeaveManagementSystem/CreateApplyLeave`, leaveApplicationData);
+    return this.http.post(`http://165.22.223.179:8080/api/LeaveManagementSystem/CreateApplyLeave`, leaveApplicationData);
   }
   
   getLeaveStatusByUserId(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/employee/${userId}`);
+    return this.http.get<any[]>(`http://165.22.223.179:8080/api/LeaveManagementSystem/employee/${userId}`);
   }
   
   updateLeaveApplication(leaveApplication: LeaveApplication): Observable<any> {
    
-    return this.http.put(`https://localhost:7126/api/LeaveManagementSystem/UpdateApplyLeave`
+    return this.http.put(`http://165.22.223.179:8080/api/LeaveManagementSystem/UpdateApplyLeave`
     , leaveApplication, { responseType: 'text' });
   }
   deleteLeave(id: number) {
     // Assuming your API expects a DELETE request to delete a leave entry
   
-    return this.http.delete(`https://localhost:7126/api/LeaveManagementSystem/DeleteApplyLeave/${id}`);
-  }
-  updateLeaveStatus(userId: number, startDate: string, endDate: string, status: string): Observable<any> {
-    const url = `https://localhost:7126/api/LeaveManagementSystem/UpdateLeaveStatus/${userId}/${startDate}/${endDate}/${status}`;
-    // Send a PUT request to the API with an empty body
-    return this.http.put(url, {});
+    return this.http.delete(`http://165.22.223.179:8080/api/LeaveManagementSystem/DeleteApplyLeave/${id}`);
   }
  
+  
+  updateLeaveStatus(userId: number, startDate: Date, endDate: Date, status: string, managercomment: string): Observable<any> {
+    const updateUrl = `${this.apiBaseUrl}/UpdateLeaveStatus/${userId}/${startDate}/${endDate}/${status}/${managercomment}`;
+
+    // Assuming your backend expects a JSON object in the request body
+    const data = { managercomment }; // Wrapping managercomment in an object
+
+    // Adding headers if necessary
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.put(updateUrl, data, { headers });
+  }
+  
+  
+  
+    // Send a PUT request to the API with an empty body
+ 
+  
+ 
   GetLeaveStatusForManagedUsers(managerName: string): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7126/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
+    return this.http.get<any[]>(`http://165.22.223.179:8080/api/LeaveManagementSystem/GetLeaveStatusForManagedUsers/${managerName}`);
   }
 }

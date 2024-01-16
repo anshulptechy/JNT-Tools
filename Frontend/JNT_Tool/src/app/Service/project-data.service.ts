@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectDataService {
-  baseUrl = 'https://localhost:7126/';
+  baseUrl = 'http://165.22.223.179:8080/';
+  // baseUrl = 'https://localhost:7126/';
   constructor(private userhttp: HttpClient) {}
   getAllProjects(): Observable<any[]> {
     return this.userhttp.get<any[]>(this.baseUrl + 'GetAllProjectReports');

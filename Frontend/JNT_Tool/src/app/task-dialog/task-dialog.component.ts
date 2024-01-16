@@ -13,9 +13,6 @@ export class TaskDialogComponent {
   taskDetails: FormGroup | any;
   users: any[] = []
   isAdminLoggedIn = false;
-
-
- 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     private fb: FormBuilder,
