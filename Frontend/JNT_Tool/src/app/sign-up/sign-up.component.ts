@@ -90,7 +90,7 @@ export class SignupComponent {
           return;
         }
  
-        const userId = this.userservice.generateUserId();
+        const user_id = this.userservice.generateUserId();
         // Sign up the user with Supabase
         const signupResult = await this.supabase.auth.signUp({
           email: (email ?? '').toString(),
@@ -105,7 +105,7 @@ export class SignupComponent {
         // After successful signup, create a new tenant
         const tenantRequest = {
           id: 0,
-          userId,
+          user_id,
           email,
           department,
           firstName,
@@ -119,7 +119,7 @@ export class SignupComponent {
         .from('usertable')
         .upsert([{
           ...dataWithoutId,
-          userId: userId, // Include the userId in the upsert operation
+          user_id: user_id, // Include the userId in the upsert operation
         }]);
            
        

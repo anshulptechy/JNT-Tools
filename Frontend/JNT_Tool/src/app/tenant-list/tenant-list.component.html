@@ -22,38 +22,7 @@
         <form [formGroup]="createUserForm">
           <input type="hidden" id="id" formControlName="id" />
  
-          <!-- <div class="form-group">
-            <label for="firstName">First Name<span class="required">*</span></label>
-            <input
-              type="text"
-              id="firstName"
-              formControlName="firstName"
-              [ngClass]="{
-                'is-invalid':
-                  createUserForm.get('firstName')?.touched &&
-                  createUserForm.get('firstName')?.hasError('required')
-              }"
-            />
-            <div
-              *ngIf="
-                createUserForm.get('firstName')?.touched &&
-                createUserForm.get('firstName')?.hasError('required')
-              "
-              class="invalid-feedback"
-            >
-              First Name is required
-            </div>
-            <div
-              *ngIf="
-                createUserForm.get('firstName')?.hasError('maxLength') &&
-                !createUserForm.get('firstName')?.hasError('required')
-              "
-              class="invalid-feedback"
-            >
-              First Name should not be more than 30 characters
-            </div>
-          </div> -->
-          
+         
           <div class="form-group">
             <label for="firstName">First Name<span class="required">*</span></label>
             <input
@@ -119,7 +88,7 @@
               Last Name should not be more than 30 characters
             </div>
           </div>
-          
+         
  
           <div class="form-group">
             <label for="email">Email<span class="required">*</span></label>
@@ -164,7 +133,7 @@
               Email should not be more than 30 characters
             </div>
           </div>
-          
+         
           <div class="form-group">
             <label for="department">Department<span class="required">*</span></label>
             <input
@@ -197,7 +166,7 @@
               Department should not be more than 30 characters
             </div>
           </div>
-          
+         
  
           <div
             class="form-group"
@@ -348,7 +317,7 @@
                   First Name should not be more than 30 characters
                 </div>
               </div>
-              
+             
  
               <div class="form-group">
                 <label for="lastName">Last Name<span class="required">*</span></label>
@@ -382,7 +351,7 @@
                   Last Name should not be more than 30 characters
                 </div>
               </div>
-              
+             
  
               <div class="form-group">
                 <label for="department">Department<span class="required">*</span></label>
@@ -488,7 +457,7 @@
                
                 <button
                   class="marginLeft btn btn-danger"
-                  (click)="deleteTenant(tenant.id)"
+                  (click)="deleteTenant(tenant.email,tenant.id)"
                 >
                 <i class="fa fa-trash"></i>
                 </button>
