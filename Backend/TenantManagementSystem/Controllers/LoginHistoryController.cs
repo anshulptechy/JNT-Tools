@@ -33,6 +33,10 @@ namespace TenantManagementSystem.Controllers
 
                 loginHistory.LogoutTime = DateTime.UtcNow;
 
+                // Set the Hours property to "00:00:00"
+                loginHistory.Hours = TimeSpan.Zero;
+
+
                 _dbContext.Attendance.Add(loginHistory);
 
                 await _dbContext.SaveChangesAsync();
@@ -130,9 +134,9 @@ namespace TenantManagementSystem.Controllers
 
                 {
 
-                    history.LoginTime = ConvertToIST(history.LoginTime);
+                    history.LoginTime = ConvertUtcToIst(history.LoginTime);
 
-                    history.LogoutTime = ConvertToIST(history.LogoutTime);
+                    history.LogoutTime = ConvertUtcToIst(history.LogoutTime);
 
                 }
 
@@ -152,14 +156,11 @@ namespace TenantManagementSystem.Controllers
 
         // Helper method to convert DateTime to IST
 
-        private DateTime ConvertToIST(DateTime dateTime)
-
+        private DateTime ConvertUtcToIst(DateTime utcTime)
         {
-
-            TimeZoneInfo istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-
-            return TimeZoneInfo.ConvertTimeToUtc(dateTime, istTimeZone);
-
+            TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, indianTimeZone);
+            return indianTime;
         }
 
     } }
