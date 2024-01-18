@@ -16,27 +16,23 @@ namespace TenantManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
- 
-     [HttpPost]
 
-    public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
+        [HttpPost]
+
+        public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
 
         {
 
             try
 
             {
+                //// Convert local times to UTC
 
-                // Convert local times to UTC
+                //loginHistory.LoginTime = DateTime.UtcNow;
 
-                loginHistory.LoginTime = DateTime.UtcNow;
+                //loginHistory.LogoutTime = DateTime.UtcNow;
 
-                loginHistory.LogoutTime = DateTime.UtcNow;
-
-                // Set the Hours property to "00:00:00"
-                loginHistory.Hours = TimeSpan.Zero;
-
-
+                
                 _dbContext.Attendance.Add(loginHistory);
 
                 await _dbContext.SaveChangesAsync();
@@ -84,7 +80,6 @@ namespace TenantManagementSystem.Controllers
                 if (elapsed.TotalHours <= 12)
 
                 {
-
                     loginHistory.LogoutTime = DateTime.UtcNow;
 
                     await _dbContext.SaveChangesAsync();
@@ -134,9 +129,11 @@ namespace TenantManagementSystem.Controllers
 
                 {
 
-                    history.LoginTime = ConvertUtcToIst(history.LoginTime);
+                    history.LoginTime = ConvertToIST(history.LoginTime);
 
-                    history.LogoutTime = ConvertUtcToIst(history.LogoutTime);
+                    history.LogoutTime = ConvertToIST(history.LogoutTime);
+
+
 
                 }
 
@@ -156,12 +153,18 @@ namespace TenantManagementSystem.Controllers
 
         // Helper method to convert DateTime to IST
 
-        private DateTime ConvertUtcToIst(DateTime utcTime)
+        private DateTime ConvertToIST(DateTime dateTime)
+
         {
-            TimeZoneInfo indianTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-            DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, indianTimeZone);
-            return indianTime;
+
+            TimeZoneInfo istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+
+            return TimeZoneInfo.ConvertTimeToUtc(dateTime, istTimeZone);
+
         }
 
-    } }
+
+
+    }
+}
 
