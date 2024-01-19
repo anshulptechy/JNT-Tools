@@ -154,10 +154,10 @@ export class TenantListComponent {
         return;
       }
  
-      const user_id = this.userservice.generateUserId();
+      const userId = this.userservice.generateUserId();
       const tenantRequest = {
         id: formData.id,
-        user_id: user_id,
+        userId: userId,
         email: formData.email,
         department: formData.department,
         firstName: formData.firstName,

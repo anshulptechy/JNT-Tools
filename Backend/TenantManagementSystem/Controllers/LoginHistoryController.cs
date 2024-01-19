@@ -29,9 +29,9 @@ namespace TenantManagementSystem.Controllers
 
                 // Convert local times to UTC
 
-                loginHistory.LoginTime = DateTime.UtcNow;
+               // loginHistory.LoginTime = DateTime.UtcNow;
 
-                loginHistory.LogoutTime = DateTime.UtcNow;
+               // loginHistory.LogoutTime = DateTime.UtcNow;
 
                 _dbContext.Attendance.Add(loginHistory);
 
@@ -75,13 +75,13 @@ namespace TenantManagementSystem.Controllers
 
                 // Check if the elapsed time is more than twelve hours
 
-                TimeSpan elapsed = DateTime.UtcNow - loginHistory.LoginTime;
+                TimeSpan elapsed = DateTime.Now - loginHistory.LoginTime;
 
                 if (elapsed.TotalHours <= 12)
 
                 {
 
-                    loginHistory.LogoutTime = DateTime.UtcNow;
+                    loginHistory.LogoutTime = DateTime.Now;
 
                     await _dbContext.SaveChangesAsync();
 

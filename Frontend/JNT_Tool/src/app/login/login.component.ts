@@ -65,7 +65,7 @@ export class LoginComponent {
         } else if (data) {
           const { data: userData, error: fetchError } = await this.supabase
             .from('usertable')
-            .select('id, tenantName, firstName, user_id, department, email')
+            .select('id, tenantName, firstName, userId, department, email')
             .eq('email', email)
             .single();
  
@@ -73,18 +73,18 @@ export class LoginComponent {
             console.error('Fetch user data error:', fetchError);
             return;
           } else if (userData) {
-            const { id, tenantName, firstName, user_id, department, email} = userData;
+            const { id, tenantName, firstName, userId, department, email} = userData;
  
             // Store the user details in local storage
             localStorage.setItem('id', id);
             localStorage.setItem('tenantName', tenantName);
             localStorage.setItem('firstName', firstName);
-            localStorage.setItem('user_id', user_id);
+            localStorage.setItem('userId', userId);
             localStorage.setItem('department', department);
             localStorage.setItem('email', email);
             this.loggedInUserName = tenantName;
             console.log(this.loggedInUserName);
-            this.loggedInId = user_id;
+            this.loggedInId = userId;
             console.log(this.loggedInId);
             localStorage.setItem('token', '6767676767');
             this.loggedInEmail = email;

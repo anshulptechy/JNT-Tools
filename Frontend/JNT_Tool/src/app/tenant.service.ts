@@ -4,8 +4,8 @@ import {HttpClient} from '@angular/common/http'
   providedIn: 'root'
 })
 export class TenantService {
-baseUrl='http://165.22.223.179:8080/api/Tenant/'
-// baseUrl='https://localhost:7126/api/Tenant/'
+// baseUrl='http://165.22.223.179:8080/api/Tenant/'
+ baseUrl='https://localhost:7126/api/Tenant/'
   constructor(private userHttp:HttpClient) { }
   
   getAllTenants()
