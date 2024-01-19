@@ -16,22 +16,25 @@ namespace TenantManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
- 
-     [HttpPost]
 
-    public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
+
+        [HttpPost]
+
+        public async Task<ActionResult<Attendances>> PostLoginHistory(Attendances loginHistory)
 
         {
 
             try
 
             {
+                //// Convert local times to UTC
 
-                // Convert local times to UTC
+                //loginHistory.LoginTime = DateTime.UtcNow;
 
-               // loginHistory.LoginTime = DateTime.UtcNow;
+                //loginHistory.LogoutTime = DateTime.UtcNow;
 
-               // loginHistory.LogoutTime = DateTime.UtcNow;
+                //// Set the Hours property to "00:00:00"
+                //loginHistory.Hours = TimeSpan.Zero;
 
                 _dbContext.Attendance.Add(loginHistory);
 
@@ -75,13 +78,12 @@ namespace TenantManagementSystem.Controllers
 
                 // Check if the elapsed time is more than twelve hours
 
-                TimeSpan elapsed = DateTime.Now - loginHistory.LoginTime;
+                TimeSpan elapsed = DateTime.UtcNow - loginHistory.LoginTime;
 
                 if (elapsed.TotalHours <= 12)
 
                 {
-
-                    loginHistory.LogoutTime = DateTime.Now;
+                    loginHistory.LogoutTime = DateTime.UtcNow;
 
                     await _dbContext.SaveChangesAsync();
 
@@ -134,6 +136,7 @@ namespace TenantManagementSystem.Controllers
 
                     history.LogoutTime = ConvertToIST(history.LogoutTime);
 
+
                 }
 
                 return Ok(loginHistories);
@@ -162,5 +165,6 @@ namespace TenantManagementSystem.Controllers
 
         }
 
-    } }
 
+    }
+}
